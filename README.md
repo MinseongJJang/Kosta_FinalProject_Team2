@@ -1,5 +1,5 @@
 
-Kosta_FinalProject_Team2
+#Kosta_FinalProject_Team2
 
 #프로젝트 팀원
 강민성 , 이성열 , 신현수 , 윤준상 , 김성민 , 이정빈
