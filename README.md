@@ -1,5 +1,5 @@
 
-# Kosta_FinalProject_Team2
+# Kosta_FinalProject_Team2(Academy Helper)
 - 개요
 ```
 IT관련 교육을 희망하는 취업준비생들의 교육기관 및 교육과정 선정을 돕기위한 교육기관 비교 플랫폼   
