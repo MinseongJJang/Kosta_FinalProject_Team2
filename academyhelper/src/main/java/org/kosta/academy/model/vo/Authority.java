@@ -4,22 +4,25 @@ import java.io.Serializable;
 
 public class Authority implements Serializable {
 	private static final long serialVersionUID = 5188280555844223102L;
-	private String username;
+	private UserVO userVO;
 	private String authority;
-	
-	public Authority(){}
 
-	public Authority(String username, String authority) {
-		this.username = username;
+	public Authority() {
+		super();
+	}
+
+	public Authority(UserVO userVO, String authority) {
+		super();
+		this.userVO = userVO;
 		this.authority = authority;
 	}
-  
-	public String getUsername() {
-		return username;
+
+	public UserVO getUserVO() {
+		return userVO;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
 	}
 
 	public String getAuthority() {
@@ -30,9 +33,13 @@ public class Authority implements Serializable {
 		this.authority = authority;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "Authority [username=" + username + ", authority=" + authority
-				+ "]";
-	}	
+		return "Authority [userVO=" + userVO + ", authority=" + authority + "]";
+	}
+
 }
