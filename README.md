@@ -25,8 +25,8 @@ CL : 이정빈
 - OS : Window10  
 - 언어 : java(JDK1.8) , javascript , HTML5 , CSS3  
 - 툴 : Eclipse , StarUML(UsecaseDiagram/ClassDiagram) , ERwin(DB Modeling) , Trello(Scheduling) , Google Driver , Oven(Storyboard) , Prezi 
-- Framework : Springframework , jUnitframework , Mybatisframework , Tilesframework , Bootstrapframework 
-- 기술 : jQuery , ajax , Spring AOP , Annotation , Servlet/JSP , Springsecurity  
+- Framework : Springframework , jUnitframework , Mybatisframework , Tilesframework , Bootstrapframework , Springsecurityframework
+- 기술 : jQuery , ajax , Spring AOP , Annotation , Servlet/JSP  
 - 서버 : Apache Tomcat 8.5  
 - 데이터베이스 : Oracle 11g  
 ```
