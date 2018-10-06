@@ -1,6 +1,6 @@
 package org.kosta.academy.model.vo;
 
-public class AcaReviewVO {
+public class AcaReviewPostVO {
 	private String acaRevNo;
 	private String acaRevTitle;
 	private String acaRevContent;
@@ -9,11 +9,11 @@ public class AcaReviewVO {
 	private CurriculumVO curriculumVO;
 	private UserVO userVO;
 
-	public AcaReviewVO() {
+	public AcaReviewPostVO() {
 		super();
 	}
 
-	public AcaReviewVO(String acaRevTitle, String acaRevContent, String acaRevRegdate, int acaRevHits,
+	public AcaReviewPostVO(String acaRevTitle, String acaRevContent, String acaRevRegdate, int acaRevHits,
 			CurriculumVO curriculumVO, UserVO userVO) {
 		super();
 		this.acaRevTitle = acaRevTitle;
@@ -82,7 +82,7 @@ public class AcaReviewVO {
 
 	@Override
 	public String toString() {
-		return "AcaReview [acaRevNo=" + acaRevNo + ", acaRevTitle=" + acaRevTitle + ", acaRevContent=" + acaRevContent
+		return "AcaReviewPost [acaRevNo=" + acaRevNo + ", acaRevTitle=" + acaRevTitle + ", acaRevContent=" + acaRevContent
 				+ ", acaRevRegdate=" + acaRevRegdate + ", acaRevHits=" + acaRevHits + ", curriculumVO=" + curriculumVO
 				+ ", userVO=" + userVO + "]";
 	}

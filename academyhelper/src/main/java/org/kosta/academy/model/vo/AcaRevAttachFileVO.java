@@ -3,17 +3,17 @@ package org.kosta.academy.model.vo;
 public class AcaRevAttachFileVO {
 	private String acaRevAttachNo;
 	private String acaRevFilepath;
-	private AcaReviewVO acaReviewVO;
+	private AcaReviewPostVO acaReviewPostVO;
 
 	public AcaRevAttachFileVO() {
 		super();
 	}
 
-	public AcaRevAttachFileVO(String acaRevAttachNo, String acaRevFilepath, AcaReviewVO acaReviewVO) {
+	public AcaRevAttachFileVO(String acaRevAttachNo, String acaRevFilepath, AcaReviewPostVO acaReviewPostVO) {
 		super();
 		this.acaRevAttachNo = acaRevAttachNo;
 		this.acaRevFilepath = acaRevFilepath;
-		this.acaReviewVO = acaReviewVO;
+		this.acaReviewPostVO = acaReviewPostVO;
 	}
 
 	public String getAcaRevAttachNo() {
@@ -32,18 +32,18 @@ public class AcaRevAttachFileVO {
 		this.acaRevFilepath = acaRevFilepath;
 	}
 
-	public AcaReviewVO getAcaReviewVO() {
-		return acaReviewVO;
+	public AcaReviewPostVO getAcaReviewPostVO() {
+		return acaReviewPostVO;
 	}
 
-	public void setAcaReviewVO(AcaReviewVO acaReviewVO) {
-		this.acaReviewVO = acaReviewVO;
+	public void setAcaReviewPostVO(AcaReviewPostVO acaReviewPostVO) {
+		this.acaReviewPostVO = acaReviewPostVO;
 	}
 
 	@Override
 	public String toString() {
 		return "AcaRevAttachFileVO [acaRevAttachNo=" + acaRevAttachNo + ", acaRevFilepath=" + acaRevFilepath
-				+ ", acaReviewVO=" + acaReviewVO + "]";
+				+ ", acaReviewPostVO=" + acaReviewPostVO + "]";
 	}
 
 }
