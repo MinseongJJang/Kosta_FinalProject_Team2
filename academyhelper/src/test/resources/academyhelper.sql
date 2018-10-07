@@ -12,6 +12,10 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100 )not null
 )
+/*
+ *  user의 권한은 일반/학원/관리자가 있음
+ */
+insert into USERS values('admin','1234','관리자','성남',1,'관리자','1992-07-01',sysdate,'minseong9098@naver.com','010-4182-9098')
 /*건의 게시물 테이블 및 시퀀스*/
 drop table suggestion_post;
 create table suggestion_post(
@@ -33,7 +37,9 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorites_pk primary key(authority,usr_id)
 )
-
+insert into authorities values('ROLE_USER','admin')
+insert into authorities values('ROLE_ACADEMY','admin')
+insert into authorities values('ROLE_ADMIN','admin')
 /*학원 관계자 테이블 및 시퀀스*/
 drop table academy;
 create table academy(
@@ -176,3 +182,4 @@ create table emp_review_attach_file(
 
 drop sequence emp_rev_attach_no_seq;
 create sequence emp_rev_attach_no_seq start with 1 nocache
+

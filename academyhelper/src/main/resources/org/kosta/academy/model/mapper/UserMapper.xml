@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.academy.model.mapper.UserMapper">
+	<select id="findUserById" parameterType="string" resultType="userVO">
+		select usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel
+		from users where usr_id = #{value}
+	</select>
+	<select id="selectAuthorityById" parameterType="string" resultType="authority">
+		select authority from authorities where usr_id = #{value}
+	</select>
+</mapper>

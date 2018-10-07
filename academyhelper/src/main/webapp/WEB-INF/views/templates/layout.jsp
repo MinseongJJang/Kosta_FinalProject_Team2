@@ -8,6 +8,8 @@
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>
-	layout 들어옴
+	<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="main" />
+	<tiles:insertAttribute name="footer" />
 </body>
 </html>
