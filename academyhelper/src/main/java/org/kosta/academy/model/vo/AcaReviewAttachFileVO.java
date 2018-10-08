@@ -1,15 +1,15 @@
 package org.kosta.academy.model.vo;
 
-public class AcaRevAttachFileVO {
+public class AcaReviewAttachFileVO {
 	private String acaRevAttachNo;
 	private String acaRevFilepath;
 	private AcaReviewPostVO acaReviewPostVO;
 
-	public AcaRevAttachFileVO() {
+	public AcaReviewAttachFileVO() {
 		super();
 	}
 
-	public AcaRevAttachFileVO(String acaRevAttachNo, String acaRevFilepath, AcaReviewPostVO acaReviewPostVO) {
+	public AcaReviewAttachFileVO(String acaRevAttachNo, String acaRevFilepath, AcaReviewPostVO acaReviewPostVO) {
 		super();
 		this.acaRevAttachNo = acaRevAttachNo;
 		this.acaRevFilepath = acaRevFilepath;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="org.kosta.academy.model.vo.AcaRevReplyAttachFileVO" project="academyhelper" 
-    file="/academyhelper/src/main/java/org/kosta/academy/model/vo/AcaRevReplyAttachFileVO.java" binary="false" 
+  <class id="1" language="java" name="org.kosta.academy.model.vo.AcaReviewReplyAttachFileVO" project="academyhelper" 
+    file="/academyhelper/src/main/java/org/kosta/academy/model/vo/AcaReviewReplyAttachFileVO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1215" y="-317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -87,8 +87,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="org.kosta.academy.model.vo.AcaRevAttachFileVO" project="academyhelper" 
-    file="/academyhelper/src/main/java/org/kosta/academy/model/vo/AcaRevAttachFileVO.java" binary="false" 
+  <class id="10" language="java" name="org.kosta.academy.model.vo.AcaReviewAttachFileVO" project="academyhelper" 
+    file="/academyhelper/src/main/java/org/kosta/academy/model/vo/AcaReviewAttachFileVO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-15" y="81"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -164,8 +164,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="org.kosta.academy.model.vo.AcaRevReplyVO" project="academyhelper" 
-    file="/academyhelper/src/main/java/org/kosta/academy/model/vo/AcaRevReplyVO.java" binary="false" 
+  <class id="18" language="java" name="org.kosta.academy.model.vo.AcaReviewReplyVO" project="academyhelper" 
+    file="/academyhelper/src/main/java/org/kosta/academy/model/vo/AcaReviewReplyVO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1236" y="126"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -305,15 +305,15 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="56">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="57" name="acaRevReplyVO"/>      
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="57" name="acaReviewPostVO"/>      
       <multiplicity id="58" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="59">    
-    <end type="SOURCE" refId="12" navigable="false">      
+    <end type="SOURCE" refId="11" navigable="false">      
       <attribute id="60" name="acaReviewPostVO"/>      
       <multiplicity id="61" minimum="0" maximum="1"/>    
     </end>    
@@ -321,31 +321,31 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="62">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="63" name="acaReviewPostVO"/>      
-      <multiplicity id="64" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="65">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="66" name="userVO"/>      
-      <multiplicity id="67" minimum="0" maximum="1"/>    
+      <attribute id="63" name="userVO"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="68">    
+  <association id="65">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="69" name="academyVO"/>      
-      <multiplicity id="70" minimum="0" maximum="1"/>    
+      <attribute id="66" name="academyVO"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="71">    
+  <association id="68">    
     <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="69" name="userVO"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="72" name="userVO"/>      
       <multiplicity id="73" minimum="0" maximum="1"/>    
     </end>    
@@ -353,39 +353,40 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="74">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="75" name="userVO"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="77">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="78" name="acaReviewPostVO"/>      
-      <multiplicity id="79" minimum="0" maximum="1"/>    
+      <attribute id="75" name="acaReviewPostVO"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="80">    
+  <association id="77">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="81" name="acaQNAVO"/>      
-      <multiplicity id="82" minimum="0" maximum="1"/>    
+      <attribute id="78" name="acaQNAVO"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="83">    
+  <association id="80">    
     <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="84" name="noticeVO"/>      
-      <multiplicity id="85" minimum="0" maximum="1"/>    
+      <attribute id="81" name="noticeVO"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="86">    
+  <association id="83">    
     <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="84" name="userVO"/>      
+      <multiplicity id="85" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="86">    
+    <bendpoint x="1208" y="417"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
       <attribute id="87" name="userVO"/>      
       <multiplicity id="88" minimum="0" maximum="1"/>    
     </end>    
@@ -393,19 +394,10 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="89">    
-    <bendpoint x="1208" y="417"/>    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="90" name="userVO"/>      
-      <multiplicity id="91" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="92">    
     <bendpoint x="1797" y="417"/>    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="93" name="userVO"/>      
-      <multiplicity id="94" minimum="0" maximum="1"/>    
+      <attribute id="90" name="userVO"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

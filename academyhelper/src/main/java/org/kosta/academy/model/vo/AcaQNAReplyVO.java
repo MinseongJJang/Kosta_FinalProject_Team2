@@ -1,59 +1,70 @@
 package org.kosta.academy.model.vo;
 
 public class AcaQNAReplyVO {
-	private String qnaReplyNo;
-	private String qnaReplyRegDate;
-	private String qnaReplyContent;
+	private String qnaRepNo;
+	private String qnaRepRegDate;
+	private String qnaRepContent;
 	private UserVO userVo;
 	private AcaQNAVO acaQNAVO;
+
 	public AcaQNAReplyVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public AcaQNAReplyVO(String qnaReplyNo, String qnaReplyRegDate, String qnaReplyContent, UserVO userVo,
+
+	public AcaQNAReplyVO(String qnaRepNo, String qnaRepRegDate, String qnaRepContent, UserVO userVo,
 			AcaQNAVO acaQNAVO) {
 		super();
-		this.qnaReplyNo = qnaReplyNo;
-		this.qnaReplyRegDate = qnaReplyRegDate;
-		this.qnaReplyContent = qnaReplyContent;
+		this.qnaRepNo = qnaRepNo;
+		this.qnaRepRegDate = qnaRepRegDate;
+		this.qnaRepContent = qnaRepContent;
 		this.userVo = userVo;
 		this.acaQNAVO = acaQNAVO;
 	}
-	public String getQnaReplyNo() {
-		return qnaReplyNo;
+
+	public String getqnaRepNo() {
+		return qnaRepNo;
 	}
-	public void setQnaReplyNo(String qnaReplyNo) {
-		this.qnaReplyNo = qnaReplyNo;
+
+	public void setqnaRepNo(String qnaRepNo) {
+		this.qnaRepNo = qnaRepNo;
 	}
-	public String getQnaReplyRegDate() {
-		return qnaReplyRegDate;
+
+	public String getqnaRepRegDate() {
+		return qnaRepRegDate;
 	}
-	public void setQnaReplyRegDate(String qnaReplyRegDate) {
-		this.qnaReplyRegDate = qnaReplyRegDate;
+
+	public void setqnaRepRegDate(String qnaRepRegDate) {
+		this.qnaRepRegDate = qnaRepRegDate;
 	}
-	public String getQnaReplyContent() {
-		return qnaReplyContent;
+
+	public String getqnaRepContent() {
+		return qnaRepContent;
 	}
-	public void setQnaReplyContent(String qnaReplyContent) {
-		this.qnaReplyContent = qnaReplyContent;
+
+	public void setqnaRepContent(String qnaRepContent) {
+		this.qnaRepContent = qnaRepContent;
 	}
+
 	public UserVO getUserVo() {
 		return userVo;
 	}
+
 	public void setUserVo(UserVO userVo) {
 		this.userVo = userVo;
 	}
+
 	public AcaQNAVO getAcaQNAVO() {
 		return acaQNAVO;
 	}
+
 	public void setAcaQNAVO(AcaQNAVO acaQNAVO) {
 		this.acaQNAVO = acaQNAVO;
 	}
+
 	@Override
 	public String toString() {
-		return "AcaQNAReplyVO [qnaReplyNo=" + qnaReplyNo + ", qnaReplyRegDate=" + qnaReplyRegDate + ", qnaReplyContent="
-				+ qnaReplyContent + ", userVo=" + userVo + ", acaQNAVO=" + acaQNAVO + "]";
+		return "AcaQNAReplyVO [qnaRepNo=" + qnaRepNo + ", qnaRepRegDate=" + qnaRepRegDate + ", qnaRepContent="
+				+ qnaRepContent + ", userVo=" + userVo + ", acaQNAVO=" + acaQNAVO + "]";
 	}
-	
-	
+
 }
