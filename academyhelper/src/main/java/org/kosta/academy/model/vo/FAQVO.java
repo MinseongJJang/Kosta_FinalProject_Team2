@@ -8,7 +8,6 @@ public class FAQVO {
 	private UserVO userVO;
 	public FAQVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public FAQVO(String faqNo, String faqTitle, String faqContent, String faqRegDate, UserVO userVO) {
 		super();
