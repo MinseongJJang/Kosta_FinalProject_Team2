@@ -6,7 +6,6 @@ public class NoticeAttachFileVO {
 	private NoticeVO noticeVO;
 	public NoticeAttachFileVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public NoticeAttachFileVO(String noticeAttNo, String noticeFilepath, NoticeVO noticeVO) {
 		super();

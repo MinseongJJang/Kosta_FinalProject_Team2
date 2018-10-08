@@ -38,6 +38,7 @@ public class AcaReviewReplyAttachFileVO {
 		return "AcaReviewReplyAttachFileVO [acaRevRepAttNo=" + acaRevRepAttNo + ", acaRevRepFilepath="
 				+ acaRevRepFilepath + ", acaReviewReplyVO=" + acaReviewReplyVO + "]";
 	}
-	
+
 	
 }
+

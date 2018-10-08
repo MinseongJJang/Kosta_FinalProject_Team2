@@ -55,6 +55,6 @@ public class AcaReviewReplyVO {
 				+ ", acaRevRepRegdate=" + acaRevRepRegdate + ", acaReviewPostVO=" + acaReviewPostVO + ", userVO="
 				+ userVO + "]";
 	}
-	
+
 	
 }

@@ -136,23 +136,25 @@ create table aca_qna_attach_file(
 create sequence aca_qna_attach_file_seq start with 1 nocache
 
 /*Q&A 댓글 테이블 및 시퀀스*/
+drop table aca_qna_reply
 create table aca_qna_reply(
-	qna_reply_no number primary key,
-	qna_reply_regdate date not null,
-	qna_reply_content clob not null,
+	qna_rep_no number primary key,
+	qna_rep_regdate date not null,
+	qna_rep_content clob not null,
 	qna_no number not null,
 	usr_id varchar2(100) not null,
-	constraint aca_qna_reply_ffk foreign key(qna_no) references aca_qna(qna_no) on delete cascade,
-	constraint aca_qna_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
+	constraint aca_qna_rep_ffk foreign key(qna_no) references aca_qna(qna_no) on delete cascade,
+	constraint aca_qna_rep_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 ) 
 create sequence aca_qna_reply_seq start with 1 nocache
 
 /*Q&A 파일첨부 테이블 및 시퀀스*/
+drop table aca_qna_reply_attach_file
 create table aca_qna_reply_attach_file(
-	qna_reply_att_no number primary key,
-	qna_reply_filepath varchar2(100) not null,
-	qna_reply_no number not null,
-	constraint aca_qna_reply_attach_file_fk foreign key(qna_reply_no) references aca_qna_reply(qna_reply_no) on delete cascade
+	qna_rep_att_no number primary key,
+	qna_rep_filepath varchar2(100) not null,
+	qna_rep_no number not null,
+	constraint aca_qna_reply_attach_file_fk foreign key(qna_rep_no) references aca_qna_reply(qna_rep_no) on delete cascade
 )
 create sequence aca_qna_reply_attach_file_seq start with 1 nocache
 
@@ -203,32 +205,38 @@ create table hashtag(
 )
 
 /*학원후기 파일첨부 및 시퀀스*/
-create table aca_rev_attach_file(
+drop table aca_rev_attach_file
+create table aca_review_attach_file(
 	aca_rev_att_no number primary key,
 	aca_rev_no number not null,
 	aca_rev_filepath varchar2(100) not null,
-	constraint aca_rev_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
+	constraint aca_review_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
-create sequence aca_rev_attach_file_seq start with 1 nocache
+drop sequence aca_rev_attach_file_seq
+create sequence aca_review_attach_file_seq start with 1 nocache
 
 /*학원후기 댓글 테이블 및 시퀀스*/
-create table aca_rev_reply(
-	aca_rev_reply_no number primary key,
-	review_reply_regdate date not null,
-	review_reply_content clob not null,
+drop table aca_rev_reply
+create table aca_review_reply(
+	aca_rev_rep_no number primary key,
+	review_rep_regdate date not null,
+	review_rep_content clob not null,
 	aca_rev_no number not null,
 	usr_id varchar2(100) not null,
-	constraint aca_rev_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
-	constraint aca_rev_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
+	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
+	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-create sequence aca_rev_reply_seq start with 1 nocache
+drop sequence aca_rev_reply_seq
+create sequence aca_review_reply_seq start with 1 nocache
 
 /*학원후기 파일첨부 및 시퀀스*/
-create table aca_rev_reply_attach_file(
-	aca_rev_reply_att_no number primary key,
-	aca_rev_reply_filepath varchar2(100) not null,
-	aca_rev_reply_no number not null,
-	constraint aca_rev_reply_attach_file_fk foreign key(aca_rev_reply_no) references aca_rev_reply(aca_rev_reply_no) on delete cascade
+drop table aca_review_reply_attach_file
+create table aca_review_reply_attach_file(
+	aca_rev_rep_att_no number primary key,
+	aca_rev_rep_filepath varchar2(100) not null,
+	aca_rev_rep_no number not null,
+	constraint aca_rev_rep_attach_file_fk foreign key(aca_rev_rep_no) references aca_review_reply(aca_rev_rep_no) on delete cascade
 )
-create sequence aca_rev_reply_attach_file_seq start with 1 nocache
+drop sequence aca_rev_reply_attach_file_seq
+create sequence aca_review_reply_attach_seq start with 1 nocache
 
