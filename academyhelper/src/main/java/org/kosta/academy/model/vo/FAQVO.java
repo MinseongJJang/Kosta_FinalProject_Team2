@@ -4,18 +4,18 @@ public class FAQVO {
 	private String faqNo;
 	private String faqTitle;
 	private String faqContent;
-	private String faqRegDate;
+	private String faqRegdate;
 	private UserVO userVO;
 	public FAQVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FAQVO(String faqNo, String faqTitle, String faqContent, String faqRegDate, UserVO userVO) {
+	public FAQVO(String faqNo, String faqTitle, String faqContent, String faqRegdate, UserVO userVO) {
 		super();
 		this.faqNo = faqNo;
 		this.faqTitle = faqTitle;
 		this.faqContent = faqContent;
-		this.faqRegDate = faqRegDate;
+		this.faqRegdate = faqRegdate;
 		this.userVO = userVO;
 	}
 	public String getFaqNo() {
@@ -36,11 +36,11 @@ public class FAQVO {
 	public void setFaqContent(String faqContent) {
 		this.faqContent = faqContent;
 	}
-	public String getFaqRegDate() {
-		return faqRegDate;
+	public String getFaqRegdate() {
+		return faqRegdate;
 	}
-	public void setFaqRegDate(String faqRegDate) {
-		this.faqRegDate = faqRegDate;
+	public void setFaqRegdate(String faqRegdate) {
+		this.faqRegdate = faqRegdate;
 	}
 	public UserVO getUserVO() {
 		return userVO;
@@ -50,9 +50,8 @@ public class FAQVO {
 	}
 	@Override
 	public String toString() {
-		return "FAQVO [faqNo=" + faqNo + ", faqTitle=" + faqTitle + ", faqContent=" + faqContent + ", faqRegDate="
-				+ faqRegDate + ", userVO=" + userVO + "]";
+		return "FAQVO [faqNo=" + faqNo + ", faqTitle=" + faqTitle + ", faqContent=" + faqContent + ", faqRegdate="
+				+ faqRegdate + ", userVO=" + userVO + "]";
 	}
-	
 	
 }

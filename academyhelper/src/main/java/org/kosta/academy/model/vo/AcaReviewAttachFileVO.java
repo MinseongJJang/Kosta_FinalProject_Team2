@@ -1,49 +1,42 @@
 package org.kosta.academy.model.vo;
 
-public class AcaRevAttachFileVO {
-	private String acaRevAttachNo;
+public class AcaReviewAttachFileVO {
+	private String acaRevAttNo;
 	private String acaRevFilepath;
 	private AcaReviewPostVO acaReviewPostVO;
-
-	public AcaRevAttachFileVO() {
+	public AcaReviewAttachFileVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-
-	public AcaRevAttachFileVO(String acaRevAttachNo, String acaRevFilepath, AcaReviewPostVO acaReviewPostVO) {
+	public AcaReviewAttachFileVO(String acaRevAttNo, String acaRevFilepath, AcaReviewPostVO acaReviewPostVO) {
 		super();
-		this.acaRevAttachNo = acaRevAttachNo;
+		this.acaRevAttNo = acaRevAttNo;
 		this.acaRevFilepath = acaRevFilepath;
 		this.acaReviewPostVO = acaReviewPostVO;
 	}
-
-	public String getAcaRevAttachNo() {
-		return acaRevAttachNo;
+	public String getAcaRevAttNo() {
+		return acaRevAttNo;
 	}
-
-	public void setAcaRevAttachNo(String acaRevAttachNo) {
-		this.acaRevAttachNo = acaRevAttachNo;
+	public void setAcaRevAttNo(String acaRevAttNo) {
+		this.acaRevAttNo = acaRevAttNo;
 	}
-
 	public String getAcaRevFilepath() {
 		return acaRevFilepath;
 	}
-
 	public void setAcaRevFilepath(String acaRevFilepath) {
 		this.acaRevFilepath = acaRevFilepath;
 	}
-
 	public AcaReviewPostVO getAcaReviewPostVO() {
 		return acaReviewPostVO;
 	}
-
 	public void setAcaReviewPostVO(AcaReviewPostVO acaReviewPostVO) {
 		this.acaReviewPostVO = acaReviewPostVO;
 	}
-
 	@Override
 	public String toString() {
-		return "AcaRevAttachFileVO [acaRevAttachNo=" + acaRevAttachNo + ", acaRevFilepath=" + acaRevFilepath
+		return "AcaReviewAttachFileVO [acaRevAttNo=" + acaRevAttNo + ", acaRevFilepath=" + acaRevFilepath
 				+ ", acaReviewPostVO=" + acaReviewPostVO + "]";
 	}
 
+	
 }

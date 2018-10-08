@@ -7,13 +7,14 @@ public class CurriculumVO {
 	private String limitMem;
 	private String curContent;
 	private String curTextbook;
-
+	private AcademyVO academyVO;
+	
 	public CurriculumVO() {
 		super();
 	}
 
 	public CurriculumVO(String curNo, String curName, String curLecturer, String limitMem, String curContent,
-			String curTextbook) {
+			String curTextbook, AcademyVO academyVO) {
 		super();
 		this.curNo = curNo;
 		this.curName = curName;
@@ -21,6 +22,7 @@ public class CurriculumVO {
 		this.limitMem = limitMem;
 		this.curContent = curContent;
 		this.curTextbook = curTextbook;
+		this.academyVO = academyVO;
 	}
 
 	public String getCurNo() {
@@ -71,12 +73,20 @@ public class CurriculumVO {
 		this.curTextbook = curTextbook;
 	}
 
+	public AcademyVO getAcademyVO() {
+		return academyVO;
+	}
+
+	public void setAcademyVO(AcademyVO academyVO) {
+		this.academyVO = academyVO;
+	}
+
 	@Override
 	public String toString() {
 		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", curLecturer=" + curLecturer + ", limitMem="
-				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + "]";
+				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + ", academyVO=" + academyVO
+				+ "]";
 	}
-
 	
 
 }

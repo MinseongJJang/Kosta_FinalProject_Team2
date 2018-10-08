@@ -38,4 +38,5 @@ public class SuggestionPostAttachFileVO {
 				+ ", suggestionPostVO=" + suggestionPostVO + "]";
 	}
 	
+	
 }

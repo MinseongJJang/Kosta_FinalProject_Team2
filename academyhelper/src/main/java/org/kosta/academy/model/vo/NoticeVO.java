@@ -4,18 +4,18 @@ public class NoticeVO {
 	private String noticeNo;
 	private String noticeTilte;
 	private String noticeContent;
-	private String noticeRegDate;
+	private String noticeRegdate;
 	private UserVO userVO;
 	public NoticeVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public NoticeVO(String noticeNo, String noticeTilte, String noticeContent, String noticeRegDate, UserVO userVO) {
+	public NoticeVO(String noticeNo, String noticeTilte, String noticeContent, String noticeRegdate, UserVO userVO) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTilte = noticeTilte;
 		this.noticeContent = noticeContent;
-		this.noticeRegDate = noticeRegDate;
+		this.noticeRegdate = noticeRegdate;
 		this.userVO = userVO;
 	}
 	public String getNoticeNo() {
@@ -36,11 +36,11 @@ public class NoticeVO {
 	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
 	}
-	public String getNoticeRegDate() {
-		return noticeRegDate;
+	public String getNoticeRegdate() {
+		return noticeRegdate;
 	}
-	public void setNoticeRegDate(String noticeRegDate) {
-		this.noticeRegDate = noticeRegDate;
+	public void setNoticeRegdate(String noticeRegdate) {
+		this.noticeRegdate = noticeRegdate;
 	}
 	public UserVO getUserVO() {
 		return userVO;
@@ -51,7 +51,7 @@ public class NoticeVO {
 	@Override
 	public String toString() {
 		return "NoticeVO [noticeNo=" + noticeNo + ", noticeTilte=" + noticeTilte + ", noticeContent=" + noticeContent
-				+ ", noticeRegDate=" + noticeRegDate + ", userVO=" + userVO + "]";
+				+ ", noticeRegdate=" + noticeRegdate + ", userVO=" + userVO + "]";
 	}
 	
 	

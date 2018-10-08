@@ -1,30 +1,30 @@
 package org.kosta.academy.model.vo;
 
 public class AcaQNAReplyAttachFileVO {
-	private String qnaReplyAttNo;
-	private String qnaReplyFilepate;
+	private String qnaRepAttNo;
+	private String qnaRepFilepate;
 	private AcaQNAReplyVO acaQNAReplyVO;
 	public AcaQNAReplyAttachFileVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AcaQNAReplyAttachFileVO(String qnaReplyAttNo, String qnaReplyFilepate, AcaQNAReplyVO acaQNAReplyVO) {
+	public AcaQNAReplyAttachFileVO(String qnaRepAttNo, String qnaRepFilepate, AcaQNAReplyVO acaQNAReplyVO) {
 		super();
-		this.qnaReplyAttNo = qnaReplyAttNo;
-		this.qnaReplyFilepate = qnaReplyFilepate;
+		this.qnaRepAttNo = qnaRepAttNo;
+		this.qnaRepFilepate = qnaRepFilepate;
 		this.acaQNAReplyVO = acaQNAReplyVO;
 	}
-	public String getQnaReplyAttNo() {
-		return qnaReplyAttNo;
+	public String getQnaRepAttNo() {
+		return qnaRepAttNo;
 	}
-	public void setQnaReplyAttNo(String qnaReplyAttNo) {
-		this.qnaReplyAttNo = qnaReplyAttNo;
+	public void setQnaRepAttNo(String qnaRepAttNo) {
+		this.qnaRepAttNo = qnaRepAttNo;
 	}
-	public String getQnaReplyFilepate() {
-		return qnaReplyFilepate;
+	public String getQnaRepFilepate() {
+		return qnaRepFilepate;
 	}
-	public void setQnaReplyFilepate(String qnaReplyFilepate) {
-		this.qnaReplyFilepate = qnaReplyFilepate;
+	public void setQnaRepFilepate(String qnaRepFilepate) {
+		this.qnaRepFilepate = qnaRepFilepate;
 	}
 	public AcaQNAReplyVO getAcaQNAReplyVO() {
 		return acaQNAReplyVO;
@@ -34,10 +34,8 @@ public class AcaQNAReplyAttachFileVO {
 	}
 	@Override
 	public String toString() {
-		return "AcaQNAReplyAttachFileVO [qnaReplyAttNo=" + qnaReplyAttNo + ", qnaReplyFilepate=" + qnaReplyFilepate
+		return "AcaQNAReplyAttachFileVO [qnaRepAttNo=" + qnaRepAttNo + ", qnaRepFilepate=" + qnaRepFilepate
 				+ ", acaQNAReplyVO=" + acaQNAReplyVO + "]";
 	}
-	
-	
 	
 }
