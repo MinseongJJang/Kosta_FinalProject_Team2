@@ -6,20 +6,21 @@ public class AcaPromoPostVO {
 	private String acaPromoContent;
 	private String acaPromoRegdate;
 	private int acaPromoHits;
-	private UserVO userVO;
+	private AcaUserVO acaUserVO;
 
 	public AcaPromoPostVO() {
 		super();
 	}
 
-	public AcaPromoPostVO(String acaPromoTitle, String acaPromoContent, String acaPromoRegdate, int acaPromoHits,
-			UserVO userVO) {
+	public AcaPromoPostVO(String acaPromoNo, String acaPromoTitle, String acaPromoContent, String acaPromoRegdate,
+			int acaPromoHits, AcaUserVO acaUserVO) {
 		super();
+		this.acaPromoNo = acaPromoNo;
 		this.acaPromoTitle = acaPromoTitle;
 		this.acaPromoContent = acaPromoContent;
 		this.acaPromoRegdate = acaPromoRegdate;
 		this.acaPromoHits = acaPromoHits;
-		this.userVO = userVO;
+		this.acaUserVO = acaUserVO;
 	}
 
 	public String getAcaPromoNo() {
@@ -62,19 +63,21 @@ public class AcaPromoPostVO {
 		this.acaPromoHits = acaPromoHits;
 	}
 
-	public UserVO getUserVO() {
-		return userVO;
+	public AcaUserVO getAcaUserVO() {
+		return acaUserVO;
 	}
 
-	public void setUserVO(UserVO userVO) {
-		this.userVO = userVO;
+	public void setAcaUserVO(AcaUserVO acaUserVO) {
+		this.acaUserVO = acaUserVO;
 	}
 
 	@Override
 	public String toString() {
-		return "AcaPromoPost [acaPromoNo=" + acaPromoNo + ", acaPromoTitle=" + acaPromoTitle + ", acaPromoContent="
+		return "AcaPromoPostVO [acaPromoNo=" + acaPromoNo + ", acaPromoTitle=" + acaPromoTitle + ", acaPromoContent="
 				+ acaPromoContent + ", acaPromoRegdate=" + acaPromoRegdate + ", acaPromoHits=" + acaPromoHits
-				+ ", userVO=" + userVO + "]";
+				+ ", acaUserVO=" + acaUserVO + "]";
 	}
+
+	
 
 }
