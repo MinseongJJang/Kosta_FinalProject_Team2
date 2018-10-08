@@ -3,24 +3,24 @@ package org.kosta.academy.model.vo;
 public class CurriculumVO {
 	private String curNo;
 	private String curName;
-	private String lecturer;
-	private String startDate;
-	private String endDate;
+	private String curLecturer;
 	private String limitMem;
-	private int price;
+	private String curContent;
+	private String curTextbook;
 
 	public CurriculumVO() {
 		super();
 	}
 
-	public CurriculumVO(String curName, String lecturer, String startDate, String endDate, String limitMem, int price) {
+	public CurriculumVO(String curNo, String curName, String curLecturer, String limitMem, String curContent,
+			String curTextbook) {
 		super();
+		this.curNo = curNo;
 		this.curName = curName;
-		this.lecturer = lecturer;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.curLecturer = curLecturer;
 		this.limitMem = limitMem;
-		this.price = price;
+		this.curContent = curContent;
+		this.curTextbook = curTextbook;
 	}
 
 	public String getCurNo() {
@@ -39,28 +39,12 @@ public class CurriculumVO {
 		this.curName = curName;
 	}
 
-	public String getLecturer() {
-		return lecturer;
+	public String getCurLecturer() {
+		return curLecturer;
 	}
 
-	public void setLecturer(String lecturer) {
-		this.lecturer = lecturer;
-	}
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setCurLecturer(String curLecturer) {
+		this.curLecturer = curLecturer;
 	}
 
 	public String getLimitMem() {
@@ -71,18 +55,28 @@ public class CurriculumVO {
 		this.limitMem = limitMem;
 	}
 
-	public int getPrice() {
-		return price;
+	public String getCurContent() {
+		return curContent;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setCurContent(String curContent) {
+		this.curContent = curContent;
+	}
+
+	public String getCurTextbook() {
+		return curTextbook;
+	}
+
+	public void setCurTextbook(String curTextbook) {
+		this.curTextbook = curTextbook;
 	}
 
 	@Override
 	public String toString() {
-		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", lecturer=" + lecturer + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", limitMem=" + limitMem + ", price=" + price + "]";
+		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", curLecturer=" + curLecturer + ", limitMem="
+				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + "]";
 	}
+
+	
 
 }

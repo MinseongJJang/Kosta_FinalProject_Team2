@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.UserMapper;
-import org.kosta.academy.model.vo.Authority;
+import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<Authority> selectAuthorityById(String id) {
+	public List<AuthoritiesVO> selectAuthorityById(String id) {
 		return userMapper.selectAuthorityById(id);
 	}
 }

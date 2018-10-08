@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.UserService;
-import org.kosta.academy.model.vo.Authority;
+import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -63,13 +63,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
         if (!passwordEncoder.matches(password, user.getUsrPass())) 
                 throw new BadCredentialsException("비밀번호 불일치~~~");
 		//4.사용자 권한 조회
-		List<Authority> list = userService.selectAuthorityById(id);
+		List<AuthoritiesVO> list = userService.selectAuthorityById(id);
 		if(list.size() == 0){
 			throw new UsernameNotFoundException("아무 권한이 없습니다.");
 		}
 		
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();		
-		for(Authority au : list){ // ROLE_ 형식의 db 정보가 아니라면 이 시점에 ROLE_ 를 접두어로 추가한다
+		for(AuthoritiesVO au : list){ // ROLE_ 형식의 db 정보가 아니라면 이 시점에 ROLE_ 를 접두어로 추가한다
 			authorities.add(new SimpleGrantedAuthority(au.getAuthority()));
 		}
 		/****************************************
