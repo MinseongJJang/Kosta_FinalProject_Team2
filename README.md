@@ -29,10 +29,10 @@ CL : 이정빈(디자인)
 # 프로젝트 적용기술
 ```
 - OS : Window10  
-- 언어 : java(JDK1.8) , javascript , HTML5 , CSS3  
+- 언어 : java(JDK1.8) , javascript
 - 툴 : Eclipse , StarUML(UsecaseDiagram/ClassDiagram) , ERwin(DB Modeling) , Trello(Scheduling) , Google Driver , Oven(Storyboard) , Prezi 
 - Framework : Springframework , jUnitframework , Mybatisframework , Tilesframework , Bootstrapframework , Springsecurityframework
-- 기술 : jQuery , ajax , Spring AOP , Annotation , Servlet/JSP  
+- 기술 : jQuery , ajax , Spring AOP , Annotation , Servlet/JSP , HTML5 , CSS3  
 - 서버 : Apache Tomcat 8.5  
 - 데이터베이스 : Oracle 11g  
 ```
