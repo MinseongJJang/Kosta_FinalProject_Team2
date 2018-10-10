@@ -2,10 +2,11 @@ package org.kosta.academy.model.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.UserVO;
-
+@Mapper
 public interface UserMapper {
 	public UserVO findUserById(String id);
 	public List<AuthoritiesVO> selectAuthorityById(String id);
