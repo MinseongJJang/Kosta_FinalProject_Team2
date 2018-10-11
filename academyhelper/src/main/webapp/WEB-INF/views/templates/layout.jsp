@@ -69,9 +69,8 @@
 				<tiles:insertAttribute name="header" />
 			</div>
 		</div>
-		<div class="width-main">
+		
 				<tiles:insertAttribute name="main" />
-		</div>
 	
 		<tiles:insertAttribute name="footer" />
 	</div>
