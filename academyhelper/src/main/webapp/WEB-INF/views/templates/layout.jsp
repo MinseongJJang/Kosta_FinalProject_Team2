@@ -69,13 +69,10 @@
 				<tiles:insertAttribute name="header" />
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8">
+		<div class="width-main">
 				<tiles:insertAttribute name="main" />
-			</div>
-			<div class="col-sm-2"></div>
 		</div>
+	
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>

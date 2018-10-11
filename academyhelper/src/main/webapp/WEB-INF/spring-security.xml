@@ -40,7 +40,9 @@
 						authentication-failure-url="/login_fail.do"
 						default-target-url="/home.do"						
 						/>						
-	
+	<!-- 
+		default-target-url : login이 되어있지 않으면 home.do로 이동  
+	-->
 	<!-- 	 security logout 설정  -->
 						
 		<security:logout logout-url="/logout.do" logout-success-url="/home.do" />
