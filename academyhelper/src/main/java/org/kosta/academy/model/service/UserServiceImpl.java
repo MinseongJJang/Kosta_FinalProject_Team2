@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.mapper.UserMapper;
 import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
+import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,52 @@ public class UserServiceImpl implements UserService{
 		for(int i=0; i<authoritiesList.size(); i++) {
 			userMapper.registerAuthorities(authoritiesList.get(i));
 		}
+	}
+
+	@Override
+	public void updateUser(UserVO userVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUser(AcaUserVO acaUserVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String findId(UserVO userVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void findPassword(UserVO userVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public UserVO getUserInfo(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ListVO listUser(String pageNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(String usrId) {
+		// TODO Auto-generated method stub
+		
 	}
 }

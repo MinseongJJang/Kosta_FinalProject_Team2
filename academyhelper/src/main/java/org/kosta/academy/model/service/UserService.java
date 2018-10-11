@@ -4,13 +4,16 @@ import java.util.List;
 
 import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
+import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.UserVO;
+import org.springframework.stereotype.Service;
 /**
  * ROLE_USER , ROLE_ACADEMY 권한을 가지고 있는 회원들의
  * 행위를 담당하는 Interface
  * @author kms
  *
  */
+@Service
 public interface UserService {
 	/**
 	 * 로그인 할 때 사용되는 메소드
@@ -38,4 +41,46 @@ public interface UserService {
 	 * @param acaUserVO
 	 */
 	public void registerUser(AcaUserVO acaUserVO);
+	/**
+	 * 일반 회원정보 수정시 사용되는 메소드
+	 * @param userVO
+	 */
+	public void updateUser(UserVO userVO);
+	/**
+	 * 학원 회원정보 수정시 사용되는 메소드
+	 * @param acaUserVO
+	 */
+	public void updateUser(AcaUserVO acaUserVO);
+	/**
+	 * 일반 회원 탈퇴시 사용되는 메소드
+	 * @param userVO
+	 */
+	public void deleteUser(String usrId);
+	/**
+	 * 일반 회원 아이디를 찾는 메소드
+	 * @param userVO
+	 * @return
+	 */
+	public String findId(UserVO userVO);
+	/**
+	 * 일반 회원 비밀번호를 찾는 메소드
+	 * @param userVO
+	 */
+	public void findPassword(UserVO userVO);
+	/**
+	 * 회원 정보를 조회하는 메소드
+	 * @param id
+	 * @return
+	 */
+	public UserVO getUserInfo(String id);
+	/**
+	 * 학원 회원 목록을 불러오는 메소드
+	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
+	 * @param pageNo
+	 * @return
+	 */
+	public ListVO listUser(String pageNo);
+		
+
+
 }
