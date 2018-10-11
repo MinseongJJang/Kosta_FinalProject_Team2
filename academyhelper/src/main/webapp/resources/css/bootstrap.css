@@ -2961,6 +2961,72 @@ fieldset[disabled] .btn-primary.active {
   color: #337ab7;
   background-color: #fff;
 }
+
+<!-- 사이드 바 버튼 -->
+.btn-primaryside {
+  color: #fff;
+  background-color: #ffffff;
+  border-color: #ffffff;
+  width:100px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn-primaryside:hover,
+.btn-primaryside:focus,
+.btn-primaryside.focus,
+.btn-primaryside:active,
+.btn-primaryside.active,
+.open > .dropdown-toggle.btn-primaryside {
+  color: #fff;
+  background-color: #004c94;
+  border-color: #004c94;
+}
+.btn-primaryside:active,
+.btn-primaryside.active,
+.open > .dropdown-toggle.btn-primaryside {
+  background-image: none;
+}
+.btn-primaryside.disabled,
+.btn-primaryside[disabled],
+fieldset[disabled] .btn-primaryside,
+.btn-primaryside.disabled:hover,
+.btn-primaryside[disabled]:hover,
+fieldset[disabled] .btn-primaryside:hover,
+.btn-primaryside.disabled:focus,
+.btn-primaryside[disabled]:focus,
+fieldset[disabled] .btn-primaryside:focus,
+.btn-primaryside.disabled.focus,
+.btn-primaryside[disabled].focus,
+fieldset[disabled] .btn-primaryside.focus,
+.btn-primaryside.disabled:active,
+.btn-primaryside[disabled]:active,
+fieldset[disabled] .btn-primaryside:active,
+.btn-primaryside.disabled.active,
+.btn-primaryside[disabled].active,
+fieldset[disabled] .btn-primaryside.active {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btn-primaryside .badge {
+  color: #337ab7;
+  background-color: #fff;
+}
+
+
 .btn-success {
   color: #fff;
   background-color: #5cb85c;
