@@ -174,7 +174,7 @@ section {
   color: #121212;
   font-weight: bold;
   line-height: 100px;
-  padding: 0px 15px;
+  padding: 0px 10px;
   font-size: 15px;
   font-weight: 400;
   transition: all 0.5s;
@@ -182,7 +182,7 @@ section {
 
 #primary-nav li > a:hover,
 #primary-nav li.selected > a {
-  color: #4883ff;
+  color: #004c94;
 }
 
 .sub-menu {

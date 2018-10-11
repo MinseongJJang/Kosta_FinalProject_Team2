@@ -2,7 +2,9 @@ package org.kosta.academy.model.service;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface ReviewService {
 	/**
 	 * 학원후기를 등록하는 메소드
