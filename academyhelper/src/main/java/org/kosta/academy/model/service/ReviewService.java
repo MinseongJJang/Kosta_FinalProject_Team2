@@ -1,5 +1,4 @@
 package org.kosta.academy.model.service;
-
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.ListVO;
