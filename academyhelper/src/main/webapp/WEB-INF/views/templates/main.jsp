@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="mainContainer">
+<div class="mainContainer" >
 	<section class="banner" id="top">
 		<div class="container">
 			<div class="row">
