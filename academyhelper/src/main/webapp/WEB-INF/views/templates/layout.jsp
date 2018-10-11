@@ -64,14 +64,8 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div class="row">
-			<div class="col-sm-12">
-				<tiles:insertAttribute name="header" />
-			</div>
-		</div>
-		
-				<tiles:insertAttribute name="main" />
-	
+		<tiles:insertAttribute name="header" />
+		<tiles:insertAttribute name="main" />
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
