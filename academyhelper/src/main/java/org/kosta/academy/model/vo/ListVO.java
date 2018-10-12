@@ -20,9 +20,16 @@ public class ListVO {
 	private List<SuggestionPostVO> suggestionPostList;
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
+
 	public ListVO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public ListVO(List<AcademyVO> academyList, PagingBean pb) {
+		super();
+		this.academyList = academyList;
+		this.pb = pb;
 	}
 
 	public List<AcaUserVO> getAcaUserList() {
