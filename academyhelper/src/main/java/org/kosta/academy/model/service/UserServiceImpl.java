@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void deleteUser(String usrId) {
-		// TODO Auto-generated method stub
+		userMapper.deleteUser(usrId);
 		
 	}
 

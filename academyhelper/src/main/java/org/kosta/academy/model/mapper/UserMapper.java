@@ -15,9 +15,8 @@ public interface UserMapper {
 	public void checkUser(UserVO userVO);
 	public void checkUser(AcaUserVO acaUserVO);
 	public void updateUser(UserVO userVO);
+	public void deleteUser(String usrId);
 	public void updateUser(AcaUserVO acaUserVO);
-	public void deleteUser(UserVO userVO);
-	public void deleteUser(AcaUserVO acaUserVO);
 	public void findId(UserVO userVO);
 	public void findId(AcaUserVO acaUserVO);
 	public void findPassword(UserVO userVO);
