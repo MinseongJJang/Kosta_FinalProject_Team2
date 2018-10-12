@@ -69,4 +69,6 @@ public interface AcademyService {
 	 * @param curNo
 	 */
 	public void deleteCurriculum(String curNo);
+	
+	public int getTotalListAcaCount();
 }
