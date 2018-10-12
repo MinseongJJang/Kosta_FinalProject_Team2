@@ -20,4 +20,5 @@ public class ListVO {
 	private List<SuggestionPostVO> suggestionPostList;
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
+	
 }

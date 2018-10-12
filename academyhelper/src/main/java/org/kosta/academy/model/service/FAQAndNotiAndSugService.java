@@ -24,7 +24,7 @@ public interface FAQAndNotiAndSugService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO listFAQ(String pageNo);
+	public ListVO listFAQ(PagingBean pagingBean);
 	/**
 	 * 자주묻는 질문 상세보기 메소드
 	 * @param faqNo

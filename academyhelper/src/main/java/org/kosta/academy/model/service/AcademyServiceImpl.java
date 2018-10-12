@@ -1,5 +1,8 @@
 package org.kosta.academy.model.service;
 
+import javax.annotation.Resource;
+
+import org.kosta.academy.model.mapper.FAQAndNoticeMapper;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -7,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AcademyServiceImpl implements AcademyService {
-
+	
 	@Override
 	public void registerAcademy(AcademyVO academyVO) {
 		// TODO Auto-generated method stub
