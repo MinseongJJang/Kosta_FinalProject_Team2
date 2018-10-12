@@ -7,7 +7,6 @@
     $(function(){
       // .attr()은 속성값(property)을 설정할 수 있다.
       $('#imgChange').click(function () {
-    	  
     	  if($(this).attr('src')=='/academy/resources/img/chatting_off.png') {
     		  $('#imgChange').attr("src", "${pageContext.request.contextPath}/resources/img/chatting_on.png" );
     	  } else {
