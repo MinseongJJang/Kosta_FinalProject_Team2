@@ -10,7 +10,6 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public void registerAcaQNA(AcaQNAVO acaQNAVO) {
-		// TODO Auto-generated method stub
 		
 	}
 
