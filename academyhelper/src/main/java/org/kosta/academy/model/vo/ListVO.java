@@ -21,6 +21,7 @@ public class ListVO {
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
 
+
 	public ListVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -92,5 +93,5 @@ public class ListVO {
 	public void setPb(PagingBean pb) {
 		this.pb = pb;
 	}
-	
+
 }
