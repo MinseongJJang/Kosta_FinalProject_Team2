@@ -30,4 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		nickname=#{nickname},birthday=#{birthday},usr_email=#{usrEmail},usr_tel=#{usrTel}
 		where usr_id=#{usrId}
 	</update>
+	<update id="deleteUser" parameterType="string">
+		update users set enabled=0
+		where usr_id=#{usrId}
+	</update>
 </mapper>
