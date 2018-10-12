@@ -2310,7 +2310,7 @@ select.form-control:focus::-ms-value {
 
 .btn.focus, .btn:focus {
 	outline: 0;
-	box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
+	/* box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25) */
 }
 
 .btn.disabled, .btn:disabled {
@@ -2430,7 +2430,7 @@ fieldset[disabled] .btn-primaryside.active {
 }
 
 .btn-secondary.focus, .btn-secondary:focus {
-	box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+	/* box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5) */
 }
 
 .btn-secondary.disabled, .btn-secondary:disabled {
@@ -2443,14 +2443,14 @@ fieldset[disabled] .btn-primaryside.active {
 	(:disabled ):not (.disabled ):active, .show>.btn-secondary.dropdown-toggle
 	{
 	color: #fff;
-	background-color: #545b62;
-	border-color: #4e555b
+	/* background-color: #545b62;
+	border-color: #4e555b */
 }
 
 .btn-secondary:not (:disabled ):not (.disabled ).active:focus,
 	.btn-secondary:not (:disabled ):not (.disabled ):active:focus, .show>.btn-secondary.dropdown-toggle:focus
 	{
-	box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+	/* box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5) */
 }
 
 .btn-success {
