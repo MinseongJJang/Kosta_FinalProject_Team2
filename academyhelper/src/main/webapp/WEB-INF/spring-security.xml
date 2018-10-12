@@ -33,10 +33,10 @@
    		default-target-url : 로그인 성공 후 리다이렉트될 url  -->
    		
 		<security:form-login
-						login-page="/home.do"
+						login-page="/loginForm.do"
 						login-processing-url="/login.do"
-						username-parameter="id"
-						password-parameter="password"
+						username-parameter="usrId"
+						password-parameter="usrPass"
 						authentication-failure-url="/login_fail.do"
 						default-target-url="/home.do"						
 						/>						

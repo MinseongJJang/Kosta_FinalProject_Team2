@@ -20,13 +20,13 @@ public interface UserService {
 	 * @param id
 	 * @return
 	 */
-	public UserVO findUserById(String id);
+	public UserVO findUserById(String usrId);
 	/**
 	 * 회원 권한을 확인하는 메소드
 	 * @param id
 	 * @return
 	 */
-	public List<AuthoritiesVO> selectAuthorityById(String id);
+	public List<AuthoritiesVO> selectAuthorityById(String usrId);
 	/**
 	 * 일반 회원가입 시 사용되는 메소드
 	 * 가입시 권한도 함께 등록되어야 함
@@ -70,9 +70,9 @@ public interface UserService {
 	/**
 	 * 회원 정보를 조회하는 메소드
 	 * @param id
-	 * @return
+	 * @return 
 	 */
-	public UserVO getUserInfo(String id);
+	public UserVO getUserInfo(String usrId);
 	/**
 	 * 학원 회원 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
@@ -81,6 +81,6 @@ public interface UserService {
 	 */
 	public ListVO listUser(String pageNo);
 		
-
+	public String idcheck(String usrId);
 
 }

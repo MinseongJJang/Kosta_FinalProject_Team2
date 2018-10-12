@@ -8,8 +8,8 @@ import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.UserVO;
 @Mapper
 public interface UserMapper {
-	public UserVO findUserById(String id);
-	public List<AuthoritiesVO> selectAuthorityById(String id);
+	public UserVO findUserById(String usrId);
+	public List<AuthoritiesVO> selectAuthorityById(String usrId);
 	public void registerUser(UserVO userVO);
 	public void registerUser(AcaUserVO acaUserVO);
 	public void checkUser(UserVO userVO);
@@ -22,6 +22,7 @@ public interface UserMapper {
 	public void findId(AcaUserVO acaUserVO);
 	public void findPassword(UserVO userVO);
 	public void findPassword(AcaUserVO acaUserVO);
-	public void getUserInfo(String id);
+	public UserVO getUserInfo(String usrId);
 	public void registerAuthorities(AuthoritiesVO authoritiesVO);
+	public int idcheck(String usrId);
 }
