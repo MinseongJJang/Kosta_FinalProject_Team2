@@ -34,6 +34,8 @@
 		});//keyup
 	});//ready
 </script>
+ <div class="col-sm-2" ></div>
+    <div class="col-sm-8">
 <form method="post" action="${pageContext.request.contextPath}/registerUser.do" id="regForm">
 <sec:csrfInput/><%-- csrf 토큰 --%>
 아이디 <input type="text" name="usrId" id="usrId" required="required"><span id="idCheckView"></span><br>
@@ -46,6 +48,8 @@
 폰번호 <input type="text" name="usrTel" required="required"><br>
 <input type="submit" value="가입하기">
 </form>
+</div>
+ <div class="col-sm-2" ></div>
 <br>
 <script type="text/javascript">
 	$(document).ready(function() {

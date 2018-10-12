@@ -52,8 +52,9 @@ public interface UserService {
 	 */
 	public void updateUser(AcaUserVO acaUserVO);
 	/**
-	 * 일반 회원 탈퇴시 사용되는 메소드
-	 * @param userVO
+	 * 회원 탈퇴 메서드
+	 * enabled를 1에서 0으로 
+	 * @param usrId
 	 */
 	public void deleteUser(String usrId);
 	/**
@@ -61,12 +62,12 @@ public interface UserService {
 	 * @param userVO
 	 * @return
 	 */
-	public String findId(UserVO userVO);
+	public String findUserIdByNameAndTel(UserVO userVO);
 	/**
 	 * 일반 회원 비밀번호를 찾는 메소드
 	 * @param userVO
 	 */
-	public void findPassword(UserVO userVO);
+	public String findUserPasswordByIdAndEmail(UserVO userVO);
 	/**
 	 * 회원 정보를 조회하는 메소드
 	 * @param id
@@ -80,7 +81,12 @@ public interface UserService {
 	 * @return
 	 */
 	public ListVO listUser(String pageNo);
-		
+	/**
+	 * 아이디 중복 체크하는 메소드
+	 * @param usrId
+	 * @return
+	 */
 	public String idcheck(String usrId);
+	
 
 }
