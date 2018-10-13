@@ -25,6 +25,12 @@ public class ListVO {
 		// TODO Auto-generated constructor stub
 	}
 
+	public ListVO(List<CurriculumVO> curriculumList, PagingBean pb) {
+		super();
+		this.curriculumList = curriculumList;
+		this.pb = pb;
+	}
+
 	public List<AcaUserVO> getAcaUserList() {
 		return acaUserList;
 	}
