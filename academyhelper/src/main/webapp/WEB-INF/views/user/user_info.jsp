@@ -2,6 +2,17 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#deleteForm").submit(function(){
+		if(confirm("정말로 탈퇴하시겠습니까?")==false){
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+</script>
 <sec:authorize access="hasRole('ROLE_USER')">
     <div class="col-sm-2" ></div>
     <div class="col-sm-8">
@@ -41,7 +52,8 @@
 			 </td>
 			 <td>
 			 <sec:authorize access="hasRole('ROLE_USER')">
-			  <form action="deleteUser.do">
+			  <form action="deleteUser.do" id="deleteForm" method="post">
+			  <sec:csrfInput/>
 			 <button type="submit">회원 탈퇴</button>			
 			 </form>
 			 </sec:authorize>

@@ -4,7 +4,8 @@
 <%-- spring security custom tag를 사용하기 위한 선언 --%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
+ <div class="col-sm-2" ></div>
+    <div class="col-sm-8">
 	<form action="${pageContext.request.contextPath}/login.do"
 		method="post" id="loginForm">
 		<%-- Spring Security에서는 해킹방지를	 위해
@@ -18,6 +19,8 @@
 	</form>
 	<a href="${pageContext.request.contextPath}/user/registerForm.do">회원가입</a>
 	<br>
+	</div>
+	<div class="col-sm-2" ></div>
 
 
 

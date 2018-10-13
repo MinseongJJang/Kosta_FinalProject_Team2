@@ -20,14 +20,22 @@ public class ListVO {
 	private List<SuggestionPostVO> suggestionPostList;
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
+
+
 	public ListVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+<<<<<<< HEAD
 	public ListVO(List<CurriculumVO> curriculumList, PagingBean pb) {
 		super();
 		this.curriculumList = curriculumList;
+=======
+	public ListVO(List<AcademyVO> academyList, PagingBean pb) {
+		super();
+		this.academyList = academyList;
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 		this.pb = pb;
 	}
 
@@ -91,5 +99,5 @@ public class ListVO {
 	public void setPb(PagingBean pb) {
 		this.pb = pb;
 	}
-	
+
 }

@@ -11,10 +11,19 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+<<<<<<< HEAD
 select sysdate from dual; 
 select*from users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
 values('java','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
+=======
+
+insert into users(usr_id, usr_pass, usr_name, usr_addr, nickname, birthday, usr_regdate, usr_email, usr_tel) 
+values('java', '1', 'name', 'gg', 'nick', 'birth', '2018-10-12', 'email', 'tel')
+
+insert into 
+
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 /*학원회원 테이블*/
 create table aca_users(
 	usr_id varchar2(100) not null,
@@ -104,6 +113,20 @@ create table faq(
 	constraint faq_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 create sequence faq_seq start with 1 nocache
+
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,'제목','내용',sysdate,'java')
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,'제목2','내용2',sysdate,'java')
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,'제목3','내용3',sysdate,'java')
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,'제목4','내용4',sysdate,'java')
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,'제목5','내용5',sysdate,'java')
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,'제목6','내용6',sysdate,'java')
+select * from faq
 
 /*학원 테이블 및 시퀀스*/
 create table academy(

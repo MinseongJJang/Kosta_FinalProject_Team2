@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AcademyServiceImpl implements AcademyService {
+
 	@Resource
 	private AcademyMapper academyMapper;
 	@Resource
@@ -25,9 +26,17 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public ListVO listAcademy(String pageNo) {
+		int totalListAcaCount = academyMapper.getTotalListAcaCount();
+		PagingBean pagingBean = null;
+		if(pageNo==null) {
+			pagingBean = new PagingBean(totalListAcaCount);
+		}else {
+			pagingBean = new PagingBean(totalListAcaCount, Integer.parseInt(pageNo));
+		}
 		List<AcademyVO> academyList = academyMapper.listAcademy();
 		ListVO lvo = new ListVO();
 		lvo.setAcademyList(academyList);
+		lvo.setPb(pagingBean);
 		return lvo;
 	}
 

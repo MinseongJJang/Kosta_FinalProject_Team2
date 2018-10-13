@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.service.UserService;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,6 @@ public class UserController {
 			return new ModelAndView("user/loginForm.do");
 		}
 		else {
-			System.out.println(vo);
 			return new ModelAndView("home.do","vo",vo);
 		}
 	}
@@ -63,9 +63,7 @@ public class UserController {
 	@Secured("ROLE_USER")
 	@PostMapping("updateUser.do")
 	public ModelAndView updateUser(UserVO userVO) {
-		System.out.println(userVO);
 		UserVO mvo=(UserVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(mvo);
 		userService.updateUser(userVO);
 		mvo.setUsrPass(userVO.getUsrPass());
 		mvo.setUsrName(userVO.getUsrName());
@@ -74,5 +72,24 @@ public class UserController {
 		mvo.setUsrEmail(userVO.getUsrEmail());
 		mvo.setUsrTel(userVO.getUsrTel());
 		return new ModelAndView("redirect:userInfo.do","usrId",mvo.getUsrId());
+	}
+	@Secured("ROLE_USER")
+	@PostMapping("deleteUser.do")
+	public String deleteUser() {
+		UserVO mvo=(UserVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String usrId=mvo.getUsrId();
+		userService.deleteUser(usrId);
+		SecurityContextHolder.clearContext();
+		return "redirect:home.do";
+	}
+	@RequestMapping("findUserId")
+	public ModelAndView findUserIdByNameAndTel(UserVO userVO) {
+		String usrId=userService.findUserIdByNameAndTel(userVO);
+		return new ModelAndView("find_user_id.tiles","usrId",usrId);
+	}
+	@RequestMapping("findUserPass")
+	public ModelAndView findUserPasswordByIdAndEmail(UserVO userVO) {
+		String usrPass=userService.findUserIdByNameAndTel(userVO);
+		return new ModelAndView("find_user_pass.tiles","usrPass",usrPass);
 	}
 }

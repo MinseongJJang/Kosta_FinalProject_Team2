@@ -32,6 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<update id="deleteUser" parameterType="string">
 		update users set enabled=0
-		where usr_id=#{usrId}
+		where usr_id=#{value}
 	</update>
+	<select id="findUserIdByNameAndTel" parameterType="userVO" resultType="string">
+		select usr_id from users where usr_name = #{usrName} and usr_tel=#{usrTel}
+	</select>
+	<select id="findUserPasswordByIdAndEmail" parameterType="userVO" resultType="string">
+		select usr_pass from users where usr_id = #{usrId} and usr_email=#{usrEmail}
+	</select>
 </mapper>
