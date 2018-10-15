@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.UserMapper;
 import org.kosta.academy.model.service.UserService;
-import org.kosta.academy.model.vo.UserVO;
+import org.kosta.academy.model.vo.ListVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,9 +19,13 @@ public class SYUnit {
 	private UserService userService;
 @Test
 	public void test() {
-		String usrId="java";
+		/*String usrId="java";
 		UserVO userVO=userService.getUserInfo(usrId);
-		System.out.println(userVO);
+		System.out.println(userVO);*/
+		String pageNo="1";
+		ListVO list=userService.userList(pageNo);
+		
+			System.out.println(list.getUserList());
 		
 	}
 }

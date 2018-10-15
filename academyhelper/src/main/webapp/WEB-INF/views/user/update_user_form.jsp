@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <sec:authorize access="hasRole('ROLE_USER')">
+  <div class="col-sm-2" ></div>
+    <div class="col-sm-8">
  <form method="post" action="${pageContext.request.contextPath}/updateUser.do">
  <sec:csrfInput/>
 		<input type="hidden" name="command" value="update">
@@ -23,4 +25,6 @@
 			
 		<br><input type="submit" value="회원정보수정">
 		</form>
+		</div>
+		 <div class="col-sm-2" ></div>
 </sec:authorize>

@@ -1,5 +1,8 @@
 package org.kosta.academy.model.service;
 
+import javax.annotation.Resource;
+
+import org.kosta.academy.model.mapper.FAQAndNoticeMapper;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
@@ -8,15 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
-
+	
+	@Resource
+	FAQAndNoticeMapper faqAndNoticeMapper;
 	@Override
 	public void registerFAQ(FAQVO faqVO) {
 		// TODO Auto-generated method stub
-		
+		faqAndNoticeMapper.registerFAQ(faqVO);
 	}
 
 	@Override
-	public ListVO listFAQ(String pageNo) {
+	public ListVO listFAQ(PagingBean pagingBean) {
 		// TODO Auto-generated method stub
 		return null;
 	}
