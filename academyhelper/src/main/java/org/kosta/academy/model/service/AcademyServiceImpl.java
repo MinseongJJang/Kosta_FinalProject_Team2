@@ -96,8 +96,8 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public CurriculumVO detailCurriculum(String curNo) {
-		// TODO Auto-generated method stub
-		return null;
+		CurriculumVO detailCurriculum = curriculumMapper.detailCurriculum(curNo);
+		return detailCurriculum;
 	}
 
 	@Override

@@ -24,10 +24,20 @@ public class JSUnit {
 	@Test
 	public void test() {
 		
-		 int totalCurCount = curriculumMapper.getTotalCurriculumCount();
-		  /*
-			 * System.out.println(totalPostCount);
-			 */
+		/*CurriculumVO curriculumVO = new CurriculumVO();
+		
+		curriculumMapper.write(curriculumVO);
+		*/
+		
+		//리스트 상세
+		/*String curNo="1";
+		CurriculumVO detailCurriculum = curriculumMapper.detailCurriculum(curNo);
+		System.out.println(detailCurriculum);
+*/		
+		
+	//리스트 출력
+	 /*int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+	
 	
 		PagingBean pagingBean = new PagingBean(totalCurCount);
 		HashMap<String,Object> map = new HashMap<String,Object>();
@@ -35,12 +45,12 @@ public class JSUnit {
 		map.put("start", pagingBean.getStartRowNumber());
 		map.put("end", pagingBean.getEndRowNumber());
 		map.put("pageNo", pagingBean.getNowPage());
-		/*String pageno=(String) map.get("pageNo");
+		String pageno=(String) map.get("pageNo");
 		if(pageno==null) {
 			pagingBean = new PagingBean(totalCurCount);
 		}else {
 			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageno));
-		}*/
+		}
 		System.out.println(map.get("acaNo"));
 		System.out.println(map.get("start"));
 		System.out.println(map.get("end"));
@@ -54,7 +64,7 @@ public class JSUnit {
 		lvo.setPb(pagingBean);
 		for (int i = 0; i < lvo.getCurriculumList().size(); i++) {
 			System.out.println(lvo.getCurriculumList().get(i));
-		}
+		}*/
 		/*
 		 * String address="판교"; CurriculumVO curriculmVO = {};
 		 * curriculumMapper.registerCurriculum(curriculmVO));

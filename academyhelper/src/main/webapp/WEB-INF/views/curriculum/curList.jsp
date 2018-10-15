@@ -9,7 +9,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<title>Insert title here</title>
+<title>교육과정 리스트</title>
 </head>
 <body>
 
@@ -21,7 +21,6 @@
 				<th class="curName">과정이름</th>
 				<th class="curLecturer">강사명</th>
 				<th class="limitMem">정원</th>
-				<th class="curContent">강사명</th>
 				<th class="curTextbook">과정이름</th>
 				<th class="acaName">학원이름</th>
 			</tr>
@@ -30,10 +29,11 @@
 			<c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
 				<tr>
 					<td>${curriculum.curNo }</td>
-					<td>${curriculum.curName }</td>
+					<td><a
+						href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">
+							${curriculum.curName }</a></td>
 					<td>${curriculum.curLecturer }</td>
 					<td>${curriculum.limitMem }</td>
-					<td>${curriculum.curContent }</td>
 					<td>${curriculum.curTextbook }</td>
 					<td>${curriculum.academyVO.acaName }</td>
 
