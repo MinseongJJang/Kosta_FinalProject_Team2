@@ -55,7 +55,7 @@ public interface AcademyService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO listCurriculum(HashMap<String,Object> map);
+	public ListVO listCurriculum(String acaNo, String pageNo);
 	/**
 	 * 교육과정 상세정보를 불러오는 메소드
 	 * @param curNo

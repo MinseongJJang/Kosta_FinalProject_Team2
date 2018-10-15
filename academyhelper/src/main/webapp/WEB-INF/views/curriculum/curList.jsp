@@ -60,14 +60,14 @@
 		<ul class="pagination">
 			<c:if test="${pb.previousPageGroup}">
 				<li><a
-					href="${pageContext.request.contextPath}/list.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+					href="${pageContext.request.contextPath}/listCurriculum.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 			</c:if>
 			<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
 				end="${pb.endPageOfPageGroup}">
 				<c:choose>
 					<c:when test="${pb.nowPage!=i}">
 						<li><a
-							href="${pageContext.request.contextPath}/list.do?pageNo=${i}">${i}</a></li>
+							href="${pageContext.request.contextPath}/listCurriculum.do?pageNo=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="active"><a href="#">${i}</a></li>
@@ -77,7 +77,7 @@
 	</c:forEach>
 			<c:if test="${pb.nextPageGroup}">
 				<li><a
-					href="${pageContext.request.contextPath}/list.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+					href="${pageContext.request.contextPath}/listCurriculum.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>
