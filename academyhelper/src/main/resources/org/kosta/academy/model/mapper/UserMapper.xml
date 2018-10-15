@@ -25,13 +25,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idcheck" resultType="int">
 		select count(*) from users where usr_id=#{value}
 	</select>
-	<select id="getUserInfo" parameterType="string" resultType="userVO">
+	<select id="getUserInfo" parameterType="string" resultType="acaUserVO">
+		select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
+		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
-		from users where usr_id = #{value}
+		from users) u, aca_users a where u.usr_id = #{value}
+	</select>
+	<select id="getAcaUserInfo" parameterType="string" resultType="acaUserVO">
+		select busi_reg_num,aca_name,aca_addr,aca_tel
+		from aca_users where usr_id = #{value}
 	</select>
 	<update id="updateUser" parameterType="userVO">
 		update users set usr_pass=#{usrPass},usr_name=#{usrName},usr_addr=#{usrAddr},
 		nickname=#{nickname},birthday=#{birthday},usr_email=#{usrEmail},usr_tel=#{usrTel}
+		where usr_id=#{usrId}
+	</update>
+	<update id="updateAcaUser" parameterType="acaUserVO">
+		update aca_users set busi_reg_num=#{busiRegNum},aca_name=#{acaName},aca_addr=#{acaAddr},aca_tel=#{acaTel}
 		where usr_id=#{usrId}
 	</update>
 	<update id="deleteUser" parameterType="string">

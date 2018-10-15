@@ -30,9 +30,9 @@ public class MSUnit {
 		/*List<Authority> list = mapper.selectAuthorityById("admin");
 		System.out.println(list);*/
 		//System.out.println(promoMapper.getTotalPromoPostCount());
-		UserVO userVO = userMapper.getUserInfo("java");
+		/*UserVO userVO = userMapper.getUserInfo("java");
 		AcaUserVO acaUserVO = new AcaUserVO();
-		acaUserVO.setUserVO(userVO);
+		acaUserVO.setUserVO(userVO);*/
 		/*AcaPromoPostVO acaPromoPostVO = new AcaPromoPostVO();
 		acaPromoPostVO.setAcaPromoTitle("kosta2");
 		acaPromoPostVO.setAcaPromoContent("kosta2");

@@ -60,8 +60,8 @@ public class UserController {
 	@Secured("ROLE_USER")
 	@RequestMapping("userInfo.do")
 	public ModelAndView userInfo(String usrId) {
-		UserVO userVO=userService.getUserInfo(usrId);
-		return new ModelAndView("user/user_info.tiles","userVO",userVO);
+		AcaUserVO acaUserVO=userService.getUserInfo(usrId);
+		return new ModelAndView("user/user_info.tiles","acaUserVO",acaUserVO);
 	}
 	@Secured("ROLE_USER")
 	@RequestMapping("updateUserForm.do")
