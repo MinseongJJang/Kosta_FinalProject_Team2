@@ -11,7 +11,6 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
-<<<<<<< HEAD
 select sysdate from dual; 
 select*from users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
@@ -216,6 +215,12 @@ values(curriculum_seq.nextval,'1','자바의 기초',10,'자바 쉽지 않지만
 insert into curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook) 
 values(curriculum_seq.nextval,'1','자바의 기초',10,'자바 쉽지 않지만 재밌다.','윤준상','자바의 정석');
 
+SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
+		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
+		FROM curriculum
+		) c,academy a where c.aca_no=a.aca_no 
+		order by cur_no desc
+		
 select*from CURRICULUM;
 select sequence curriculum_seq;
 
@@ -289,3 +294,9 @@ create table aca_review_reply_attach_file(
 drop sequence aca_rev_reply_attach_file_seq
 create sequence aca_review_reply_attach_seq start with 1 nocache
 
+
+SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
+SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
+FROM curriculum
+) c,academy a where c.aca_no=a.aca_no 
+order by cur_no desc

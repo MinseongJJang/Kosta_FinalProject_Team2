@@ -1,5 +1,7 @@
 package org.kosta.academy.controller;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.AcademyService;
@@ -26,4 +28,14 @@ public class AcademyController {
 		model.addAttribute("ListAcademy", listVO);
 		return "views/academy/list.jsp";
 	}
+	@RequestMapping("listCurriculum.do")
+	public String listCurriculum(HashMap<String,Object> map, Model model){
+		ListVO listVO = academyService.listCurriculum(map);
+		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
+		model.addAttribute("pb", listVO.getPb());
+		return "curriculum/curList";
+	}
+	
+	
+	
 }

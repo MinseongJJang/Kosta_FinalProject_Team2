@@ -1,6 +1,8 @@
 package org.kosta.academy;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,16 +23,36 @@ public class JSUnit {
 
 	@Test
 	public void test() {
-		int totalPostCount = curriculumMapper.getTotalCurriculumCount();
-		/*
-		 * System.out.println(totalPostCount);
-		 */ 
-		PagingBean pagingBean = new PagingBean(totalPostCount);
+		
+		 int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+		  /*
+			 * System.out.println(totalPostCount);
+			 */
+	
+		PagingBean pagingBean = new PagingBean(totalCurCount);
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("acaNo", "1");
+		map.put("start", pagingBean.getStartRowNumber());
+		map.put("end", pagingBean.getEndRowNumber());
+		map.put("pageNo", pagingBean.getNowPage());
+		/*String pageno=(String) map.get("pageNo");
+		if(pageno==null) {
+			pagingBean = new PagingBean(totalCurCount);
+		}else {
+			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageno));
+		}*/
+		System.out.println(map.get("acaNo"));
+		System.out.println(map.get("start"));
+		System.out.println(map.get("end"));
+		System.out.println(map.get("pageNo"));
 
-		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum("1", pagingBean);
+		
+		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum(map);
+		
 		ListVO lvo = new ListVO();
 		lvo.setCurriculumList(curriculumList);
-		for(int i=0; i<lvo.getCurriculumList().size();i++) {
+		lvo.setPb(pagingBean);
+		for (int i = 0; i < lvo.getCurriculumList().size(); i++) {
 			System.out.println(lvo.getCurriculumList().get(i));
 		}
 		/*

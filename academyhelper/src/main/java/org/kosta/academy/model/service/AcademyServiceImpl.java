@@ -1,5 +1,6 @@
 package org.kosta.academy.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -72,15 +73,24 @@ public class AcademyServiceImpl implements AcademyService {
 	}
 
 	@Override
-	public ListVO listCurriculum(String acaNo, String pageNo) {
-		int totalPostCount = curriculumMapper.getTotalCurriculumCount();
+	public ListVO listCurriculum(HashMap<String,Object> map) {
+		int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+		PagingBean pagingBean = new PagingBean(totalCurCount);
+		map.put("acaNo", "1");
+		map.put("start", pagingBean.getStartRowNumber());
+		map.put("end", pagingBean.getEndRowNumber());
+		map.put("pageNo", pagingBean.getNowPage());
 		
-		PagingBean pagingBean = new PagingBean(totalPostCount);
-
-	
-		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum(acaNo, pagingBean);
+		/*String pageno=(String) map.get("pageNo");
+		if(pageno==null) {
+			pagingBean = new PagingBean(totalCurCount);
+		}else {
+			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageno));
+		}*/
+		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum(map);
 		ListVO lvo = new ListVO();
 		lvo.setCurriculumList(curriculumList);
+		lvo.setPb(pagingBean);
 		return lvo;
 	}
 
