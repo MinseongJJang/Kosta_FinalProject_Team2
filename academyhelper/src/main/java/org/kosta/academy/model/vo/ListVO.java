@@ -10,6 +10,7 @@ import org.kosta.academy.model.service.PagingBean;
  *
  */
 public class ListVO {
+	private List<UserVO> userList;
 	private List<AcaUserVO> acaUserList;
 	private List<AcademyVO> academyList;
 	private List<CurriculumVO> curriculumList;
@@ -24,14 +25,36 @@ public class ListVO {
 
 	public ListVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public ListVO(List<AcademyVO> academyList, PagingBean pb) {
+	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
+			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<FAQVO> faqList,
+			List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
+			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
 		super();
+		this.userList = userList;
+		this.acaUserList = acaUserList;
 		this.academyList = academyList;
+		this.curriculumList = curriculumList;
+		this.acaQNAList = acaQNAList;
+		this.faqList = faqList;
+		this.noticeList = noticeList;
+		this.acaReviewPostList = acaReviewPostList;
+		this.suggestionPostList = suggestionPostList;
+		this.acaPromoPostList = acaPromoPostList;
 		this.pb = pb;
 	}
+
+	
+	public List<UserVO> getUserList() {
+		return userList;
+	}
+
+
+	public void setUserList(List<UserVO> userList) {
+		this.userList = userList;
+	}
+
 
 	public List<AcaUserVO> getAcaUserList() {
 		return acaUserList;

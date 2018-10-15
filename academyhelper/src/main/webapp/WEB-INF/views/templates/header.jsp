@@ -28,8 +28,7 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 로그인 한 사용자의 정보는 Authentication 객체의 principal 에 저장된다 
  --%>
 				<sec:authentication property="principal.usrName" />님 <br>
-				<a href="${pageContext.request.contextPath}/enterCafe.do">카페가기</a>
-				<br>
+
 				<%-- <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a> --%>
 				<%-- spring security logout은 다음과 같은 처리가 필요하다
 	로그인 로그아웃은 모두 post 방식 요청으로 해야 하면  csrf 토큰처리가 필요하다 --%>

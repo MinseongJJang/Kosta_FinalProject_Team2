@@ -50,28 +50,3 @@
 </form>
 </div>
  <div class="col-sm-2" ></div>
-<br>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#findForm").submit(function() {
-			if ($("#findForm :input[name=id]").val() == "") {
-				alert("아이디를 입력하세요!");
-				return false;
-			}
-		});
-	});
-</script>
-<form id="findForm"
-	action="${pageContext.request.contextPath}/findMemberById.do">
-	아이디 <input type="text" name="id" size="5"> <input type="submit"
-		value="검색">
-</form>
-<br>
-<%--	  register.jsp -- MemberController
-								|
-								register_result.jsp 
-								가입정보 출력 
-								새로고침시 재등록 되지 않는다 
-				ajax(jquery)로 
-				id 중복확인을 한다 				
-		 --%>
