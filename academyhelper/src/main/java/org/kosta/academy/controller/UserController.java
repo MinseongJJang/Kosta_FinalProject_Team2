@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.service.UserService;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
