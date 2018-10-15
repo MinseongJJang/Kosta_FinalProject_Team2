@@ -5,19 +5,19 @@ public class AcaUserVO {
 	private String busiRegNum;
 	private String acaName;
 	private String acaAddr;
-	private String accTel;
+	private String acaTel;
 
 	public AcaUserVO() {
 		super();
 	}
 
-	public AcaUserVO(UserVO userVO, String busiRegNum, String acaName, String acaAddr, String accTel) {
+	public AcaUserVO(UserVO userVO, String busiRegNum, String acaName, String acaAddr, String acaTel) {
 		super();
 		this.userVO = userVO;
 		this.busiRegNum = busiRegNum;
 		this.acaName = acaName;
 		this.acaAddr = acaAddr;
-		this.accTel = accTel;
+		this.acaTel = acaTel;
 	}
 
 	public UserVO getUserVO() {
@@ -52,19 +52,18 @@ public class AcaUserVO {
 		this.acaAddr = acaAddr;
 	}
 
-	public String getAccTel() {
-		return accTel;
+	public String getAcaTel() {
+		return acaTel;
 	}
 
-	public void setAccTel(String accTel) {
-		this.accTel = accTel;
+	public void setAcaTel(String acaTel) {
+		this.acaTel = acaTel;
 	}
 
 	@Override
 	public String toString() {
 		return "AcaUserVO [userVO=" + userVO + ", busiRegNum=" + busiRegNum + ", acaName=" + acaName + ", acaAddr="
-				+ acaAddr + ", accTel=" + accTel + "]";
+				+ acaAddr + ", acaTel=" + acaTel + "]";
 	}
-
-
+	
 }

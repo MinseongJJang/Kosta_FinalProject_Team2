@@ -55,11 +55,12 @@ create table notice_attach_file(
 create sequence notice_attach_file_seq start with 1 nocache
 
 /*권한 테이블*/
+drop table authorities
 create table authorities(
 	authority varchar2(100) not null,
 	usr_id varchar2(100) not null,
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
-	constraint authorities_pk primary key(usr_id)
+	constraint authorities_pk primary key(usr_id,authority)
 )
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(

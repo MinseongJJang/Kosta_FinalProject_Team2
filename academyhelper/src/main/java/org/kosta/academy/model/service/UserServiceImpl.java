@@ -46,7 +46,8 @@ public class UserServiceImpl implements UserService{
 	public void registerUser(AcaUserVO acaUserVO) {
 		String usrPass = passwordEncoder.encode(acaUserVO.getUserVO().getUsrPass());
 		acaUserVO.getUserVO().setUsrPass(usrPass);
-		userMapper.registerUser(acaUserVO);
+		userMapper.registerUser(acaUserVO.getUserVO());
+		userMapper.registerAcaUser(acaUserVO);
 		//학원회원등록이므로 ROLE_USER , ROLE_ACADEMY 권한부여
 		List<AuthoritiesVO> authoritiesList = new ArrayList<AuthoritiesVO>();
 		authoritiesList.add(new AuthoritiesVO(acaUserVO.getUserVO(), "ROLE_USER"));
@@ -83,10 +84,22 @@ public class UserServiceImpl implements UserService{
 	public UserVO getUserInfo(String usrId) {
 		return userMapper.getUserInfo(usrId);
 	}
-
+	
+	public ListVO userList(){				
+		return userList("1");
+	}
 	@Override
-	public ListVO listUser(String pageNo) {
-		return null;
+	public ListVO userList(String pageNo) {
+		int totalCount=userMapper.getTotalUserCount();
+		PagingBean pagingBean=null;
+		if(pageNo==null)
+			pagingBean=new PagingBean(totalCount);
+		else
+			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));		
+		ListVO vo=new ListVO();
+		vo.setUserList(userMapper.userList(pagingBean));
+		vo.setPb(pagingBean);
+		return vo;
 	}
 
 	@Override
@@ -98,5 +111,6 @@ public class UserServiceImpl implements UserService{
 	public String findUserPasswordByIdAndEmail(UserVO userVO) {
 		return userMapper.findUserPasswordByIdAndEmail(userVO);
 	}
+
 	
 }

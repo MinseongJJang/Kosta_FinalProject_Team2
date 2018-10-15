@@ -80,7 +80,8 @@ public interface UserService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO listUser(String pageNo);
+	public ListVO userList();
+	public ListVO userList(String pageNo);
 	/**
 	 * 아이디 중복 체크하는 메소드
 	 * @param usrId
@@ -88,5 +89,5 @@ public interface UserService {
 	 */
 	public String idcheck(String usrId);
 	
-
+	
 }

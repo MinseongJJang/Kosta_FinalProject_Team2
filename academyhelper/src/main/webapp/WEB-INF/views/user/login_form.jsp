@@ -17,7 +17,9 @@
 		패스워드 <input type="password" name="usrPass" size="10"><br>
 		<input type="submit" value="로그인">
 	</form>
-	<a href="${pageContext.request.contextPath}/user/registerForm.do">회원가입</a>
+	<a href="${pageContext.request.contextPath}/user/register_form.do">일반회원가입</a>
+	
+	<a href="${pageContext.request.contextPath}/user/aca_register_form.do">기업회원가입</a>
 	<br>
 	</div>
 	<div class="col-sm-2" ></div>
