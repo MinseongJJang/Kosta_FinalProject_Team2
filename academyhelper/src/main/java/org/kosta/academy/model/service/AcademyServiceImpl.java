@@ -34,7 +34,7 @@ public class AcademyServiceImpl implements AcademyService {
 		}else {
 			pagingBean = new PagingBean(totalListAcaCount, Integer.parseInt(pageNo));
 		}
-		List<AcademyVO> academyList = academyMapper.listAcademy();
+		List<AcademyVO> academyList = academyMapper.listAcademy(pagingBean);
 		ListVO lvo = new ListVO();
 		lvo.setAcademyList(academyList);
 		lvo.setPb(pagingBean);
@@ -42,16 +42,9 @@ public class AcademyServiceImpl implements AcademyService {
 	}
 
 	@Override
-	public int getTotalListAcaCount() {
-		int totalCount = 0;
-		totalCount = academyMapper.getTotalListAcaCount();
-		return totalCount;
-	}
-
-	@Override
-	public AcademyVO detailAcademy(String usrId) {
-		// TODO Auto-generated method stub
-		return null;
+	public AcademyVO detailAcademy(String acaNo) {
+		AcademyVO avo = academyMapper.detailAcademy(acaNo);
+		return avo;
 	}
 
 	@Override

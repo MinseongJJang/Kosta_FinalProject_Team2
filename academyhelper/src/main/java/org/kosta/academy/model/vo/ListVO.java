@@ -22,16 +22,15 @@ public class ListVO {
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
 
-
 	public ListVO() {
 		super();
 	}
-
 
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
 			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<FAQVO> faqList,
 			List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
 			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
+
 		super();
 		this.userList = userList;
 		this.acaUserList = acaUserList;

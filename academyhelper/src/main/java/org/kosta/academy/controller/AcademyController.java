@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AcademyController {
-	@Resource
+	@Resource	
 	private AcademyService academyService;
 	@Secured("ROLE_ACAUSER")
 	@RequestMapping("registerAcademy.do")
@@ -25,8 +25,15 @@ public class AcademyController {
 	@RequestMapping("listAcademy.do")
 	public String listAcademy(String pageNo, Model model){
 		ListVO listVO = academyService.listAcademy(pageNo);
-		model.addAttribute("ListAcademy", listVO);
-		return "views/academy/list.jsp";
+		model.addAttribute("ListAcademy", listVO.getAcademyList());
+		model.addAttribute("pagingBean", listVO.getPb());
+		return "academy/academy_list";
+	}
+	@RequestMapping("detailAcademy.do")
+	public String detailAcademy(String acaNo, Model model) {
+		AcademyVO acdemyVO = academyService.detailAcademy(acaNo);
+		model.addAttribute("acaDetail", acdemyVO);
+		return "academy/academy_detail";
 	}
 	@RequestMapping("listCurriculum.do")
 	public String listCurriculum(HashMap<String,Object> map, Model model){
