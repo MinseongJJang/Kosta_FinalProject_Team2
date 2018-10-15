@@ -86,9 +86,9 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 								비교</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관
 								후기</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="#">IT기관
+						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관
 								홍보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관
+						<li><a class="scrollTo" data-scrollTo="services" href="listCurriculum.do">IT기관
 								정보</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="#">질의
 								응답</a></li>

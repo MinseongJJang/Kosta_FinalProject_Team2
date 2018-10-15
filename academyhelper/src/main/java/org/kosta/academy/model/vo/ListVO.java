@@ -27,6 +27,7 @@ public class ListVO {
 		super();
 	}
 
+
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
 			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<FAQVO> faqList,
 			List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
