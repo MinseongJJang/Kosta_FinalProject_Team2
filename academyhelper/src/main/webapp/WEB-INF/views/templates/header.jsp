@@ -28,8 +28,7 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 로그인 한 사용자의 정보는 Authentication 객체의 principal 에 저장된다 
  --%>
 				<sec:authentication property="principal.usrName" />님 <br>
-				<a href="${pageContext.request.contextPath}/enterCafe.do">카페가기</a>
-				<br>
+
 				<%-- <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a> --%>
 				<%-- spring security logout은 다음과 같은 처리가 필요하다
 	로그인 로그아웃은 모두 post 방식 요청으로 해야 하면  csrf 토큰처리가 필요하다 --%>
@@ -46,10 +45,12 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 					style="display: none">
 					<sec:csrfInput />
 				</form>
+				<sec:authorize
+				access="hasRole('ROLE_USER')">
 				<a
 					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
 					정보</a>
-
+</sec:authorize>
 				<br>
 				<br>
 파일업로드테스트
@@ -87,9 +88,9 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 								비교</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관
 								후기</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="#">IT기관
+						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관
 								홍보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관
+						<li><a class="scrollTo" data-scrollTo="services" href="listCurriculum.do">IT기관
 								정보</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="#">질의
 								응답</a></li>
