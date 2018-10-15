@@ -301,3 +301,13 @@ SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem
 FROM curriculum
 ) c,academy a where c.aca_no=a.aca_no 
 order by cur_no desc
+
+select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
+		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
+		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
+		from users) u, aca_users a where u.usr_id = 'java11'
+		
+		select a.usr_id as a.aca_id,a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
+		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
+		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
+		from users) u, aca_users a where usr_id = 'java10'

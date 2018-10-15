@@ -45,10 +45,12 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 					style="display: none">
 					<sec:csrfInput />
 				</form>
+				<sec:authorize
+				access="hasRole('ROLE_USER')">
 				<a
 					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
 					정보</a>
-
+</sec:authorize>
 				<br>
 				<br>
 파일업로드테스트

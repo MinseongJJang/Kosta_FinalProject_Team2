@@ -20,7 +20,7 @@ public interface UserMapper {
 	public void updateUser(AcaUserVO acaUserVO);
 	public String findUserIdByNameAndTel(UserVO userVO);
 	public String findUserPasswordByIdAndEmail(UserVO userVO);
-	public UserVO getUserInfo(String usrId);
+	public AcaUserVO getUserInfo(String usrId);
 	public void registerAuthorities(AuthoritiesVO authoritiesVO);
 	public int idcheck(String usrId);
 	public List<UserVO> userList(PagingBean pagingBean);

@@ -73,7 +73,7 @@ public interface UserService {
 	 * @param id
 	 * @return 
 	 */
-	public UserVO getUserInfo(String usrId);
+	public AcaUserVO getUserInfo(String usrId);
 	/**
 	 * 학원 회원 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
