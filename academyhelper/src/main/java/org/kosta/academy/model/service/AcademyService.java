@@ -29,7 +29,7 @@ public interface AcademyService {
 	 * @param usrId
 	 * @return
 	 */
-	public AcademyVO detailAcademy(String usrId);
+	public AcademyVO detailAcademy(String acaNo);
 	/**
 	 * 교육기관 정보를 수정하는 메소드
 	 * @param academyVO
@@ -70,5 +70,5 @@ public interface AcademyService {
 	 */
 	public void deleteCurriculum(String curNo);
 	
-	public int getTotalListAcaCount();
+
 }
