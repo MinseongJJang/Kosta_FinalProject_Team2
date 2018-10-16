@@ -1,5 +1,8 @@
 package org.kosta.academy.model.service;
 
+import javax.annotation.Resource;
+
+import org.kosta.academy.model.mapper.QNAMapper;
 import org.kosta.academy.model.vo.AcaQNAReplyVO;
 import org.kosta.academy.model.vo.AcaQNAVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -7,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class QNAServiceImpl implements QNAService {
-
+	@Resource
+	private QNAMapper qnaMapper;
 	@Override
 	public void registerAcaQNA(AcaQNAVO acaQNAVO) {
 		
@@ -15,8 +19,16 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public ListVO listAcaQNA(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalCount=qnaMapper.getTotalQNACount();
+		PagingBean pagingBean=null;
+		if(pageNo==null)
+			pagingBean=new PagingBean(totalCount);
+		else
+			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));		
+		ListVO vo=new ListVO();
+		vo.setAcaQNAList(qnaMapper.listAcaQNA(pagingBean));
+		vo.setPb(pagingBean);
+		return vo;
 	}
 
 	@Override

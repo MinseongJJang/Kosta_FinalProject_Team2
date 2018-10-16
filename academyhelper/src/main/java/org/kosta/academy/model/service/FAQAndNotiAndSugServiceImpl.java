@@ -1,5 +1,7 @@
 package org.kosta.academy.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.FAQAndNoticeMapper;
@@ -21,33 +23,41 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 	}
 
 	@Override
-	public ListVO listFAQ(PagingBean pagingBean) {
-		// TODO Auto-generated method stub
-		return null;
+	public ListVO listFAQ(String pageNo) {
+		int totalPostCount=faqAndNoticeMapper.getTotalFaqCount();
+		PagingBean pb=null;
+		if(pageNo==null) {
+			pb=new PagingBean(totalPostCount);
+		}else {
+			pb= new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+		}
+		List<FAQVO> list=faqAndNoticeMapper.listFAQ(pb);
+		ListVO listVO=new ListVO();
+		listVO.setFaqList(list);
+		listVO.setPb(pb);
+		return listVO;
+
 	}
 
 	@Override
 	public FAQVO detailFAQ(String faqNo) {
-		// TODO Auto-generated method stub
-		return null;
+		FAQVO fAQVO=faqAndNoticeMapper.detailFAQ(faqNo);
+		return fAQVO;
 	}
 
 	@Override
 	public void updateFAQ(FAQVO faqVO) {
-		// TODO Auto-generated method stub
-		
+		faqAndNoticeMapper.updateFAQ(faqVO);
 	}
 
 	@Override
 	public void deleteFAQ(String faqNo) {
-		// TODO Auto-generated method stub
-		
+		faqAndNoticeMapper.deleteFAQ(faqNo);
 	}
 
 	@Override
 	public void registerNotice(NoticeVO noticeVO) {
-		// TODO Auto-generated method stub
-		
+		faqAndNoticeMapper.registerNotice(noticeVO);
 	}
 
 	@Override

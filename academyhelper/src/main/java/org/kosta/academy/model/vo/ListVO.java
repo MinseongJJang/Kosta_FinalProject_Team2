@@ -25,7 +25,6 @@ public class ListVO {
 	public ListVO() {
 		super();
 	}
-
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
 			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<FAQVO> faqList,
 			List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
@@ -54,8 +53,6 @@ public class ListVO {
 	public void setUserList(List<UserVO> userList) {
 		this.userList = userList;
 	}
-
-
 	public List<AcaUserVO> getAcaUserList() {
 		return acaUserList;
 	}
@@ -116,5 +113,6 @@ public class ListVO {
 	public void setPb(PagingBean pb) {
 		this.pb = pb;
 	}
+	
 
 }

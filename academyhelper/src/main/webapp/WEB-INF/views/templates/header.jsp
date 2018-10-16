@@ -45,10 +45,12 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 					style="display: none">
 					<sec:csrfInput />
 				</form>
+				<sec:authorize
+				access="hasRole('ROLE_USER')">
 				<a
 					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
 					정보</a>
-
+</sec:authorize>
 				<br>
 				<br>
 파일업로드테스트
@@ -82,17 +84,12 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 				</div>
 				<nav id="primary-nav" class="dropdown cf">
 					<ul class="dropdown menu">
-						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관
-								비교</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관
-								후기</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관
-								홍보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="listCurriculum.do">IT기관
-								정보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="#">질의
-								응답</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="#">FAQ</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 비교</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 후기</a></li>
+						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관 홍보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="listCurriculum.do">IT기관 정보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcaQNA.do">질의 응답</a></li>
+						<li><a class="scrollTo" data-scrollTo="contact" href="listFAQ.do">FAQ</a></li>
 						<li><a href="#"><img
 								src="${pageContext.request.contextPath}/resources/img/login.png"
 								style="width: 20px; height: 20px;"></a></li>

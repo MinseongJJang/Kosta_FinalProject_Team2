@@ -64,22 +64,24 @@ public class AcademyServiceImpl implements AcademyService {
 		curriculumMapper.registerCurriculum(curriculumVO);
 
 	}
-
 	@Override
-	public ListVO listCurriculum(HashMap<String,Object> map) {
+	public ListVO listCurriculum(String acaNo, String pageNo) {
+		HashMap<String,Object> map = new HashMap<String,Object>(); 
 		int totalCurCount = curriculumMapper.getTotalCurriculumCount();
-		PagingBean pagingBean = new PagingBean(totalCurCount);
-		map.put("acaNo", "1");
-		map.put("start", pagingBean.getStartRowNumber());
-		map.put("end", pagingBean.getEndRowNumber());
-		map.put("pageNo", pagingBean.getNowPage());
-		
-		/*String pageno=(String) map.get("pageNo");
-		if(pageno==null) {
-			pagingBean = new PagingBean(totalCurCount);
+		PagingBean pagingBean = null;
+		if(pageNo==null) {
+			 pagingBean = new PagingBean(totalCurCount);
+			map.put("acaNo", "1");
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
 		}else {
-			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageno));
-		}*/
+			
+			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
+			map.put("acaNo", "1");
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+			map.put("pageNo", pagingBean.getNowPage());
+		}
 		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum(map);
 		ListVO lvo = new ListVO();
 		lvo.setCurriculumList(curriculumList);
@@ -89,20 +91,18 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public CurriculumVO detailCurriculum(String curNo) {
-		// TODO Auto-generated method stub
-		return null;
+		CurriculumVO detailCurriculum = curriculumMapper.detailCurriculum(curNo);
+		return detailCurriculum;
 	}
 
 	@Override
 	public void updateCurriculum(CurriculumVO curriculumVO) {
-		// TODO Auto-generated method stub
-
+		curriculumMapper.updateCurriculum(curriculumVO);
 	}
 
 	@Override
 	public void deleteCurriculum(String curNo) {
-		// TODO Auto-generated method stub
-
+		curriculumMapper.deleteCurriculum(curNo);
 	}
 
 	@Override

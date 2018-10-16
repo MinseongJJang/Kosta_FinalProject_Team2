@@ -72,6 +72,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void updateUser(AcaUserVO acaUserVO) {
+		String usrPass = passwordEncoder.encode(acaUserVO.getUserVO().getUsrPass());
+		acaUserVO.getUserVO().setUsrPass(usrPass);
 		userMapper.updateUser(acaUserVO);
 	}
 
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public UserVO getUserInfo(String usrId) {
+	public AcaUserVO getUserInfo(String usrId) {
 		return userMapper.getUserInfo(usrId);
 	}
 	

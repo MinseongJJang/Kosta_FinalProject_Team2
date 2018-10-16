@@ -1,8 +1,5 @@
 package org.kosta.academy.model.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -55,7 +52,7 @@ public interface AcademyService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO listCurriculum(HashMap<String,Object> map);
+	public ListVO listCurriculum(String acaNo, String pageNo);
 	/**
 	 * 교육과정 상세정보를 불러오는 메소드
 	 * @param curNo
