@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.CurriculumMapper">
 <insert id="registerCurriculum" parameterType="curriculumVO">
-		<selectKey keyProperty="cur_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="curNo" resultType="string" order="BEFORE">
 			select
 			curriculum_seq.nextval from dual
 		</selectKey>
 		insert into curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook)
-		values(#{cur_no},#{academyVO.aca_no},#{cur_name},#{limit_mem},#{cur_content},#{cur_lecturer},#{cur_textbook})
+		values(#{curNo},#{academyVO.acaNo},#{curName},#{limitMem},#{curContent},#{curLecturer},#{curTextbook})
 	</insert>
 	<select id="getTotalCurriculumCount" resultType="int">
 		select count(*) from curriculum
@@ -25,9 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
 		) c,academy a where c.aca_no=a.aca_no and a.aca_no=#{acaNo} and rnum  between #{start} and #{end}
-		order by cur_no desc
+		order by c.cur_no desc
 	</select> 
 	
+	<select id="detailCurriculum" resultMap="curriculumRM">
+		select
+		c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and c.cur_no=#{value}
+	</select>
 	
 	<!-- <select id="listAllCurriculum" resultMap="curriculumRM" parameterType="pagingBean">
 		SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name FROM(

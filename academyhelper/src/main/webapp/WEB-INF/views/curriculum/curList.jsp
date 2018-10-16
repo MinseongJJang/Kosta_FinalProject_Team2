@@ -9,7 +9,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<title>Insert title here</title>
+<title>교육과정 리스트</title>
 </head>
 <body>
 
@@ -21,7 +21,6 @@
 				<th class="curName">과정이름</th>
 				<th class="curLecturer">강사명</th>
 				<th class="limitMem">정원</th>
-				<th class="curContent">강사명</th>
 				<th class="curTextbook">과정이름</th>
 				<th class="acaName">학원이름</th>
 			</tr>
@@ -30,10 +29,11 @@
 			<c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
 				<tr>
 					<td>${curriculum.curNo }</td>
-					<td>${curriculum.curName }</td>
+					<td><a
+						href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">
+							${curriculum.curName }</a></td>
 					<td>${curriculum.curLecturer }</td>
 					<td>${curriculum.limitMem }</td>
-					<td>${curriculum.curContent }</td>
 					<td>${curriculum.curTextbook }</td>
 					<td>${curriculum.academyVO.acaName }</td>
 
@@ -60,14 +60,14 @@
 		<ul class="pagination">
 			<c:if test="${pb.previousPageGroup}">
 				<li><a
-					href="${pageContext.request.contextPath}/list.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+					href="${pageContext.request.contextPath}/listCurriculum.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 			</c:if>
 			<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
 				end="${pb.endPageOfPageGroup}">
 				<c:choose>
 					<c:when test="${pb.nowPage!=i}">
 						<li><a
-							href="${pageContext.request.contextPath}/list.do?pageNo=${i}">${i}</a></li>
+							href="${pageContext.request.contextPath}/listCurriculum.do?pageNo=${i}">${i}</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="active"><a href="#">${i}</a></li>
@@ -77,7 +77,7 @@
 	</c:forEach>
 			<c:if test="${pb.nextPageGroup}">
 				<li><a
-					href="${pageContext.request.contextPath}/list.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+					href="${pageContext.request.contextPath}/listCurriculum.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>
