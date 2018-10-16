@@ -79,7 +79,7 @@ public class AcademyController {
 		ListVO listVO = academyService.listCurriculum(acaNo, pageNo);
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
-		return "curriculum/curriculum_list";
+		return "curriculum/curriculum_list.tiles";
 	}
 
 
@@ -87,14 +87,15 @@ public class AcademyController {
 	public String detailCurriculum(String curNo, Model model) {
 		CurriculumVO detailCurriculum = academyService.detailCurriculum(curNo);
 		model.addAttribute("DetailCurriculum", detailCurriculum);
-		return "curriculum/curriculum_detail";
+		return "curriculum/curriculum_detail.tiles";
 	}
 
 	@RequestMapping("registerCurriculumForm.do")
 	public String writeForm() {
-		return "curriculum/curriculum_register";
+		return "curriculum/curriculum_register.tiles";
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
 	public String registerCurriculum(/* HttpSession session, */ CurriculumVO curriculumVO,
 			RedirectAttributes redirectAttributes) {
@@ -113,20 +114,23 @@ public class AcademyController {
 		 * return new ModelAndView("curriculum/curriculum_detail", "pvo",
 		 * academyService.detailCurriculum(no));
 		 */ }
-
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("register-curriculum.do")
 	public ModelAndView postDetailNoHits(String no) {
 		System.out.println(no);
-		return new ModelAndView("curriculum/curriculum_detail", "DetailCurriculum",
+		return new ModelAndView("curriculum/curriculum_detail.tiles", "DetailCurriculum",
 				academyService.detailCurriculum(no));
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculum.do")
 	public ModelAndView updateView(String curNo) {
-		return new ModelAndView("curriculum/curriculum_update", "DetailCurriculum",
+		return new ModelAndView("curriculum/curriculum_update.tiles", "DetailCurriculum",
 				academyService.detailCurriculum(curNo));
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculumPost.do")
 	public ModelAndView updatePost(CurriculumVO curriculumVO) {
 		System.out.println(curriculumVO);
@@ -138,6 +142,7 @@ public class AcademyController {
 		// boardService.getPostDetailNoHits(pvo.getNo()));
 		return new ModelAndView("redirect:detailCurriculum.do?curNo=" + curriculumVO.getCurNo());
 	}
+	@Secured("ROLE_ADMIN")
 	@PostMapping("deleteCurriculum.do")
 	public ModelAndView deletePost(String curNo) {
 		academyService.deleteCurriculum(curNo);

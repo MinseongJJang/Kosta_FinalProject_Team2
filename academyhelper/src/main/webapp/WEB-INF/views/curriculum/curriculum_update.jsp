@@ -36,10 +36,12 @@
 			</td>
 		</tr>
 	</table>
-	<div class="btnArea">
-		<button type="submit" class="btn">수정</button>
-		<button type="reset" class="btn">취소</button>
-	</div>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<div class="btnArea">
+			<button type="submit" class="btn">수정</button>
+			<button type="reset" class="btn">취소</button>
+		</div>
+	</sec:authorize>
 </form>
 </body>
 </html>
