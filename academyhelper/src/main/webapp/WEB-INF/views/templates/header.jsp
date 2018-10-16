@@ -50,9 +50,10 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 				<a
 					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
 					정보</a>
+				<a href="${pageContext.request.contextPath}/suggestionList.do">건의게시판</a>
+				<a href="${pageContext.request.contextPath}/suggestionRegisterForm.do">건의 게시물 등록</a>
 </sec:authorize>
-				<br>
-				<br>
+				
 파일업로드테스트
 <br>
 				<a

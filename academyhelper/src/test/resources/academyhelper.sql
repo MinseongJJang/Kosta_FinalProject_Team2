@@ -90,7 +90,16 @@ create table suggestion_post(
 	constraint suggestion_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 create sequence suggestion_post_seq start with 1 nocache
-
+select * from suggestion_post
+insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
+		values(suggestion_post_seq.nextval,'하이','응이하이',SYSDATE,'java')
+		
+		SELECT sug_no,sug_title,sug_content,sug_regdate,usr_id
+		FROM(
+		SELECT row_number() over(order by sug_no desc) rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
+		 FROM suggestion_post
+		) s where rnum between 1 and 5
+		order by sug_no desc
 /*건의게시판 파일첨부 테이블 및 시퀀스*/
 create table sug_post_attach_file(
 	sug_post_att_no number primary key,
