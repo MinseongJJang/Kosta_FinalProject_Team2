@@ -98,13 +98,11 @@ public class AcademyServiceImpl implements AcademyService {
 	@Override
 	public void updateCurriculum(CurriculumVO curriculumVO) {
 		curriculumMapper.updateCurriculum(curriculumVO);
-
 	}
 
 	@Override
 	public void deleteCurriculum(String curNo) {
-		// TODO Auto-generated method stub
-
+		curriculumMapper.deleteCurriculum(curNo);
 	}
 
 	@Override

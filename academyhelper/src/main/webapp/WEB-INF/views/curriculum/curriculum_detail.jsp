@@ -41,12 +41,16 @@
 	<form action="updateCurriculum.do" id="updateForm" method="post">
 		<sec:csrfInput />
 		<%-- csrf 토큰 --%>
+		<input type="hidden" name="curNo"
+			value="${requestScope.DetailCurriculum.curNo}">
+	</form>
+	<button form="deleteForm" type="submit">삭제</button>
+	<form action="deleteCurriculum.do" id="deleteForm" method="post">
+		<sec:csrfInput />
 		<input type="hidden" name="curNo" value="${requestScope.DetailCurriculum.curNo}">
 	</form>
-	<%-- <a href="${pageContext.request.contextPath}/updateCurriculum.do">|
-		교육과정 수정하기</a> --%>
-	<a href="${pageContext.request.contextPath}/listCurriculum.do">|
-		목록으로 돌아가기</a>
+	
+	<a href="${pageContext.request.contextPath}/listCurriculum.do">목록으로 돌아가기</a>
 
 </body>
 </html>
