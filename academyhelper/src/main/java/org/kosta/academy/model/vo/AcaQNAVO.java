@@ -5,20 +5,17 @@ public class AcaQNAVO {
 	private String qnaTitle;
 	private String qnaContent;
 	private String qnaRegdate;
-	private AcademyVO academyVO;
 	private UserVO userVO;
 	public AcaQNAVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AcaQNAVO(String qnaNo, String qnaTitle, String qnaContent, String qnaRegdate, AcademyVO academyVO,
-			UserVO userVO) {
+	public AcaQNAVO(String qnaNo, String qnaTitle, String qnaContent, String qnaRegdate, UserVO userVO) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaTitle = qnaTitle;
 		this.qnaContent = qnaContent;
 		this.qnaRegdate = qnaRegdate;
-		this.academyVO = academyVO;
 		this.userVO = userVO;
 	}
 	public String getQnaNo() {
@@ -45,12 +42,6 @@ public class AcaQNAVO {
 	public void setQnaRegdate(String qnaRegdate) {
 		this.qnaRegdate = qnaRegdate;
 	}
-	public AcademyVO getAcademyVO() {
-		return academyVO;
-	}
-	public void setAcademyVO(AcademyVO academyVO) {
-		this.academyVO = academyVO;
-	}
 	public UserVO getUserVO() {
 		return userVO;
 	}
@@ -60,7 +51,7 @@ public class AcaQNAVO {
 	@Override
 	public String toString() {
 		return "AcaQNAVO [qnaNo=" + qnaNo + ", qnaTitle=" + qnaTitle + ", qnaContent=" + qnaContent + ", qnaRegdate="
-				+ qnaRegdate + ", academyVO=" + academyVO + ", userVO=" + userVO + "]";
+				+ qnaRegdate + ", userVO=" + userVO + "]";
 	}
 	
 	

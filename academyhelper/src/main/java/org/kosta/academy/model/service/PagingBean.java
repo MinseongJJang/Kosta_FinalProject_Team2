@@ -24,7 +24,7 @@ public class PagingBean {
 	 * 페이지당 게시물수
 	 */
 	//2->6 로 수정요
-	private int postCountPerPage = 2;
+	private int postCountPerPage = 6;
 	/**
 	 * 페이지 그룹당 페이지수
 	 */
@@ -74,16 +74,11 @@ public class PagingBean {
 	 * @return
 	 */
 	public int getEndRowNumber() {	
-		int endRowNumber = 0;
-		if(nowPage==1) {
-			endRowNumber = postCountPerPage;
-		}else {
-			if(totalPostCount%postCountPerPage!=0) {
-				endRowNumber = nowPage*postCountPerPage;
-			}else {
-				endRowNumber = totalPostCount;
+		
+			int	endRowNumber = nowPage*postCountPerPage;
+			if(endRowNumber>totalPostCount) {
+				endRowNumber=totalPostCount;
 			}
-		}
 		return endRowNumber;
 	}
 
