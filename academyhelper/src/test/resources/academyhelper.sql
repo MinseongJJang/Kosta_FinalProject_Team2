@@ -155,7 +155,7 @@ create table aca_qna(
 select * from aca_qna
 alter table aca_qna drop column aca_no
 alter table aca_qna drop constraint aca_qna_ffk
-
+select qna_no, qna_title, qna_content, qna_regdate, usr_id from aca_qna where qna_no='12';
 create sequence aca_qna_seq start with 1 nocache
 insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문1', '질문1내용', sysdate, 'java')
 insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문2', '질문2내용', sysdate, 'java')
@@ -171,6 +171,10 @@ from(
 )q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
 order by q.qna_no desc
 	               
+select q.qna_no,q.qna_title, to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, q.qna_content, u.usr_id
+from aca_qna q, users u 
+where q.usr_id=u.usr_id and qna_no='12'
+
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
