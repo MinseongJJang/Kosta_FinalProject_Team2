@@ -78,7 +78,7 @@ public class PagingBean {
 		if(nowPage==1) {
 			endRowNumber = postCountPerPage;
 		}else {
-			if(totalPostCount%postCountPerPage!=0) {
+			if(totalPostCount%postCountPerPage==0) {
 				endRowNumber = nowPage*postCountPerPage;
 			}else {
 				endRowNumber = totalPostCount;

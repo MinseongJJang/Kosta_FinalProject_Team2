@@ -15,7 +15,11 @@ public interface AcademyMapper {
 
 	int getTotalListAcaCount();
 
-	AcademyVO detailAcademy(String usrId);
+	AcademyVO detailAcademy(String acaNo);
+
+	void updateAcademy(AcademyVO academyVO);
+
+	void deleteAcademy(String acaNo);
 
 
 	

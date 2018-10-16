@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listAcademy" resultType="academyVO" parameterType="pagingBean">
 		select aca_no, aca_name, aca_addr, aca_tel
 		from(select row_number() over(order by aca_no asc) as rnum, aca_no, aca_name, aca_addr, aca_tel from academy)
-		where rnum between #{startRowNumber} and #{endRowNumber}
+		where rnum between #{startRowNumber} and #{endRowNumber} order by aca_no asc
 	</select>
 	<select id="getTotalListAcaCount" resultType="int">
 		select count(*) from academy
@@ -30,4 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from academy a, users u 
 		where a.usr_id = u.usr_id and a.aca_no = #{value}
 	</select>
+	<update id="updateAcademy" parameterType="academyVO">
+		update academy 
+		set aca_name = #{acaName}, aca_addr = #{acaAddr}, aca_tel = #{acaTel}
+		where aca_no = #{acaNo}
+	</update>
+	<delete id="deleteAcademy" parameterType="string">
+		delete from academy where aca_no = #{value}
+	</delete>
 </mapper>

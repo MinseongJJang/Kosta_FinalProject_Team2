@@ -62,6 +62,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
 	aca_promo_no number primary key,

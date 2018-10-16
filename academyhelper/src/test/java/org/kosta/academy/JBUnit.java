@@ -1,7 +1,5 @@
 package org.kosta.academy;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -9,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.vo.AcademyVO;
-import org.kosta.academy.model.vo.ListVO;
+import org.kosta.academy.model.vo.UserVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,7 +25,7 @@ public class JBUnit {
 		UserVO userVO = new UserVO();
 		userVO.setUsrId("아이디");
 		AcademyVO academyVO = new AcademyVO();
-		academyVO.setAcaName("학원명");
+		academyVO.setAcaName("학원명9");
 		academyVO.setAcaAddr("주소");
 		academyVO.setAcaTel("010");
 		academyVO.setUserVO(userVO);
@@ -54,5 +52,13 @@ public class JBUnit {
 		AcademyVO acdemyVO = academyMapper.detailAcademy("id");
 		System.out.println(acdemyVO);
 		*/
+		//기관정보수정
+		/*
+		AcademyVO vo = new AcademyVO();
+		vo.setAcaTel("111");
+		academyMapper.updateAcademy(vo);
+		*/
+		//기관정보삭제
+		//academyMapper.deleteAcademy("8");
 	}
 }

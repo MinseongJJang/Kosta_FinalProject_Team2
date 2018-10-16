@@ -49,13 +49,13 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public void updateAcademy(AcademyVO academyVO) {
-		// TODO Auto-generated method stub
+		academyMapper.updateAcademy(academyVO);
 
 	}
 
 	@Override
 	public void deleteAcademy(String acaNo) {
-		// TODO Auto-generated method stub
+		academyMapper.deleteAcademy(acaNo);
 
 	}
 
