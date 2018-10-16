@@ -11,7 +11,6 @@ import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
 import org.kosta.academy.model.vo.SuggestionPostVO;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 @Service
 public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
@@ -117,14 +116,12 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 
 	@Override
 	public void updateSuggestionPost(SuggestionPostVO suggestionPostVO) {
-		// TODO Auto-generated method stub
-		
+		suggestionMapper.updateSuggestionPost(suggestionPostVO);
 	}
 
 	@Override
 	public void deleteSuggestionPost(String sugNo) {
-		// TODO Auto-generated method stub
-		
+		suggestionMapper.deleteSuggestionPost(sugNo);
 	}
 
 }

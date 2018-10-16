@@ -17,4 +17,8 @@ public interface SuggestionMapper {
 
 	SuggestionPostVO detailSuggestionPost(String sugNo);
 
+	void updateSuggestionPost(SuggestionPostVO suggestionPostVO);
+
+	void deleteSuggestionPost(String sugNo);
+
 }

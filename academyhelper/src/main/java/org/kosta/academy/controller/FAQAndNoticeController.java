@@ -42,12 +42,24 @@ public class FAQAndNoticeController {
 	public String listSuggestionPost(String pageNo,Model model) {
 		ListVO list=fAQAndNotiAndSugService.listSuggestionPost(pageNo);
 		model.addAttribute("list",list);
-		return "suggestion/listSuggestionPost.tiles";
+		return "suggestion/list_suggestion.tiles";
 	}
 	@RequestMapping("detailSuggestionPost.do")
 	public String detailSuggestionPost(String sugNo,Model model) {
 		SuggestionPostVO vo=fAQAndNotiAndSugService.detailSuggestionPost(sugNo);
 		model.addAttribute("vo",vo);
 		return "suggestion/detailSuggestionPost.tiles";
+	}
+	@PostMapping("updateSuggestionPostForm")
+	public String updateSuggestionPostForm() {
+		return "";
+	}
+	@RequestMapping("updateSuggestionPost")
+	public String updateSuggestionPost() {
+		return "";
+	}
+	@RequestMapping("deleteSuggestionPost")
+	public String deleteSuggestionPost() {
+		return "";
 	}
 }
