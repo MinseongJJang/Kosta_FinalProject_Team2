@@ -11,7 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
-
+select count(*) from faq
 insert into users(usr_id, usr_pass, usr_name, usr_addr, nickname, birthday, usr_regdate, usr_email, usr_tel) 
 values('java', '1', 'name', 'gg', 'nick', 'birth', '2018-10-12', 'email', 'tel')
 
@@ -118,7 +118,7 @@ values(faq_seq.nextval,'제목4','내용4',sysdate,'java')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
 values(faq_seq.nextval,'제목5','내용5',sysdate,'java')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목6','내용6',sysdate,'java')
+values(faq_seq.nextval,'제목7','내용7',sysdate,'java')
 select * from faq
 
 /*학원 테이블 및 시퀀스*/
@@ -258,4 +258,14 @@ create table aca_review_reply_attach_file(
 )
 drop sequence aca_rev_reply_attach_file_seq
 create sequence aca_review_reply_attach_seq start with 1 nocache
+f
+select faq_no,faq_title,faq_content,faq_regdate,usr_id from faq
 
+select f.faq_no,f.faq_title,f.faq_content,f.faq_regdate,u.usr_id
+from (select faq_no,row_number() over(order by faq_no desc) as rnum,
+faq_title,faq_content,faq_regdate,usr_id from faq) f, users u
+where f.usr_id=u.usr_id and rnum between 1 and 3
+order by faq_no desc
+
+select faq_no,faq_title,faq_content,faq_regdate,usr_id
+from faq where faq_no='4'

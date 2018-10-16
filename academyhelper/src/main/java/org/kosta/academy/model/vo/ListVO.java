@@ -25,7 +25,11 @@ public class ListVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	public ListVO(List<FAQVO> faqList,PagingBean pb) {
+		super();
+		this.faqList=faqList;
+		this.pb=pb;
+	}
 	public List<AcaUserVO> getAcaUserList() {
 		return acaUserList;
 	}
@@ -86,5 +90,6 @@ public class ListVO {
 	public void setPb(PagingBean pb) {
 		this.pb = pb;
 	}
+	
 
 }

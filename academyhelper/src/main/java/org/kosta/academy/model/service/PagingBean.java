@@ -23,7 +23,7 @@ public class PagingBean {
 	/**
 	 * 페이지당 게시물수
 	 */
-	private int postCountPerPage = 6;
+	private int postCountPerPage = 3;
 	/**
 	 * 페이지 그룹당 페이지수
 	 */
@@ -56,15 +56,7 @@ public class PagingBean {
 	 * @return
 	 */
 	public int getStartRowNumber() {
-		int startRowNumber = 0;
-		if(nowPage == 1 ) {
-			startRowNumber = 1;
-		}else {
-			//nowPage-1의 endRowNumber + 1
-			//nowPage가 1인경우엔 0*postCountPerPage+1 이므로 따로 조건을 안줘도된다.
-			startRowNumber = ((nowPage-1)*postCountPerPage)+1;
-		}
-		return startRowNumber;
+		return ((nowPage - 1) * postCountPerPage) + 1;
 	}
 
 	/**
@@ -73,16 +65,9 @@ public class PagingBean {
 	 * @return
 	 */
 	public int getEndRowNumber() {	
-		int endRowNumber = 0;
-		if(nowPage==1) {
-			endRowNumber = postCountPerPage;
-		}else {
-			if(totalPostCount%postCountPerPage!=0) {
-				endRowNumber = nowPage*postCountPerPage;
-			}else {
-				endRowNumber = totalPostCount;
-			}
-		}
+		int endRowNumber = nowPage * postCountPerPage;
+		if (totalPostCount < endRowNumber)
+			endRowNumber = totalPostCount;
 		return endRowNumber;
 	}
 
@@ -206,6 +191,12 @@ public class PagingBean {
 	public void setNowPage(int nowPage) {
 		this.nowPage = nowPage;
 	}
+
+	@Override
+	public String toString() {
+		return "PagingBean [nowPage=" + nowPage + ", postCountPerPage=" + postCountPerPage + ", pageCountPerPageGroup="
+				+ pageCountPerPageGroup + ", totalPostCount=" + totalPostCount + "]";
+	}
 	
 
 /*	public static void main(String args[]) {
@@ -237,5 +228,5 @@ public class PagingBean {
 		System.out.println("isNextPageGroup:" + p.isNextPageGroup());
 
 	}*/
-
+	
 }

@@ -93,7 +93,7 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 								정보</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="#">질의
 								응답</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="#">FAQ</a></li>
+						<li><a class="scrollTo" data-scrollTo="contact" href="listFAQ.do">FAQ</a></li>
 						<li><a href="#"><img
 								src="${pageContext.request.contextPath}/resources/img/login.png"
 								style="width: 20px; height: 20px;"></a></li>
