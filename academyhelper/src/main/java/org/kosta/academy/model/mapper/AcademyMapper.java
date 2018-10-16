@@ -15,7 +15,7 @@ public interface AcademyMapper {
 
 	int getTotalListAcaCount();
 
-	AcademyVO detailAcademy(String usrId);
+	AcademyVO detailAcademy(String acaNo);
 
 
 	

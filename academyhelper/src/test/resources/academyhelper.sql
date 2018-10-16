@@ -205,6 +205,12 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 		FROM curriculum
 		) c,academy a where c.aca_no=a.aca_no and rnum between '1' and '4'
 		order by cur_no desc
+
+				SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name FROM(
+		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
+		FROM curriculum
+		) c,academy a where c.aca_no=a.aca_no and a.aca_no='1' and rnum  between '1' and '4'
+		order by c.cur_no desc
 		
 delete from curriculum where cur_no='2';
 
