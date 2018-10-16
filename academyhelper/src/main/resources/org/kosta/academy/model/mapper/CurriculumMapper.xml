@@ -3,6 +3,68 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.kosta.academy.model.mapper.CurriculumMapper">
+<mapper
+	namespace="org.kosta.academy.model.mapper.CurriculumMapper">
+	<insert id="registerCurriculum" parameterType="curriculumVO">
+		<selectKey keyProperty="curNo" resultType="string"
+			order="BEFORE">
+			select
+			curriculum_seq.nextval from dual
+		</selectKey>
+		insert into
+		curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook)
+		values(#{curNo},#{academyVO.acaNo},#{curName},#{limitMem},#{curContent},#{curLecturer},#{curTextbook})
+	</insert>
+	<update id="updateCurriculum" parameterType="curriculumVO">
+		update curriculum
+		set
+		cur_name=#{curName},limit_mem=#{limitMem},cur_content=#{curContent},cur_lecturer=#{curLecturer},cur_textbook=#{curTextbook}
+		where cur_no=#{curNo}
+	</update>
 
+	<select id="getTotalCurriculumCount" resultType="int">
+		select count(*)
+		from curriculum
+	</select>
+	<resultMap type="curriculumVO" id="curriculumRM">
+		<result property="academyVO.acaNo" column="aca_no" />
+		<result property="academyVO.acaName" column="aca_name" />
+
+	</resultMap>
+	<select id="listCurriculum" resultMap="curriculumRM"
+		parameterType="map">
+		SELECT
+		c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		FROM(
+		SELECT row_number() over(order by cur_no desc) as
+		rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
+		FROM curriculum
+		) c,academy a where c.aca_no=a.aca_no and
+		a.aca_no=#{acaNo} and rnum between #{start} and #{end}
+		order by
+		c.cur_no desc
+	</select>
+
+	<select id="detailCurriculum" resultMap="curriculumRM">
+		select
+		c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no=#{value}
+	</select>
+
+
+
+
+	<!-- <select id="listAllCurriculum" resultMap="curriculumRM" parameterType="pagingBean"> 
+		SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name 
+		FROM( SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no 
+		FROM curriculum ) c,academy a where c.aca_no=a.aca_no and c.aca_no=#{aca_no} 
+		and rnum between #{startRowNumber} and #{endRowNumber} order by cur_no desc 
+		</select> <select id="findCurriculumByAcademy" resultMap="curriculumRM"> 
+		SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name 
+		FROM( SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no 
+		FROM curriculum ) c,academy a where c.aca_no=a.aca_no and c.aca_no=#{value} 
+		</select> -->
 </mapper>

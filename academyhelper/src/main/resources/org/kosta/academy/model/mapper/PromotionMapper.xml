@@ -4,5 +4,49 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.PromotionMapper">
-
+	<!-- 홍보게시글의 총 개수를 받아오는 쿼리 -->
+	<select id="getTotalPromoPostCount" resultType="int">
+		select count(-1) from aca_promo_post
+	</select>
+	<insert id="registerAcaPromoPost" parameterType="acaPromoPostVO">
+		insert into aca_promo_post(aca_promo_no,aca_promo_title,aca_promo_content,aca_promo_regdate,usr_id)
+		values(aca_promo_post_seq.nextval,#{acaPromoTitle},#{acaPromoContent},sysdate,#{acaUserVO.userVO.usrId})
+	</insert>
+	<resultMap type="acaPromoPostVO" id="acaPromoRM">
+		<result property="acaUserVO.userVO.usrId" column="usr_id"/>
+	</resultMap>
+	<select id="detailAcaPromoPost" parameterType="string" resultType="acaPromoPostVO">
+		select aca_promo_no,aca_promo_title,aca_promo_content,aca_promo_regdate,aca_promo_hits,usr_id 
+		from aca_promo_post
+		where aca_promo_no = #{value}
+	</select>
+	<resultMap type="acaPromoPostVO" id="acaUserRM" extends="acaPromoRM">
+		<result property="acaUserVO.userVO.usrName" column="usr_name"/>
+	</resultMap>
+	<select id="listAcaPromoPost" resultMap="acaUserRM" parameterType="pagingBean">
+		select p.aca_promo_no,p.aca_promo_title,p.aca_promo_regdate,p.aca_promo_hits,u.usr_id,
+		(select usr_name from users where usr_id=p.usr_id) as usr_name from
+		(select aca_promo_no,row_number() over(order by aca_promo_no desc) as rnum,aca_promo_title,to_char(aca_promo_regdate,'YYYY-MM-DD') as aca_promo_regdate,
+		 aca_promo_hits,usr_id from aca_promo_post) p , users u
+		where p.usr_id = u.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
+		order by p.aca_promo_no desc
+	</select>
+	<update id="updateAcaPromoPost" parameterType="acaPromoPostVO">
+		update aca_promo_post set aca_promo_title = #{acaPromoTitle} , aca_promo_content = #{acaPromoContent}
+		where aca_promo_no = #{acaPromoNo}
+	</update>
+	<delete id="deleteAcaPromoPost" parameterType="acaPromoPostVO">
+		delete from aca_promo_post where aca_promo_no = #{acaPromoNo}
+	</delete>
+	<insert id="registerAcaPromoFile" parameterType="acaPromoAttachFileVO" >
+		insert into aca_promo_attach_file(aca_promo_att_no,aca_promo_filepath,aca_promo_no)
+		values(aca_promo_attach_file_seq.nextval,#{acaPromoFilepath},#{acaPromoPostVO.acaPromoNo})
+	</insert>
+	<resultMap type="acaPromoAttachFileVO" id="acaPromoAttachFileRM">
+		<result property="acaPromoPostVO.acaPromoNo" column="aca_promo_no" />
+	</resultMap>
+	<select id="listAcaPromoFile" parameterType="acaPromoAttachFileVO" resultMap="acaPromoAttachFileRM">
+		select aca_promo_att_no,aca_promo_filepath,aca_promo_no from 
+		aca_promo_attach_file where aca_promo_no = #{acaPromoPostVO.acaPromoNo}
+	</select>
 </mapper>

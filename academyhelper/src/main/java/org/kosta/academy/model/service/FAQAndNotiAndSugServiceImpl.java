@@ -36,6 +36,7 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 		listVO.setFaqList(list);
 		listVO.setPb(pb);
 		return listVO;
+
 	}
 
 	@Override

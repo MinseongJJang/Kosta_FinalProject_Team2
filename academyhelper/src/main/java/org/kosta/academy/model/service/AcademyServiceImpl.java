@@ -1,10 +1,12 @@
 package org.kosta.academy.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.AcademyMapper;
+import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -15,6 +17,9 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Resource
 	private AcademyMapper academyMapper;
+	@Resource
+	private CurriculumMapper curriculumMapper;
+
 	@Override
 	public void registerAcademy(AcademyVO academyVO) {
 		academyMapper.registerAcademy(academyVO);
@@ -22,64 +27,92 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public ListVO listAcademy(String pageNo) {
-		List<AcademyVO> academyList = academyMapper.listAcademy();
+		int totalListAcaCount = academyMapper.getTotalListAcaCount();
+		PagingBean pagingBean = null;
+		if(pageNo==null) {
+			pagingBean = new PagingBean(totalListAcaCount);
+		}else {
+			pagingBean = new PagingBean(totalListAcaCount, Integer.parseInt(pageNo));
+		}
+		List<AcademyVO> academyList = academyMapper.listAcademy(pagingBean);
 		ListVO lvo = new ListVO();
 		lvo.setAcademyList(academyList);
+		lvo.setPb(pagingBean);
 		return lvo;
-	}
-	@Override
-	public int getTotalListAcaCount() {
-		int totalCount = 0;
-		totalCount = academyMapper.getTotalListAcaCount();
-		return totalCount;
 	}
 
 	@Override
-	public AcademyVO detailAcademy(String usrId) {
-		// TODO Auto-generated method stub
-		return null;
+	public AcademyVO detailAcademy(String acaNo) {
+		AcademyVO avo = academyMapper.detailAcademy(acaNo);
+		return avo;
 	}
 
 	@Override
 	public void updateAcademy(AcademyVO academyVO) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAcademy(String acaNo) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void registerCurriculum(CurriculumVO curriculumVO) {
-		// TODO Auto-generated method stub
-		
-	}
+		curriculumMapper.registerCurriculum(curriculumVO);
 
+	}
 	@Override
 	public ListVO listCurriculum(String acaNo, String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String,Object> map = new HashMap<String,Object>(); 
+		int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+		PagingBean pagingBean = null;
+		if(pageNo==null) {
+			 pagingBean = new PagingBean(totalCurCount);
+			map.put("acaNo", "1");
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+		}else {
+			
+			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
+			map.put("acaNo", "1");
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+			map.put("pageNo", pagingBean.getNowPage());
+		}
+		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum(map);
+		ListVO lvo = new ListVO();
+		lvo.setCurriculumList(curriculumList);
+		lvo.setPb(pagingBean);
+		return lvo;
 	}
 
 	@Override
 	public CurriculumVO detailCurriculum(String curNo) {
-		// TODO Auto-generated method stub
-		return null;
+		CurriculumVO detailCurriculum = curriculumMapper.detailCurriculum(curNo);
+		return detailCurriculum;
 	}
 
 	@Override
 	public void updateCurriculum(CurriculumVO curriculumVO) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteCurriculum(String curNo) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	@Override
+	public int getTotalCurriculumCount() {
+		// TODO Auto-generated method stub
+		int totalCount = 0;
+		totalCount = curriculumMapper.getTotalCurriculumCount();
+		return totalCount;
+
+	}
 }

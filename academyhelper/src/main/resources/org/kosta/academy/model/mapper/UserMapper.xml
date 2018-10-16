@@ -15,23 +15,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel)
 		values(#{usrId},#{usrPass},#{usrName},#{usrAddr},1,#{nickname},#{birthday},SYSDATE,#{usrEmail},#{usrTel})
 	</insert>
+	<insert id="registerAcaUser" parameterType="acaUserVO">
+		insert into aca_users(usr_id,busi_reg_num,aca_name,aca_addr,aca_tel)
+		values(#{userVO.usrId},#{busiRegNum},#{acaName},#{acaAddr},#{acaTel})
+	</insert>
 	<insert id="registerAuthorities" parameterType="authoritiesVO">
 		insert into authorities(usr_id,authority) values(#{userVO.usrId},#{authority})
 	</insert>
 	<select id="idcheck" resultType="int">
 		select count(*) from users where usr_id=#{value}
 	</select>
-	<select id="getUserInfo" parameterType="string" resultType="userVO">
+	<resultMap type="acaUserVO" id="userInfoRM">
+      <result property="userVO.usrId" column="usr_id" />
+      <result property="userVO.usrName" column="usr_name" />
+      <result property="userVO.usrAddr" column="usr_addr" />
+      <result property="userVO.nickname" column="nickname" />
+      <result property="userVO.birthday" column="birthday" />
+      <result property="userVO.usrRegdate" column="usr_regdate" />
+      <result property="userVO.usrEmail" column="usr_email" />
+      <result property="userVO.usrTel" column="usr_tel" />
+   </resultMap>
+	<select id="getUserInfo" parameterType="string" resultMap="userInfoRM">
+		select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
+		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
-		from users where usr_id = #{value}
+		from users) u, aca_users a where u.usr_id = #{value}
+	</select>
+	<select id="getAcaUserInfo" parameterType="string" resultType="acaUserVO">
+		select busi_reg_num,aca_name,aca_addr,aca_tel
+		from aca_users where usr_id = #{value}
 	</select>
 	<update id="updateUser" parameterType="userVO">
 		update users set usr_pass=#{usrPass},usr_name=#{usrName},usr_addr=#{usrAddr},
 		nickname=#{nickname},birthday=#{birthday},usr_email=#{usrEmail},usr_tel=#{usrTel}
 		where usr_id=#{usrId}
 	</update>
-	<update id="deleteUser" parameterType="string">
-		update users set enabled=0
+	<update id="updateAcaUser" parameterType="acaUserVO">
+		update aca_users set busi_reg_num=#{busiRegNum},aca_name=#{acaName},aca_addr=#{acaAddr},aca_tel=#{acaTel}
 		where usr_id=#{usrId}
 	</update>
+	<update id="deleteUser" parameterType="string">
+		update users set enabled=0
+		where usr_id=#{value}
+	</update>
+	<select id="findUserIdByNameAndTel" parameterType="userVO" resultType="string">
+		select usr_id from users where usr_name = #{usrName} and usr_tel=#{usrTel}
+	</select>
+	<select id="findUserPasswordByIdAndEmail" parameterType="userVO" resultType="string">
+		select usr_pass from users where usr_id = #{usrId} and usr_email=#{usrEmail}
+	</select>
+	<select id="getTotalUserCount" resultType="int">
+		select count(*) from
+		users
+	</select>
+	<select id="userList" resultType="userVO" parameterType="pagingBean">
+	SELECT u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,
+		u.usr_regdate,u.usr_email,u.usr_tel
+		FROM(
+		SELECT row_number() over(order by usr_regdate asc) rnum,usr_id,usr_name,usr_addr,nickname,birthday,
+		usr_regdate,usr_email,usr_tel FROM users
+		) u,users au where u.usr_id=au.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
+		order by u.usr_regdate asc
+	</select>
 </mapper>

@@ -1,37 +1,83 @@
 package org.kosta.academy.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
+import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.service.AcademyService;
-import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AcademyController {
-	@Resource
+	@Resource	
 	private AcademyService academyService;
+	@Autowired
+	private AcademyMapper academyMapper;
+
+	@Secured("ROLE_ACAUSER")
 	@RequestMapping("registerAcademy.do")
 	public String registerAcademy(AcademyVO academyVO) {
 		academyService.registerAcademy(academyVO);
 		return "";
 	}
-	/*@RequestMapping("listAcademy.do")
-	public List<AcademyVO> listAcademy(String pageNo){
-		int totalListAcaCount = academyService.getTotalListAcaCount();
-		PagingBean pagingBean = null;
-		if(pageNo==null) {
-			pagingBean = new PagingBean(totalListAcaCount);
-		}else {
-			pagingBean = new PagingBean(totalListAcaCount, Integer.parseInt(pageNo));
-		}
-		List<AcademyVO> academyList = academyService.listAcademy(pageNo);
-		ListVO lvo = new ListVO();
-		lvo.setAcademyList(academyList);
-		return null;
-	}*/
+
+	@RequestMapping("listAcademy.do")
+	public String listAcademy(String pageNo, Model model) {
+		ListVO listVO = academyService.listAcademy(pageNo);
+		model.addAttribute("ListAcademy", listVO.getAcademyList());
+		model.addAttribute("pagingBean", listVO.getPb());
+		return "academy/academy_list";
+	}
+	@RequestMapping("detailAcademy.do")
+	public String detailAcademy(String acaNo, Model model) {
+		AcademyVO acdemyVO = academyService.detailAcademy(acaNo);
+		model.addAttribute("acaDetail", acdemyVO);
+		return "academy/academy_detail";
+	}
+
+	@RequestMapping("listCurriculum.do")
+	public String listCurriculum(String acaNo, String pageNo, Model model) {
+		ListVO listVO = academyService.listCurriculum(acaNo,pageNo);
+		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
+		model.addAttribute("pb", listVO.getPb());
+		return "curriculum/curriculum_list";
+	}
+
+	@RequestMapping("detailCurriculum.do")
+	public String detailCurriculum(String curNo, Model model) {
+		CurriculumVO detailCurriculum = academyService.detailCurriculum(curNo);
+		model.addAttribute("DetailCurriculum", detailCurriculum);
+		return "curriculum/curriculum_detail";
+	}
+
+	@RequestMapping("registerCurriculumForm.do")
+	public String writeForm() {
+		return "curriculum/curriculum_register";
+	}
+
+	@PostMapping("registerCurriculum.do")
+	public ModelAndView registerCurriculum(/*HttpSession session,*/ CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
+		/*MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		if (mvo != null) {
+			postVO.setMemberVO(mvo);
+		}*/
+		AcademyVO academyVO = academyMapper.detailAcademy("1");
+		curriculumVO.setAcademyVO(academyVO);
+		academyService.registerCurriculum(curriculumVO);
+
+//		redirectAttributes.addAttribute("no", curriculumVO.getCurNo());
+		String no=curriculumVO.getCurNo();
+/*		return "redirect:post-detail-no-hits.do";
+*/		return new ModelAndView("curriculum/curriculum_detail", "pvo", academyService.detailCurriculum(no));
+	}
+
 }

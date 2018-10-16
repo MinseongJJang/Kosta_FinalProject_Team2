@@ -36,20 +36,18 @@ public class UserServiceImpl implements UserService{
 		//password는 암호화처리하여 DB에 저장
 		String usrPass = passwordEncoder.encode(userVO.getUsrPass());
 		userVO.setUsrPass(usrPass);
-		System.out.println(userVO.toString());
 		userMapper.registerUser(userVO);
 		//일반회원등록이므로 ROLE_USER 권한 부여
-		System.out.println(userVO.toString());
 		AuthoritiesVO authoritiesVO = new AuthoritiesVO(userVO, "ROLE_USER");
 		userMapper.registerAuthorities(authoritiesVO);
-		System.out.println(userVO.toString());
 	}
 	@Transactional
 	@Override
 	public void registerUser(AcaUserVO acaUserVO) {
 		String usrPass = passwordEncoder.encode(acaUserVO.getUserVO().getUsrPass());
 		acaUserVO.getUserVO().setUsrPass(usrPass);
-		userMapper.registerUser(acaUserVO);
+		userMapper.registerUser(acaUserVO.getUserVO());
+		userMapper.registerAcaUser(acaUserVO);
 		//학원회원등록이므로 ROLE_USER , ROLE_ACADEMY 권한부여
 		List<AuthoritiesVO> authoritiesList = new ArrayList<AuthoritiesVO>();
 		authoritiesList.add(new AuthoritiesVO(acaUserVO.getUserVO(), "ROLE_USER"));
@@ -62,54 +60,59 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String idcheck(String usrId) {
 		int count = userMapper.idcheck(usrId);
-		System.out.println(count);
 		return (count == 0) ? "ok" : "fail";
 	}
 
 	@Override
 	public void updateUser(UserVO userVO) {
-		System.out.println(userVO);
 		String usrPass = passwordEncoder.encode(userVO.getUsrPass());
-		System.out.println(usrPass);
 		userVO.setUsrPass(usrPass);
-		System.out.println(userVO);
 		userMapper.updateUser(userVO);		
 	}
 
 	@Override
 	public void updateUser(AcaUserVO acaUserVO) {
+		String usrPass = passwordEncoder.encode(acaUserVO.getUserVO().getUsrPass());
+		acaUserVO.getUserVO().setUsrPass(usrPass);
 		userMapper.updateUser(acaUserVO);
-		
 	}
 
 	@Override
 	public void deleteUser(String usrId) {
 		userMapper.deleteUser(usrId);
-		
 	}
 
 	@Override
-	public String findId(UserVO userVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void findPassword(UserVO userVO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public UserVO getUserInfo(String usrId) {
-		System.out.println(usrId);
+	public AcaUserVO getUserInfo(String usrId) {
 		return userMapper.getUserInfo(usrId);
 	}
+	
+	public ListVO userList(){				
+		return userList("1");
+	}
+	@Override
+	public ListVO userList(String pageNo) {
+		int totalCount=userMapper.getTotalUserCount();
+		PagingBean pagingBean=null;
+		if(pageNo==null)
+			pagingBean=new PagingBean(totalCount);
+		else
+			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));		
+		ListVO vo=new ListVO();
+		vo.setUserList(userMapper.userList(pagingBean));
+		vo.setPb(pagingBean);
+		return vo;
+	}
 
 	@Override
-	public ListVO listUser(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public String findUserIdByNameAndTel(UserVO userVO) {
+		return userMapper.findUserIdByNameAndTel(userVO);
 	}
+
+	@Override
+	public String findUserPasswordByIdAndEmail(UserVO userVO) {
+		return userMapper.findUserPasswordByIdAndEmail(userVO);
+	}
+
 	
 }

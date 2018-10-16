@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.AcademyMapper;
+import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class JBUnit {
 	@Resource
 	AcademyMapper academyMapper;
+	@Resource
+	AcademyService academyService;
 	@Test
 	public void test() {
 		//기관정보등록
@@ -33,11 +36,23 @@ public class JBUnit {
 		*/
 		
 		//기관정보목록
-		List<AcademyVO> academyList = academyMapper.listAcademy();
+		/*
+		List<AcademyVO> academyList = academyMapper.listAcademy(null);
 		ListVO lvo = new ListVO();
 		lvo.setAcademyList(academyList);
 		for(int i=0; i<lvo.getAcademyList().size();i++) {
 			System.out.println(lvo.getAcademyList().get(i));
 		}
+		*/
+		//페이징 확인
+		/*
+		ListVO lvo = academyService.listAcademy("1");
+		System.out.println(lvo.getAcademyList());
+		*/
+		//기관상세정보
+		/*
+		AcademyVO acdemyVO = academyMapper.detailAcademy("id");
+		System.out.println(acdemyVO);
+		*/
 	}
 }

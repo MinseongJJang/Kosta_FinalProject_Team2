@@ -4,7 +4,8 @@
 <%-- spring security custom tag를 사용하기 위한 선언 --%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
+ <div class="col-sm-2" ></div>
+    <div class="col-sm-8">
 	<form action="${pageContext.request.contextPath}/login.do"
 		method="post" id="loginForm">
 		<%-- Spring Security에서는 해킹방지를	 위해
@@ -16,8 +17,12 @@
 		패스워드 <input type="password" name="usrPass" size="10"><br>
 		<input type="submit" value="로그인">
 	</form>
-	<a href="${pageContext.request.contextPath}/user/registerForm.do">회원가입</a>
+	<a href="${pageContext.request.contextPath}/user/register_form.do">일반회원가입</a>
+	
+	<a href="${pageContext.request.contextPath}/user/aca_register_form.do">기업회원가입</a>
 	<br>
+	</div>
+	<div class="col-sm-2" ></div>
 
 
 
