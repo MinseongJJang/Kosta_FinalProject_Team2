@@ -23,12 +23,12 @@ public class PagingBean {
 	/**
 	 * 페이지당 게시물수
 	 */
-	//2->6 로 수정요
-	private int postCountPerPage = 6;
+
+	private int postCountPerPage = 5;
 	/**
 	 * 페이지 그룹당 페이지수
 	 */
-	private int pageCountPerPageGroup = 4;
+	private int pageCountPerPageGroup = 5;
 	/**
 	 * database에 저장된 총게시물수
 	 */
@@ -57,15 +57,7 @@ public class PagingBean {
 	 * @return
 	 */
 	public int getStartRowNumber() {
-		int startRowNumber = 0;
-		if(nowPage == 1 ) {
-			startRowNumber = 1;
-		}else {
-			//nowPage-1의 endRowNumber + 1
-			//nowPage가 1인경우엔 0*postCountPerPage+1 이므로 따로 조건을 안줘도된다.
-			startRowNumber = ((nowPage-1)*postCountPerPage)+1;
-		}
-		return startRowNumber;
+		return ((nowPage - 1) * postCountPerPage) + 1;
 	}
 
 	/**
@@ -73,12 +65,11 @@ public class PagingBean {
 	 * 
 	 * @return
 	 */
-	public int getEndRowNumber() {	
-		
-			int	endRowNumber = nowPage*postCountPerPage;
-			if(endRowNumber>totalPostCount) {
-				endRowNumber=totalPostCount;
-			}
+	public int getEndRowNumber() {
+		int endRowNumber = nowPage*postCountPerPage;
+		if(endRowNumber>totalPostCount) {
+			endRowNumber=totalPostCount;
+		}
 		return endRowNumber;
 	}
 
@@ -202,10 +193,16 @@ public class PagingBean {
 	public void setNowPage(int nowPage) {
 		this.nowPage = nowPage;
 	}
+
+	@Override
+	public String toString() {
+		return "PagingBean [nowPage=" + nowPage + ", postCountPerPage=" + postCountPerPage + ", pageCountPerPageGroup="
+				+ pageCountPerPageGroup + ", totalPostCount=" + totalPostCount + "]";
+	}
 	
 
-/*	public static void main(String args[]) {
-		PagingBean p = new PagingBean(47, 10);
+	/*public static void main(String args[]) {
+		PagingBean p = new PagingBean(12, 2);
 		// 현페이지의 시작 row number 를 조회 46
 		System.out.println("getBeginRowNumber:" + p.getStartRowNumber());
 		// 현페이지의 마지막 row number 를 조회 47
@@ -231,6 +228,7 @@ public class PagingBean {
 		System.out.println("isPreviousPageGroup:" + p.isPreviousPageGroup());
 		// 다음 페이지 그룹이 있는 지 : false
 		System.out.println("isNextPageGroup:" + p.isNextPageGroup());
+
 
 	}*/
 
