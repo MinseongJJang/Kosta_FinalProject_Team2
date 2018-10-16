@@ -11,12 +11,13 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
-
+select * from faq
 select sysdate from dual; 
 select*from users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
 values('java','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
-
+insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
+values('admin','1','관리자','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
 insert into users(usr_id, usr_pass, usr_name, usr_addr, nickname, birthday, usr_regdate, usr_email, usr_tel) 
 values('java', '1', 'name', 'gg', 'nick', 'birth', '2018-10-12', 'email', 'tel')
 
@@ -59,6 +60,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
 	aca_promo_no number primary key,
@@ -90,7 +92,16 @@ create table suggestion_post(
 	constraint suggestion_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 create sequence suggestion_post_seq start with 1 nocache
-
+select * from suggestion_post
+insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
+		values(suggestion_post_seq.nextval,'하이','응이하이',SYSDATE,'java')
+		
+		SELECT sug_no,sug_title,sug_content,sug_regdate,usr_id
+		FROM(
+		SELECT row_number() over(order by sug_no desc) rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
+		 FROM suggestion_post
+		) s where rnum between 1 and 5
+		order by sug_no desc
 /*건의게시판 파일첨부 테이블 및 시퀀스*/
 create table sug_post_attach_file(
 	sug_post_att_no number primary key,
@@ -110,6 +121,12 @@ create table faq(
 	constraint faq_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 create sequence faq_seq start with 1 nocache
+
+select f.faq_no,f.faq_title,f.faq_content,f.faq_regdate,u.usr_id
+from (select faq_no,row_number() over(order by faq_no desc) as rnum,
+faq_title,faq_content,faq_regdate,usr_id from faq) f, users u
+where f.usr_id=u.usr_id and rnum between 1 and 5
+order by faq_no desc
 
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
 values(faq_seq.nextval,'제목','내용',sysdate,'java')
@@ -249,6 +266,11 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 select*from CURRICULUM;
 select sequence curriculum_seq;
 
+update curriculum
+		set
+		cur_name='9',limit_mem='9',cur_content='9',cur_lecturer='9',cur_textbook='9'
+		where cur_no='53'
+		
 
 /*학원후기 게시판 테이블 및 시퀀스*/
 create table aca_review_post(

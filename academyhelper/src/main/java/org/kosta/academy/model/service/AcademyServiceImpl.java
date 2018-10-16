@@ -49,13 +49,13 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public void updateAcademy(AcademyVO academyVO) {
-		// TODO Auto-generated method stub
+		academyMapper.updateAcademy(academyVO);
 
 	}
 
 	@Override
 	public void deleteAcademy(String acaNo) {
-		// TODO Auto-generated method stub
+		academyMapper.deleteAcademy(acaNo);
 
 	}
 
@@ -75,7 +75,6 @@ public class AcademyServiceImpl implements AcademyService {
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
 		}else {
-			
 			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
 			map.put("acaNo", "1");
 			map.put("start", pagingBean.getStartRowNumber());
@@ -97,14 +96,12 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public void updateCurriculum(CurriculumVO curriculumVO) {
-		// TODO Auto-generated method stub
-
+		curriculumMapper.updateCurriculum(curriculumVO);
 	}
 
 	@Override
 	public void deleteCurriculum(String curNo) {
-		// TODO Auto-generated method stub
-
+		curriculumMapper.deleteCurriculum(curNo);
 	}
 
 	@Override

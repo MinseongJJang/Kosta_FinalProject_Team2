@@ -81,7 +81,7 @@
 			</c:if>
 		</ul>
 	</div>
-	<a href="${pageContext.request.contextPath}/registerCurriculumForm.do">| 새 과정 등록하기</a>
+	<a href="${pageContext.request.contextPath}/registerCurriculumForm.do">새 과정 등록하기</a>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,5 +37,22 @@
 							</c:if></td> --%>
 		</tr>
 	</table>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<button form="updateForm" type="submit">교육과정 수정하기</button>
+	<form action="updateCurriculum.do" id="updateForm" method="post">
+		<sec:csrfInput />
+		<%-- csrf 토큰 --%>
+		<input type="hidden" name="curNo"
+			value="${requestScope.DetailCurriculum.curNo}">
+	</form>
+	<button form="deleteForm" type="submit">삭제</button>
+	<form action="deleteCurriculum.do" id="deleteForm" method="post">
+		<sec:csrfInput />
+		<input type="hidden" name="curNo" value="${requestScope.DetailCurriculum.curNo}">
+	</form>
+		</sec:authorize>
+	
+	<a href="${pageContext.request.contextPath}/listCurriculum.do">목록으로 돌아가기</a>
+
 </body>
 </html>
