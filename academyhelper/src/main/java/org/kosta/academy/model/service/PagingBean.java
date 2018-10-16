@@ -24,11 +24,11 @@ public class PagingBean {
 	 * 페이지당 게시물수
 	 */
 	//2->6 로 수정요
-	private int postCountPerPage = 2;
+	private int postCountPerPage = 5;
 	/**
 	 * 페이지 그룹당 페이지수
 	 */
-	private int pageCountPerPageGroup = 4;
+	private int pageCountPerPageGroup = 5;
 	/**
 	 * database에 저장된 총게시물수
 	 */
@@ -74,15 +74,20 @@ public class PagingBean {
 	 * @return
 	 */
 	public int getEndRowNumber() {	
-		int endRowNumber = 0;
-		if(nowPage==1) {
-			endRowNumber = postCountPerPage;
-		}else {
-			if(totalPostCount%postCountPerPage!=0) {
-				endRowNumber = nowPage*postCountPerPage;
-			}else {
-				endRowNumber = totalPostCount;
-			}
+		//int endRowNumber = 0;
+		//if(nowPage==1) {
+		//	endRowNumber = postCountPerPage;
+		//}else {
+			//  10 % 5 
+		//	if(totalPostCount%postCountPerPage==0) {
+		//		endRowNumber = nowPage*postCountPerPage;
+		//	}else {
+		//		endRowNumber = totalPostCount;
+		//	}
+		//}
+		int endRowNumber = nowPage*postCountPerPage;
+		if(endRowNumber>totalPostCount) {
+			endRowNumber=totalPostCount;
 		}
 		return endRowNumber;
 	}
@@ -209,8 +214,8 @@ public class PagingBean {
 	}
 	
 
-/*	public static void main(String args[]) {
-		PagingBean p = new PagingBean(47, 10);
+	public static void main(String args[]) {
+		PagingBean p = new PagingBean(12, 2);
 		// 현페이지의 시작 row number 를 조회 46
 		System.out.println("getBeginRowNumber:" + p.getStartRowNumber());
 		// 현페이지의 마지막 row number 를 조회 47
@@ -237,6 +242,6 @@ public class PagingBean {
 		// 다음 페이지 그룹이 있는 지 : false
 		System.out.println("isNextPageGroup:" + p.isNextPageGroup());
 
-	}*/
+	}
 
 }
