@@ -23,7 +23,6 @@ public class PagingBean {
 	/**
 	 * 페이지당 게시물수
 	 */
-
 	private int postCountPerPage = 5;
 	/**
 	 * 페이지 그룹당 페이지수
@@ -65,6 +64,7 @@ public class PagingBean {
 	 * 
 	 * @return
 	 */
+
 	public int getEndRowNumber() {
 		int endRowNumber = nowPage*postCountPerPage;
 		if(endRowNumber>totalPostCount) {
@@ -229,7 +229,5 @@ public class PagingBean {
 		// 다음 페이지 그룹이 있는 지 : false
 		System.out.println("isNextPageGroup:" + p.isNextPageGroup());
 
-
 	}*/
-
 }
