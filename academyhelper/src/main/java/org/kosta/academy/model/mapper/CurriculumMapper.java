@@ -11,8 +11,8 @@ import org.kosta.academy.model.vo.CurriculumVO;
 public interface CurriculumMapper {
 	public void registerCurriculum(CurriculumVO curriculumVO);
 	public List<CurriculumVO> listCurriculum(HashMap<String,Object> map);
-	public List<CurriculumVO> listAllCurriculum(PagingBean pb);
-	public CurriculumVO detailCurriculum(String curNo);
+/*	public List<CurriculumVO> listAllCurriculum(PagingBean pb);
+*/	public CurriculumVO detailCurriculum(String curNo);
 	public void updateCurriculum(CurriculumVO curriculumVO);
 	public void deleteCurriculum(String curNo);
 	public int getTotalCurriculumCount();

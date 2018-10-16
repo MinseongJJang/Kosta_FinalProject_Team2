@@ -2,10 +2,10 @@ package org.kosta.academy;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -20,27 +20,49 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class JSUnit {
 	@Autowired
 	private CurriculumMapper curriculumMapper;
-
+	@Autowired
+	private AcademyMapper academyMapper;
 	@Test
 	public void test() {
+	/*	AcademyVO academyVO = academyMapper.detailAcademy("1");
+		CurriculumVO curriculumVO = new CurriculumVO();
+//		curriculumVO.setCurNo("7");
+		curriculumVO.setAcademyVO(academyVO);
+		curriculumVO.setCurName("n");
+		curriculumVO.setCurLecturer("n");
+		curriculumVO.setLimitMem("5");
+		curriculumVO.setCurContent("c");
+		curriculumVO.setCurTextbook("t");
+		curriculumMapper.registerCurriculum(curriculumVO);
+		*/
+/*		curriculumVO = ("7",academyVO,"n","n","5","c","t");
+*/		/*CurriculumVO curriculumVO = new CurriculumVO();
 		
-		 int totalCurCount = curriculumMapper.getTotalCurriculumCount();
-		  /*
-			 * System.out.println(totalPostCount);
-			 */
+		curriculumMapper.write(curriculumVO);
+		*/
+		
+		//리스트 상세
+		/*String curNo="1";
+		CurriculumVO detailCurriculum = curriculumMapper.detailCurriculum(curNo);
+		System.out.println(detailCurriculum);
+*/		
+		
+	//리스트 출력
+	 int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+	
 	
 		PagingBean pagingBean = new PagingBean(totalCurCount);
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("acaNo", "1");
 		map.put("start", pagingBean.getStartRowNumber());
 		map.put("end", pagingBean.getEndRowNumber());
-		map.put("pageNo", pagingBean.getNowPage());
-		/*String pageno=(String) map.get("pageNo");
+		//map.put("pageNo", pagingBean.getNowPage());
+		String pageno=null;
 		if(pageno==null) {
 			pagingBean = new PagingBean(totalCurCount);
 		}else {
 			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageno));
-		}*/
+		}
 		System.out.println(map.get("acaNo"));
 		System.out.println(map.get("start"));
 		System.out.println(map.get("end"));
@@ -61,4 +83,5 @@ public class JSUnit {
 		 */
 
 	}
+
 }
