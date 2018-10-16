@@ -2,10 +2,12 @@ package org.kosta.academy.controller;
 
 import javax.annotation.Resource;
 
+import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AcademyController {
 	@Resource	
 	private AcademyService academyService;
+	@Autowired
+	private AcademyMapper academyMapper;
 
 	@Secured("ROLE_ACAUSER")
 	@RequestMapping("registerAcademy.do")
@@ -45,19 +49,19 @@ public class AcademyController {
 		ListVO listVO = academyService.listCurriculum(acaNo,pageNo);
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
-		return "curriculum/curList";
+		return "curriculum/curriculum_list";
 	}
 
 	@RequestMapping("detailCurriculum.do")
 	public String detailCurriculum(String curNo, Model model) {
 		CurriculumVO detailCurriculum = academyService.detailCurriculum(curNo);
 		model.addAttribute("DetailCurriculum", detailCurriculum);
-		return "curriculum/curDetail";
+		return "curriculum/curriculum_detail";
 	}
 
 	@RequestMapping("registerCurriculumForm.do")
 	public String writeForm() {
-		return "curriculum/registerForm";
+		return "curriculum/curriculum_register";
 	}
 
 	@PostMapping("registerCurriculum.do")
@@ -66,12 +70,14 @@ public class AcademyController {
 		if (mvo != null) {
 			postVO.setMemberVO(mvo);
 		}*/
+		AcademyVO academyVO = academyMapper.detailAcademy("1");
+		curriculumVO.setAcademyVO(academyVO);
 		academyService.registerCurriculum(curriculumVO);
+
 //		redirectAttributes.addAttribute("no", curriculumVO.getCurNo());
 		String no=curriculumVO.getCurNo();
 /*		return "redirect:post-detail-no-hits.do";
-*/		return new ModelAndView("curriculum/curDetail", "pvo", academyService.detailCurriculum(no));
-
+*/		return new ModelAndView("curriculum/curriculum_detail", "pvo", academyService.detailCurriculum(no));
 	}
 
 }

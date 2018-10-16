@@ -82,8 +82,6 @@ public class AcademyServiceImpl implements AcademyService {
 			map.put("end", pagingBean.getEndRowNumber());
 			map.put("pageNo", pagingBean.getNowPage());
 		}
-	
-		System.out.println(map);
 		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculum(map);
 		ListVO lvo = new ListVO();
 		lvo.setCurriculumList(curriculumList);
