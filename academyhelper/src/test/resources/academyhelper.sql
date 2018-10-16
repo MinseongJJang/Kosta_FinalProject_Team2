@@ -59,6 +59,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
 	aca_promo_no number primary key,
@@ -151,18 +152,35 @@ values(academy_seq.nextval,'코스타','판교','0312558779','java');
 select*from academy;
 
 /*학원 Q&A 및 시퀀스*/
+drop table aca_qna
+delete aca_qna
 create table aca_qna(
 	qna_no number primary key,
 	qna_title varchar2(100) not null,
 	qna_content clob not null,
 	qna_regdate date not null,
-	aca_no number not null,
 	usr_id varchar2(100) not null,
-	constraint aca_qna_ffk foreign key(aca_no) references academy(aca_no) on delete cascade,
 	constraint aca_qna_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-create sequence aca_qna_seq start with 1 nocache
+select * from aca_qna
+alter table aca_qna drop column aca_no
+alter table aca_qna drop constraint aca_qna_ffk
 
+create sequence aca_qna_seq start with 1 nocache
+insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문1', '질문1내용', sysdate, 'java')
+insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문2', '질문2내용', sysdate, 'java')
+insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문3', '질문3내용', sysdate, 'java')
+insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문4', '질문4내용', sysdate, 'java')
+insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문5', '질문5내용', sysdate, 'java')
+insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문6', '질문6내용', sysdate, 'java')
+
+select q.qna_no,q.qna_title,to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, u.usr_id
+from(
+	select row_number() over(order by qna_no desc) as rnum,qna_no,
+	qna_title, qna_regdate,usr_id from aca_qna
+)q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
+order by q.qna_no desc
+	               
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
@@ -237,6 +255,11 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 select*from CURRICULUM;
 select sequence curriculum_seq;
 
+update curriculum
+		set
+		cur_name='9',limit_mem='9',cur_content='9',cur_lecturer='9',cur_textbook='9'
+		where cur_no='53'
+		
 
 /*학원후기 게시판 테이블 및 시퀀스*/
 create table aca_review_post(

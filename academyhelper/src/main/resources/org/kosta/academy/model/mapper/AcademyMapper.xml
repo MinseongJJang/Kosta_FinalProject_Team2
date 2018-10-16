@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.academy.model.mapper.AcademyMapper">
+	<insert id="registerAcademy" parameterType="academyVO">
+		insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) values(academy_seq.nextval, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId})
+	</insert>
+	<select id="listAcademy" resultType="academyVO" parameterType="pagingBean">
+		select aca_no, aca_name, aca_addr, aca_tel
+		from(select row_number() over(order by aca_no asc) as rnum, aca_no, aca_name, aca_addr, aca_tel from academy)
+		where rnum between #{startRowNumber} and #{endRowNumber} order by aca_no asc
+	</select>
+	<select id="getTotalListAcaCount" resultType="int">
+		select count(*) from academy
+	</select>
+	<resultMap type="academyVO" id="detailRM">
+		<result property="userVO.usrId" column="usr_id" />
+		<result property="userVO.usrName" column="usr_name" />
+		<result property="userVO.usrAddr" column="usr_addr" />
+		<result property="userVO.nickname" column="nickname" />
+		<result property="userVO.usrRegdate" column="usr_regdate" />
+		<result property="userVO.usrEmail" column="usr_email" />
+		<result property="userVO.usrTel" column="usr_tel" />
+	</resultMap>
+	<select id="detailAcademy" resultMap="detailRM" parameterType="string">
+		select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, 
+		u.usr_id, u.usr_name, u.usr_addr, u.nickname, u.usr_regdate, u.usr_email, u.usr_tel 
+		from academy a, users u 
+		where a.usr_id = u.usr_id and a.aca_no = #{value}
+	</select>
+	<update id="updateAcademy" parameterType="academyVO">
+		update academy 
+		set aca_name = #{acaName}, aca_addr = #{acaAddr}, aca_tel = #{acaTel}
+		where aca_no = #{acaNo}
+	</update>
+	<delete id="deleteAcademy" parameterType="string">
+		delete from academy where aca_no = #{value}
+	</delete>
+</mapper>
