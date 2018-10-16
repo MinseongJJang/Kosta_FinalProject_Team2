@@ -228,6 +228,11 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 select*from CURRICULUM;
 select sequence curriculum_seq;
 
+update curriculum
+		set
+		cur_name='9',limit_mem='9',cur_content='9',cur_lecturer='9',cur_textbook='9'
+		where cur_no='53'
+		
 
 /*학원후기 게시판 테이블 및 시퀀스*/
 create table aca_review_post(

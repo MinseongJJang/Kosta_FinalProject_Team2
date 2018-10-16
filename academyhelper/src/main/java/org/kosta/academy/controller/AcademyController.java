@@ -65,7 +65,7 @@ public class AcademyController {
 	}
 
 	@PostMapping("registerCurriculum.do")
-	public ModelAndView registerCurriculum(/*HttpSession session,*/ CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
+	public String registerCurriculum(/*HttpSession session,*/ CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		/*MemberVO mvo = (MemberVO) session.getAttribute("mvo");
 		if (mvo != null) {
 			postVO.setMemberVO(mvo);
@@ -74,10 +74,30 @@ public class AcademyController {
 		curriculumVO.setAcademyVO(academyVO);
 		academyService.registerCurriculum(curriculumVO);
 
-//		redirectAttributes.addAttribute("no", curriculumVO.getCurNo());
+		redirectAttributes.addAttribute("no", curriculumVO.getCurNo());
 		String no=curriculumVO.getCurNo();
-/*		return "redirect:post-detail-no-hits.do";
-*/		return new ModelAndView("curriculum/curriculum_detail", "pvo", academyService.detailCurriculum(no));
+		return "redirect:register-curriculum.do";
+/*		return new ModelAndView("curriculum/curriculum_detail", "pvo", academyService.detailCurriculum(no));
+*/	}
+	
+	@RequestMapping("register-curriculum.do")
+	public ModelAndView postDetailNoHits(String no) {
+		System.out.println(no);
+		return new ModelAndView("curriculum/curriculum_detail", "DetailCurriculum", academyService.detailCurriculum(no));
 	}
-
+	
+	@PostMapping("updateCurriculum.do")
+	public ModelAndView updateView(String curNo) {
+		return new ModelAndView("curriculum/curriculum_update", "DetailCurriculum", academyService.detailCurriculum(curNo));
+	}
+	@PostMapping("updateCurriculumPost.do")
+	public ModelAndView updatePost(CurriculumVO curriculumVO) {
+		System.out.println(curriculumVO);
+		AcademyVO academyVO = academyMapper.detailAcademy("1");
+		curriculumVO.setAcademyVO(academyVO);
+		System.out.println(curriculumVO);
+		academyService.updateCurriculum(curriculumVO);
+		//return new ModelAndView("board/post_detail", "pvo", boardService.getPostDetailNoHits(pvo.getNo()));
+		return new ModelAndView("redirect:detailCurriculum.do?curNo="+curriculumVO.getCurNo());
+	}
 }
