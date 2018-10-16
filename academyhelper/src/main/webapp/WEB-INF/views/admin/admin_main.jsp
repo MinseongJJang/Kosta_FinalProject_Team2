@@ -6,4 +6,7 @@
 <sec:authentication var="mvo" property="principal" />  
  ${mvo.usrName} 관리자님  admin 메인화면입니다. 
  <a href="userList.do">회원 목록</a>
+ <%-- JB TEST --%>
+<a href="listAcademy.do">학원 목록</a>
+<a href="${pageContext.request.contextPath}/academyRegisterForm.do">등록</a>
 </sec:authorize>

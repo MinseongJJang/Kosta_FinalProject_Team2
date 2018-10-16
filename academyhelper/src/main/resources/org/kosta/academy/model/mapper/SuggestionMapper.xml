@@ -4,5 +4,34 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.SuggestionMapper">
-
+	<insert id="registerSuggestionPost" parameterType="suggestionPostVO">
+		insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
+		values(suggestion_post_seq.nextval,#{sugTitle},#{sugContent},SYSDATE,#{userVO.usrId})
+	</insert>
+	
+	<select id="listSuggestionPost" parameterType="string" resultType="suggestionPostVO">
+	SELECT sug_no,sug_title,sug_content,sug_regdate,usr_id
+		FROM(
+		SELECT row_number() over(order by sug_no desc) rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
+		 FROM suggestion_post
+		) s where rnum between #{startRowNumber} and #{endRowNumber}
+		order by sug_no desc
+	</select>
+	<resultMap type="suggestionPostVO" id="detailSuggestionRM">
+		<result property="userVO.usrId" column="usr_id" />
+		<result property="userVO.usrName" column="usr_name" />
+	</resultMap>
+	<select id="detailSuggestionPost" resultMap="detailSuggestionRM" parameterType="string">
+		select s.sug_no,s.sug_title,s.sug_content,s.sug_regdate,u.usr_id,u.usr_name 
+		from suggestion_post s, users u 
+		where s.usr_id = u.usr_id and s.sug_no = #{value}
+	</select>
+	<update id="updateSuggestionPost" parameterType="suggestionPostVO">
+		update suggestion_post 
+		set sug_title = #{sugName}, sug_Content = #{sugContent}
+		where sug_no = #{sugNo}
+	</update>
+	<delete id="deleteSuggestionPost" parameterType="string">
+		delete from suggestion_post where sug_no = #{value}
+	</delete>
 </mapper>
