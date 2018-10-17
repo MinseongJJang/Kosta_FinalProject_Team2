@@ -11,6 +11,9 @@
 			<div style="margin-top: 100px; text-align:center;" align="center">
 				<table class="table table-hover">
 				   <thead style="text-align:center;">
+					   	<tr>
+							<td colspan="4" align="center"><h3>질문과 응답</h3></td>
+						</tr>
 				      <tr >
 				         <th class="qnaNo">NO</th>
 				         <th class="qnaTitle">제목</th>
@@ -31,7 +34,7 @@
 			      		<sec:authorize access="hasRole('ROLE_USER')">
 					      <tr>
 					      	<td>
-							   <button form="registerQNAForm" type="submit">질문 등록</button>
+							   <button form="registerQNAForm" type="submit" class="aca-btn">질문 등록</button>
 							   <form action="${pageContext.request.contextPath}/registerQNAForm.do" id="registerQNAForm" method="post">
 							      <sec:csrfInput />
 							   </form>
