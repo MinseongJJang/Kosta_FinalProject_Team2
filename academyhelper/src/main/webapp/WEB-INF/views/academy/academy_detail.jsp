@@ -45,7 +45,6 @@ $(document).ready(function(){
 		</tr>
 	</table>
 		<table>
-		<caption>목록</caption>
 		<thead>
 			<tr>
 				<th class="curNo">NO</th>
