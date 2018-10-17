@@ -10,4 +10,8 @@ import org.kosta.academy.model.vo.AcaQNAVO;
 public interface QNAMapper {
 	public int getTotalQNACount();
 	public List<AcaQNAVO> listAcaQNA(PagingBean pagingBean);
+	public AcaQNAVO detailAcaQNA(String qnaNO);
+	public void deleteAcaQNA(String qnaNO);
+	public void updateAcaQNA(AcaQNAVO acaQNAVO);
+	public void registerAcaQNA(AcaQNAVO acaQNAVO);
 }

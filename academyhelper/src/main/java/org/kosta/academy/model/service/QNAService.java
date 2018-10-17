@@ -34,7 +34,7 @@ public interface QNAService {
 	 * QNA를 삭제하는 메소드
 	 * @param acaQNAVO
 	 */
-	public void deleteAcaQNA(AcaQNAVO acaQNAVO);
+	public void deleteAcaQNA(String qnaNo);
 	/**
 	 * QNA 댓글을 등록하는 메소드
 	 * @param acaQNAReplyVO

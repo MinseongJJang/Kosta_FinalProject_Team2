@@ -71,12 +71,5 @@ public interface AcademyService {
 	 * @param curNo
 	 */
 	public void deleteCurriculum(String curNo);
-	
-	/**
-	 * 교육과정 총 개수를 구하는 메소드
-	 * @return
-	 */
-	public int getTotalCurriculumCount();
-	
 
 }
