@@ -33,7 +33,7 @@
 				      </c:forEach>
 			      		<sec:authorize access="hasRole('ROLE_USER')">
 					      <tr>
-					      	<td>
+					      	<td colspan="4" align="right">
 							   <button form="registerQNAForm" type="submit" class="aca-btn">질문 등록</button>
 							   <form action="${pageContext.request.contextPath}/registerQNAForm.do" id="registerQNAForm" method="post">
 							      <sec:csrfInput />

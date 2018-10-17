@@ -34,10 +34,12 @@
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align:center;" align="center">
 				<table class="table">
-				   <tbody>
+					<thead>
 				   		<tr>
 							<td colspan="8" align="center"><h3>질문과 응답 상세보기</h3></td>
 						</tr>
+					</thead>
+				   <tbody>
 				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
 				         <tr>
 				            <td>글번호</td>
@@ -55,9 +57,9 @@
 				         </tr>
 			      		<sec:authorize access="hasRole('ROLE_USER')">
 					      <tr>
-					      	<td>
-							   	<button form="deleteForm" type="submit">삭제</button>
-								<button form="updateForm" type="submit">수정</button>
+					      	<td colspan="8" align="right">
+							   	<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
+								<button form="updateForm" type="submit" class="aca-btn">수정</button>
 							 	<form action="deleteAcaQNA.do" id="deleteForm" method="post">
 									<sec:csrfInput />
 									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
