@@ -23,9 +23,11 @@
      </td>
     </tr> 
      </table>    
+     <sec:authorize access="hasRole('ROLE_USER')">
      <div class="btnArea">
      <button type="submit" class="btn" >확인</button>  
      <input type="hidden" value="java" name="UserVO.usrId">
      <button type="reset" class="btn" >취소</button>   
     </div>  
+    </sec:authorize>
   </form>

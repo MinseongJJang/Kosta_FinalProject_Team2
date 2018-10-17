@@ -212,6 +212,13 @@ select q.qna_no,q.qna_title, to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate,
 from aca_qna q, users u 
 where q.usr_id=u.usr_id and qna_no='12'
 
+select q.qna_no,q.qna_title,to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, u.usr_id, u.nickname
+from(
+	select row_number() over(order by qna_no desc) as rnum,qna_no,
+	qna_title, qna_regdate,usr_id from aca_qna
+)q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
+order by q.qna_no desc
+
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
@@ -233,6 +240,14 @@ create table aca_qna_reply(
 	constraint aca_qna_rep_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 ) 
 create sequence aca_qna_reply_seq start with 1 nocache
+insert into aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id) 
+values(aca_qna_reply_seq.nextval,sysdate,'하이', '7',  'java')
+
+insert into aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id) 
+values(aca_qna_reply_seq.nextval,sysdate,'공부', '7',  'java')
+select * from aca_qna_reply
+select r.qna_rep_no, r.qna_rep_regdate, r.qna_rep_content, u.usr_id, u.nickname 
+from aca_qna_reply r,users u where r.usr_id=u.usr_id
 
 /*Q&A 파일첨부 테이블 및 시퀀스*/
 drop table aca_qna_reply_attach_file

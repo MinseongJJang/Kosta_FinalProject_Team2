@@ -9,8 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		suggestion_post
 	</select>
 	<insert id="registerSuggestionPost" parameterType="suggestionPostVO">
+	<selectKey keyProperty="sugNo" resultType="string"
+			order="BEFORE">
+			select
+			suggestion_post_seq.nextval from dual
+		</selectKey>
 		insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
-		values(suggestion_post_seq.nextval,#{sugTitle},#{sugContent},SYSDATE,#{userVO.usrId})
+		values(#{sugNo},#{sugTitle},#{sugContent},SYSDATE,#{userVO.usrId})
 	</insert>
 	
 	<select id="listSuggestionPost" parameterType="pagingBean" resultType="suggestionPostVO">

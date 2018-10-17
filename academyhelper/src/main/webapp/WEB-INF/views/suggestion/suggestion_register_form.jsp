@@ -5,6 +5,8 @@
     <div class="col-sm-8">
 <form method="post" action="${pageContext.request.contextPath}/suggestionRegister.do" id="regForm">
 <sec:csrfInput/><%-- csrf 토큰 --%>
+<input type="hidden" name="userVO.usrId" value="<sec:authentication property="principal.usrId"/>">
+
 <table class="table">
 			<tr>
 				<td>제목  &nbsp;&nbsp; <input type="text" name="sugTitle" required="required"><br>

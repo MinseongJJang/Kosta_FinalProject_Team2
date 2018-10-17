@@ -111,6 +111,6 @@ public class UserController {
 		ListVO list=userService.userList(pageNo);
 		model.addAttribute("list",list.getUserList());
 		model.addAttribute("pb",list.getPb());
-		return "admin/user_list.tiles";
+		return "user/user_list.tiles";
 	}
 }

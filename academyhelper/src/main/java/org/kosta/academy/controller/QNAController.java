@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.service.QNAService;
 import org.kosta.academy.model.vo.AcaQNAVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,31 +29,43 @@ public class QNAController {
 		model.addAttribute("detailQNA", qnaVO);
 		return "qna/qna_detail.tiles";
 	}
-	
+	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQNA.do")
 	public String deleteQna(String qnaNo, Model model) {
 		qnaService.deleteAcaQNA(qnaNo);
 		return "redirect:listAcaQNA.do";
 	}
+	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQNAForm")
 	public String updateQnaForm(String qnaNo, Model model) {
 		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
 		model.addAttribute("detailQNA", qnaVO);
 		return "qna/qna_update.tiles";
 	}
+	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQNA.do")
 	public String updateQna(AcaQNAVO acaQnaVO, Model model) {
 		qnaService.updateAcaQNA(acaQnaVO);
 		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
+	@Secured("ROLE_USER")
 	@PostMapping("registerQNAForm.do")
 	public String registerQnaForm() {
 		return "qna/qna_register.tiles";
 	}
+	@Secured("ROLE_USER")
 	@PostMapping("registerQNA.do")
 	public String registerQna(AcaQNAVO acaQnaVO) {
 		System.out.println(acaQnaVO.getUserVO().getUsrId());
 		qnaService.registerAcaQNA(acaQnaVO);
+		return "redirect:listAcaQNA.do";
+	}
+	
+	
+	@Secured("ROLE_USER")
+	@PostMapping("registerAcaQnAReply.do")
+	public String registerAcaQnAReply() {
+		//TODO 
 		return "redirect:listAcaQNA.do";
 	}
 }

@@ -55,8 +55,16 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public ListVO listAcaQNAReply(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalCount=qnaMapper.getTotalQNACount();
+		PagingBean pagingBean=null;
+		if(pageNo==null)
+			pagingBean=new PagingBean(totalCount);
+		else
+			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));		
+		ListVO vo=new ListVO();
+		vo.setAcaQNAList(qnaMapper.listAcaQNA(pagingBean));
+		vo.setPb(pagingBean);
+		return vo;
 	}
 
 	@Override
