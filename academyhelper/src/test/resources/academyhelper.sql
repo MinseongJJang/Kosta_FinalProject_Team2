@@ -11,6 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+
 select * from faq
 select sysdate from dual; 
 select*from users;
