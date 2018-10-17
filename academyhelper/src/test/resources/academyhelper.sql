@@ -60,6 +60,12 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+insert into authorities(authority,usr_id)
+values('ROLE_ADMIN','admin')
+insert into authorities(authority,usr_id)
+values('ROLE_ACADEMY','admin')
+insert into authorities(authority,usr_id)
+values('ROLE_USER','admin')
 
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
