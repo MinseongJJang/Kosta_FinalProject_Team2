@@ -39,24 +39,21 @@ $(document).ready(function(){
 		</tr>
 		<tr>
 			<td>작성자</td>
-			<td>${vo.userVO.usrName}</td>
+			<td>${vo.userVO.nickname}</td>
 		</tr>
 		<tr>
 			<td>작성일</td>
 			<td>${vo.sugRegdate}</td>
 		</tr>
 	</table>
+	<sec:authorize access="hasRole('ROLE_USER')">
 	<sec:authentication var="mvo" property="principal"/>
 	<c:if test="${mvo.usrId==vo.userVO.usrId}">
-	<sec:authorize access="hasRole('ROLE_USER')">
 	<form action="deleteSuggestionPost.do" id="deleteSug" method="post">
 	<sec:csrfInput/>
 	<input type="hidden" name="sugNo" value="${vo.sugNo}">
 	<input type="submit" value="삭제">
 	</form>
-	</sec:authorize>
-	
-	<sec:authorize access="hasRole('ROLE_USER')">
 	<form action="updateSuggestionPostForm.do" id="updateSug" method="post">
 	<sec:csrfInput/>
 	<input type="hidden" name="sugNo" value="${vo.sugNo}">
@@ -64,6 +61,6 @@ $(document).ready(function(){
 	<input type="hidden" name="sugContent" value="${vo.sugContent}">
 	<input type="submit" value="수정">	
 	</form>
-	</sec:authorize>
 	</c:if>
+	</sec:authorize>
 </div>

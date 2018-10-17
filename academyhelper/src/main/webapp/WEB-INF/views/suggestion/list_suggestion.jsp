@@ -8,7 +8,7 @@
 			<tr>
 				<th class="sugNo">NO</th>
 				<th class="sugTitle">제목</th>
-				<th class="usrName">작성자</th>
+				<th class="nickname">작성자</th>
 				<th class="sugRegdate">작성일</th>
 			</tr>
 		</thead>
@@ -19,7 +19,7 @@
 					<td>
 					<a href="${pageContext.request.contextPath}/detailSuggestionPost.do?sugNo=${list.sugNo}">${list.sugTitle}</a>
 					</td>
-					<td>${list.userVO.usrName}</td>
+					<td>${list.userVO.nickname}</td>
 					<td>${list.sugRegdate}</td>
 				</tr>
 			</c:forEach>
@@ -48,3 +48,5 @@
 			</c:if>
 		</ul>
 	</div>
+	<a href="${pageContext.request.contextPath}/suggestionRegisterForm.do">건의 게시물 등록</a>
+	
