@@ -55,6 +55,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		c.aca_no=a.aca_no and
 		c.cur_no=#{value}
 	</select>
-
-
 </mapper>

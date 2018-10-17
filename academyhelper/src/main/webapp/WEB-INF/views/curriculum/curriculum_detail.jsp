@@ -3,13 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>교육과정 상세</title>
-</head>
-<body>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#deleteForm").submit(function(){
+		if(confirm("삭제하시겠습니까?")==false){
+			return false;
+		}else{
+			return true;
+		}
+	});//submit
+	$("#updateForm").submit(function(){
+		if(confirm("수정하시겠습니까?")==false){
+			return false;
+		}else{
+			return true;
+		}
+	});//click
+});//ready
+
+</script>
 	<table>
 		<tr>
 			<td>NO: ${requestScope.DetailCurriculum.curNo }</td>
@@ -23,23 +35,10 @@
 			<td colspan="5" class="content"><pre>${requestScope.DetailCurriculum.curContent}</pre>
 			</td>
 		</tr>
-		<tr>
-			<%-- <td colspan="5" class="btnArea"><c:if
-								test="${requestScope.pvo.memberVO.id==sessionScope.mvo.id}">
-								<button form="deleteForm" type="submit">삭제</button>
-								<button form="updateForm" type="submit">수정</button>
-								<form action="deletePost.do" id="deleteForm" method="post">
-									<input type="hidden" name="no" value="${requestScope.pvo.no}">
-								</form>
-								<form action="updateView.do" id="updateForm" method="post">
-									<input type="hidden" name="no" value="${requestScope.pvo.no}">
-								</form>
-							</c:if></td> --%>
-		</tr>
 	</table>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button form="updateForm" type="submit">교육과정 수정하기</button>
-	<form action="updateCurriculum.do" id="updateForm" method="post">
+	<form action="updateCurriculumForm.do" id="updateForm" method="post">
 		<sec:csrfInput />
 		<%-- csrf 토큰 --%>
 		<input type="hidden" name="curNo"
@@ -52,7 +51,4 @@
 	</form>
 		</sec:authorize>
 	
-	<a href="${pageContext.request.contextPath}/listCurriculum.do">목록으로 돌아가기</a>
-
-</body>
-</html>
+	<a href="${pageContext.request.contextPath}/detailAcademy.do?acaNo=${requestScope.DetailCurriculum.academyVO.acaNo}">목록으로 돌아가기</a>

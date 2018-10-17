@@ -43,8 +43,7 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public AcademyVO detailAcademy(String acaNo) {
-		AcademyVO avo = academyMapper.detailAcademy(acaNo);
-		return avo;
+		return academyMapper.detailAcademy(acaNo);
 	}
 
 	@Override
@@ -71,12 +70,12 @@ public class AcademyServiceImpl implements AcademyService {
 		PagingBean pagingBean = null;
 		if(pageNo==null) {
 			 pagingBean = new PagingBean(totalCurCount);
-			map.put("acaNo", "1");
+			map.put("acaNo", acaNo);
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
 		}else {
 			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
-			map.put("acaNo", "1");
+			map.put("acaNo", acaNo);
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
 			map.put("pageNo", pagingBean.getNowPage());
@@ -90,8 +89,7 @@ public class AcademyServiceImpl implements AcademyService {
 
 	@Override
 	public CurriculumVO detailCurriculum(String curNo) {
-		CurriculumVO detailCurriculum = curriculumMapper.detailCurriculum(curNo);
-		return detailCurriculum;
+		return curriculumMapper.detailCurriculum(curNo);
 	}
 
 	@Override
@@ -104,12 +102,4 @@ public class AcademyServiceImpl implements AcademyService {
 		curriculumMapper.deleteCurriculum(curNo);
 	}
 
-	@Override
-	public int getTotalCurriculumCount() {
-		// TODO Auto-generated method stub
-		int totalCount = 0;
-		totalCount = curriculumMapper.getTotalCurriculumCount();
-		return totalCount;
-
-	}
 }

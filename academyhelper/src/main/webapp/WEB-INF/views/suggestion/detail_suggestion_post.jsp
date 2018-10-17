@@ -5,15 +5,19 @@
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#deleteAca").submit(function(){
+	$("#deleteSug").submit(function(){
 		if(confirm("삭제하시겠습니까?")==false){
 			return false;
 		}else{
 			return true;
 		}
 	});//submit
-	$("#updateAca").submit(function(){
-		
+	$("#updateSug").submit(function(){
+		if(confirm("수정하시겠습니까?")==false){
+			return false;
+		}else{
+			return true;
+		}
 	});//click
 });//ready
 
@@ -45,7 +49,7 @@ $(document).ready(function(){
 	<sec:authentication var="mvo" property="principal"/>
 	<c:if test="${mvo.usrId==vo.userVO.usrId}">
 	<sec:authorize access="hasRole('ROLE_USER')">
-	<form action="deleteSuggestionPost.do" id="deleteAca" method="post">
+	<form action="deleteSuggestionPost.do" id="deleteSug" method="post">
 	<sec:csrfInput/>
 	<input type="hidden" name="sugNo" value="${vo.sugNo}">
 	<input type="submit" value="삭제">
@@ -53,7 +57,7 @@ $(document).ready(function(){
 	</sec:authorize>
 	
 	<sec:authorize access="hasRole('ROLE_USER')">
-	<form action="updateSuggestionPostForm.do" id="updateAca" method="post">
+	<form action="updateSuggestionPostForm.do" id="updateSug" method="post">
 	<sec:csrfInput/>
 	<input type="hidden" name="sugNo" value="${vo.sugNo}">
 	<input type="hidden" name="sugTitle" value="${vo.sugTitle}">

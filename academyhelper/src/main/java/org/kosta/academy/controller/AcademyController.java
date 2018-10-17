@@ -2,12 +2,10 @@ package org.kosta.academy.controller;
 
 import javax.annotation.Resource;
 
-import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AcademyController {
 	@Resource
 	private AcademyService academyService;
-	@Autowired
-	private AcademyMapper academyMapper;
 
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerAcademy.do")
@@ -96,51 +92,45 @@ public class AcademyController {
 	}
 
 	@RequestMapping("registerCurriculumForm.do")
-	public String writeForm() {
-		return "curriculum/curriculum_register.tiles";
+	public String registerCurriculumForm(String acaNo, Model model) {
+		model.addAttribute("acaNo",acaNo);
+		return "curriculum/curriculum_register_form.tiles";
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
-	public String registerCurriculum( CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
-		AcademyVO academyVO = academyMapper.detailAcademy("1");
-		curriculumVO.setAcademyVO(academyVO);
+	public String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		academyService.registerCurriculum(curriculumVO);
-
-		redirectAttributes.addAttribute("no", curriculumVO.getCurNo());
-		String no = curriculumVO.getCurNo();
+		redirectAttributes.addAttribute("curNo", curriculumVO.getCurNo());
 		return "redirect:register-curriculum.do";
-		/*
-		 * return new ModelAndView("curriculum/curriculum_detail", "pvo",
-		 * academyService.detailCurriculum(no));
-		 */ }
-	
+		}
 	
 	@Secured("ROLE_ADMIN")
-	@PostMapping("updateCurriculum.do")
-	public ModelAndView updateView(String curNo) {
-		return new ModelAndView("curriculum/curriculum_update.tiles", "DetailCurriculum",
+	@RequestMapping("register-curriculum.do")
+	public String postDetailNoHits(String curNo) {
+		return "redirect:detailCurriculum.do?curNo="+curNo;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@PostMapping("updateCurriculumForm.do")
+	public ModelAndView updateCurriculumForm(String curNo) {
+		return new ModelAndView("curriculum/curriculum_update_form.tiles", "DetailCurriculum",
 				academyService.detailCurriculum(curNo));
 	}
 	
 	@Secured("ROLE_ADMIN")
-	@PostMapping("updateCurriculumPost.do")
-	public ModelAndView updatePost(CurriculumVO curriculumVO) {
-		System.out.println(curriculumVO);
-		AcademyVO academyVO = academyMapper.detailAcademy("1");
-		curriculumVO.setAcademyVO(academyVO);
-		System.out.println(curriculumVO);
+	@PostMapping("updateCurriculum.do")
+	public ModelAndView updateCurriculum(CurriculumVO curriculumVO) {
 		academyService.updateCurriculum(curriculumVO);
-		// return new ModelAndView("board/post_detail", "pvo",
-		// boardService.getPostDetailNoHits(pvo.getNo()));
 		return new ModelAndView("redirect:detailCurriculum.do?curNo=" + curriculumVO.getCurNo());
 	}
 	@Secured("ROLE_ADMIN")
 	@PostMapping("deleteCurriculum.do")
-	public ModelAndView deletePost(String curNo) {
+	public ModelAndView deleteCurriculum(String curNo) {
+		CurriculumVO curVO=academyService.detailCurriculum(curNo);
+		String acaNo=curVO.getAcademyVO().getAcaNo();
 		academyService.deleteCurriculum(curNo);
-		//return new ModelAndView("board/list", "lvo", boardService.getPostList());
-		return new ModelAndView("redirect:listCurriculum.do");
+		return new ModelAndView("redirect:detailAcademy.do?acaNo="+acaNo);
 	}
 
 
