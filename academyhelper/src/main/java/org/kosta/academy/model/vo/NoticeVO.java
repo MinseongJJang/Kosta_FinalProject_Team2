@@ -2,7 +2,7 @@ package org.kosta.academy.model.vo;
 
 public class NoticeVO {
 	private String noticeNo;
-	private String noticeTilte;
+	private String noticeTitle;
 	private String noticeContent;
 	private String noticeRegdate;
 	private UserVO userVO;
@@ -10,10 +10,10 @@ public class NoticeVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public NoticeVO(String noticeNo, String noticeTilte, String noticeContent, String noticeRegdate, UserVO userVO) {
+	public NoticeVO(String noticeNo, String noticeTitle, String noticeContent, String noticeRegdate, UserVO userVO) {
 		super();
 		this.noticeNo = noticeNo;
-		this.noticeTilte = noticeTilte;
+		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.noticeRegdate = noticeRegdate;
 		this.userVO = userVO;
@@ -24,11 +24,11 @@ public class NoticeVO {
 	public void setNoticeNo(String noticeNo) {
 		this.noticeNo = noticeNo;
 	}
-	public String getNoticeTilte() {
-		return noticeTilte;
+	public String getNoticeTitle() {
+		return noticeTitle;
 	}
-	public void setNoticeTilte(String noticeTilte) {
-		this.noticeTilte = noticeTilte;
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
 	}
 	public String getNoticeContent() {
 		return noticeContent;
@@ -50,7 +50,7 @@ public class NoticeVO {
 	}
 	@Override
 	public String toString() {
-		return "NoticeVO [noticeNo=" + noticeNo + ", noticeTilte=" + noticeTilte + ", noticeContent=" + noticeContent
+		return "NoticeVO [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", noticeRegdate=" + noticeRegdate + ", userVO=" + userVO + "]";
 	}
 	

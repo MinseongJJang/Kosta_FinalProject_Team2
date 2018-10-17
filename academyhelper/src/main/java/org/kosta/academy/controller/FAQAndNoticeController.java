@@ -5,8 +5,9 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.service.FAQAndNotiAndSugService;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
-import org.kosta.academy.model.vo.UserVO;
+import org.kosta.academy.model.vo.NoticeVO;
 import org.kosta.academy.model.vo.SuggestionPostVO;
+import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +51,50 @@ public class FAQAndNoticeController {
 		faqVO.setUserVO(userVO);
 		fAQAndNotiAndSugService.registerFAQ(faqVO);
 		return "redirect:listFAQ.do";
+	}
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("registerNotice.do")
+	public String registerNotice(NoticeVO noticeVO) {
+		UserVO userVO=new UserVO();
+		userVO.setUsrId("admin");
+		noticeVO.setUserVO(userVO);
+		fAQAndNotiAndSugService.registerNotice(noticeVO);
+		return "redirect:listNotice.do";
+	}
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("registerNoticeForm.do")
+	public String registerNoticeForm() {
+		return "notice/register_notice_form.tiles";
+	}
+	@RequestMapping("listNotice.do")
+	public String listNotice(String pageNo,Model model) {
+		ListVO lvo = fAQAndNotiAndSugService.listNotice(pageNo);
+		model.addAttribute("lvo", lvo);
+		return "notice/noticeList.tiles";
+	}
+	@RequestMapping("detailNotice.do")
+	public String detailNotice(String noticeNo,Model model) {
+		NoticeVO nvo=fAQAndNotiAndSugService.detailNotice(noticeNo);
+		model.addAttribute("nvo", nvo);
+		return "notice/notice_detail.tiles";
+	}
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("updateNoticeForm.do")
+	public String updateNoticeForm(String noticeNo,Model model) {
+		model.addAttribute("nvo", fAQAndNotiAndSugService.detailNotice(noticeNo));
+		return "notice/update_notice_form.tiles";
+	}
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("updateNotice.do")
+	public String updateNotice(NoticeVO noticeVO) {
+		fAQAndNotiAndSugService.updateNotice(noticeVO);
+		return "redirect:listNotice.do";
+	}
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deleteNotice.do")
+	public String deleteNotice(String noticeNo) {
+		fAQAndNotiAndSugService.deleteNotice(noticeNo);
+		return "redirect:listNotice.do";
 	}
 	@Secured("ROLE_USER")
 	@RequestMapping("suggestionRegisterForm.do")

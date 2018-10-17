@@ -33,6 +33,7 @@ create table aca_users(
 )
 
 /*공지사항 테이블 및 시퀀스*/
+drop table notice
 create table notice(
 	notice_no number primary key,
 	notice_title varchar2(100) not null,
@@ -41,9 +42,14 @@ create table notice(
 	usr_id varchar2(100) not null,
 	constraint notice_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+drop sequence notice_seq
 create sequence notice_seq start with 1 nocache
-
+insert into notice(notice_no,notice_title,notice_content,notice_regdate,usr_id)
+values(notice_seq.nextval,'제목','내용',sysdate,'java')
+select count(*) from notice
+select * from users
 /* 공지사항파일첨부 및 시퀀스*/
+drop table notice_attach_file
 create table notice_attach_file(
 	notice_att_no number primary key,
 	notice_filepath varchar2(100) not null,
@@ -51,6 +57,12 @@ create table notice_attach_file(
 	constraint notice_attach_file_fk foreign key(notice_no) references notice(notice_no) on delete cascade
 )
 create sequence notice_attach_file_seq start with 1 nocache
+
+select n.notice_no,n.notice_title,n.notice_content,n.notice_regdate,u.usr_id,u.usr_name
+		from (select notice_no,row_number() over(order by notice_no desc) as rnum,
+		notice_title,notice_content,notice_regdate,usr_id from notice) n, users u
+		where n.usr_id=u.usr_id and rnum between 1 and 10
+		order by notice_no desc
 
 /*권한 테이블*/
 drop table authorities
@@ -61,11 +73,13 @@ create table authorities(
 	constraint authorities_pk primary key(usr_id,authority)
 )
 insert into authorities(authority,usr_id)
-values('ROLE_ADMIN','admin')
+values('ROLE_ADMIN','admin1')
 insert into authorities(authority,usr_id)
-values('ROLE_ACADEMY','admin')
+values('ROLE_ACADEMY','admin1')
 insert into authorities(authority,usr_id)
-values('ROLE_USER','admin')
+values('ROLE_USER','admin1')
+
+select * from AUTHORITIES
 
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
