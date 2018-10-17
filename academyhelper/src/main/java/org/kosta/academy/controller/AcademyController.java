@@ -90,7 +90,7 @@ public class AcademyController {
 		model.addAttribute("DetailCurriculum", detailCurriculum);
 		return "curriculum/curriculum_detail.tiles";
 	}
-
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerCurriculumForm.do")
 	public String registerCurriculumForm(String acaNo, Model model) {
 		model.addAttribute("acaNo",acaNo);
