@@ -12,7 +12,7 @@
 			<th class="qnaNo">NO</th>
 			<th class="qnaTitle">제목</th>
 			<th class="qnaRegdate">등록일</th>
-			<th class="nickname">작성자 닉네임</th>
+			<th class="nickname">작성자</th>
 		</tr>
 	</thead>
 
@@ -30,7 +30,6 @@
 	</tbody>
 </table>
 <sec:authorize access="hasRole('ROLE_USER')">
-
 	<button form="registerQNAForm" type="submit">질문 등록</button>
 	<form action="${pageContext.request.contextPath}/registerQNAForm.do"
 		id="registerQNAForm" method="post">
