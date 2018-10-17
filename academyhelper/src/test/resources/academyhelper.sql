@@ -226,6 +226,14 @@ create table aca_qna_reply(
 	constraint aca_qna_rep_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 ) 
 create sequence aca_qna_reply_seq start with 1 nocache
+insert into aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id) 
+values(aca_qna_reply_seq.nextval,sysdate,'하이', '7',  'java')
+
+insert into aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id) 
+values(aca_qna_reply_seq.nextval,sysdate,'공부', '7',  'java')
+select * from aca_qna_reply
+select r.qna_rep_no, r.qna_rep_regdate, r.qna_rep_content, u.usr_id, u.nickname 
+from aca_qna_reply r,users u where r.usr_id=u.usr_id
 
 /*Q&A 파일첨부 테이블 및 시퀀스*/
 drop table aca_qna_reply_attach_file

@@ -60,4 +60,12 @@ public class QNAController {
 		qnaService.registerAcaQNA(acaQnaVO);
 		return "redirect:listAcaQNA.do";
 	}
+	
+	
+	@Secured("ROLE_USER")
+	@PostMapping("registerAcaQnAReply.do")
+	public String registerAcaQnAReply() {
+		//TODO 
+		return "redirect:listAcaQNA.do";
+	}
 }

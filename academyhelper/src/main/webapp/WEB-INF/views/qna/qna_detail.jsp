@@ -62,7 +62,7 @@
 		<sec:csrfInput />
 
 		<div class="form-group">
-			<label for="comment">댓글달기:</label>
+			<label for="comment">댓글</label>
 			<textarea class="form-control" rows="1" id="replycontent"
 				name="replycontent" placeholder="댓글을 입력하세요"></textarea>
 		</div>
