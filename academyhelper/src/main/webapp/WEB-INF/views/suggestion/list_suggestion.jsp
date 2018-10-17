@@ -61,7 +61,8 @@
 						         </c:choose>
 						      </c:forEach>
 						      <c:if test="${pb.nextPageGroup}">
-						         <li>a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						         	
 						      </c:if>
 						   </ul>
 						</div>
