@@ -41,25 +41,33 @@ public class FAQAndNoticeController {
 	@RequestMapping("listSuggestionPost.do")
 	public String listSuggestionPost(String pageNo,Model model) {
 		ListVO list=fAQAndNotiAndSugService.listSuggestionPost(pageNo);
-		model.addAttribute("list",list);
+		model.addAttribute("list",list.getSuggestionPostList());
+		model.addAttribute("pb",list.getPb());
 		return "suggestion/list_suggestion.tiles";
 	}
 	@RequestMapping("detailSuggestionPost.do")
 	public String detailSuggestionPost(String sugNo,Model model) {
 		SuggestionPostVO vo=fAQAndNotiAndSugService.detailSuggestionPost(sugNo);
 		model.addAttribute("vo",vo);
-		return "suggestion/detailSuggestionPost.tiles";
+		return "suggestion/detail_suggestion_post.tiles";
 	}
-	@PostMapping("updateSuggestionPostForm")
-	public String updateSuggestionPostForm() {
-		return "";
+	@Secured("ROLE_USER")
+	@PostMapping("updateSuggestionPostForm.do")
+	public String updateSuggestionPostForm(SuggestionPostVO suggestionPostVO,Model model) {
+		model.addAttribute("vo",suggestionPostVO);
+		return "suggestion/update_suggestion_post_form.tiles";
 	}
-	@RequestMapping("updateSuggestionPost")
-	public String updateSuggestionPost() {
-		return "";
+	@Secured("ROLE_USER")
+	@PostMapping("updateSuggestionPost.do")
+	public String updateSuggestionPost(SuggestionPostVO suggestionPostVO) {
+		fAQAndNotiAndSugService.updateSuggestionPost(suggestionPostVO);
+		String sugNo=suggestionPostVO.getSugNo();
+		return "redirect:detailSuggestionPost.do?sugNo="+sugNo;
 	}
-	@RequestMapping("deleteSuggestionPost")
-	public String deleteSuggestionPost() {
-		return "";
+	@Secured("ROLE_USER")
+	@PostMapping("deleteSuggestionPost.do")
+	public String deleteSuggestionPost(String sugNo) {
+		fAQAndNotiAndSugService.deleteSuggestionPost(sugNo);
+		return "redirect:listSuggestionPost.do";
 	}
 }

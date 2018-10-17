@@ -47,11 +47,15 @@ public class AcademyController {
 		model.addAttribute("pagingBean", listVO.getPb());
 		return "academy/academy_list.tiles";
 	}
-
+	
 	@RequestMapping("detailAcademy.do")
-	public String detailAcademy(String acaNo, Model model) {
+	public String detailAcademy(String acaNo, Model model, String pageNo) {
 		AcademyVO acdemyVO = academyService.detailAcademy(acaNo);
+		ListVO listVO = academyService.listCurriculum(acaNo, pageNo);
+		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
+		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
+		
 		return "academy/academy_detail.tiles";
 	}
 	@Secured("ROLE_ADMIN")
@@ -74,13 +78,13 @@ public class AcademyController {
 		return "redirect:listAcademy.do";
 	}
 
-	@RequestMapping("listCurriculum.do")
+/*	@RequestMapping("listCurriculum.do")
 	public String listCurriculum(String acaNo, String pageNo, Model model) {
 		ListVO listVO = academyService.listCurriculum(acaNo, pageNo);
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		return "curriculum/curriculum_list";
-	}
+	}*/
 
 
 	@RequestMapping("detailCurriculum.do")
@@ -96,12 +100,7 @@ public class AcademyController {
 	}
 
 	@PostMapping("registerCurriculum.do")
-	public String registerCurriculum(/* HttpSession session, */ CurriculumVO curriculumVO,
-			RedirectAttributes redirectAttributes) {
-		/*
-		 * MemberVO mvo = (MemberVO) session.getAttribute("mvo"); if (mvo != null) {
-		 * postVO.setMemberVO(mvo); }
-		 */
+	public String registerCurriculum( CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		AcademyVO academyVO = academyMapper.detailAcademy("1");
 		curriculumVO.setAcademyVO(academyVO);
 		academyService.registerCurriculum(curriculumVO);
@@ -116,7 +115,6 @@ public class AcademyController {
 
 	@RequestMapping("register-curriculum.do")
 	public ModelAndView postDetailNoHits(String no) {
-		System.out.println(no);
 		return new ModelAndView("curriculum/curriculum_detail", "DetailCurriculum",
 				academyService.detailCurriculum(no));
 	}

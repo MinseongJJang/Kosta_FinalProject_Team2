@@ -30,7 +30,7 @@ public class SYUnit {
 		ListVO list=userService.userList(pageNo);
 		
 			System.out.println(list.getUserList());*/
-	//SuggestionPostVO suggestionPostVO = new SuggestionPostVO("하이", "이하이", "2018", new UserVO("java"));
+	//SuggestionPostVO suggestionPostVO = new SuggestionPostVO("하이", "이하이", "2018", new UserVO("java0",null,null,null,0, null,null,null,null,null));
 	//suggestionPostVO.setSugNo("1");
 	//suggestionPostVO.setSugTitle("하이");
 	//suggestionPostVO.setSugContent("이하이");

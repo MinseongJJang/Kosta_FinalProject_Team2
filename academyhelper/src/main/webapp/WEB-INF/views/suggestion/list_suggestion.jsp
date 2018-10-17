@@ -4,30 +4,30 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <table>
-		<caption>목록</caption>
 		<thead>
 			<tr>
 				<th class="sugNo">NO</th>
 				<th class="sugTitle">제목</th>
-				<th class="usrName">번호</th>
+				<th class="usrName">작성자</th>
+				<th class="sugRegdate">작성일</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="sug"  items="${list}">
+			<c:forEach var="list" items="${list}">
 				<tr>
-					<td>${academy.acaNo }</td>
+					<td>${list.sugNo}</td>
 					<td>
-					<a href="${pageContext.request.contextPath}/detailSuggestionPost.do?acaNo=${academy.acaNo}">${academy.acaName }</a>
+					<a href="${pageContext.request.contextPath}/detailSuggestionPost.do?sugNo=${list.sugNo}">${list.sugTitle}</a>
 					</td>
-					<td>${academy.acaAddr }</td>
-					<td>${academy.acaTel }</td>
+					<td>${list.userVO.usrName}</td>
+					<td>${list.sugRegdate}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<br></br>
 	<div class="pagingInfo">
-		<c:set var="pb" value="${requestScope.pagingBean}"></c:set>
+		<c:set var="pb" value="${requestScope.pb}"></c:set>
 		<ul class="pagination">
 			<c:if test="${pb.previousPageGroup}">
 				<li><a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>

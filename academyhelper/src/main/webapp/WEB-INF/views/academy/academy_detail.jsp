@@ -38,22 +38,6 @@ $(document).ready(function(){
 			<td>${de.acaTel}</td>
 		</tr>
 		<tr>
-			<td>이메일</td>
-			<td>${de.userVO.usrEmail}</td>
-		</tr>
-		<tr>
-			<td>전화번호</td>
-			<td>${de.userVO.usrTel}</td>
-		</tr>
-		<tr>
-			<td>닉네임</td>
-			<td>${de.userVO.nickname}</td>
-		</tr>
-		<tr>
-			<td>아이디</td>
-			<td>${de.userVO.usrId}</td>
-		</tr>
-		<tr>
 			<td colspan="2">시설 사진</td>
 		</tr>
 		<tr>
