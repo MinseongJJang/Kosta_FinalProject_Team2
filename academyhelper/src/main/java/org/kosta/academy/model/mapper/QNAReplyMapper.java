@@ -10,5 +10,8 @@ import org.kosta.academy.model.vo.AcaQNAReplyVO;
 public interface QNAReplyMapper {
 	public List<AcaQNAReplyVO> listAcaQnAReply(PagingBean pagingBean);
 	public int getTotalQNAReplyCount();
-	 
+	public void registerAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
+	public void deleteAcaQnAReply(String qnaRepNo);
+	
 }
