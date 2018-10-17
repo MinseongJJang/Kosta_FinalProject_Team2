@@ -6,6 +6,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2"></div>
+	    <div class="col-sm-8">
+	    	<form action="registerFAQForm.do" method="get">
+	    	<input type="submit" value="글등록">
+	    	</form>
+	    </div>
+   	    <div class="col-sm-2"></div>
+    </div>
+	<div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
 		<c:forEach var="pvo" varStatus="i" items="${requestScope.lvo.faqList}">		
@@ -18,7 +28,7 @@
 			          <a data-toggle="collapse" data-parent="#accordion" href="#collapse${i.index}">${pvo.faqTitle }</a>
 			        </div>
 			        <div class="col-sm-1"><a href="deleteFAQ.do?faqNo=${pvo.faqNo }">삭제</a></div>
-			        <div class="col-sm-1"><a href="updateFAQ.do?faqNo=${pvo.faqNo }">수정</a></div>
+			        <div class="col-sm-1"><a href="updateFAQForm.do?faqNo=${pvo.faqNo }">수정</a></div>
 			        </div>
 			      </div>
 			      <div id="collapse${i.index}" class="panel-collapse collapse">
@@ -32,6 +42,7 @@
 			    </div>
 			    </div>
 		</c:forEach>	
+		</div>
 <div class="pagingInfo">
 	<%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 	<c:set var="pb" value="${requestScope.lvo.pb}"></c:set>

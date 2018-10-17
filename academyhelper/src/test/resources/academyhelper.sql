@@ -11,12 +11,13 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
-
+select * from faq
 select sysdate from dual; 
 select*from users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
 values('java','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
-
+insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
+values('admin','1','관리자','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
 insert into users(usr_id, usr_pass, usr_name, usr_addr, nickname, birthday, usr_regdate, usr_email, usr_tel) 
 values('java', '1', 'name', 'gg', 'nick', 'birth', '2018-10-12', 'email', 'tel')
 
@@ -121,6 +122,12 @@ create table faq(
 )
 create sequence faq_seq start with 1 nocache
 
+select f.faq_no,f.faq_title,f.faq_content,f.faq_regdate,u.usr_id
+from (select faq_no,row_number() over(order by faq_no desc) as rnum,
+faq_title,faq_content,faq_regdate,usr_id from faq) f, users u
+where f.usr_id=u.usr_id and rnum between 1 and 5
+order by faq_no desc
+
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
 values(faq_seq.nextval,'제목','내용',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
@@ -165,7 +172,7 @@ create table aca_qna(
 select * from aca_qna
 alter table aca_qna drop column aca_no
 alter table aca_qna drop constraint aca_qna_ffk
-
+select qna_no, qna_title, qna_content, qna_regdate, usr_id from aca_qna where qna_no='12';
 create sequence aca_qna_seq start with 1 nocache
 insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문1', '질문1내용', sysdate, 'java')
 insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문2', '질문2내용', sysdate, 'java')
@@ -181,6 +188,10 @@ from(
 )q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
 order by q.qna_no desc
 	               
+select q.qna_no,q.qna_title, to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, q.qna_content, u.usr_id
+from aca_qna q, users u 
+where q.usr_id=u.usr_id and qna_no='12'
+
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,

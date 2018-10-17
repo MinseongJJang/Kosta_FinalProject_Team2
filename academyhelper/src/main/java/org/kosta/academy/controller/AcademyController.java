@@ -87,18 +87,20 @@ public class AcademyController {
 	}*/
 
 
+
 	@RequestMapping("detailCurriculum.do")
 	public String detailCurriculum(String curNo, Model model) {
 		CurriculumVO detailCurriculum = academyService.detailCurriculum(curNo);
 		model.addAttribute("DetailCurriculum", detailCurriculum);
-		return "curriculum/curriculum_detail";
+		return "curriculum/curriculum_detail.tiles";
 	}
 
 	@RequestMapping("registerCurriculumForm.do")
 	public String writeForm() {
-		return "curriculum/curriculum_register";
+		return "curriculum/curriculum_register.tiles";
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
 	public String registerCurriculum( CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		AcademyVO academyVO = academyMapper.detailAcademy("1");
@@ -112,19 +114,16 @@ public class AcademyController {
 		 * return new ModelAndView("curriculum/curriculum_detail", "pvo",
 		 * academyService.detailCurriculum(no));
 		 */ }
-
-	@RequestMapping("register-curriculum.do")
-	public ModelAndView postDetailNoHits(String no) {
-		return new ModelAndView("curriculum/curriculum_detail", "DetailCurriculum",
-				academyService.detailCurriculum(no));
-	}
-
+	
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculum.do")
 	public ModelAndView updateView(String curNo) {
-		return new ModelAndView("curriculum/curriculum_update", "DetailCurriculum",
+		return new ModelAndView("curriculum/curriculum_update.tiles", "DetailCurriculum",
 				academyService.detailCurriculum(curNo));
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculumPost.do")
 	public ModelAndView updatePost(CurriculumVO curriculumVO) {
 		System.out.println(curriculumVO);
@@ -136,6 +135,7 @@ public class AcademyController {
 		// boardService.getPostDetailNoHits(pvo.getNo()));
 		return new ModelAndView("redirect:detailCurriculum.do?curNo=" + curriculumVO.getCurNo());
 	}
+	@Secured("ROLE_ADMIN")
 	@PostMapping("deleteCurriculum.do")
 	public ModelAndView deletePost(String curNo) {
 		academyService.deleteCurriculum(curNo);

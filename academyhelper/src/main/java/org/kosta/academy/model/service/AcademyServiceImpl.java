@@ -75,7 +75,6 @@ public class AcademyServiceImpl implements AcademyService {
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
 		}else {
-			
 			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
 			map.put("acaNo", "1");
 			map.put("start", pagingBean.getStartRowNumber());

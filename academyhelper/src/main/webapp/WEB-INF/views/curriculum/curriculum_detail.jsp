@@ -37,6 +37,7 @@
 							</c:if></td> --%>
 		</tr>
 	</table>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button form="updateForm" type="submit">교육과정 수정하기</button>
 	<form action="updateCurriculum.do" id="updateForm" method="post">
 		<sec:csrfInput />
@@ -49,6 +50,7 @@
 		<sec:csrfInput />
 		<input type="hidden" name="curNo" value="${requestScope.DetailCurriculum.curNo}">
 	</form>
+		</sec:authorize>
 	
 	<a href="${pageContext.request.contextPath}/listCurriculum.do">목록으로 돌아가기</a>
 
