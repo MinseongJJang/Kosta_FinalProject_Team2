@@ -23,13 +23,9 @@ public class AcademyController {
 	@PostMapping("registerAcademy.do")
 	public String registerAcademy(AcademyVO academyVO) {
 		academyService.registerAcademy(academyVO);
-		return "redirect:academyRegisterResult.do";
+		return "redirect:detailAcademy.do?acaNo="+academyVO.getAcaNo();
 	}
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("academyRegisterResult.do")
-	public String academyRegisterResult() {
-		return "academy/academy_register_result.tiles";
-	}
+
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("academyRegisterForm.do")
 	public String academyRegisterForm() {

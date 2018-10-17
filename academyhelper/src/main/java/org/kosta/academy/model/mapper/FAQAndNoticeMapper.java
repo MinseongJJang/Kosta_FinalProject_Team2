@@ -16,4 +16,9 @@ public interface FAQAndNoticeMapper {
 	public void deleteFAQ(String faqNo);
 	public void registerNotice(NoticeVO noticeVO);
 	public int getTotalFaqCount();
+	public int getTotalNoticeCount();
+	public List<NoticeVO> listNotice(PagingBean pb);
+	public NoticeVO detailNotice(String noticeNo);
+	public void updateNotice(NoticeVO noticeVO);
+	public void deleteNotice(String noticeNo);
 }

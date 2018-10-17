@@ -66,25 +66,36 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 
 	@Override
 	public ListVO listNotice(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalPostCount=faqAndNoticeMapper.getTotalNoticeCount();
+		PagingBean pb=null;
+		if(pageNo==null) {
+			pb=new PagingBean(totalPostCount);
+		}else {
+			pb= new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+		}
+		List<NoticeVO> list=faqAndNoticeMapper.listNotice(pb);
+		ListVO listVO=new ListVO();
+		listVO.setNoticeList(list);
+		listVO.setPb(pb);
+		System.out.println(listVO);
+		return listVO;
 	}
 
 	@Override
 	public NoticeVO detailNotice(String noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
+		NoticeVO nvo=faqAndNoticeMapper.detailNotice(noticeNo);
+		return nvo;
 	}
 
 	@Override
 	public void updateNotice(NoticeVO noticeVO) {
-		// TODO Auto-generated method stub
+		faqAndNoticeMapper.updateNotice(noticeVO);
 		
 	}
 
 	@Override
 	public void deleteNotice(String noticeNo) {
-		// TODO Auto-generated method stub
+		faqAndNoticeMapper.deleteNotice(noticeNo);
 		
 	}
 

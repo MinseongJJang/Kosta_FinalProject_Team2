@@ -4,8 +4,16 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var checkResultId="";
+		var checkResultPass="";
 		$("#regForm :input[name=usrId]").keyup(function(){
 			var usrId=$(this).val().trim();
+			var idReg = /^[a-zA-Z]+[a-z0-9A-Z]{3,19}$/g;
+			if( !idReg.test( usrId ) ){
+				$("#idCheckView").html("아이디는 영소문자로 시작하는 4~20자 영문자 또는 숫자이어야 합니다.").css(
+						"background","red");
+				checkResultId="";
+				return;
+			}
 			if(usrId.length<4 || usrId.length>10){
 				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css("background","pink");
 				checkResultId="";
@@ -31,6 +39,16 @@
 				}//callback			
 			});//ajax
 		});//keyup
+		$("#regForm :input[name=usrPassRepeat]").keyup(function(){
+			if($("input[name=usrPass]").val()==$("input[name=usrPassRepeat]").val()){
+				$("#passCheckView").html("일치!").css("background","green");
+				checkResultPass="";
+				return;
+			}else{
+				$("#passCheckView").html("불일치!").css("background","red");
+				checkResultPass="";
+			}
+		});//keyup
 	});//ready
 </script>
 <style>
@@ -54,9 +72,7 @@ table td{
 						<td colspan="2" align="center"><h3>일반 회원 가입</h3></td>
 					</tr>
 					<tr>
-						<td>
-							아이디
-						</td>
+						<td>아이디</td>
 						<td>
 							<input type="text" name="usrId" id="usrId" required="required">
 						</td>
@@ -69,8 +85,19 @@ table td{
 							비밀번호
 						</td>
 						<td>
-							 <input type="password" name="usrPass" required="required">
+							 <input type="password" name="usrPass" id="usrPass" required="required">
 						</td>
+					</tr>
+					<tr>
+						<td>
+							비밀번호 확인
+						</td>
+						<td>
+							 <input type="password" name="usrPassRepeat" id="usrPassRepeat" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td style="padding:5px;" colspan="2" align="center"><span id="passCheckView"></span></td>
 					</tr>
 					<tr>
 						<td>

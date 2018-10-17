@@ -6,6 +6,13 @@
 		var checkResultId="";
 		$("#regForm :input[id=usrId]").keyup(function(){
 			var usrId=$(this).val().trim();
+			var idReg = /^[a-zA-Z]+[a-z0-9A-Z]{3,19}$/g;
+			if( !idReg.test( usrId ) ){
+				$("#idCheckView").html("아이디는 영소문자로 시작하는 4~20자 영문자 또는 숫자이어야 합니다.").css(
+						"background","red");
+				checkResultId="";
+				return;
+			}
 			if(usrId.length<4 || usrId.length>10){
 				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css(
 						"background","pink");
@@ -31,6 +38,16 @@
 					}					
 				}//callback			
 			});//ajax
+		});//keyup
+		$("#regForm :input[name=usrPassRepeat]").keyup(function(){
+			if($("input[name=userVO.usrPass]").val()==$("input[name=userVO.usrPassRepeat]").val()){
+				$("#passCheckView").html("일치!").css("background","green");
+				checkResultPass="";
+				return;
+			}else{
+				$("#passCheckView").html("불일치!").css("background","red");
+				checkResultPass="";
+			}
 		});//keyup
 	});//ready
 </script>
@@ -72,6 +89,17 @@ table td{
 						<td>
 							 <input type="password" name="userVO.usrPass" required="required">
 						</td>
+					</tr>
+					<tr>
+						<td>
+							비밀번호 확인
+						</td>
+						<td>
+							 <input type="password" name="userVO.usrPassRepeat" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td style="padding:5px;" colspan="2" align="center"><span id="passCheckView"></span></td>
 					</tr>
 					<tr>
 						<td>
