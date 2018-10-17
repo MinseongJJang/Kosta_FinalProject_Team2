@@ -14,6 +14,7 @@ create table users(
 select * from faq
 select sysdate from dual; 
 select*from users;
+select * from aca_users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
 values('java','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
