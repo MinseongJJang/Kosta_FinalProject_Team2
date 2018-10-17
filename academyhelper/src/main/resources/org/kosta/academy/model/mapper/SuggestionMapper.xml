@@ -4,15 +4,24 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.SuggestionMapper">
+	<select id="getTotalSuggestionPostCount" resultType="int">
+		select count(*) from
+		suggestion_post
+	</select>
 	<insert id="registerSuggestionPost" parameterType="suggestionPostVO">
+	<selectKey keyProperty="sugNo" resultType="string"
+			order="BEFORE">
+			select
+			suggestion_post_seq.nextval from dual
+		</selectKey>
 		insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
-		values(suggestion_post_seq.nextval,#{sugTitle},#{sugContent},SYSDATE,#{userVO.usrId})
+		values(#{sugNo},#{sugTitle},#{sugContent},SYSDATE,#{userVO.usrId})
 	</insert>
 	
-	<select id="listSuggestionPost" parameterType="string" resultType="suggestionPostVO">
-	SELECT sug_no,sug_title,sug_content,sug_regdate,usr_id
+	<select id="listSuggestionPost" parameterType="pagingBean" resultType="suggestionPostVO">
+	SELECT s.sug_no,s.sug_title,s.sug_content,s.sug_regdate,s.usr_id
 		FROM(
-		SELECT row_number() over(order by sug_no desc) rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
+		SELECT row_number() over(order by sug_no desc) as rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
 		 FROM suggestion_post
 		) s where rnum between #{startRowNumber} and #{endRowNumber}
 		order by sug_no desc
@@ -28,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<update id="updateSuggestionPost" parameterType="suggestionPostVO">
 		update suggestion_post 
-		set sug_title = #{sugName}, sug_Content = #{sugContent}
+		set sug_title = #{sugTitle}, sug_Content = #{sugContent}
 		where sug_no = #{sugNo}
 	</update>
 	<delete id="deleteSuggestionPost" parameterType="string">

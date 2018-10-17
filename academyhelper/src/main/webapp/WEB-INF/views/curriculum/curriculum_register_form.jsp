@@ -3,24 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-</head>
-<body>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<form action="${pageContext.request.contextPath}/registerCurriculum.do"
 		method="post" id="write_form">
 		<sec:csrfInput />
 		<%-- csrf 토큰 --%>
-
+	<input type="hidden" name="academyVO.acaNo" value="${requestScope.acaNo}">
 		<table class="table">
-			<!-- <tr>
-				<td>제목 &nbsp;&nbsp; <input type="text" name="academyVO.acaNo"
-					placeholder="교육과정 제목을 입력하세요" required="required">
-				</td>
-			</tr>-->
 			<tr>
 				<td>제목 &nbsp;&nbsp; <input type="text" name="curName"
 					placeholder="교육과정 제목을 입력하세요" required="required">
@@ -46,15 +35,13 @@
 				</td>
 			</tr>
 		</table>
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		
 			<div class="btnArea">
 				<button type="submit" class="btn">확인</button>
 				<button type="reset" class="btn">취소</button>
 			</div>
-		</sec:authorize>
+		
 	</form>
-	<a href="${pageContext.request.contextPath}/listCurriculum.do">목록으로
+	<a href="${pageContext.request.contextPath}/detailAcademy.do?acaNo=${requestScope.acaNo}">목록으로
 		돌아가기</a>
-
-</body>
-</html>
+		</sec:authorize>

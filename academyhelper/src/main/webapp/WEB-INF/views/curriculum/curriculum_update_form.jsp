@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <form method="post" id="updateForm"
-	action="${pageContext.request.contextPath}/updateCurriculumPost.do">
+	action="${pageContext.request.contextPath}/updateCurriculum.do">
 	<input type="hidden" name="curNo" value="${DetailCurriculum.curNo}">
 	<sec:csrfInput />
 	<%-- csrf 토큰 --%>

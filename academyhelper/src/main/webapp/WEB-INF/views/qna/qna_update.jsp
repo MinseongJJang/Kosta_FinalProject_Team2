@@ -36,8 +36,10 @@
 			<td colspan="2"><textarea cols="90" rows="15" name="qnaContent" required="required">${detailQNA.qnaContent }</textarea></td>
 		</tr>
 	</table>
+	<sec:authorize access="hasRole('ROLE_USER')">
 	<div class="btnArea">
 		<button type="submit" class="btn">수정</button>
 		<button type="reset" class="btn">취소</button>
-	</div>					
+	</div>			
+	</sec:authorize>		
 </form>

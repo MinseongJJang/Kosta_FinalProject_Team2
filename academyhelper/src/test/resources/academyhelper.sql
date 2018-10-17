@@ -60,6 +60,12 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+insert into authorities(authority,usr_id)
+values('ROLE_ADMIN','admin')
+insert into authorities(authority,usr_id)
+values('ROLE_ACADEMY','admin')
+insert into authorities(authority,usr_id)
+values('ROLE_USER','admin')
 
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
@@ -129,17 +135,17 @@ where f.usr_id=u.usr_id and rnum between 1 and 5
 order by faq_no desc
 
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목','내용',sysdate,'java')
+values(faq_seq.nextval,'제목','내용',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목2','내용2',sysdate,'java')
+values(faq_seq.nextval,'제목2','내용2',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목3','내용3',sysdate,'java')
+values(faq_seq.nextval,'제목3','내용3',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목4','내용4',sysdate,'java')
+values(faq_seq.nextval,'제목4','내용4',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목5','내용5',sysdate,'java')
+values(faq_seq.nextval,'제목5','내용5',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목7','내용7',sysdate,'java')
+values(faq_seq.nextval,'제목7','내용7',sysdate,'java0')
 select * from faq
 
 /*학원 테이블 및 시퀀스*/
@@ -154,7 +160,7 @@ create table academy(
 create sequence academy_seq start with 1 nocache
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
-values(academy_seq.nextval,'코스타','판교','0312558779','java');
+values(academy_seq.nextval,'코스타1','판교','0312558779','java0');
 
 select*from academy;
 

@@ -24,25 +24,30 @@ public class FAQAndNoticeController {
 		model.addAttribute("lvo", lvo);
 		return "faq/faqList.tiles";
 	}
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("deleteFAQ.do")
 	public String deleteFAQ(String faqNo) {
 		fAQAndNotiAndSugService.deleteFAQ(faqNo);
 		return "redirect:listFAQ.do";
 	}
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("updateFAQForm.do")
 	public String updateFAQForm(String faqNo,Model model) {
 		model.addAttribute("fvo", fAQAndNotiAndSugService.detailFAQ(faqNo));
 		return "faq/update_faq_form.tiles";
 	}
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("updateFAQ.do")
 	public String updateFAQ(FAQVO fAQVO,Model model) {
 		fAQAndNotiAndSugService.updateFAQ(fAQVO);
 		return "redirect:listFAQ.do";
 	}
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerFAQForm.do")
 	public String registerFAQForm() {
 		return "faq/register_faq_form.tiles";
 	}
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerFAQ.do")
 	public String registerFAQ(FAQVO faqVO) {
 		UserVO userVO=new UserVO();
@@ -54,36 +59,45 @@ public class FAQAndNoticeController {
 	@Secured("ROLE_USER")
 	@RequestMapping("suggestionRegisterForm.do")
 	public String suggestionRegisterForm() {
-		return "suggestion_register_form.tiles";
+		return "suggestion/suggestion_register_form.tiles";
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("suggestionRegister.do")
 	public String suggestionRegister(SuggestionPostVO suggestionPostVO) {
 		fAQAndNotiAndSugService.registerSuggestionPost(suggestionPostVO);
-		return "redirect:home.do";
+		String sugNo=suggestionPostVO.getSugNo();
+		return "redirect:detailSuggestionPost.do?sugNo="+sugNo;
 	}
 	@RequestMapping("listSuggestionPost.do")
 	public String listSuggestionPost(String pageNo,Model model) {
 		ListVO list=fAQAndNotiAndSugService.listSuggestionPost(pageNo);
-		model.addAttribute("list",list);
+		model.addAttribute("list",list.getSuggestionPostList());
+		model.addAttribute("pb",list.getPb());
 		return "suggestion/list_suggestion.tiles";
 	}
 	@RequestMapping("detailSuggestionPost.do")
 	public String detailSuggestionPost(String sugNo,Model model) {
 		SuggestionPostVO vo=fAQAndNotiAndSugService.detailSuggestionPost(sugNo);
 		model.addAttribute("vo",vo);
-		return "suggestion/detailSuggestionPost.tiles";
+		return "suggestion/detail_suggestion_post.tiles";
 	}
-	@PostMapping("updateSuggestionPostForm")
-	public String updateSuggestionPostForm() {
-		return "";
+	@Secured("ROLE_USER")
+	@PostMapping("updateSuggestionPostForm.do")
+	public String updateSuggestionPostForm(SuggestionPostVO suggestionPostVO,Model model) {
+		model.addAttribute("vo",suggestionPostVO);
+		return "suggestion/update_suggestion_post_form.tiles";
 	}
-	@RequestMapping("updateSuggestionPost")
-	public String updateSuggestionPost() {
-		return "";
+	@Secured("ROLE_USER")
+	@PostMapping("updateSuggestionPost.do")
+	public String updateSuggestionPost(SuggestionPostVO suggestionPostVO) {
+		fAQAndNotiAndSugService.updateSuggestionPost(suggestionPostVO);
+		String sugNo=suggestionPostVO.getSugNo();
+		return "redirect:detailSuggestionPost.do?sugNo="+sugNo;
 	}
-	@RequestMapping("deleteSuggestionPost")
-	public String deleteSuggestionPost() {
-		return "";
+	@Secured("ROLE_USER")
+	@PostMapping("deleteSuggestionPost.do")
+	public String deleteSuggestionPost(String sugNo) {
+		fAQAndNotiAndSugService.deleteSuggestionPost(sugNo);
+		return "redirect:listSuggestionPost.do";
 	}
 }
