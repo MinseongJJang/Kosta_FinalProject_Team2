@@ -2340,7 +2340,7 @@ th {
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td,
 	.table>tbody>tr>td, .table>tfoot>tr>td {
-	padding: 8px;
+	padding: 15px;
 	line-height: 1.42857143;
 	vertical-align: top;
 	border-top: 1px solid #ddd
@@ -2348,7 +2348,7 @@ th {
 
 .table>thead>tr>th {
 	vertical-align: bottom;
-	border-bottom: 2px solid #ddd
+	border-bottom: 2px solid #004e92
 }
 
 .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>th,
@@ -4715,7 +4715,7 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 	padding: 6px 12px;
 	margin-left: -1px;
 	line-height: 1.42857143;
-	color: #337ab7;
+	color: #004e92;
 	text-decoration: none;
 	background-color: #fff;
 	border: 1px solid #ddd
@@ -4734,7 +4734,7 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 
 .pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus,
 	.pagination>li>span:focus {
-	color: #23527c;
+	color: #004e92;
 	background-color: #eee;
 	border-color: #ddd
 }
@@ -4745,8 +4745,8 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #337ab7;
-	border-color: #337ab7
+	background-color: #004e92;
+	border-color: #004e92
 }
 
 .pagination>.disabled>span, .pagination>.disabled>span:hover,

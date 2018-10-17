@@ -15,8 +15,7 @@
 				return;
 			}
 			if(usrId.length<4 || usrId.length>10){
-				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css(
-						"background","pink");
+				$("#idCheckView").html("아이디는 4자이상 10자 이하여야 함!").css("background","pink");
 				checkResultId="";
 				return;
 			}
