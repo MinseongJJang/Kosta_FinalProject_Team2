@@ -78,6 +78,7 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 후기</a></li>
 						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관 홍보</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="listAcademy.do">IT기관 정보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="listNotice.do">NOTICE</a></li>	
 						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcaQNA.do">질의 응답</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listSuggestionPost.do">건의</a></li>
 						<li><a class="scrollTo" data-scrollTo="contact" href="listFAQ.do">FAQ</a></li>

@@ -1,15 +1,10 @@
 package org.kosta.academy;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kosta.academy.model.mapper.FAQAndNoticeMapper;
 import org.kosta.academy.model.service.FAQAndNotiAndSugService;
-import org.kosta.academy.model.service.PagingBean;
-import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
