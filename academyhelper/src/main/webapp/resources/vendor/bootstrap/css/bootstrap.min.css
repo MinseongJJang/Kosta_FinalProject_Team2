@@ -1504,12 +1504,13 @@ pre code {
 }
 
 .table td, .table th {
-	padding: .75rem;
+	padding: 15px;
 	vertical-align: top;
 	border-top: 1px solid #dee2e6
 }
 
 .table thead th {
+	padding: 15px;
 	vertical-align: bottom;
 	border-bottom: 2px solid #dee2e6
 }
@@ -4659,28 +4660,20 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 	color: #6c757d
 }
 
-.pagination {
-	display: -ms-flexbox;
-	display: flex;
-	padding-left: 0;
-	list-style: none;
-	border-radius: .25rem
-}
-
 .page-link {
 	position: relative;
 	display: block;
 	padding: .5rem .75rem;
 	margin-left: -1px;
 	line-height: 1.25;
-	color: #007bff;
+	color: #004e92;
 	background-color: #fff;
 	border: 1px solid #dee2e6
 }
 
 .page-link:hover {
 	z-index: 2;
-	color: #0056b3;
+	color: #004e92;
 	text-decoration: none;
 	background-color: #e9ecef;
 	border-color: #dee2e6
@@ -4689,7 +4682,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .page-link:focus {
 	z-index: 2;
 	outline: 0;
-	box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
+	box-shadow: 0 0 0 .2rem rgba(0, 78, 146, .25)
 }
 
 .page-link:not (:disabled ):not (.disabled ){

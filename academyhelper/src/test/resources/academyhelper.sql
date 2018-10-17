@@ -198,6 +198,13 @@ select q.qna_no,q.qna_title, to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate,
 from aca_qna q, users u 
 where q.usr_id=u.usr_id and qna_no='12'
 
+select q.qna_no,q.qna_title,to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, u.usr_id, u.nickname
+from(
+	select row_number() over(order by qna_no desc) as rnum,qna_no,
+	qna_title, qna_regdate,usr_id from aca_qna
+)q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
+order by q.qna_no desc
+
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
