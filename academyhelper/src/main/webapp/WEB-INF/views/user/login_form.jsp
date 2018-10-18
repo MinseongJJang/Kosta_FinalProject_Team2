@@ -12,7 +12,6 @@ table td{
 	padding:20px;
 }
 </style> 
-
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-3"></div>
