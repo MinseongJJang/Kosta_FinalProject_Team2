@@ -4,12 +4,12 @@
 <div class="row main">
 	<div class="col-sm-2"></div>
 	<div class="col-sm-8">
-		<form method="post" id="updateForm"	action="${pageContext.request.contextPath}/registerFAQ.do">
+		<form method="post" id="updateForm"
+			action="${pageContext.request.contextPath}/registerFAQ.do">
 			<sec:csrfInput />
 			<table class="table">
 				<tr>
-					<td>제목 &nbsp;&nbsp; <input type="text" name="faqTitle"
-						required="required">
+					<td>제목 &nbsp;&nbsp; <input type="text" name="faqTitle" required="required">
 					</td>
 				</tr>
 				<tr>
