@@ -37,7 +37,7 @@
 						login-processing-url="/login.do"
 						username-parameter="usrId"
 						password-parameter="usrPass"
-						authentication-failure-url="/loginForm.do"
+						authentication-failure-url="/loginForm.do?fail=true"
 						default-target-url="/home.do"						
 						/>						
 	<!-- 
@@ -51,6 +51,7 @@
 		
 		<security:access-denied-handler error-page="/accessDeniedView.do"/>
 	</security:http>
+	
 	<!-- 비밀번호 암호화를 위한 설정 -->
 <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 </beans>
