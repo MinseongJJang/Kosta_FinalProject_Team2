@@ -14,9 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<resultMap type="academyVO" id="usrIdRM">
 		<result property="userVO.usrId" column="usr_id" />
+		<result property="userVO.nickname" column="nickname" />
 	</resultMap>
 	<select id="listAcademy" resultMap="usrIdRM"  parameterType="pagingBean">
-		select a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, u.usr_id 
+		select a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, u.usr_id, u.nickname
 		from(select row_number() over(order by aca_no asc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id from academy) a, users u
 		where a.usr_id = u.usr_id  and rnum between #{startRowNumber}  and #{endRowNumber} order by aca_no asc
 	</select>

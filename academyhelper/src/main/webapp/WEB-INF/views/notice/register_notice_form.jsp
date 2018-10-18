@@ -32,7 +32,7 @@
 						   		<sec:authorize access="hasRole('ROLE_USER')">
 								     <div class="btnArea">
 									     <button type="submit" class="aca-btn" >등록</button>  
-									     <input type="hidden" value="${mvo.usrId}"  name="userVO.usrId">
+									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
 									     <button type="reset" class="aca-btn" >취소</button>   
 								    </div>  
 							    </sec:authorize>
