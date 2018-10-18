@@ -60,9 +60,6 @@ public class FAQAndNoticeController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerNotice.do")
 	public String registerNotice(NoticeVO noticeVO) {
-		UserVO userVO=new UserVO();
-		userVO.setUsrId("admin");
-		noticeVO.setUserVO(userVO);
 		fAQAndNotiAndSugService.registerNotice(noticeVO);
 		return "redirect:listNotice.do";
 	}
