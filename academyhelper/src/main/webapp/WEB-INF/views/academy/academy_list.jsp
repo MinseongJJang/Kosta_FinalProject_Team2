@@ -11,6 +11,7 @@
 				<th class="acaName">학원이름</th>
 				<th class="acaAddr">주소</th>
 				<th class="acaTel">번호</th>
+				<th>아이디</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,6 +23,7 @@
 					</td>
 					<td>${academy.acaAddr }</td>
 					<td>${academy.acaTel }</td>
+					<td>${academy.userVO.usrId }</td>
 				</tr>
 			</c:forEach>
 		</tbody>
