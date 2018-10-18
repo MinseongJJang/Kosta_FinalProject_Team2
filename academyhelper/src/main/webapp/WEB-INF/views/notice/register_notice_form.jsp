@@ -32,7 +32,11 @@
 						   		<sec:authorize access="hasRole('ROLE_USER')">
 								     <div class="btnArea">
 									     <button type="submit" class="aca-btn" >등록</button>  
-									     <input type="hidden" value="java" name="UserVO.usrId">
+<<<<<<< HEAD
+									     <input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
+=======
+									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 									     <button type="reset" class="aca-btn" >취소</button>   
 								    </div>  
 							    </sec:authorize>

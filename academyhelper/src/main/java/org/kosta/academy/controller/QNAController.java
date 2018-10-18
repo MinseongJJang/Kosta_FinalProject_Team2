@@ -81,12 +81,15 @@ public class QNAController {
 	@Secured("ROLE_USER")
 	@PostMapping("registerQNA.do")
 	public String registerQna(AcaQNAVO acaQnaVO) {
-		System.out.println(acaQnaVO.getUserVO().getUsrId());
 		qnaService.registerAcaQNA(acaQnaVO);
-		return "redirect:listAcaQNA.do";
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
+<<<<<<< HEAD
 
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
 	public String registerAcaQnAReply() {

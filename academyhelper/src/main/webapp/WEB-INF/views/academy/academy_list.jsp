@@ -15,8 +15,9 @@
 				      <tr >
 				         <th>NO</th>
 				         <th>학원 이름</th>
-				         <th>주소</th>
-				         <th>번호</th>
+				         <th>학원 주소</th>
+				         <th>학원 전화번호</th>
+				         <th>닉네임</th>
 				      </tr>
 				   </thead>
 				   <tbody>
@@ -28,6 +29,7 @@
 				            </td>
 				            <td>${academy.acaAddr }</td>
 				            <td>${academy.acaTel }</td>
+				            <td>${academy.userVO.nickname}</td>
 				         </tr>
 				      </c:forEach>
 			      	<%-- 	<sec:authorize access="hasRole('ROLE_USER')">
@@ -72,7 +74,6 @@
 			</div>
 		</div>
 		<div class="col-sm-1"></div>
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 	</div>
 </div>
 	
