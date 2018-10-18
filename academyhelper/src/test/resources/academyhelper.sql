@@ -12,11 +12,14 @@ create table users(
 	usr_tel varchar2(100) not null
 )
 
+select * from faq
 select sysdate from dual; 
 select*from users;
+select * from aca_users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
 values('java','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
-
+insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
+values('admin','1','관리자','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
 insert into users(usr_id, usr_pass, usr_name, usr_addr, nickname, birthday, usr_regdate, usr_email, usr_tel) 
 values('java', '1', 'name', 'gg', 'nick', 'birth', '2018-10-12', 'email', 'tel')
 
@@ -32,6 +35,7 @@ create table aca_users(
 )
 
 /*공지사항 테이블 및 시퀀스*/
+drop table notice
 create table notice(
 	notice_no number primary key,
 	notice_title varchar2(100) not null,
@@ -40,9 +44,13 @@ create table notice(
 	usr_id varchar2(100) not null,
 	constraint notice_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+drop sequence notice_seq
 create sequence notice_seq start with 1 nocache
-
+insert into notice(notice_no,notice_title,notice_content,notice_regdate,usr_id) values(notice_seq.nextval,'제목','내용',sysdate,'java')
+select count(*) from notice
+select * from users
 /* 공지사항파일첨부 및 시퀀스*/
+drop table notice_attach_file
 create table notice_attach_file(
 	notice_att_no number primary key,
 	notice_filepath varchar2(100) not null,
@@ -50,6 +58,12 @@ create table notice_attach_file(
 	constraint notice_attach_file_fk foreign key(notice_no) references notice(notice_no) on delete cascade
 )
 create sequence notice_attach_file_seq start with 1 nocache
+
+select n.notice_no,n.notice_title,n.notice_content,n.notice_regdate,u.usr_id,u.usr_name
+		from (select notice_no,row_number() over(order by notice_no desc) as rnum,
+		notice_title,notice_content,notice_regdate,usr_id from notice) n, users u
+		where n.usr_id=u.usr_id and rnum between 1 and 10
+		order by notice_no desc
 
 /*권한 테이블*/
 drop table authorities
@@ -59,6 +73,13 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
+insert into authorities(authority,usr_id)
+values('ROLE_ACADEMY','admin1')
+insert into authorities(authority,usr_id)
+values('ROLE_USER','admin1')
+
+select * from AUTHORITIES
 
 /*학원홍보 게시판 테이블 및 시퀀스*/
 create table aca_promo_post(
@@ -91,7 +112,16 @@ create table suggestion_post(
 	constraint suggestion_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 create sequence suggestion_post_seq start with 1 nocache
-
+select * from suggestion_post
+insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
+		values(suggestion_post_seq.nextval,'하이','응이하이',SYSDATE,'java')
+		
+		SELECT sug_no,sug_title,sug_content,sug_regdate,usr_id
+		FROM(
+		SELECT row_number() over(order by sug_no desc) rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
+		 FROM suggestion_post
+		) s where rnum between 1 and 5
+		order by sug_no desc
 /*건의게시판 파일첨부 테이블 및 시퀀스*/
 create table sug_post_attach_file(
 	sug_post_att_no number primary key,
@@ -112,18 +142,24 @@ create table faq(
 )
 create sequence faq_seq start with 1 nocache
 
+select f.faq_no,f.faq_title,f.faq_content,f.faq_regdate,u.usr_id
+from (select faq_no,row_number() over(order by faq_no desc) as rnum,
+faq_title,faq_content,faq_regdate,usr_id from faq) f, users u
+where f.usr_id=u.usr_id and rnum between 1 and 5
+order by faq_no desc
+
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목','내용',sysdate,'java')
+values(faq_seq.nextval,'제목','내용',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목2','내용2',sysdate,'java')
+values(faq_seq.nextval,'제목2','내용2',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목3','내용3',sysdate,'java')
+values(faq_seq.nextval,'제목3','내용3',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목4','내용4',sysdate,'java')
+values(faq_seq.nextval,'제목4','내용4',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목5','내용5',sysdate,'java')
+values(faq_seq.nextval,'제목5','내용5',sysdate,'java0')
 insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
-values(faq_seq.nextval,'제목7','내용7',sysdate,'java')
+values(faq_seq.nextval,'제목7','내용7',sysdate,'java0')
 select * from faq
 
 /*학원 테이블 및 시퀀스*/
@@ -138,7 +174,7 @@ create table academy(
 create sequence academy_seq start with 1 nocache
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
-values(academy_seq.nextval,'코스타','판교','0312558779','java');
+values(academy_seq.nextval,'코스타1','판교','0312558779','java0');
 
 select*from academy;
 
@@ -156,7 +192,7 @@ create table aca_qna(
 select * from aca_qna
 alter table aca_qna drop column aca_no
 alter table aca_qna drop constraint aca_qna_ffk
-
+select qna_no, qna_title, qna_content, qna_regdate, usr_id from aca_qna where qna_no='12';
 create sequence aca_qna_seq start with 1 nocache
 insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문1', '질문1내용', sysdate, 'java')
 insert into aca_qna(qna_no, qna_title, qna_content, qna_regdate, usr_id) values(aca_qna_seq.nextval, '질문2', '질문2내용', sysdate, 'java')
@@ -172,6 +208,17 @@ from(
 )q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
 order by q.qna_no desc
 	               
+select q.qna_no,q.qna_title, to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, q.qna_content, u.usr_id
+from aca_qna q, users u 
+where q.usr_id=u.usr_id and qna_no='12'
+
+select q.qna_no,q.qna_title,to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, u.usr_id, u.nickname
+from(
+	select row_number() over(order by qna_no desc) as rnum,qna_no,
+	qna_title, qna_regdate,usr_id from aca_qna
+)q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
+order by q.qna_no desc
+
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
@@ -193,6 +240,14 @@ create table aca_qna_reply(
 	constraint aca_qna_rep_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 ) 
 create sequence aca_qna_reply_seq start with 1 nocache
+insert into aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id) 
+values(aca_qna_reply_seq.nextval,sysdate,'하이', '7',  'java')
+
+insert into aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id) 
+values(aca_qna_reply_seq.nextval,sysdate,'공부', '7',  'java')
+select * from aca_qna_reply
+select r.qna_rep_no, r.qna_rep_regdate, r.qna_rep_content, u.usr_id, u.nickname 
+from aca_qna_reply r,users u where r.usr_id=u.usr_id
 
 /*Q&A 파일첨부 테이블 및 시퀀스*/
 drop table aca_qna_reply_attach_file

@@ -540,7 +540,8 @@ section.featured-places {
 }
 
 .featured-places .featured-item .thumb {
-  position: relative;
+  display:table; 
+  align-items:center;
   z-index: 1;
 }
 
@@ -903,6 +904,23 @@ section.contact .section-heading {
   color: #4883ff;
 }
 
+/* Aca Btn */
+.aca-btn {
+  display: inline-block;
+  background-color: #004e92;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 14px;
+  text-decoration: none;
+  border: 2px solid #004e92;
+  transition: all 0.5s;
+}
+
+.aca-btn:hover {
+  background-color: transparent;
+  color: #004e92;
+}
 /* Modal */
 .modal {
   background-color: rgba(0,0,0,.65);
@@ -1108,7 +1126,7 @@ footer .about-veno ul li a {
   display: inline-block;
   text-align: center;
   line-height: 32px;
-  background-color: #cdcdcd;
+  background-color: #004e92;
   border-radius: 50%;
   font-size: 15px;
   color: #fff;
@@ -1121,7 +1139,7 @@ footer .about-veno p {
 }
 
 footer .about-veno ul li a:hover {
-  background-color: #004c94;
+  background-color: #c0c0c0;
 }
 
 footer .useful-links ul li {
@@ -1251,4 +1269,3 @@ footer .contact-info ul li a {
     margin-top: 60px;
   }
 
-  

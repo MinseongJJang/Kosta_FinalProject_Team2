@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.FAQAndNoticeMapper;
+import org.kosta.academy.model.mapper.SuggestionMapper;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
@@ -16,6 +17,9 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 	
 	@Resource
 	FAQAndNoticeMapper faqAndNoticeMapper;
+	@Resource
+	SuggestionMapper suggestionMapper;
+	
 	@Override
 	public void registerFAQ(FAQVO faqVO) {
 		// TODO Auto-generated method stub
@@ -62,56 +66,73 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 
 	@Override
 	public ListVO listNotice(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalPostCount=faqAndNoticeMapper.getTotalNoticeCount();
+		PagingBean pb=null;
+		if(pageNo==null) {
+			pb=new PagingBean(totalPostCount);
+		}else {
+			pb= new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+		}
+		List<NoticeVO> list=faqAndNoticeMapper.listNotice(pb);
+		ListVO listVO=new ListVO();
+		listVO.setNoticeList(list);
+		listVO.setPb(pb);
+		System.out.println(listVO);
+		return listVO;
 	}
 
 	@Override
 	public NoticeVO detailNotice(String noticeNo) {
-		// TODO Auto-generated method stub
-		return null;
+		NoticeVO nvo=faqAndNoticeMapper.detailNotice(noticeNo);
+		return nvo;
 	}
 
 	@Override
 	public void updateNotice(NoticeVO noticeVO) {
-		// TODO Auto-generated method stub
+		faqAndNoticeMapper.updateNotice(noticeVO);
 		
 	}
 
 	@Override
 	public void deleteNotice(String noticeNo) {
-		// TODO Auto-generated method stub
+		faqAndNoticeMapper.deleteNotice(noticeNo);
 		
 	}
 
 	@Override
 	public void registerSuggestionPost(SuggestionPostVO suggestionPostVO) {
-		// TODO Auto-generated method stub
-		
+		suggestionMapper.registerSuggestionPost(suggestionPostVO);
 	}
 
 	@Override
 	public ListVO listSuggestionPost(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalPostCount=suggestionMapper.getTotalSuggestionPostCount();
+		PagingBean pb=null;
+		if(pageNo==null) {
+			pb=new PagingBean(totalPostCount);
+		}else {
+			pb= new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+		}
+		List<SuggestionPostVO> list=suggestionMapper.listSuggestionPost(pb);
+		ListVO listVO=new ListVO();
+		listVO.setSuggestionPostList(list);
+		listVO.setPb(pb);
+		return listVO;
 	}
 
 	@Override
 	public SuggestionPostVO detailSuggestionPost(String sugNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return suggestionMapper.detailSuggestionPost(sugNo);
 	}
 
 	@Override
 	public void updateSuggestionPost(SuggestionPostVO suggestionPostVO) {
-		// TODO Auto-generated method stub
-		
+		suggestionMapper.updateSuggestionPost(suggestionPostVO);
 	}
 
 	@Override
 	public void deleteSuggestionPost(String sugNo) {
-		// TODO Auto-generated method stub
-		
+		suggestionMapper.deleteSuggestionPost(sugNo);
 	}
 
 }

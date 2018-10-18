@@ -14,7 +14,7 @@ public class QNAServiceImpl implements QNAService {
 	private QNAMapper qnaMapper;
 	@Override
 	public void registerAcaQNA(AcaQNAVO acaQNAVO) {
-		
+		qnaMapper.registerAcaQNA(acaQNAVO);
 	}
 
 	@Override
@@ -32,21 +32,19 @@ public class QNAServiceImpl implements QNAService {
 	}
 
 	@Override
-	public AcaQNAVO detailAcaQNA(String qnaNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public AcaQNAVO detailAcaQNA(String qnaNO) {
+		AcaQNAVO qnaVO = qnaMapper.detailAcaQNA(qnaNO);
+		return qnaVO;
 	}
 
 	@Override
 	public void updateAcaQNA(AcaQNAVO acaQNAVO) {
-		// TODO Auto-generated method stub
-		
+		qnaMapper.updateAcaQNA(acaQNAVO);
 	}
 
 	@Override
-	public void deleteAcaQNA(AcaQNAVO acaQNAVO) {
-		// TODO Auto-generated method stub
-		
+	public void deleteAcaQNA(String qnaNo) {
+		qnaMapper.deleteAcaQNA(qnaNo);
 	}
 
 	@Override
@@ -57,8 +55,16 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public ListVO listAcaQNAReply(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalCount=qnaMapper.getTotalQNACount();
+		PagingBean pagingBean=null;
+		if(pageNo==null)
+			pagingBean=new PagingBean(totalCount);
+		else
+			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));		
+		ListVO vo=new ListVO();
+		vo.setAcaQNAList(qnaMapper.listAcaQNA(pagingBean));
+		vo.setPb(pagingBean);
+		return vo;
 	}
 
 	@Override

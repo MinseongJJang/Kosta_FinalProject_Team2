@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.service.FAQAndNotiAndSugService;
-import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,16 +29,12 @@ public class SMUnit {
 		faqService.registerFAQ(faqVO);
 		System.out.println(faqVO);*/
 		
-		PagingBean pb=new PagingBean();
-		/*List<FAQVO> list = mapper.listFAQ(pb);
-		for(int i=0; i<list.size();i++) {
-			System.out.println(list.get(i));
-		}*
-		ListVO listVO=faqService.listFAQ(pb);
+		ListVO listVO=faqService.listFAQ("1");
+		
 		for(int i=0;i<listVO.getFaqList().size();i++) {
 			System.out.println(listVO.getFaqList().get(i));
 		}
-		FAQVO fAQVO=faqService.detailFAQ("10");
+		/*FAQVO fAQVO=faqService.detailFAQ("10");
 		System.out.println(fAQVO);
 		FAQVO fAQVO=new FAQVO();
 		fAQVO.setFaqNo("5");

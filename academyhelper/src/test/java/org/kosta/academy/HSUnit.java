@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.QNAMapper;
 import org.kosta.academy.model.service.QNAService;
-import org.kosta.academy.model.vo.ListVO;
-import org.kosta.academy.model.vo.UserVO;
+import org.kosta.academy.model.vo.AcaQNAVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -32,9 +31,12 @@ public class HSUnit {
 		for(int i=0; i<lvo.getAcaQNAList().size();i++) {
 			System.out.println(lvo.getAcaQNAList().get(i));
 		}*/
-		String pageNo="1";
+		/*String pageNo="1";
 		ListVO list=qnaService.listAcaQNA(pageNo);
 
-		System.out.println(list.getAcaQNAList());
+		System.out.println(list.getAcaQNAList());*/
+		//QNA 상세보기
+		AcaQNAVO qnaVO = qnaMapper.detailAcaQNA("12");
+		System.out.println(qnaVO);
 	}
 }

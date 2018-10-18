@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <meta charset="utf-8">
@@ -11,30 +11,30 @@
 				<table class="table table-hover">
 				   <thead style="text-align:center;">
 					   	<tr>
-							<td colspan="4" align="center"><h3>질문과 응답</h3></td>
+							<td colspan="4" align="center"><h3>건의 사항</h3></td>
 						</tr>
 				      <tr >
-				         <th class="qnaNo">NO</th>
-				         <th class="qnaTitle">제목</th>
-				         <th class="qnaRegdate">등록일</th>
-				         <th class="nickname">작성자</th>
+				         <th>NO</th>
+				         <th>제목</th>
+				         <th>등록일</th>
+				         <th>작성자</th>
 				      </tr>
 				   </thead>
 				   <tbody>
-				      <c:forEach var="QNA" items="${listQNA}">
-				         <tr>
-				            <td>${QNA.qnaNo }</td>
-				            <td><a href="${pageContext.request.contextPath}/detailAcaQNA.do?qnaNo=${QNA.qnaNo}">${QNA.qnaTitle }</a>
-				            </td>
-				            <td>${QNA.qnaRegdate }</td>
-				            <td>${QNA.userVO.nickname }</td>
-				         </tr>
-				      </c:forEach>
+				      <c:forEach var="list" items="${list}">
+							<tr>
+								<td>${list.sugNo}</td>
+								<td>
+								<a href="${pageContext.request.contextPath}/detailSuggestionPost.do?sugNo=${list.sugNo}">${list.sugTitle}</a></td>
+								<td>${list.userVO.nickname}</td>
+								<td>${list.sugRegdate}</td>
+							</tr>
+						</c:forEach>
 			      		<sec:authorize access="hasRole('ROLE_USER')">
 					      <tr>
 					      	<td colspan="4" align="right">
-							   <button form="registerQNAForm" type="submit" class="aca-btn">질문 등록</button>
-							   <form action="${pageContext.request.contextPath}/registerQNAForm.do" id="registerQNAForm" method="post">
+							   <button form="registerSuggestionForm" type="submit" class="aca-btn">질문 등록</button>
+							   <form action="${pageContext.request.contextPath}/suggestionRegisterForm.do" id="registerSuggestionForm" method="post">
 							      <sec:csrfInput />
 							   </form>
 					      	</td>
@@ -48,12 +48,12 @@
 						   <c:set var="pb" value="${requestScope.pagingBean}"></c:set>
 						   <ul class="pagination">
 						      <c:if test="${pb.previousPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/listAcaQNA.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 						      </c:if>
 						      <c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 						         <c:choose>
 						            <c:when test="${pb.nowPage!=i}">
-						               <li><a href="${pageContext.request.contextPath}/listAcaQNA.do?pageNo=${i}">${i}</a></li>
+						               <li><a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${i}">${i}</a></li>
 						            </c:when>
 						            <c:otherwise>
 						               <li class="active"><a href="#">${i}</a></li>
@@ -61,7 +61,8 @@
 						         </c:choose>
 						      </c:forEach>
 						      <c:if test="${pb.nextPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/listAcaQNA.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						         	
 						      </c:if>
 						   </ul>
 						</div>
@@ -74,4 +75,3 @@
 		<div class="col-sm-1"></div>
 	</div>
 </div>
-

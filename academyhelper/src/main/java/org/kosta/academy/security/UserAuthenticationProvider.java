@@ -50,8 +50,12 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		//2.사용자 정보 DB로부터 조회
 		String usrId = authentication.getName();//사용자가 로그인시 입력한 ID 반환 	
 		UserVO userVO = userService.findUserById(usrId);
+		try {
 		if(userVO == null){
 			throw new UsernameNotFoundException("회원 아이디가 존재하지 않습니다");
+		}
+		}catch(UsernameNotFoundException e){
+			throw e;
 		}
 		String usrPass =(String)authentication.getCredentials();//사용자가 입력한 패스워드 반환 
 		//3.패스워드 비교

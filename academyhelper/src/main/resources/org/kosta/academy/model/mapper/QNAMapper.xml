@@ -9,13 +9,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 		<resultMap type="acaQNAVO" id="acaQNARM">
 		<result property="userVO.usrId" column="usr_id" />
+		<result property="userVO.nickname" column="nickname" />
+		
 	</resultMap>
 	<select id="listAcaQNA" resultMap="acaQNARM" parameterType="pagingBean">
-	select q.qna_no,q.qna_title,to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, u.usr_id
+	select q.qna_no,q.qna_title,to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, u.usr_id, u.nickname
 	from(
 		select row_number() over(order by qna_no desc) as rnum,qna_no,
 		qna_title, qna_regdate,usr_id from aca_qna
 	)q, users u where q.usr_id=u.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
 	order by q.qna_no desc
 	</select>
+	
+	<select id="detailAcaQNA" resultMap="acaQNARM">
+		select q.qna_no,q.qna_title, to_char(q.qna_regdate,'YYYY.MM.DD') as qna_regdate, q.qna_content, u.usr_id, u.nickname
+		from aca_qna q, users u 
+		where q.usr_id=u.usr_id and qna_no=#{value}
+	</select>
+	
+	<delete id="deleteAcaQNA">
+		delete from aca_qna where qna_no=#{value}
+	</delete>
+	
+	<update id="updateAcaQNA">
+		update aca_qna set qna_title=#{qnaTitle},qna_content=#{qnaContent} where qna_no=#{qnaNo}
+	</update>
+	<insert id="registerAcaQNA" parameterType="acaQNAVO">
+		insert into aca_qna(qna_no,qna_title,qna_content,qna_regdate,usr_id)
+		 values(aca_qna_seq.nextval,#{qnaTitle},#{qnaContent},SYSDATE,#{userVO.usrId})
+	</insert>
 </mapper>

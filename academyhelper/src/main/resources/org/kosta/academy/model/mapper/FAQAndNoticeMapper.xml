@@ -38,9 +38,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from faq where faq_no=#{value} 
 	</delete>
 	<insert id="registerNotice" parameterType="noticeVO">
-		insert into
+		insert into notice(notice_no,notice_title,notice_content,notice_regdate,usr_id)
+		values(notice_seq.nextval,#{noticeTitle},#{noticeContent},sysdate,#{userVO.usrId})
 	</insert>
 	<select id="getTotalFaqCount" resultType="int">
 		select count(*) from faq
 	</select>
+	<select id="getTotalNoticeCount" resultType="int">
+		select count(*) from notice
+	</select>
+	<resultMap type="noticeVO" id="noticeRM">
+		<result property="userVO.usrId" column="usr_id"/>
+		<result property="userVO.usrName" column="usr_name"/>
+	</resultMap>
+	<select id="listNotice" parameterType="pagingBean" resultMap="noticeRM">
+		select n.notice_no,n.notice_title,n.notice_content,n.notice_regdate,u.usr_id,u.usr_name
+		from (select notice_no,row_number() over(order by notice_no desc) as rnum,
+		notice_title,notice_content,notice_regdate,usr_id from notice) n, users u
+		where n.usr_id=u.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
+		order by notice_no desc
+	</select>
+	<select id="detailNotice" parameterType="string" resultMap="noticeRM">
+		select n.notice_no,n.notice_title,n.notice_content,n.notice_regdate,u.usr_id,u.usr_name
+		from (select notice_no,row_number() over(order by notice_no desc) as rnum,
+		notice_title,notice_content,notice_regdate,usr_id from notice) n, users u
+		where n.usr_id=u.usr_id and n.notice_no=#{value}
+	</select>
+	<update id="updateNotice" parameterType="noticeVO">
+		update notice set notice_title=#{noticeTitle},notice_content=#{noticeContent}
+		where notice_no=#{noticeNo}
+	</update>
+	<delete id="deleteNotice" parameterType="string">
+		delete from notice where notice_no=#{value} 
+	</delete>
 </mapper>

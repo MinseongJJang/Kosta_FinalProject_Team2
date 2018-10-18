@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -11,30 +11,31 @@
 				<table class="table table-hover">
 				   <thead style="text-align:center;">
 					   	<tr>
-							<td colspan="4" align="center"><h3>질문과 응답</h3></td>
+							<td colspan="4" align="center"><h3>공지사항</h3></td>
 						</tr>
 				      <tr >
-				         <th class="qnaNo">NO</th>
-				         <th class="qnaTitle">제목</th>
-				         <th class="qnaRegdate">등록일</th>
-				         <th class="nickname">작성자</th>
+				         <th>NO</th>
+				         <th>제목</th>
+				         <th>이름</th>
+				         <th>작성일</th>
 				      </tr>
 				   </thead>
 				   <tbody>
-				      <c:forEach var="QNA" items="${listQNA}">
-				         <tr>
-				            <td>${QNA.qnaNo }</td>
-				            <td><a href="${pageContext.request.contextPath}/detailAcaQNA.do?qnaNo=${QNA.qnaNo}">${QNA.qnaTitle }</a>
-				            </td>
-				            <td>${QNA.qnaRegdate }</td>
-				            <td>${QNA.userVO.nickname }</td>
-				         </tr>
-				      </c:forEach>
-			      		<sec:authorize access="hasRole('ROLE_USER')">
+				     <c:forEach var="pvo" items="${lvo.noticeList}">		
+						<tr>
+						    <td>${pvo.noticeNo }</td>			
+							<td>
+								<a href="${pageContext.request.contextPath}/detailNotice.do?noticeNo=${pvo.noticeNo }">	${pvo.noticeTitle }</a>
+							</td>
+							<td>${pvo.userVO.usrName }</td>
+							<td>${pvo.noticeRegdate }</td>
+						</tr>	
+						</c:forEach>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
 					      <tr>
 					      	<td colspan="4" align="right">
-							   <button form="registerQNAForm" type="submit" class="aca-btn">질문 등록</button>
-							   <form action="${pageContext.request.contextPath}/registerQNAForm.do" id="registerQNAForm" method="post">
+							   <button form="registerNoticeForm" type="submit" class="aca-btn">공지 등록</button>
+							   <form action="${pageContext.request.contextPath}/registerNoticeForm.do" id="registerNoticeForm" method="post">
 							      <sec:csrfInput />
 							   </form>
 					      	</td>
@@ -48,12 +49,12 @@
 						   <c:set var="pb" value="${requestScope.pagingBean}"></c:set>
 						   <ul class="pagination">
 						      <c:if test="${pb.previousPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/listAcaQNA.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/listNotice.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 						      </c:if>
 						      <c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 						         <c:choose>
 						            <c:when test="${pb.nowPage!=i}">
-						               <li><a href="${pageContext.request.contextPath}/listAcaQNA.do?pageNo=${i}">${i}</a></li>
+						               <li><a href="${pageContext.request.contextPath}/listNotice.do?pageNo=${i}">${i}</a></li>
 						            </c:when>
 						            <c:otherwise>
 						               <li class="active"><a href="#">${i}</a></li>
@@ -61,7 +62,7 @@
 						         </c:choose>
 						      </c:forEach>
 						      <c:if test="${pb.nextPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/listAcaQNA.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/listNotice.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 						      </c:if>
 						   </ul>
 						</div>
@@ -74,4 +75,3 @@
 		<div class="col-sm-1"></div>
 	</div>
 </div>
-

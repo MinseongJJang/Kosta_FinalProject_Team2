@@ -45,27 +45,17 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 					style="display: none">
 					<sec:csrfInput />
 				</form>
-				<sec:authorize
-				access="hasRole('ROLE_USER')">
 				<a
 					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
 					정보</a>
-</sec:authorize>
-				<br>
-				<br>
-파일업로드테스트
-<br>
-				<a
-					href="${pageContext.request.contextPath}/product/registerProductForm_FileUpload.do">상품등록(파일업로드)</a>
-				<br>
-				<a
-					href="${pageContext.request.contextPath}/product/multifileupload_form.do">멀티파일업로드</a>
-				<br>
-				<!-- FileUploadController에서 처리한다 -->
-			</sec:authorize> <br> <br> <sec:authorize
+			</sec:authorize>
+			<sec:authorize
 				access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')">
 				<%-- 아래는 관리자이자 회원일 때 보이는 메뉴 --%>
-				<a href="adminMain.do">관리자모드</a>
+				<sec:authentication var="mvo" property="principal" />  
+				${mvo.usrName} 관리자님  admin 메인화면입니다. <br>
+ 				<a href="userList.do">회원 목록</a><br>
+				<a href="${pageContext.request.contextPath}/academyRegisterForm.do">학원등록</a><br>
 			</sec:authorize></li>
 	</ul>
 </div>
@@ -87,8 +77,10 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 비교</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 후기</a></li>
 						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관 홍보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="listCurriculum.do">IT기관 정보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="listAcademy.do">IT기관 정보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="listNotice.do">NOTICE</a></li>	
 						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcaQNA.do">질의 응답</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listSuggestionPost.do">건의</a></li>
 						<li><a class="scrollTo" data-scrollTo="contact" href="listFAQ.do">FAQ</a></li>
 						<li><a href="#"><img
 								src="${pageContext.request.contextPath}/resources/img/login.png"
