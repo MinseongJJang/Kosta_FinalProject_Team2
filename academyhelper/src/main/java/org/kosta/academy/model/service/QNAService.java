@@ -46,7 +46,7 @@ public interface QNAService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO listAcaQNAReply(String pageNo);
+	public ListVO listAcaQNAReply(String qnaNo, String pageNo);
 	/**
 	 * QNA 댓글을 수정하는 메소드
 	 * @param acaQNAReplyVO

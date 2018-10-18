@@ -30,6 +30,7 @@
 			$("#deletecommentform").submit();
 	}
 </script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -38,44 +39,47 @@
 			<div style="margin-top: 100px; text-align: center;" align="center">
 				<table class="table">
 					<thead>
-				   		<tr>
+						<tr>
 							<td colspan="8" align="center"><h3>질문과 응답 상세보기</h3></td>
 						</tr>
 					</thead>
-				   <tbody>
-				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
-				         <tr>
-				            <td>글번호</td>
-				            <td>${detailQNA.qnaNo}</td>
-				            <td>글제목</td>
-				            <td>${detailQNA.qnaTitle}</td>
-				            <tD>작성자</td>
-				            <td>${detailQNA.userVO.nickname}</td>
-				            <td>등록일</td>
-				            <td>${detailQNA.qnaRegdate}</td>
-				         </tr>
-				         <tr>
-				         	<td colspan="1">내용</td>
-				         	<td colspan="7"><pre style="white-space: pre-wrap;">${detailQNA.qnaContent}</pre></td>
-				         </tr>
-			      		<sec:authorize access="hasRole('ROLE_USER')">
-					      <tr>
-					      	<td colspan="8" align="right">
-							   	<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
-								<button form="updateForm" type="submit" class="aca-btn">수정</button>
-							 	<form action="deleteAcaQNA.do" id="deleteForm" method="post">
-									<sec:csrfInput />
-									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
-								</form>
-								<form action="updateAcaQNAForm.do" id="updateForm" method="post">
-									<sec:csrfInput />
-									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
-								</form>
-					      	</td>
-					      </tr>
+					<tbody>
+						<c:set var="detailQNA" value="${requestScope.detailQNA}" />
+						<tr>
+							<td>글번호</td>
+							<td>${detailQNA.qnaNo}</td>
+							<td>글제목</td>
+							<td>${detailQNA.qnaTitle}</td>
+							<tD>작성자</td>
+							<td>${detailQNA.userVO.nickname}</td>
+							<td>등록일</td>
+							<td>${detailQNA.qnaRegdate}</td>
+						</tr>
+						<tr>
+							<td colspan="1">내용</td>
+							<td colspan="7"><pre style="white-space: pre-wrap;">${detailQNA.qnaContent}</pre></td>
+						</tr>
+						<sec:authorize access="hasRole('ROLE_USER')">
+							<tr>
+								<td colspan="8" align="right">
+									<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
+									<button form="updateForm" type="submit" class="aca-btn">수정</button>
+									<form action="deleteAcaQNA.do" id="deleteForm" method="post">
+										<sec:csrfInput />
+										<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
+									</form>
+									<form action="updateAcaQNAForm.do" id="updateForm"
+										method="post">
+										<sec:csrfInput />
+										<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
+									</form>
+								</td>
+							</tr>
 						</sec:authorize>
 					</tbody>
-					<tfoot>
+				</table>
+				<div>
+					<table>
 						<tr>
 							<td colspan="1"><label for="comment">댓글</label></td>
 							<td colspan="6">
@@ -89,39 +93,37 @@
 											name="replycontent" placeholder="댓글을 입력하세요"></textarea>
 									</div>
 								</form>
+							</td>
 							<td colspan="1"><button onclick="return checkComment()"
 									class="aca-btn" style="height: 10px">등록</button></td>
-							<c:if test="${fn:length(requestScope.rvoList)!=0}">
+							<c:if test="${fn:length(requestScope.listQNAReply)!=0}">
 								<br>
 								<br>
 								<br>
-								<p align="left">${fn:length(requestScope.rvoList)}개의댓글</p>
+								<p align="left">${fn:length(requestScope.listQNAReply)}개의 댓글</p>
 								<br>
-								<c:forEach items="${requestScope.rvoList}" var="comment">
-									<p align="left">${comment.id }</p>
+								<c:forEach items="${requestScope.listQNAReply}" var="comment">
+									<p align="left">${comment.userVO.nickname }</p>
 									<form
 										action="${pageContext.request.contextPath}/deleteAcaQnAReply.do"
 										method="post" id="deletecommentform">
 										<sec:csrfInput />
-										<input type="hidden" name="rno" value="${comment.rNo}">
+										<input type="hidden" name="rno" value="${comment.qnaRepNo}">
 										<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 										<input style="float: right;" class="" type="button" value="삭제"
 											onclick="deleteComment()">
 									</form>
 									<div class="card">
 										<div class="card-body" align="left">
-											<pre>${comment.content }</pre>
+											<pre>${comment.qnaRepContent }</pre>
 										</div>
 									</div>
 								</c:forEach>
 							</c:if>
-							<br>
-							</td>
 						</tr>
-					</tfoot>
-				</table>
+					</table>
+				</div>
 			</div>
+			<div class="col-sm-1"></div>
 		</div>
-		<div class="col-sm-1"></div>
 	</div>
-</div>

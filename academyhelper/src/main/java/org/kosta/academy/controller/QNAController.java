@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class QNAController {
 	@Resource
 	private QNAService qnaService;
+
 	@RequestMapping("listAcaQNA.do")
 	public String listQna(String pageNo, Model model) {
 		ListVO list = qnaService.listAcaQNA(pageNo);
@@ -22,19 +23,40 @@ public class QNAController {
 		model.addAttribute("pagingBean", list.getPb());
 		return "qna/qna_list.tiles";
 	}
-	
+
 	@RequestMapping("detailAcaQNA.do")
-	public String detailQna(String qnaNo, Model model) {
+	public String detailQna(String qnaNo, String pageNo, Model model) {
+		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
+		System.out.println(listReply);
+		model.addAttribute("listQNAReply", listReply.getAcaQNAReplyList());
+		model.addAttribute("pagingBean", listReply.getPb());
 		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
+		System.out.println(qnaVO);
 		model.addAttribute("detailQNA", qnaVO);
 		return "qna/qna_detail.tiles";
 	}
+	
+/*	@RequestMapping("listAcaQNAReply.do")
+	public String listQnaReply(String pageNo, Model model) {
+		ListVO listReply = qnaService.listAcaQNAReply(pageNo);
+		
+		 * ArrayList<Aca> rvoList = new ArrayList<ReplyVO>(); rvoList =
+		 * ReplyDAO.getInstance().getDReplyListBydNo(dno);
+		 * request.setAttribute("rvoList", rvoList);
+		 
+		model.addAttribute("listQNAReply", listReply.getAcaQNAList());
+		model.addAttribute("pagingBean", listReply.getPb());
+		return "qna/qna_detail.tiles";
+	}*/
+
+
 	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQNA.do")
 	public String deleteQna(String qnaNo, Model model) {
 		qnaService.deleteAcaQNA(qnaNo);
 		return "redirect:listAcaQNA.do";
 	}
+
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQNAForm")
 	public String updateQnaForm(String qnaNo, Model model) {
@@ -42,17 +64,20 @@ public class QNAController {
 		model.addAttribute("detailQNA", qnaVO);
 		return "qna/qna_update.tiles";
 	}
+
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQNA.do")
 	public String updateQna(AcaQNAVO acaQnaVO, Model model) {
 		qnaService.updateAcaQNA(acaQnaVO);
-		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
+		return "redirect:detailAcaQNA.do?qnaNo=" + acaQnaVO.getQnaNo();
 	}
+
 	@Secured("ROLE_USER")
 	@PostMapping("registerQNAForm.do")
 	public String registerQnaForm() {
 		return "qna/qna_register.tiles";
 	}
+
 	@Secured("ROLE_USER")
 	@PostMapping("registerQNA.do")
 	public String registerQna(AcaQNAVO acaQnaVO) {
@@ -60,12 +85,12 @@ public class QNAController {
 		qnaService.registerAcaQNA(acaQnaVO);
 		return "redirect:listAcaQNA.do";
 	}
-	
-	
+
+
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
 	public String registerAcaQnAReply() {
-		//TODO 
+		// TODO
 		return "redirect:listAcaQNA.do";
 	}
 }

@@ -29,9 +29,9 @@ public class AcademyServiceImpl implements AcademyService {
 	public ListVO listAcademy(String pageNo) {
 		int totalListAcaCount = academyMapper.getTotalListAcaCount();
 		PagingBean pagingBean = null;
-		if(pageNo==null) {
+		if (pageNo == null) {
 			pagingBean = new PagingBean(totalListAcaCount);
-		}else {
+		} else {
 			pagingBean = new PagingBean(totalListAcaCount, Integer.parseInt(pageNo));
 		}
 		List<AcademyVO> academyList = academyMapper.listAcademy(pagingBean);
@@ -63,17 +63,18 @@ public class AcademyServiceImpl implements AcademyService {
 		curriculumMapper.registerCurriculum(curriculumVO);
 
 	}
+
 	@Override
 	public ListVO listCurriculum(String acaNo, String pageNo) {
-		HashMap<String,Object> map = new HashMap<String,Object>(); 
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int totalCurCount = curriculumMapper.getTotalCurriculumCount();
 		PagingBean pagingBean = null;
-		if(pageNo==null) {
-			 pagingBean = new PagingBean(totalCurCount);
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalCurCount);
 			map.put("acaNo", acaNo);
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
-		}else {
+		} else {
 			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
 			map.put("acaNo", acaNo);
 			map.put("start", pagingBean.getStartRowNumber());

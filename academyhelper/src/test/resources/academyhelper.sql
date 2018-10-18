@@ -189,6 +189,13 @@ create table aca_qna(
 	usr_id varchar2(100) not null,
 	constraint aca_qna_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+select r.qna_rep_no,
+		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,
+		u.nickname
+		from
+		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no='7'
+
+
 select * from aca_qna
 alter table aca_qna drop column aca_no
 alter table aca_qna drop constraint aca_qna_ffk
