@@ -46,8 +46,7 @@ create table notice(
 )
 drop sequence notice_seq
 create sequence notice_seq start with 1 nocache
-insert into notice(notice_no,notice_title,notice_content,notice_regdate,usr_id)
-values(notice_seq.nextval,'제목','내용',sysdate,'java')
+insert into notice(notice_no,notice_title,notice_content,notice_regdate,usr_id) values(notice_seq.nextval,'제목','내용',sysdate,'java')
 select count(*) from notice
 select * from users
 /* 공지사항파일첨부 및 시퀀스*/
@@ -74,8 +73,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
-insert into authorities(authority,usr_id)
-values('ROLE_ADMIN','admin1')
+insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
 insert into authorities(authority,usr_id)
 values('ROLE_ACADEMY','admin1')
 insert into authorities(authority,usr_id)
