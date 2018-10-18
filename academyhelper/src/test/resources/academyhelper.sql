@@ -196,7 +196,8 @@ select r.qna_rep_no,
 		from
 		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no='7'
 
-
+select count(*)
+		from curriculum where aca_no='1'
 select * from aca_qna
 alter table aca_qna drop column aca_no
 alter table aca_qna drop constraint aca_qna_ffk

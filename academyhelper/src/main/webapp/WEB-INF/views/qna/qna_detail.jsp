@@ -100,7 +100,7 @@
 								<br>
 								<br>
 								<br>
-								<p align="left">${fn:length(requestScope.listQNAReply)}개의댓글</p>
+								<p align="left">${fn:length(requestScope.listQNAReply)}개의 댓글</p>
 								<br>
 								<c:forEach items="${requestScope.listQNAReply}" var="comment">
 									<p align="left">${comment.userVO.nickname }</p>
@@ -109,7 +109,7 @@
 										method="post" id="deletecommentform">
 
 										<sec:csrfInput />
-										<input type="hidden" name="rno" value="${comment.qnaRepNo}">
+										<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
 										<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 										<input style="float: right;" class="" type="button" value="삭제"
 											onclick="deleteComment()">

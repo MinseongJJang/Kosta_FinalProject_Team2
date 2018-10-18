@@ -13,6 +13,6 @@ public interface CurriculumMapper {
 	public CurriculumVO detailCurriculum(String curNo);
 	public void updateCurriculum(CurriculumVO curriculumVO);
 	public void deleteCurriculum(String curNo);
-	public int getTotalCurriculumCount();
+	public int getTotalCurriculumCount(String acaNo);
 
 }

@@ -67,7 +67,7 @@ public class AcademyServiceImpl implements AcademyService {
 	@Override
 	public ListVO listCurriculum(String acaNo, String pageNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+		int totalCurCount = curriculumMapper.getTotalCurriculumCount(acaNo);
 		PagingBean pagingBean = null;
 		if (pageNo == null) {
 			pagingBean = new PagingBean(totalCurCount);
