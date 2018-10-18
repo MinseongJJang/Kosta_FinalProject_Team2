@@ -4,8 +4,8 @@
 <div class="row main">
 	<div class="col-sm-2"></div>
 	<div class="col-sm-8">
-		<form method="post" id="updateForm"
-			action="${pageContext.request.contextPath}/registerFAQ.do">
+		<sec:authentication var="mvo" property="principal" />  
+		<form method="post" id="updateForm" action="${pageContext.request.contextPath}/registerFAQ.do">
 			<sec:csrfInput />
 			<table class="table">
 				<tr>
@@ -13,12 +13,12 @@
 					</td>
 				</tr>
 				<tr>
-					<td><textarea cols="90" rows="15" name="faqContent"
-							required="required"></textarea></td>
+					<td><textarea cols="90" rows="15" name="faqContent"	required="required"></textarea></td>
 				</tr>
 			</table>
 			<div class="btnArea">
 				<button type="submit" class="btn">등록</button>
+		        <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
 				<button type="reset" class="btn">취소</button>
 			</div>					
 		</form>

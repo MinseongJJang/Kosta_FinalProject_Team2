@@ -51,8 +51,6 @@ public class FAQAndNoticeController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerFAQ.do")
 	public String registerFAQ(FAQVO faqVO) {
-		UserVO userVO=new UserVO();
-		faqVO.setUserVO(userVO);
 		fAQAndNotiAndSugService.registerFAQ(faqVO);
 		return "redirect:listFAQ.do";
 	}
@@ -60,7 +58,7 @@ public class FAQAndNoticeController {
 	@PostMapping("registerNotice.do")
 	public String registerNotice(NoticeVO noticeVO) {
 		fAQAndNotiAndSugService.registerNotice(noticeVO);
-		return "redirect:listNotice.do";
+		return "redirect:detailNotice.do?noticeNo="+noticeVO.getNoticeNo();
 	}
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerNoticeForm.do")

@@ -85,12 +85,10 @@
 									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
 									<div class="form-group">
-										<textarea class="form-control" rows="1" id="replycontent"
-											name="replycontent" placeholder="댓글을 입력하세요"></textarea>
+										<textarea class="form-control" rows="1" id="replycontent" name="replycontent" placeholder="댓글을 입력하세요"></textarea>
 									</div>
 								</form>
-							<td colspan="1"><button onclick="return checkComment()"
-									class="aca-btn" style="height: 10px">등록</button></td>
+							<td colspan="1"><button onclick="return checkComment()"	class="aca-btn" style="height: 10px">등록</button></td>
 							<c:if test="${fn:length(requestScope.rvoList)!=0}">
 								<br>
 								<br>
@@ -99,14 +97,11 @@
 								<br>
 								<c:forEach items="${requestScope.rvoList}" var="comment">
 									<p align="left">${comment.id }</p>
-									<form
-										action="${pageContext.request.contextPath}/deleteAcaQnAReply.do"
-										method="post" id="deletecommentform">
+									<form action="${pageContext.request.contextPath}/deleteAcaQnAReply.do" method="post" id="deletecommentform">
 										<sec:csrfInput />
 										<input type="hidden" name="rno" value="${comment.rNo}">
 										<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
-										<input style="float: right;" class="" type="button" value="삭제"
-											onclick="deleteComment()">
+										<input style="float: right;" class="" type="button" value="삭제" onclick="deleteComment()">
 									</form>
 									<div class="card">
 										<div class="card-body" align="left">
