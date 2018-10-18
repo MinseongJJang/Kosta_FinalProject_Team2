@@ -20,35 +20,70 @@ $(document).ready(function(){
 		}
 	});//click
 });//ready
-
 </script>
-	<table>
-		<tr>
-			<td>NO: ${requestScope.DetailCurriculum.curNo }</td>
-			<td>과정이름: ${requestScope.DetailCurriculum.curName}</td>
-			<td>강사명 : ${requestScope.DetailCurriculum.curLecturer}</td>
-			<td>정원 : ${requestScope.DetailCurriculum.limitMem }</td>
-			<td>과정이름: ${requestScope.DetailCurriculum.curTextbook}</td>
-			<td>학원이름: ${requestScope.DetailCurriculum.academyVO.acaName}</td>
-		</tr>
-		<tr>
-			<td colspan="5" class="content"><pre>${requestScope.DetailCurriculum.curContent}</pre>
-			</td>
-		</tr>
-	</table>
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<button form="updateForm" type="submit">교육과정 수정하기</button>
-	<form action="updateCurriculumForm.do" id="updateForm" method="post">
-		<sec:csrfInput />
-		<%-- csrf 토큰 --%>
-		<input type="hidden" name="curNo"
-			value="${requestScope.DetailCurriculum.curNo}">
-	</form>
-	<button form="deleteForm" type="submit">삭제</button>
-	<form action="deleteCurriculum.do" id="deleteForm" method="post">
-		<sec:csrfInput />
-		<input type="hidden" name="curNo" value="${requestScope.DetailCurriculum.curNo}">
-	</form>
-		</sec:authorize>
-	
-	<a href="${pageContext.request.contextPath}/detailAcademy.do?acaNo=${requestScope.DetailCurriculum.academyVO.acaNo}">목록으로 돌아가기</a>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10 text-center"
+			style="margin-top: 100px; padding-bottom: 100px;">
+			<div style="margin-top: 100px; text-align: center;" align="center">
+				<table class="table">
+					<thead>
+				   		<tr>
+							<td colspan="8" align="center"><h3>질문과 응답 상세보기</h3></td>
+						</tr>
+					</thead>
+				   <tbody>
+				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
+				         <tr>
+				            <td>과정번호</td>
+				            <td>${requestScope.DetailCurriculum.curNo }</td>
+				            <td>과정이름</td>
+				            <td>${requestScope.DetailCurriculum.curName}</td>
+				            <tD>강사명</td>
+				            <td>${requestScope.DetailCurriculum.curLecturer}</td>
+				         </tr>
+				         <tr>
+				            <td>정원</td>
+				            <td>${requestScope.DetailCurriculum.limitMem }</td>
+				            <td>사용교재</td>
+				            <td>${requestScope.DetailCurriculum.curTextbook}</td>
+				            <tD>기관이름</td>
+				            <td>${requestScope.DetailCurriculum.academyVO.acaName}</td>
+				         </tr>
+				         <tr>
+				         	<td colspan="1">내용</td>
+				         	<td colspan="7"><pre style="white-space: pre-wrap;">${requestScope.DetailCurriculum.curContent}</pre></td>
+				         </tr>
+			      		<sec:authorize access="hasRole('ROLE_ADMIN')">
+					      <tr>
+					      	<td colspan="1" align="left">
+					      		<button form="detailAcaForm" type="submit" class="aca-btn">목록</button>
+					      		<form action="detailAcademy.do" id="detailAcaForm">
+				      				<input type="hidden" name="acaNo" value="${requestScope.DetailCurriculum.academyVO.acaNo}">
+					      		</form>
+					      	</td>
+					      	<td colspan="7" align="right">
+							   	<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
+								<button form="updateForm" type="submit" class="aca-btn">수정</button>
+							 	<form action="deleteCurriculum.do" id="deleteForm" method="post">
+									<sec:csrfInput />
+									<input type="hidden" name="curNo" value="${requestScope.DetailCurriculum.curNo}">
+								</form>
+								<form action="updateCurriculumForm.do" id="updateForm" method="post">
+									<sec:csrfInput />
+									<input type="hidden" name="curNo" value="${requestScope.DetailCurriculum.curNo}">
+								</form>
+					      	</td>
+					      </tr>
+						</sec:authorize>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
