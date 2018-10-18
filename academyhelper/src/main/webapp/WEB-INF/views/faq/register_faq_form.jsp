@@ -9,8 +9,7 @@
 					<sec:csrfInput />
 					<table class="table">
 						<tr>
-							<td>제목 &nbsp;&nbsp; <input type="text" name="faqTitle"
-								required="required">
+							<td>제목 &nbsp;&nbsp; <input type="text" name="faqTitle" required="required">
 							</td>
 						</tr>
 						<tr>
