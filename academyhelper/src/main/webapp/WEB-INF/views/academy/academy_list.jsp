@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="utf-8">
-
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -73,6 +72,7 @@
 			</div>
 		</div>
 		<div class="col-sm-1"></div>
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 	</div>
 </div>
 	
