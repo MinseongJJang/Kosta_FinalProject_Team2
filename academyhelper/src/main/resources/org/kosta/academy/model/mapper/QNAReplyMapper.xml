@@ -20,4 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from
 		aca_qna_reply where qna_no=#{value}
 	</select>
+	
+	
+	
 </mapper>

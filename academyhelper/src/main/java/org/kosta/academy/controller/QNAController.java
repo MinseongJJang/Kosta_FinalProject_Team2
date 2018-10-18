@@ -84,10 +84,16 @@ public class QNAController {
 		qnaService.registerAcaQNA(acaQnaVO);
 		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
-	@Secured("ROLE_USER")
+	/*@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
 	public String registerAcaQnAReply() {
 		// TODO
-		return "redirect:listAcaQNA.do";
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
+	@Secured("ROLE_USER")
+	@PostMapping("deleteAcaQnAReply.do")
+	public String deleteAcaQnAReply() {
+		// TODO
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
+	}*/
 }
