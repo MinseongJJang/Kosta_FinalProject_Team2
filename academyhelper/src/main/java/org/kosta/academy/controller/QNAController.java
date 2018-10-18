@@ -84,12 +84,6 @@ public class QNAController {
 		qnaService.registerAcaQNA(acaQnaVO);
 		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
-<<<<<<< HEAD
-
-
-=======
-	
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
 	public String registerAcaQnAReply() {
