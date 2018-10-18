@@ -37,7 +37,7 @@
 						login-processing-url="/login.do"
 						username-parameter="usrId"
 						password-parameter="usrPass"
-						authentication-failure-url="/login_fail.do"
+						authentication-failure-url="/loginForm.do"
 						default-target-url="/home.do"						
 						/>						
 	<!-- 

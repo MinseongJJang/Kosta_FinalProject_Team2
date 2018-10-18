@@ -14,31 +14,53 @@ $(document).ready(function(){
 	});//submit
 });//ready
 </script>
-	<sec:authorize access="hasRole('ROLE_USER')">
-	<form action="updateSuggestionPost.do" id="updateAca" method="post">
-	<c:set var="vo" value="${requestScope.vo}" />
-	<table>
-		<tr>
-			<td>NO</td>
-			<td>
-			<input type="text" name="sugNo" value="${vo.sugNo}" required="required" readonly> 
-			</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td>
-			<input type="text" name="sugTitle" value="${vo.sugTitle}" required="required" > 
-			</td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td>
-			<input type="text" name="sugContent" value="${vo.sugContent}" required="required" > 
-			</td>
-		</tr>
-		
-	</table>
-	<sec:csrfInput/>
-	<input type="submit" value="수정">
-	</form>
-	</sec:authorize>
+			
+			
+<div class="container" >
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
+			<div style="margin-top: 100px; text-align:center;" align="center">
+			<sec:authorize access="hasRole('ROLE_USER')">
+			<sec:authentication var="mvo" property="principal" />  
+			<form action="updateSuggestionPost.do" id="updateAca" method="post">
+			<c:set var="vo" value="${requestScope.vo}" />
+			<sec:csrfInput/>
+			<input type="hidden" name="userVO.usrId" value="<sec:authentication property="principal.usrId"/>">
+			<table class="table">
+				   <thead style="text-align:center;">
+				   		<tr>
+							<td colspan="4" align="center"><h3>건의 사항 등록하기</h3></td>
+						</tr>
+				   </thead>
+				   <tbody>
+						<tr >
+					        <td>제목</td>
+					        <td><input type="text"  name="sugTitle" value="${vo.sugTitle}" required="required" style="width:80%"></td>
+				      	</tr>
+				      	<tr>
+				      		<td>내용</td>
+				      		<td><textarea cols="90" rows="15" name="sugContent" required="required">${vo.sugContent}</textarea></td>
+				      	</tr>
+				   </tbody>
+				   <tfoot>
+				  		<tr>
+						   	<td colspan="2" align="right">
+						   		<sec:authorize access="hasRole('ROLE_USER')">
+								     <div class="btnArea">
+									     <input type="hidden" name="sugNo" value="${vo.sugNo}">   
+									     <button type="submit" class="aca-btn" >수정</button>
+									     <button type="reset" class="aca-btn" >취소</button>   
+								    </div>  
+							    </sec:authorize>
+						   	</td>
+				   		</tr>
+				   </tfoot>
+				</table>
+			  </form>
+			  </sec:authorize>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
