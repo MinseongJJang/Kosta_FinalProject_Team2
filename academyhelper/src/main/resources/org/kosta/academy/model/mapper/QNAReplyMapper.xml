@@ -20,16 +20,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from
 		aca_qna_reply where qna_no=#{value}
 	</select>
-	<insert id="registerAcaQnAReply" parameterType="curriculumVO">
-		<selectKey keyProperty="curNo" resultType="string"
+	<insert id="registerAcaQnAReply" parameterType="acaQnAReplyVO">
+		<selectKey keyProperty="qnaRepNo" resultType="string"
 			order="BEFORE">
 			select
-			curriculum_seq.nextval from dual
+			aca_qna_reply_seq.nextval from dual
 		</selectKey>
 		insert into
-		curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook)
-		values(#{curNo},#{academyVO.acaNo},#{curName},#{limitMem},#{curContent},#{curLecturer},#{curTextbook})
+		aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id)
+		values(#{qnaRepNo},SYSDATE,#{qnaRepContent},#{acaQNAVO.qnaNo},#{userVO.usrId})
 	</insert>
-	
+	<delete id="deleteAcaQnAReply" parameterType="string">
+		delete from aca_qna_reply where qna_rep_no=#{qnaRepNo}
+	</delete>
 	
 </mapper>
