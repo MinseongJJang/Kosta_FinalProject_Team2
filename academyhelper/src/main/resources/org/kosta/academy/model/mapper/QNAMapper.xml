@@ -35,7 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update aca_qna set qna_title=#{qnaTitle},qna_content=#{qnaContent} where qna_no=#{qnaNo}
 	</update>
 	<insert id="registerAcaQNA" parameterType="acaQNAVO">
+		<selectKey keyProperty="qnaNo" resultType="string" order="BEFORE">
+			select aca_qna_seq.nextval from dual
+		</selectKey>
 		insert into aca_qna(qna_no,qna_title,qna_content,qna_regdate,usr_id)
-		 values(aca_qna_seq.nextval,#{qnaTitle},#{qnaContent},SYSDATE,#{userVO.usrId})
+		 values(#{qnaNo},#{qnaTitle},#{qnaContent},SYSDATE,#{userVO.usrId})
 	</insert>
 </mapper>

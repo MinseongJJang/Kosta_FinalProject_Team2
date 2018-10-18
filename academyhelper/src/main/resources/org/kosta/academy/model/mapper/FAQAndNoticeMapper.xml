@@ -38,8 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from faq where faq_no=#{value} 
 	</delete>
 	<insert id="registerNotice" parameterType="noticeVO">
+		<selectKey keyProperty="noticeNo" resultType="string" order="BEFORE">
+			select notice_seq.nextval from dual
+		</selectKey>
 		insert into notice(notice_no,notice_title,notice_content,notice_regdate,usr_id)
-		values(notice_seq.nextval,#{noticeTitle},#{noticeContent},sysdate,#{userVO.usrId})
+		values(#{noticeNo},#{noticeTitle},#{noticeContent},SYSDATE,#{userVO.usrId})
 	</insert>
 	<select id="getTotalFaqCount" resultType="int">
 		select count(*) from faq
