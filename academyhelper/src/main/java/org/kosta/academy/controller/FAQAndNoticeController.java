@@ -57,7 +57,7 @@ public class FAQAndNoticeController {
 	@RequestMapping("registerNotice.do")
 	public String registerNotice(NoticeVO noticeVO) {
 		fAQAndNotiAndSugService.registerNotice(noticeVO);
-		return "redirect:listNotice.do";
+		return "redirect:detailNotice.do?noticeNo="+noticeVO.getNoticeNo();
 	}
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerNoticeForm.do")
