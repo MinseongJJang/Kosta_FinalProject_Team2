@@ -49,13 +49,13 @@ public class FAQAndNoticeController {
 		return "faq/register_faq_form.tiles";
 	}
 	@Secured("ROLE_ADMIN")
-	@PostMapping("registerFAQ.do")
+	@RequestMapping("registerFAQ.do")
 	public String registerFAQ(FAQVO faqVO) {
 		fAQAndNotiAndSugService.registerFAQ(faqVO);
 		return "redirect:listFAQ.do";
 	}
 	@Secured("ROLE_ADMIN")
-	@PostMapping("registerNotice.do")
+	@RequestMapping("registerNotice.do")
 	public String registerNotice(NoticeVO noticeVO) {
 		fAQAndNotiAndSugService.registerNotice(noticeVO);
 		return "redirect:detailNotice.do?noticeNo="+noticeVO.getNoticeNo();
