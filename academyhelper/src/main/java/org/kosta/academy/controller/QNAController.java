@@ -56,11 +56,9 @@ public class QNAController {
 	@Secured("ROLE_USER")
 	@PostMapping("registerQNA.do")
 	public String registerQna(AcaQNAVO acaQnaVO) {
-		System.out.println(acaQnaVO.getUserVO().getUsrId());
 		qnaService.registerAcaQNA(acaQnaVO);
-		return "redirect:listAcaQNA.do";
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
-	
 	
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
