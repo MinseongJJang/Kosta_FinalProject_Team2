@@ -49,7 +49,7 @@ public class FAQAndNoticeController {
 		return "faq/register_faq_form.tiles";
 	}
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("registerFAQ.do")
+	@PostMapping("registerFAQ.do")
 	public String registerFAQ(FAQVO faqVO) {
 		UserVO userVO=new UserVO();
 		userVO.setUsrId("admin");
@@ -58,7 +58,7 @@ public class FAQAndNoticeController {
 		return "redirect:listFAQ.do";
 	}
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("registerNotice.do")
+	@PostMapping("registerNotice.do")
 	public String registerNotice(NoticeVO noticeVO) {
 		UserVO userVO=new UserVO();
 		userVO.setUsrId("admin");

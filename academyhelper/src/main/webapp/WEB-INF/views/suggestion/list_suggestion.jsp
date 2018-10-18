@@ -45,7 +45,7 @@
 				   <tr>
 				   	<td colspan="4" >
 				   		<div class="pagingInfo" >
-						   <c:set var="pb" value="${requestScope.pagingBean}"></c:set>
+						   <c:set var="pb" value="${requestScope.pb}"></c:set>
 						   <ul class="pagination">
 						      <c:if test="${pb.previousPageGroup}">
 						         <li><a href="${pageContext.request.contextPath}/listSuggestionPost.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
