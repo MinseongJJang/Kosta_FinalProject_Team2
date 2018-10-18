@@ -15,27 +15,24 @@ public class ListVO {
 	private List<AcademyVO> academyList;
 	private List<CurriculumVO> curriculumList;
 	private List<AcaQNAVO> acaQNAList;
+	private List<AcaQNAReplyVO> acaQNAReplyList;
 	private List<FAQVO> faqList;
 	private List<NoticeVO> noticeList;
 	private List<AcaReviewPostVO> acaReviewPostList; 
 	private List<SuggestionPostVO> suggestionPostList;
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
-
-	public ListVO() {
-		super();
-	}
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
-			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<FAQVO> faqList,
-			List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
+			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<AcaQNAReplyVO> acaQNAReplyList,
+			List<FAQVO> faqList, List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
 			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
-
 		super();
 		this.userList = userList;
 		this.acaUserList = acaUserList;
 		this.academyList = academyList;
 		this.curriculumList = curriculumList;
 		this.acaQNAList = acaQNAList;
+		this.acaQNAReplyList = acaQNAReplyList;
 		this.faqList = faqList;
 		this.noticeList = noticeList;
 		this.acaReviewPostList = acaReviewPostList;
@@ -43,13 +40,13 @@ public class ListVO {
 		this.acaPromoPostList = acaPromoPostList;
 		this.pb = pb;
 	}
-
-	
+	public ListVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public List<UserVO> getUserList() {
 		return userList;
 	}
-
-
 	public void setUserList(List<UserVO> userList) {
 		this.userList = userList;
 	}
@@ -76,6 +73,12 @@ public class ListVO {
 	}
 	public void setAcaQNAList(List<AcaQNAVO> acaQNAList) {
 		this.acaQNAList = acaQNAList;
+	}
+	public List<AcaQNAReplyVO> getAcaQNAReplyList() {
+		return acaQNAReplyList;
+	}
+	public void setAcaQNAReplyList(List<AcaQNAReplyVO> acaQNAReplyList) {
+		this.acaQNAReplyList = acaQNAReplyList;
 	}
 	public List<FAQVO> getFaqList() {
 		return faqList;
@@ -113,6 +116,15 @@ public class ListVO {
 	public void setPb(PagingBean pb) {
 		this.pb = pb;
 	}
+	@Override
+	public String toString() {
+		return "ListVO [userList=" + userList + ", acaUserList=" + acaUserList + ", academyList=" + academyList
+				+ ", curriculumList=" + curriculumList + ", acaQNAList=" + acaQNAList + ", acaQNAReplyList="
+				+ acaQNAReplyList + ", faqList=" + faqList + ", noticeList=" + noticeList + ", acaReviewPostList="
+				+ acaReviewPostList + ", suggestionPostList=" + suggestionPostList + ", acaPromoPostList="
+				+ acaPromoPostList + ", pb=" + pb + "]";
+	}
+
 	
 
 }

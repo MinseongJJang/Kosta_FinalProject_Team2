@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
+import org.kosta.academy.model.mapper.QNAReplyMapper;
 import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -22,8 +23,13 @@ public class JSUnit {
 	private CurriculumMapper curriculumMapper;
 	@Autowired
 	private AcademyMapper academyMapper;
+	@Autowired
+	private QNAReplyMapper qnaReplyMapper;
 	@Test
 	public void test() {
+		// 리스트 출력
+		int totalCount=qnaReplyMapper.getTotalQNAReplyCount("7");
+		System.out.println(totalCount);
 	/*	AcademyVO academyVO = academyMapper.detailAcademy("1");
 		CurriculumVO curriculumVO = new CurriculumVO();
 //		curriculumVO.setCurNo("7");
@@ -48,7 +54,7 @@ public class JSUnit {
 */		
 		
 	//리스트 출력
-	 int totalCurCount = curriculumMapper.getTotalCurriculumCount();
+	/* int totalCurCount = curriculumMapper.getTotalCurriculumCount();
 	
 	
 		PagingBean pagingBean = new PagingBean(totalCurCount);
@@ -76,7 +82,7 @@ public class JSUnit {
 		lvo.setPb(pagingBean);
 		for (int i = 0; i < lvo.getCurriculumList().size(); i++) {
 			System.out.println(lvo.getCurriculumList().get(i));
-		}
+		}*/
 		/*
 		 * String address="판교"; CurriculumVO curriculmVO = {};
 		 * curriculumMapper.registerCurriculum(curriculmVO));

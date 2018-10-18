@@ -7,7 +7,6 @@ import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
 import org.kosta.academy.model.vo.SuggestionPostVO;
-import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

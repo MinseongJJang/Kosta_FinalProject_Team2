@@ -130,7 +130,7 @@ table td{
 							생년월일
 						</td>
 						<td>
-							<input type="text" name="userVO.birthday" required="required">
+							<input type="date" name="userVO.birthday" required="required">
 						</td>
 					</tr>
 					<tr>
@@ -138,7 +138,7 @@ table td{
 							전자메일
 						</td>
 						<td>
-							 <input type="text" name="userVO.usrEmail" required="required">
+							 <input type="email" name="userVO.usrEmail" required="required">
 						</td>
 					</tr>
 					<tr>

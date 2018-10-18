@@ -39,11 +39,15 @@ table td{
 									</td>
 								</tr>
 								<tr>
-									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn">로그인</button></td>
+								<c:if test="${param.fail == 'true'}">
+									<td colspan="3"> <span id="loginCheck" style="color:red;">${SPRING_SECURITY_LAST_EXCEPTION.message}</span></td>
+								</c:if>							
 								</tr>
 								<tr>
-									<td colspan="2"> <span id="loginCheck"></span></td>
+									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn">로그인</button></td>
 								</tr>
+								
+								
 								<tr>
 									<td colspan="2" align="right">
 										<a href="${pageContext.request.contextPath}/user/aca_register_form.do">기업 회원 가입</a>
