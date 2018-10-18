@@ -116,7 +116,7 @@ $(document).ready(function(){
 							<td>
 								<button form="registerCurriculumForm" type="submit" class="aca-btn">과정 등록</button>
 							    <form action="${pageContext.request.contextPath}/registerCurriculumForm.do?acaNo=${requestScope.acaDetail.acaNo}" id="registerCurriculumForm" method="post">
-							      <sec:csrfInput />
+							      <sec:csrfInput/>
 							    </form>
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<c:set var="de" value="${requestScope.acaDetail}" />
