@@ -403,10 +403,10 @@ FROM curriculum
 ) c,academy a where c.aca_no=a.aca_no 
 order by cur_no desc
 
-select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
+select distinct a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
-		from users) u, aca_users a where u.usr_id = 'java11'
+		from users) u, aca_users a where u.usr_id = 'java00'
 		
 		select a.usr_id as a.aca_id,a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
@@ -420,3 +420,6 @@ select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 		usr_regdate,usr_email,usr_tel FROM users
 		) u,users au where u.usr_id=au.usr_id and rnum between 1 and 20
 		order by u.usr_regdate asc
+
+		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
+		from users where usr_id='java02'

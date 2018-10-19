@@ -18,51 +18,64 @@ $(document).ready(function(){
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align:center;" align="center">
-				<!-- 일반 회원 정보 -->
-				<sec:authorize access="hasRole('ROLE_USER')">
+				<!-- 학원 회원 정보 -->
+				<sec:authorize access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY')">
 				<table class="table table-hover">
 				   <thead style="text-align:center;">
 				   		<tr>
-				   			<th colspan="2" align="center">회원 정보</th>
+				   			<th>학원 회원 정보</th>
 				   		</tr>
 				   </thead>
 				   <tbody>
 				   		<tr>
-				   			<td style="width:30%">아이디</td>
-				   			<td>${requestScope.userVO.usrId}</td>
+				   			<td width="30%">아이디</td>
+				   			<td>${requestScope.acaUserVO.userVO.usrId}</td>
 				   		</tr>
 				   		<tr>
 				   			<td>이름</td>
-				   			<td>${requestScope.userVO.usrName}</td>
+				   			<td>${requestScope.acaUserVO.userVO.usrName}</td>
 				   		</tr>
 				   		<tr>
 				   			<td>주소</td>
-				   			<td>${requestScope.userVO.usrAddr}</td>
+				   			<td>${requestScope.acaUserVO.userVO.usrAddr}</td>
 				   		<tr>
 				   		<tr>
 				   			<td>닉네임</td>
-				   			<td>${requestScope.userVO.nickname}</td>
+				   			<td>${requestScope.acaUserVO.userVO.nickname}</td>
 				   		<tr>
 				   		<tr>
 				   			<td>생년월일</td>
-				   			<td>${requestScope.userVO.birthday}</td>
+				   			<td>${requestScope.acaUserVO.userVO.birthday}</td>
 				   		<tr>
 				   		<tr>
 				   			<td>가입일</td>
-				   			<td>${requestScope.userVO.usrRegdate}</td>
+				   			<td>${requestScope.acaUserVO.userVO.usrRegdate}</td>
 				   		<tr>
 				   		<tr>
 				   			<td>이메일</td>
-				   			<td>${requestScope.userVO.usrEmail}</td>
+				   			<td>${requestScope.acaUserVO.userVO.usrEmail}</td>
 				   		<tr>
 				   		<tr>
 				   			<td>연락처</td>
-				   			<td>${requestScope.userVO.usrTel}</td>
+				   			<td>${requestScope.acaUserVO.userVO.usrTel}</td>
+				   		<tr>
+				   		<tr>
+				   			<td>사업자번호</td>
+				   			<td>${requestScope.acaUserVO.busiRegNum}</td>
+				   		<tr><tr>
+				   			<td>기관명</td>
+				   			<td>${requestScope.acaUserVO.acaName}</td>
+				   		<tr><tr>
+				   			<td>기관주소</td>
+				   			<td>${requestScope.acaUserVO.acaAddr}</td>
+				   		<tr><tr>
+				   			<td>기관연락처</td>
+				   			<td>${requestScope.acaUserVO.acaTel}</td>
 				   		<tr>
 				   </tbody>
 				   <tfoot>
 			   			<tr>
-			   				<td colspan="2" align="center">
+			   				<td colspan="2" align="right">
 			   					<form action="updateUserForm.do">
 			   						<sec:csrfInput/>
 			   						<button type="submit" class="aca-btn">회원 정보 수정</button>			

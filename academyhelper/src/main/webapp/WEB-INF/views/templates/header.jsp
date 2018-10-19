@@ -45,9 +45,23 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 					style="display: none">
 					<sec:csrfInput />
 				</form>
+				<sec:authorize
+				access="hasRole('ROLE_USER') and !hasRole('ROLE_ACADEMY')">
 				<a
 					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
 					정보</a>
+					</sec:authorize>
+					<sec:authorize
+				access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and !hasRole('ROLE_ADMIN')">
+				<a
+					href="${pageContext.request.contextPath}/acaUserInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
+					정보</a>
+					</sec:authorize>
+					<sec:authorize
+				access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and hasRole('ROLE_ADMIN')">
+				<a
+					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">관리자 정보</a>
+					</sec:authorize>
 			</sec:authorize>
 			<sec:authorize
 				access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')">

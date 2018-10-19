@@ -83,8 +83,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public AcaUserVO getUserInfo(String usrId) {
+	public UserVO getUserInfo(String usrId) {
 		return userMapper.getUserInfo(usrId);
+	}
+
+	@Override
+	public AcaUserVO getAcaUserInfo(String usrId) {
+		return userMapper.getAcaUserInfo(usrId);
 	}
 	
 	public ListVO userList(){				
@@ -113,6 +118,8 @@ public class UserServiceImpl implements UserService{
 	public String findUserPasswordByIdAndEmail(UserVO userVO) {
 		return userMapper.findUserPasswordByIdAndEmail(userVO);
 	}
+
+	
 
 	
 }
