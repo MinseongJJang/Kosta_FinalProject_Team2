@@ -51,10 +51,10 @@ public interface QNAService {
 	 * QNA 댓글을 수정하는 메소드
 	 * @param acaQNAReplyVO
 	 */
-	public void updateAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO);
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
 	/**
 	 * QNA 댓글을 삭제하는 메소드
 	 * @param qnaRepNo
 	 */
 	public void deleteAcaQNAReply(String qnaRepNo);
-}
+	}

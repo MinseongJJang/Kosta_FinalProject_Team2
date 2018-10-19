@@ -56,8 +56,8 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public void registerAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
-		// TODO Auto-generated method stub
-
+		System.out.println(acaQNAReplyVO);
+		qnaReplyMapper.registerAcaQnAReply(acaQNAReplyVO);
 	}
 
 	@Override
@@ -87,15 +87,14 @@ public class QNAServiceImpl implements QNAService {
 	}
 
 	@Override
-	public void updateAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) {
 		// TODO Auto-generated method stub
-
+		qnaReplyMapper.updateAcaQnAReply(acaQNAReplyVO);
 	}
 
 	@Override
 	public void deleteAcaQNAReply(String qnaRepNo) {
-		// TODO Auto-generated method stub
-
+		qnaReplyMapper.deleteAcaQnAReply(qnaRepNo);
 	}
 
 }

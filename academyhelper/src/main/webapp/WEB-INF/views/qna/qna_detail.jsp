@@ -17,17 +17,14 @@
 		});
 	});
 	function checkComment() {
-		var comment = document.getElementById("replycontent").value;
+		var comment = document.getElementById("qnaRepContent").value;
+		console.log('1');
 		//alert(comment);
 		if (comment == "") {
 			alert("댓글 입력해주세요!");
 			return false;
 		}
 	}
-
-	function deleteComment() {
-		if (confirm("댓글 삭제하겠습니까?"))
-			$("#deletecommentform").submit();
 	}
 </script>
 
@@ -79,53 +76,67 @@
 					</tbody>
 				</table>
 				<div>
-					<table>
-						<tr>
-							<td colspan="1"><label for="comment">댓글</label></td>
-							<td colspan="6">
-								<form
-									action="${pageContext.request.contextPath}/registerAcaQnAReply.do"
-									method="post">
-									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
-									<sec:csrfInput />
-									<div class="form-group">
-										<textarea class="form-control" rows="1" id="replycontent"
-											name="replycontent" placeholder="댓글을 입력하세요"></textarea>
-									</div>
-								</form>
-							</td>
-							<td colspan="1"><button onclick="return checkComment()"
-									class="aca-btn" style="height: 10px">등록</button></td>
-							<c:if test="${fn:length(requestScope.listQNAReply)!=0}">
-								<br>
-								<br>
-								<br>
-								<p align="left">${fn:length(requestScope.listQNAReply)}개의 댓글</p>
-								<br>
-								<c:forEach items="${requestScope.listQNAReply}" var="comment">
-									<p align="left">${comment.userVO.nickname }</p>
-									<form
-										action="${pageContext.request.contextPath}/deleteAcaQnAReply.do"
-										method="post" id="deletecommentform">
+					<label for="comment">댓글</label>
+					<sec:authorize access="hasRole('ROLE_USER')">
+						<sec:authentication var="mvo" property="principal" />
 
-										<sec:csrfInput />
-										<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
-										<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
-										<input style="float: right;" class="" type="button" value="삭제"
-											onclick="deleteComment()">
-									</form>
-									<div class="card">
-										<div class="card-body" align="left">
-											<pre>${comment.qnaRepContent }</pre>
-										</div>
-									</div>
-								</c:forEach>
-							</c:if>
-						</tr>
-					</table>
+						<form
+							action="${pageContext.request.contextPath}/registerAcaQnAReply.do"
+							method="post">
+							<sec:csrfInput />
+							<div class="form-group">
+								<input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
+								<input type="hidden" name="acaQNAVO.qnaNo"
+									value="${detailQNA.qnaNo}">
+
+								<textarea class="form-control" rows="1" id="qnaRepContent"
+									name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
+
+							</div>
+							<button onclick="return checkComment()" class="aca-btn"
+								style="height: 10px">등록</button>
+						</form>
+					</sec:authorize>
+					<c:if test="${fn:length(requestScope.listQNAReply)!=0}">
+						<br>
+						<br>
+						<br>
+						<p align="left">${fn:length(requestScope.listQNAReply)}개의댓글</p>
+						<br>
+						<c:forEach items="${requestScope.listQNAReply}" var="comment">
+							<p align="left">${comment.userVO.nickname }</p>
+							<sec:authorize access="hasRole('ROLE_USER')">
+								<form
+									action="${pageContext.request.contextPath}/deleteAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=${detailQNA.qnaNo}"
+									method="post">
+									<sec:csrfInput />
+									<input style="float: right;" class="aca-btn" type="submit"
+										value="삭제">
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=$${detailQNA.qnaNo}"
+									method="post">
+									<sec:csrfInput />
+									<input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
+									<input type="hidden" name="acaQNAVO.qnaNo"
+										value="${detailQNA.qnaNo}">
+									<textarea class="form-control" rows="1" id="qnaRepContent"
+										name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
+									<input style="float: right;" class="aca-btn" type="submit"
+										value="수정">
+								</form>
+							</sec:authorize>
+							<div>
+								<div align="left">
+									<pre>${comment.qnaRepContent }</pre>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+
 				</div>
 			</div>
-			<div class="col-sm-1"></div>
+
 		</div>
 	</div>
 </div>
