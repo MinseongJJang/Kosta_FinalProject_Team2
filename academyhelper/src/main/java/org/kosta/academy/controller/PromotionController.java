@@ -3,6 +3,7 @@ package org.kosta.academy.controller;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.PromotionService;
+import org.kosta.academy.model.vo.AcaPromoAttachFileVO;
 import org.kosta.academy.model.vo.AcaPromoPostVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.security.access.annotation.Secured;
@@ -21,7 +22,7 @@ public class PromotionController {
 		ListVO promotion = promotionService.listAcaPromoPost(pageNo);
 		System.out.println(promotion);
 		mv.addObject("promotion",promotion);
-		mv.setViewName("academy_promotion/aca_promo_list.tiles");
+		mv.setViewName("promotion/aca_promo_list.tiles");
 		return mv;
 	}
 	@Secured("ROLE_USER")
@@ -31,14 +32,24 @@ public class PromotionController {
 		ModelAndView mv = new ModelAndView();
 		AcaPromoPostVO acaPromoPostVO = promotionService.detailAcaPromoPost(acaPromoNo);
 		mv.addObject("acaPromo",acaPromoPostVO);
-		mv.setViewName("academy_promotion/aca_promo_detail.tiles");
+		mv.setViewName("promotion/aca_promo_detail.tiles");
 		return mv;
 	}
 	@Secured("ROLE_ACADEMY")
 	@RequestMapping("registerAcaPromoPost.do")
-	public ModelAndView registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO) {
+	public ModelAndView registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO) {
 		ModelAndView mv = new ModelAndView();
-		promotionService.registerAcaPromoPost(acaPromoPostVO);
+		System.out.println(acaPromoPostVO);
+		System.out.println(acaPromoAttachFileVO);
+		promotionService.registerAcaPromoPost(acaPromoPostVO,acaPromoAttachFileVO);
+		mv.setViewName("redirect:acaPromoList.do");
+		return mv;
+	}
+	@Secured("ROLE_ACADEMY")
+	@RequestMapping("registerAcaPromoPostForm.do")
+	public ModelAndView registerAcaPromoPostForm() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("promotion/aca_promo_register_form.tiles");
 		return mv;
 	}
 }

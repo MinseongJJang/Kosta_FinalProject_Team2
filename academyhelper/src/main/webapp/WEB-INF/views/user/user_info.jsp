@@ -25,6 +25,9 @@ $(document).ready(function(){
 				   		<tr>
 				   			<th colspan="2" align="center">회원 정보</th>
 				   		</tr>
+				   		<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				   </thead>
 				   <tbody>
 				   		<tr>
@@ -83,6 +86,9 @@ $(document).ready(function(){
 				   		<tr>
 				   			<th>회원 정보</th>
 				   		</tr>
+				   		<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				   </thead>
 				   <tbody>
 				   		<tr>

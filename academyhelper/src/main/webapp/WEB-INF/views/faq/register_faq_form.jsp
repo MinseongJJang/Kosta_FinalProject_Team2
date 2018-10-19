@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
 <div class="row main">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8">
@@ -14,8 +16,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><textarea cols="90" rows="15" name="faqContent"
-									required="required"></textarea></td>
+							<td><textarea cols="90" rows="15" name="faqContent" required="required"></textarea></td>
 						</tr>
 					</table>
 					<div class="btnArea">
@@ -25,6 +26,8 @@
 					</div>					
 				</form>
 			</div>
-			<div class="col-sm-2"></div>
-		</div>
+		</form>
+	</div>
+	<div class="col-sm-2"></div>
+</div>
 

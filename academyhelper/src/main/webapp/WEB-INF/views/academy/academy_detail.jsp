@@ -30,6 +30,9 @@ $(document).ready(function(){
                      <tr>
                      <td colspan="8" align="center"><h3>학원 상세보기</h3></td>
                   </tr>
+                  <tr>
+							<td style="border-top:0px"></td>
+				 </tr>
                </thead>
                <tbody>
                      <c:set var="de" value="${requestScope.acaDetail}" />
@@ -55,13 +58,20 @@ $(document).ready(function(){
                         <td colspan="8" align="right">
                            <button form="deleteForm" type="submit" class="aca-btn">삭제</button>
                         <button form="updateForm" type="submit" class="aca-btn">수정</button>
-                         <form action="deleteAcaQNA.do" id="deleteForm" method="post">
-                           <sec:csrfInput />
-                           <input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
+                        <form action="deleteAcademy.do" id="deleteForm" method="post">
+                        <sec:csrfInput/>
+                        	<input type="hidden" name="acaNo" value="${de.acaNo}">
                         </form>
-                        <form action="updateAcaQNAForm.do" id="updateForm" method="post">
-                           <sec:csrfInput />
-                           <input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
+                        <form action="academyUpdateForm.do" id="updateForm" method="post">
+	                        <sec:csrfInput/>
+	                        <input type="hidden" name ="acaNo" value="${de.acaNo}">
+	                        <input type="hidden" name ="acaName" value="${de.acaName}">
+	                        <input type="hidden" name ="acaAddr" value="${de.acaAddr}">
+	                        <input type="hidden" name="acaTel" value="${de.acaTel}">
+	                        <input type="hidden" name =userVO.usrEmail value="${de.userVO.usrEmail}">
+	                        <input type="hidden" name ="userVO.usrTel" value="${de.userVO.usrTel}">
+	                        <input type="hidden" name ="userVO.nickname" value="${de.userVO.nickname}">
+	                        <input type="hidden" name ="userVO.usrId" value="${de.userVO.usrId}">
                         </form>
                         </td>
                      </tr>
@@ -84,6 +94,14 @@ $(document).ready(function(){
                         <td>${curriculum.academyVO.acaName }</td>
                      </tr>
                      </c:forEach>
+                     <tr>
+                     <td colspan="8" align="right">
+                        <button form="registerCurriculumForm" type="submit" class="aca-btn">과정 등록</button>
+                         <form action="${pageContext.request.contextPath}/registerCurriculumForm.do?acaNo=${requestScope.acaDetail.acaNo}" id="registerCurriculumForm" method="post">
+                           <sec:csrfInput/>
+                         </form>
+                     </td>
+                  </tr>
                </tbody>
                <tfoot>
                   <tr>
@@ -113,36 +131,7 @@ $(document).ready(function(){
                      </div>
                      </td>
                   </tr>
-                  <tr>
-                     <td>
-                        <button form="registerCurriculumForm" type="submit" class="aca-btn">과정 등록</button>
-                         <form action="${pageContext.request.contextPath}/registerCurriculumForm.do?acaNo=${requestScope.acaDetail.acaNo}" id="registerCurriculumForm" method="post">
-                           <sec:csrfInput/>
-                         </form>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <c:set var="de" value="${requestScope.acaDetail}" />
-                        <form action="deleteAcademy.do" id="deleteAca" method="post">
-                        <sec:csrfInput/>
-                        <input type="hidden" name="acaNo" value="${de.acaNo}">
-                        <input type="submit" value="학원정보삭제">
-                        </form>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <form action="academyUpdateForm.do" id="updateAca" method="post">
-                        <sec:csrfInput/>
-                        <input type="hidden" name ="acaNo" value="${de.acaNo}">
-                        <input type="hidden" name ="acaName" value="${de.acaName}">
-                        <input type="hidden" name ="acaAddr" value="${de.acaAddr}">
-                        <input type="hidden" name="acaTel" value="${de.acaTel}">
-                        <input type="hidden" name =userVO.usrEmail value="${de.userVO.usrEmail}">
-                        <input type="hidden" name ="userVO.usrTel" value="${de.userVO.usrTel}">
-                        <input type="hidden" name ="userVO.nickname" value="${de.userVO.nickname}">
-                        <input type="hidden" name ="userVO.usrId" value="${de.userVO.usrId}">
-                        <input type="submit" value="수정하기">   
-                        </form>
-                        </sec:authorize>
-                        </sec:authorize>
-                     </td>
-                  </tr>
+                  
                </tfoot>
             </table>
          </div>

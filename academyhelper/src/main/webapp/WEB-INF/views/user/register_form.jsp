@@ -72,6 +72,9 @@ table td{
 						<td colspan="2" align="center"><h3>일반 회원 가입</h3></td>
 					</tr>
 					<tr>
+							<td style="border-top:0px"></td>
+						</tr>
+					<tr>
 						<td>아이디</td>
 						<td>
 							<input type="text" name="usrId" id="usrId" required="required">

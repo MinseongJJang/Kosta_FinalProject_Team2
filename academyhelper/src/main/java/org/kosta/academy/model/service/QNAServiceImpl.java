@@ -9,7 +9,6 @@ import org.kosta.academy.model.mapper.QNAMapper;
 import org.kosta.academy.model.mapper.QNAReplyMapper;
 import org.kosta.academy.model.vo.AcaQNAReplyVO;
 import org.kosta.academy.model.vo.AcaQNAVO;
-import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Service;
 

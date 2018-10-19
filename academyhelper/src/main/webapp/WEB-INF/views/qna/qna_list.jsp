@@ -13,6 +13,9 @@
 					   	<tr>
 							<td colspan="4" align="center"><h3>질문과 응답</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				      <tr >
 				         <th class="qnaNo">NO</th>
 				         <th class="qnaTitle">제목</th>

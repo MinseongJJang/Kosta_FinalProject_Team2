@@ -18,6 +18,9 @@
 							   				<h3>회원 정보 수정</h3>
 							   			</td>
 							   		</tr>
+							   		<tr>
+										<td style="border-top:0px"></td>
+									</tr>
 							   </thead>
 							   <tbody>
 							   		<tr>
