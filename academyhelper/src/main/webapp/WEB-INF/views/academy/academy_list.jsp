@@ -12,6 +12,9 @@
 					   	<tr>
 							<td colspan="4" align="center"><h3>학원 목록</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				      <tr >
 				         <th>NO</th>
 				         <th>학원 이름</th>

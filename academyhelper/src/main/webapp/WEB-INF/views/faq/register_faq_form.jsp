@@ -14,8 +14,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><textarea cols="90" rows="15" name="faqContent"
-									required="required"></textarea></td>
+							<td><textarea cols="90" rows="15" name="faqContent" required="required"></textarea></td>
 						</tr>
 					</table>
 					<div class="btnArea">

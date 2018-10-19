@@ -26,7 +26,6 @@ public class FileUploadController {
 	@ResponseBody
 	@RequestMapping("file-upload.do")
 	public ArrayList<String> fileUpload(List<MultipartFile> fileList, HttpServletRequest request) {
-	
 		//wepapps/resources/upload 에 업로드된다.
 		uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
 		File uploadDir = new File(uploadPath);

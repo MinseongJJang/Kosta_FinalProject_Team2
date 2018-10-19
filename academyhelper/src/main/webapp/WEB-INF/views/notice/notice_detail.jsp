@@ -28,6 +28,9 @@
 				   		<tr>
 							<td colspan="8" align="center"><h3>공지사항</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 					</thead>
 				   <tbody>
 				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />

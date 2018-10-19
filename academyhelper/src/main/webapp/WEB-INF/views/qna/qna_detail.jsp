@@ -42,6 +42,9 @@
 						<tr>
 							<td colspan="8" align="center"><h3>질문과 응답 상세보기</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 					</thead>
 					<tbody>
 						<c:set var="detailQNA" value="${requestScope.detailQNA}" />
