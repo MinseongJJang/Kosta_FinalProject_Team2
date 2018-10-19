@@ -13,6 +13,9 @@
 					   	<tr>
 							<td colspan="4" align="center"><h3>공지사항</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				      <tr >
 				         <th>NO</th>
 				         <th>제목</th>

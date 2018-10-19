@@ -9,7 +9,6 @@ import org.kosta.academy.model.mapper.QNAMapper;
 import org.kosta.academy.model.mapper.QNAReplyMapper;
 import org.kosta.academy.model.vo.AcaQNAReplyVO;
 import org.kosta.academy.model.vo.AcaQNAVO;
-import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +66,7 @@ public class QNAServiceImpl implements QNAService {
 		int totalCount = qnaReplyMapper.getTotalQNAReplyCount(qnaNo);
 		PagingBean pagingBean = null;
 		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCount);
+				pagingBean = new PagingBean(totalCount);
 			map.put("qnaNo", qnaNo);
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
@@ -88,9 +87,9 @@ public class QNAServiceImpl implements QNAService {
 	}
 
 	@Override
-	public void updateAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) {
 		// TODO Auto-generated method stub
-
+		qnaReplyMapper.updateAcaQnAReply(acaQNAReplyVO);
 	}
 
 	@Override

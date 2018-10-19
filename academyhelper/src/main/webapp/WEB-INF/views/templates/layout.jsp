@@ -27,7 +27,6 @@
 	href="${pageContext.request.contextPath}/resources/css/datepicker.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/templatemo-style.css">
-
 <!-- Bootstrap core CSS -->
 <link
 	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css"
@@ -49,7 +48,7 @@
 			|| document
 					.write('<script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-1.11.2.min.js"><\/script>')
 </script>
-
+<script src="//cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/vendor/bootstrap.min.js"></script>
 <script

@@ -15,6 +15,9 @@
 				   		<tr>
 							<td colspan="2" align="center"><h3>자주 묻는 질문</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				   </thead>
 				   <tbody>
 				      <c:forEach var="pvo" varStatus="i" items="${requestScope.lvo.faqList}">	
@@ -34,7 +37,7 @@
 					      <tr>
 					      	<td colspan="4" align="right">
 							   <button form="registerFAQForm.do" type="submit" class="aca-btn">FAQ 등록</button>
-							   <form action="${pageContext.request.contextPath}/registerQNAForm.do" id="registerFAQForm.do" method="post">
+							   <form action="${pageContext.request.contextPath}/registerFAQForm.do" id="registerFAQForm.do" method="post">
 							      <sec:csrfInput />
 							   </form>
 					      	</td>

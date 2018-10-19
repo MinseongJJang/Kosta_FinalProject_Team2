@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.PromotionMapper;
+import org.kosta.academy.model.vo.AcaPromoAttachFileVO;
 import org.kosta.academy.model.vo.AcaPromoPostVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,11 @@ public class PromotionServiceImpl implements PromotionService {
 	public PromotionMapper promotionMapper;
 	
 	@Override
-	public void registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO) {
-		// TODO Auto-generated method stub
-		
+	public void registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO) {
+		promotionMapper.registerAcaPromoPost(acaPromoPostVO);
+		if(acaPromoAttachFileVO !=null) {
+			promotionMapper.registerAcaPromoFile(acaPromoAttachFileVO);
+		}
 	}
 
 	@Override

@@ -25,7 +25,7 @@
 			return false;
 		}
 	}
-	}
+	
 </script>
 
 <div class="container">
@@ -38,6 +38,9 @@
 					<thead>
 						<tr>
 							<td colspan="8" align="center"><h3>질문과 응답 상세보기</h3></td>
+						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -103,15 +106,27 @@
 						<br>
 						<p align="left">${fn:length(requestScope.listQNAReply)}개의댓글</p>
 						<br>
-						<c:forEach items="${requestScope.listQNAReply}" var="comment" >
+						<c:forEach items="${requestScope.listQNAReply}" var="comment">
 							<p align="left">${comment.userVO.nickname }</p>
 							<sec:authorize access="hasRole('ROLE_USER')">
 								<form
 									action="${pageContext.request.contextPath}/deleteAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=${detailQNA.qnaNo}"
 									method="post">
 									<sec:csrfInput />
-								   <input
-										style="float: right;" class="aca-btn" type="submit" value="삭제">
+									<input style="float: right;" class="aca-btn" type="submit"
+										value="삭제">
+								</form>
+								<form
+									action="${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=$${detailQNA.qnaNo}"
+									method="post">
+									<sec:csrfInput />
+									<input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
+									<input type="hidden" name="acaQNAVO.qnaNo"
+										value="${detailQNA.qnaNo}">
+									<textarea class="form-control" rows="1" id="qnaRepContent"
+										name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
+									<input style="float: right;" class="aca-btn" type="submit"
+										value="수정">
 								</form>
 							</sec:authorize>
 							<div>
