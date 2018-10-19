@@ -3,6 +3,7 @@ package org.kosta.academy.controller;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.QNAService;
+import org.kosta.academy.model.vo.AcaQNAReplyVO;
 import org.kosta.academy.model.vo.AcaQNAVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.security.access.annotation.Secured;
@@ -27,11 +28,9 @@ public class QNAController {
 	@RequestMapping("detailAcaQNA.do")
 	public String detailQna(String qnaNo, String pageNo, Model model) {
 		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
-		System.out.println(listReply);
 		model.addAttribute("listQNAReply", listReply.getAcaQNAReplyList());
 		model.addAttribute("pagingBean", listReply.getPb());
 		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
-		System.out.println(qnaVO);
 		model.addAttribute("detailQNA", qnaVO);
 		return "qna/qna_detail.tiles";
 	}
@@ -84,16 +83,23 @@ public class QNAController {
 		qnaService.registerAcaQNA(acaQnaVO);
 		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
 	}
-	/*@Secured("ROLE_USER")
+	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
-	public String registerAcaQnAReply() {
-		// TODO
-		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
+	public String registerAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+		qnaService.registerAcaQNAReply(acaQNAVOReplyVO);
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQnAReply.do")
-	public String deleteAcaQnAReply() {
-		// TODO
-		return "redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo();
-	}*/
+	public String deleteAcaQnAReply(String qnaRepNo, String qnaNo) {
+		qnaService.deleteAcaQNAReply(qnaRepNo);
+		return "redirect:detailAcaQNA.do?qnaNo="+qnaNo;
+	}
+	@Secured("ROLE_USER")
+	@PostMapping("updateAcaQnAReply.do")
+	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
+	}
+	
 }

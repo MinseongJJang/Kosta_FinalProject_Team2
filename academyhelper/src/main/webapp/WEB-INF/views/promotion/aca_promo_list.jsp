@@ -26,6 +26,6 @@
 </table>
 <br>
 <sec:authorize access="hasRole('ROLE_ACADEMY')">
-<a href="registerAcaPromoPost.do">홍보글쓰기</a>
+<a href="registerAcaPromoPostForm.do">홍보글쓰기</a>
 </sec:authorize>
 

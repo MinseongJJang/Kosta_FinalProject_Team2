@@ -27,9 +27,15 @@ public class JSUnit {
 	private QNAReplyMapper qnaReplyMapper;
 	@Test
 	public void test() {
-		// 리스트 출력
-		int totalCount=qnaReplyMapper.getTotalQNAReplyCount("7");
-		System.out.println(totalCount);
+		// QNA 댓글 삭제
+/*		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("qnaRepNo", "4");
+		map.put("qnaNo", "7");*/
+		qnaReplyMapper.deleteAcaQnAReply("6");
+
+		// QNA 댓글  총합 출력
+		/*int totalCount=qnaReplyMapper.getTotalQNAReplyCount("7");
+		System.out.println(totalCount);*/
 	/*	AcademyVO academyVO = academyMapper.detailAcademy("1");
 		CurriculumVO curriculumVO = new CurriculumVO();
 //		curriculumVO.setCurNo("7");
