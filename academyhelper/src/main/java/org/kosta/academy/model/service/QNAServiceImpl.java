@@ -67,7 +67,7 @@ public class QNAServiceImpl implements QNAService {
 		int totalCount = qnaReplyMapper.getTotalQNAReplyCount(qnaNo);
 		PagingBean pagingBean = null;
 		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCount);
+				pagingBean = new PagingBean(totalCount);
 			map.put("qnaNo", qnaNo);
 			map.put("start", pagingBean.getStartRowNumber());
 			map.put("end", pagingBean.getEndRowNumber());
