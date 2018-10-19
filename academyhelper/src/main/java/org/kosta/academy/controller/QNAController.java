@@ -92,8 +92,14 @@ public class QNAController {
 	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQnAReply.do")
 	public String deleteAcaQnAReply(String qnaRepNo, String qnaNo) {
-		System.out.println(qnaRepNo);
 		qnaService.deleteAcaQNAReply(qnaRepNo);
 		return "redirect:detailAcaQNA.do?qnaNo="+qnaNo;
 	}
+	@Secured("ROLE_USER")
+	@PostMapping("updateAcaQnAReply.do")
+	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
+	}
+	
 }

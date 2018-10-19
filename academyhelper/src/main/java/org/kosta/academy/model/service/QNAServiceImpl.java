@@ -88,9 +88,9 @@ public class QNAServiceImpl implements QNAService {
 	}
 
 	@Override
-	public void updateAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) {
 		// TODO Auto-generated method stub
-
+		qnaReplyMapper.updateAcaQnAReply(acaQNAReplyVO);
 	}
 
 	@Override
