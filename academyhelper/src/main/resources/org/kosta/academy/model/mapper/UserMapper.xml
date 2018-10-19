@@ -39,7 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
-		from users) u, aca_users a where u.usr_id = #{value}
+		from users) u, aca_users a where u.usr_id = a.usr_id and 
+		u.usr_id = #{value}
 	</select>
 	<select id="getAcaUserInfo" parameterType="string" resultType="acaUserVO">
 		select busi_reg_num,aca_name,aca_addr,aca_tel

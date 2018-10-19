@@ -420,3 +420,19 @@ select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 		usr_regdate,usr_email,usr_tel FROM users
 		) u,users au where u.usr_id=au.usr_id and rnum between 1 and 20
 		order by u.usr_regdate asc
+
+	
+select a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
+		u.usr_id,u.usr_name,u.usr_addr,u.nickname,u.birthday,u.usr_regdate,u.usr_email,u.usr_tel from(
+		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
+		from users) u, aca_users a where 
+		u.usr_id = 'java123'
+
+delete from users where usr_id = 'java1'
+
+
+insert into faq(faq_no,faq_title,faq_content,faq_regdate,usr_id)
+values(faq_seq.nextval,#{faqTitle},#{faqContent},sysdate,#{userVO.usrId})
+
+
+
