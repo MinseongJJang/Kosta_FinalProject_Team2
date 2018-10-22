@@ -328,13 +328,17 @@ create table aca_review_post(
 	aca_rev_no number primary key,
 	cur_no number not null,
 	aca_rev_title varchar2(100) not null,
-	aca_rev_content varchar2(100) not null,
+	aca_rev_content clob not null,
 	aca_rev_regdate date not null,
 	aca_rev_hits number default 0,
 	usr_id varchar2(100) not null,
 	constraint aca_review_post_ffk foreign key(cur_no) references curriculum(cur_no) on delete cascade,
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+
+alter table aca_review_post modify(aca_rev_content clob not null)
 alter table aca_review_post modify(aca_rev_hits number default 0)
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,3,'코스타좋아요','코스타개조음',sysdate,'java123')
