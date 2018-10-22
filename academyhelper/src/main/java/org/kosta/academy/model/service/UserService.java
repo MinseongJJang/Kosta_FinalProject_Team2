@@ -95,6 +95,4 @@ public interface UserService {
 	 * @return
 	 */
 	public String idcheck(String usrId);
-	
-	
 }

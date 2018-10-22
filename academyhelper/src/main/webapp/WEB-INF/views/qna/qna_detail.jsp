@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 	 
 /*$(function () {
     var myObjects = [
@@ -53,20 +53,43 @@
 						$("#updateForm").submit(function() {
 							return confirm("게시물을 수정하시겠습니까?");
 						});
-						$("#modifyReply")
-								.click(
-										function() {
-											$("#modifyReplyDiv")
-													.append(
+						 $("#modifyReply").click(function(){
+											$("#modifyReplyDiv").append(
 															"<textarea class='form-control' rows='1' id='qnaRepContent'  placeholder='수정할 내용을 입력하세요' name='qnaRepContent' ></textarea>"
 																	+ "<input style='float: right;' class='aca-btn' type='submit' value='수정하기'>"
 
 													);
-											/* "<input type='button' value='버튼' class='testBtn'><br>"); */
+											//"<input type='button' value='버튼' class='testBtn'><br>"); 
 
 										});
+										
+						/* $(".jBtn").click(function(e){
+							e.preventDefault();
+							$(this).hide();
+							$("#modifyReplyDiv_"+$(this).val()).append(
+									"<textarea class='form-control' rows='1' id='qnaRepContent'  placeholder='수정할 내용을 입력하세요' name='qnaRepContent' ></textarea>"
+											+ "<input style='float: right;' class='aca-btn jUpdate' type='button' value='수정하기'>"
 
-					});
+							);
+
+							
+						}); */
+										
+					/* 	$(".jUpdate").click(function(e){
+							e.preventDefault();
+							alert("asdsa");
+							$.ajax({
+					            url:'/academy/updateAcaQnAReply.do',
+					            type:'post',
+					            data:$('form').serialize(),
+					            success:function(data){
+					            	alert(data);
+					            	$(this).show();
+					            }
+					        });
+						});
+
+					}); */
 	/* function modifyReply() {
 		var comment = document.getElementById("qnaRepContent").value;
 		alert(comment);
@@ -172,8 +195,10 @@
 										value="삭제">
 								</form>
 								<form
-									action="${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=$${detailQNA.qnaNo}"
+									action="${pageContext.request.contextPath}/updateAcaQnAReply.do"
 									method="post">
+									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
+									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
 									<c:out value="${status.index}" />
 									<input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
@@ -181,11 +206,11 @@
 										value="${detailQNA.qnaNo}">
 									<!-- <textarea class="form-control" rows="1" id="qnaRepContent"
 										name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea> -->
-									<button style="float: right;" type="button" class="aca-btn"
+									<button style="float: right;" type="button" class="aca-btn jBtn"
 										id="modifyReply" value="${status.index}">수정</button>
 									<!-- <input style="float: right;" class="aca-btn" type="submit"
 										value="수정">  -->
-									<div id="modifyReplyDiv"></div>
+									<div id="modifyReplyDiv_${status.index}"></div>
 
 								</form>
 							</sec:authorize>

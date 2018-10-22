@@ -44,7 +44,7 @@ table td{
 								</c:if>							
 								</tr>
 								<tr>
-									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn">로그인</button></td>
+									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn jLogin" >로그인</button></td>
 								</tr>
 								
 								
