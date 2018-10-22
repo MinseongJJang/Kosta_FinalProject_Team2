@@ -9,6 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userVO.nickname" column="nickname" />
 		<result property="acaQNAVO.qnaNo" column="qna_no" />
 	</resultMap>
+	   <select id="getAcaQnAReply" parameterType="string" resultType="string">
+      select qna_rep_content from
+      aca_qna_reply 
+      where qna_rep_no=#{value}
+   </select>
 	<select id="listAcaQnAReply" resultMap="acaQNARRM">
 		select r.qna_rep_no,
 		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,

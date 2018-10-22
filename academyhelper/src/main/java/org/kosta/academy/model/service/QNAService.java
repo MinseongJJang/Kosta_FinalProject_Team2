@@ -57,4 +57,6 @@ public interface QNAService {
 	 * @param qnaRepNo
 	 */
 	public void deleteAcaQNAReply(String qnaRepNo);
+	
+	public String getAcaQnAReply(String qnaRepNo);
 	}
