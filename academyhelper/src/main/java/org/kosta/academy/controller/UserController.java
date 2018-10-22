@@ -60,8 +60,14 @@ public class UserController {
 	@Secured("ROLE_USER")
 	@RequestMapping("userInfo.do")
 	public ModelAndView userInfo(String usrId) {
-		AcaUserVO acaUserVO=userService.getUserInfo(usrId);
-		return new ModelAndView("user/user_info.tiles","acaUserVO",acaUserVO);
+		UserVO userVO=userService.getUserInfo(usrId);
+		return new ModelAndView("user/user_info.tiles","userVO",userVO);
+	}
+	@Secured("ROLE_ACADEMY")
+	@RequestMapping("acaUserInfo.do")
+	public ModelAndView acaUserInfo(String usrId) {
+		AcaUserVO acaUserVO=userService.getAcaUserInfo(usrId);
+		return new ModelAndView("user/aca_user_info.tiles","acaUserVO",acaUserVO);
 	}
 	@Secured("ROLE_USER")
 	@RequestMapping("updateUserForm.do")
@@ -112,5 +118,13 @@ public class UserController {
 		model.addAttribute("list",list.getUserList());
 		model.addAttribute("pb",list.getPb());
 		return "user/user_list.tiles";
+	}
+	@RequestMapping("registerForm.do")
+	public String registerForm() {
+		return "user/register_form.tiles";
+	}
+	@RequestMapping("acaRegisterForm.do")
+	public String acaRegisterForm() {
+		return "user/aca_register_form.tiles";
 	}
 }

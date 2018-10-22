@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class QNAController {
@@ -97,8 +98,10 @@ public class QNAController {
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQnAReply.do")
+	@ResponseBody
 	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
 		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+		String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
 		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
 	}
 	

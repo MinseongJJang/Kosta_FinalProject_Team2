@@ -44,15 +44,12 @@ table td{
 								</c:if>							
 								</tr>
 								<tr>
-									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn">로그인</button></td>
+									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn jLogin" >로그인</button></td>
 								</tr>
 								
 								
 								<tr>
-									<td colspan="2" align="right">
-										<a href="${pageContext.request.contextPath}/user/aca_register_form.do">기업 회원 가입</a>
-									</td>
-			               			<td colspan="1" align="right">
+			               			<td colspan="3" align="right">
 			               				<a href="${pageContext.request.contextPath}/user/register_form.do">회원가입</a>
 		               				</td>
 								</tr>

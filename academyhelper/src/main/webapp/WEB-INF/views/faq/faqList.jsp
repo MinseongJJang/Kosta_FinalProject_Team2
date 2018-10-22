@@ -2,58 +2,61 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
-  <div class="container" >
-	<div class="row">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
-			<div style="margin-top: 100px; text-align:center;">
-				<table class="table table-hover">
-				   <thead style="text-align:center;">
-				   		<tr>
-							<td colspan="2" align="center"><h3>자주 묻는 질문</h3></td>
-						</tr>
-						<tr>
-							<td style="border-top:0px"></td>
-						</tr>
-				   </thead>
-				   <tbody>
-				      <c:forEach var="pvo" varStatus="i" items="${requestScope.lvo.faqList}">	
-				         <tr>
-				             <td align="left" colspan="2" bgcolor="#004e92" bordercolor="#004e92" style="font-color:white;"><span style="color:white; size:2em;">질문 &nbsp; ${i.index+1}&nbsp; &nbsp; :&nbsp; &nbsp; ${pvo.faqTitle }</span></td>
-				         </tr>
-				         <tr>
-				         	<td align="left">
-				         		답변 &nbsp; ${i.index+1}&nbsp; &nbsp; :&nbsp; &nbsp; ${pvo.faqContent }
-			         		</td>
-			         		<td align="right">
-			         			<a href="deleteFAQ.do?faqNo=${pvo.faqNo }">삭제</a>&nbsp;&nbsp;<a href="updateFAQForm.do?faqNo=${pvo.faqNo }">수정</a>
-			         		</td>
-				         </tr>
-				      </c:forEach>
-			      		<sec:authorize access="hasRole('ROLE_USER')">
-					      <tr>
-					      	<td colspan="4" align="right">
-							   <button form="registerFAQForm.do" type="submit" class="aca-btn">FAQ 등록</button>
-							   <form action="${pageContext.request.contextPath}/registerFAQForm.do" id="registerFAQForm.do" method="post">
-							      <sec:csrfInput />
-							   </form>
-					      	</td>
-					      </tr>
-						</sec:authorize>
-				   </tbody>
-				   <tfoot>
-				   </tfoot>
-				</table>
-			</div>
+
+<link href='https://fonts.googleapis.com/css?family=News+Cycle:400,700' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/accordian/accordian.css">
+<div class="container" >
+<h3>자주 묻는 질문</h3>
+	<div class="row">	
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+<aside class="accordion">
+	<c:forEach var="pvo" items="${requestScope.lvo.faqList}">
+		<h1>Q. ${pvo.faqTitle}</h1>
+		<div>
+			<h2>A. ${pvo.faqContent}</h2>
 		</div>
-		<div class="col-sm-1"></div>
-	</div>
+	</c:forEach>
+</aside>
 </div>
+<div class="col-sm-2"></div>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<button form="registerFAQForm.do" type="submit" class="aca-btn">FAQ 등록</button>
+		<form action="${pageContext.request.contextPath}/registerFAQForm.do" id="registerFAQForm.do" method="post">
+			<sec:csrfInput />
+		</form>
+</sec:authorize>
+ </div>
+ </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript">
+var headers = ["H1","H2"];
 
-
-
-
+$(".accordion").click(function(e) {
+  var target = e.target,
+      name = target.nodeName.toUpperCase();
+  
+  if($.inArray(name,headers) > -1) {
+    var subItem = $(target).next();
+    
+    //slideUp all elements (except target) at current depth or greater
+    var depth = $(subItem).parents().length;
+    var allAtDepth = $(".accordion p, .accordion div").filter(function() {
+      if($(this).parents().length >= depth && this !== subItem.get(0)) {
+        return true; 
+      }
+    });
+    $(allAtDepth).slideUp("fast");
+    
+    //slideToggle target content and adjust bottom border if necessary
+    subItem.slideToggle("fast",function() {
+        $(".accordion :visible:last").css("border-radius","0 0 10px 10px");
+    });
+    $(target).css({"border-bottom-right-radius":"0", "border-bottom-left-radius":"0"});
+  }
+});
+</script>
