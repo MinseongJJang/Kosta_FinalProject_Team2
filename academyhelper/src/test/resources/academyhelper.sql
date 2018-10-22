@@ -172,6 +172,7 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+delete academy
 select * from academy
 create sequence academy_seq start with 1 nocache
 
@@ -280,12 +281,6 @@ create table curriculum(
 	cur_textbook varchar2(100) not null,
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
-<<<<<<< HEAD
-select * from curriculum
-=======
-
-select * from curriculum where aca_no=3
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -341,7 +336,7 @@ alter table aca_review_post add(aca_rev_content clob)
 alter table aca_review_post modify(aca_rev_content clob not null)
 alter table aca_review_post modify(aca_rev_hits number default 0)
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,8,'코스타좋아요','코스타개조음',sysdate,'java1')
 
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,3,'코스타좋아요1','코스타개조음',sysdate,'java123')
@@ -380,6 +375,7 @@ create table hashtag(
 )
 drop table hashtag
 create sequence hashtag_seq start with 1 nocache
+
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_rev_attach_file
 create table aca_review_attach_file(
@@ -454,6 +450,21 @@ select distinct a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
 		from users where usr_id='java02'
+<<<<<<< HEAD
+		
+create table hashtag(
+   hashtag_no number primary key,
+   aca_rev_no number not null,
+   hashtag_name varchar2(100) not null,
+   constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
+)
+drop table hashtag
+
+create sequence hashtag_seq start with 1 nocache
+		
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+=======
 
 select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
 (select usr_name from users where usr_id = r.usr_id) as 
@@ -527,3 +538,4 @@ select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a
 select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
 where c.aca_no = a.aca_no and
 c.aca_no = '3'
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git

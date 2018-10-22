@@ -82,4 +82,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) u,users au where u.usr_id=au.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
 		order by u.usr_regdate asc
 	</select>
+	<select id="loginCheck" parameterType="userVO" resultType="int">
+		select count(*) from users where usr_id = #{usrId} and usr_pass = #{usrPass}
+	</select>
+	<select id="findLoginPass" parameterType="userVO" resultType="string">
+		select usr_pass from users where usr_id = #{usrId}
+	</select>
 </mapper>
