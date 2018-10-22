@@ -25,8 +25,27 @@ $(document).ready(function(){
 		var value=$(this).val();
 		$(".jBtn").hide();
 		$("#replyBtn"+$(this).val()).show();
+		$("#modifyReplyDiv_"+$(this).val()).append(
+				"<textarea class='form-control' rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
+				);
 	});
-});
+	$("#replyBtn"+$(this).val()).click(function(e){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
+			data:$("#updateQnaReply").serialize(),	
+			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+			success:function(data){
+					$("#modifyReplyDiv_"+$(this).val()).append(
+							"<pre>${comment.qnaRepContent}</pre>"
+				}
+				});			
+			}//callback			
+		});//ajax
+	});//click
+});//ready
 </script>
 <div class="container">
 	<div class="row">
@@ -121,21 +140,19 @@ $(document).ready(function(){
 								</form>
 								<form
 									action="${pageContext.request.contextPath}/updateAcaQnAReply.do"
-									method="post">
+									method="post" name="updateQnaReply">
 									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
 									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
 									<button style="float: right;" type="button" class="aca-btn jBtn"
 										id="modifyReply" value="${status.index}">수정</button>
-									
-									<div id="modifyReplyDiv_${status.index}"></div>
 									<button style="float: right; display:none;" type="button" class="aca-btn replyBtn"
 										id="replyBtn${status.index}" value="${status.index}">수정</button>
 								</form>
 							</sec:authorize>
 							<div>
 								<div align="left">
-									<pre>${comment.qnaRepContent }</pre>
+									<div id="modifyReplyDiv_${status.index}"><pre>${comment.qnaRepContent}</pre></div>
 								</div>
 							</div>
 						</c:forEach>

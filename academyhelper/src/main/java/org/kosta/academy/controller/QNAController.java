@@ -101,6 +101,7 @@ public class QNAController {
 	@ResponseBody
 	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
 		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+		String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
 		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
 	}
 	
