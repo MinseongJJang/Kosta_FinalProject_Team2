@@ -514,3 +514,12 @@ select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_re
 		
 select * from hashtag
 select hashtag_no,hashtag_name from hashtag where aca_rev_no = '27'
+select * from academy
+select cur_no,cur_name from curriculum
+select aca_no,aca_name from academy
+select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
+		where c.aca_no = a.aca_no and
+		c.aca_no = '3'
+select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
+where c.aca_no = a.aca_no and
+c.aca_no = '3'
