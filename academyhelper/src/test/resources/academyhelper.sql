@@ -11,7 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
-
+select * from academy
 select * from faq
 select sysdate from dual; 
 select*from users;
@@ -172,6 +172,8 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+delete academy
+select * from academy
 create sequence academy_seq start with 1 nocache
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
@@ -323,11 +325,31 @@ create table aca_review_post(
 	aca_rev_title varchar2(100) not null,
 	aca_rev_content varchar2(100) not null,
 	aca_rev_regdate date not null,
-	aca_rev_hits number not null,
+	aca_rev_hits number default 0,
 	usr_id varchar2(100) not null,
 	constraint aca_review_post_ffk foreign key(cur_no) references curriculum(cur_no) on delete cascade,
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_review_post modify(aca_rev_hits number default 0)
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,8,'코스타좋아요','코스타개조음',sysdate,'java1')
+
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,3,'코스타좋아요1','코스타개조음',sysdate,'java123')
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,3,'코스타좋아요2','코스타개조음',sysdate,'java123')
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,3,'코스타좋아요3','코스타개조음',sysdate,'java123')
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,3,'코스타좋아요4','코스타개조음',sysdate,'java123')
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,3,'코스타좋아요5','코스타개조음',sysdate,'java123')
+insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
+values(aca_review_post_seq.nextval,3,'코스타좋아요6','코스타개조음',sysdate,'java123')
+
+
+select * from aca_review_post
+select * from aca_review_post
 create sequence aca_review_post_seq start with 1 nocache
 
 /*학원후기 만족도 테이블*/
@@ -340,14 +362,15 @@ create table aca_cur_satisfaction(
 	traffic_satis number not null,
 	constraint aca_cur_satisfaction_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
-
 /*해쉬태그 테이블*/
 create table hashtag(
+	hashtag_no number primary key,
 	aca_rev_no number not null,
 	hashtag_name varchar2(100) not null,
-	constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
-	constraint hashtag_pk primary key(aca_rev_no,hashtag_name)
+	constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
+drop table hashtag
+create sequence hashtag_seq start with 1 nocache
 
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_rev_attach_file
@@ -423,6 +446,7 @@ select distinct a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
 		from users where usr_id='java02'
+<<<<<<< HEAD
 		
 create table hashtag(
    hashtag_no number primary key,
@@ -436,3 +460,78 @@ create sequence hashtag_seq start with 1 nocache
 		
 alter table aca_review_post drop column aca_rev_content
 alter table aca_review_post add(aca_rev_content clob)
+=======
+
+select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
+(select usr_name from users where usr_id = r.usr_id) as 
+
+select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
+(select usr_name from users where usr_id=r.usr_id) as usr_name from 
+(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,cur_no,usr_id,
+row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u , curriculum c 
+where r.usr_id = u.usr_id and rnum between 1 and 5
+order by r.aca_rev_no desc		
+
+
+select p.aca_promo_no,p.aca_promo_title,p.aca_promo_regdate,p.aca_promo_hits,u.usr_id,
+(select usr_name from users where usr_id=p.usr_id) as usr_name from
+(select aca_promo_no,row_number() over(order by aca_promo_no desc) as rnum,aca_promo_title,to_char(aca_promo_regdate,'YYYY-MM-DD') as aca_promo_regdate,
+aca_promo_hits,usr_id from aca_promo_post) p , users u
+where p.usr_id = u.usr_id and rnum between 1 and 5
+order by p.aca_promo_no desc
+
+select * from curriculum
+select cur_no,cur_name from curriculum where aca_no = 3
+
+
+select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
+		(select usr_name from users where usr_id=r.usr_id) as usr_name from aca_review_post r,users u
+		where r.usr_id = u.usr_id and 
+		r.aca_rev_no = 5
+		
+select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
+		(select usr_name from users where usr_id=r.usr_id) as usr_name from 
+		(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,usr_id,
+		row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u
+		where r.usr_id = u.usr_id and rnum between 1 and 5
+		order by r.aca_rev_no desc
+		
+select * from academy
+select * from curriculum where aca_no = '5';
+select cur_no,cur_name from curriculum where aca_no = '3';
+
+select * from aca_review_post
+
+select * from hashtag where aca_rev_no = 14
+select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
+		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name
+		from aca_review_post r,users u
+		where r.usr_id = u.usr_id and 
+		r.aca_rev_no = '11'
+		
+select * from ACA_CUR_SATISFACTION
+select * from hashtag
+select hashtag_name from hashtag where aca_rev_no = '14'
+
+
+
+select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
+		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name,
+		c.aca_no ,(select aca_name from academy where aca_no = c.aca_no) as aca_name
+		from aca_review_post r,users u , curriculum c
+		where r.usr_id = u.usr_id and 
+		c.cur_no = r.cur_no and
+		r.aca_rev_no = '14'
+		
+select * from hashtag
+select hashtag_no,hashtag_name from hashtag where aca_rev_no = '27'
+select * from academy
+select cur_no,cur_name from curriculum
+select aca_no,aca_name from academy
+select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
+		where c.aca_no = a.aca_no and
+		c.aca_no = '3'
+select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
+where c.aca_no = a.aca_no and
+c.aca_no = '3'
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git

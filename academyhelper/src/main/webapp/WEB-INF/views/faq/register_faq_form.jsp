@@ -26,8 +26,6 @@
 					</div>					
 				</form>
 			</div>
-		</form>
 	</div>
 	<div class="col-sm-2"></div>
-</div>
 

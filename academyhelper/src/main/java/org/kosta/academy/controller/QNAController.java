@@ -101,7 +101,13 @@ public class QNAController {
 	@ResponseBody
 	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
 		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
-		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
+		System.out.println(acaQNAVOReplyVO.getQnaRepContent());
+		System.out.println(acaQNAVOReplyVO.getQnaRepNo());
+		String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
+		System.out.println(qnaRepNo);
+		String content=qnaService.getAcaQnAReply(qnaRepNo);
+		System.out.println(content);
+		return content;
 	}
 	
 }
