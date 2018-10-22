@@ -31,35 +31,35 @@ $(document).ready(function(){
 				   </thead>
 				   <tbody>
 				   		<tr>
-				   			<td style="width:30%">아이디</td>
+				   			<th style="width:30%">아이디</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrId}</td>
 				   		</tr>
 				   		<tr>
-				   			<td>이름</td>
+				   			<th>이름</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrName}</td>
 				   		</tr>
 				   		<tr>
-				   			<td>주소</td>
+				   			<th>주소</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrAddr}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>닉네임</td>
+				   			<th>닉네임</th>
 				   			<td>${requestScope.acaUserVO.userVO.nickname}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>생년월일</td>
+				   			<th>생년월일</th>
 				   			<td>${requestScope.acaUserVO.userVO.birthday}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>가입일</td>
+				   			<th>가입일</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrRegdate}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>이메일</td>
+				   			<th>이메일</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrEmail}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>연락처</td>
+				   			<th>연락처</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrTel}</td>
 				   		<tr>
 				   </tbody>
@@ -92,35 +92,35 @@ $(document).ready(function(){
 				   </thead>
 				   <tbody>
 				   		<tr>
-				   			<td width="30%">아이디</td>
+				   			<th width="30%">아이디</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrId}</td>
 				   		</tr>
 				   		<tr>
-				   			<td>이름</td>
+				   			<th>이름</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrName}</td>
 				   		</tr>
 				   		<tr>
-				   			<td>주소</td>
+				   			<th>주소</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrAddr}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>닉네임</td>
+				   			<th>닉네임</th>
 				   			<td>${requestScope.acaUserVO.userVO.nickname}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>생년월일</td>
+				   			<th>생년월일</th>
 				   			<td>${requestScope.acaUserVO.userVO.birthday}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>가입일</td>
+				   			<th>가입일</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrRegdate}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>이메일</td>
+				   			<th>이메일</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrEmail}</td>
 				   		<tr>
 				   		<tr>
-				   			<td>연락처</td>
+				   			<th>연락처</th>
 				   			<td>${requestScope.acaUserVO.userVO.usrTel}</td>
 				   		<tr>
 				   		<tr>

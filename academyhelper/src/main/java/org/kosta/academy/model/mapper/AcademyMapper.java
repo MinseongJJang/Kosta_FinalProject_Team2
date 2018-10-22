@@ -21,7 +21,6 @@ public interface AcademyMapper {
 
 	void deleteAcademy(String acaNo);
 
-
-
+	List<AcademyVO> allListAcademy();
 	
 }

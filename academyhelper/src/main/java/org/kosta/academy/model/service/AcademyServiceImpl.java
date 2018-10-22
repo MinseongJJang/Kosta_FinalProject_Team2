@@ -42,6 +42,14 @@ public class AcademyServiceImpl implements AcademyService {
 	}
 
 	@Override
+	public ListVO allListAcademy() {
+		List<AcademyVO> academyList = academyMapper.allListAcademy();
+		ListVO lvo = new ListVO();
+		lvo.setAcademyList(academyList);
+		return lvo;
+	}
+	
+	@Override
 	public AcademyVO detailAcademy(String acaNo) {
 		return academyMapper.detailAcademy(acaNo);
 	}
@@ -87,7 +95,20 @@ public class AcademyServiceImpl implements AcademyService {
 		lvo.setPb(pagingBean);
 		return lvo;
 	}
-
+	@Override
+	public ListVO allListCurriculum(String acaNo) {
+		List<CurriculumVO> curriculumList = curriculumMapper.allListCurriculum(acaNo);
+		ListVO lvo = new ListVO();
+		lvo.setCurriculumList(curriculumList);
+		return lvo;
+	}
+	@Override
+	public ListVO listCurriculumAsAcademy(String acaNo) {
+		List<CurriculumVO> curriculumList = curriculumMapper.listCurriculumAsAcademy(acaNo);
+		ListVO lvo = new ListVO();
+		lvo.setCurriculumList(curriculumList);
+		return lvo;
+	}
 	@Override
 	public CurriculumVO detailCurriculum(String curNo) {
 		return curriculumMapper.detailCurriculum(curNo);
