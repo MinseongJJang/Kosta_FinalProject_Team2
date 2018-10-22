@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.AcaQNAReplyVO;
 
 @Mapper

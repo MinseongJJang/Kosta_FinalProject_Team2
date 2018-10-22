@@ -55,4 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		c.aca_no=a.aca_no and
 		c.cur_no=#{value}
 	</select>
+	
+	<select id="getCurriculumList" parameterType="string" resultMap="curriculumRM">
+		select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a where aca_no = #{value} 
+	</select>
 </mapper>

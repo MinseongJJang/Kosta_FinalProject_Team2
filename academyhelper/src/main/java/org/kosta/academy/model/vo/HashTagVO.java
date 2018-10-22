@@ -1,16 +1,23 @@
 package org.kosta.academy.model.vo;
 
 public class HashTagVO {
+	private String hashTagNo;
 	private String hashTagName;
 	private AcaReviewPostVO acaReviewPostVO;
 	public HashTagVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public HashTagVO(String hashTagName, AcaReviewPostVO acaReviewPostVO) {
 		super();
 		this.hashTagName = hashTagName;
 		this.acaReviewPostVO = acaReviewPostVO;
+	}
+	
+	public String getHashTagNo() {
+		return hashTagNo;
+	}
+	public void setHashTagNo(String hashTagNo) {
+		this.hashTagNo = hashTagNo;
 	}
 	public String getHashTagName() {
 		return hashTagName;
@@ -26,8 +33,8 @@ public class HashTagVO {
 	}
 	@Override
 	public String toString() {
-		return "HashTagVO [hashTagName=" + hashTagName + ", acaReviewPostVO=" + acaReviewPostVO + "]";
+		return "HashTagVO [hashTagNo=" + hashTagNo + ", hashTagName=" + hashTagName + ", acaReviewPostVO="
+				+ acaReviewPostVO + "]";
 	}
-	
 	
 }

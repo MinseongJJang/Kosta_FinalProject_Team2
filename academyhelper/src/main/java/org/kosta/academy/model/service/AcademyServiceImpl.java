@@ -103,4 +103,17 @@ public class AcademyServiceImpl implements AcademyService {
 		curriculumMapper.deleteCurriculum(curNo);
 	}
 
+	@Override
+	public List<AcademyVO> getAcademyList() {
+		List<AcademyVO> academyList = academyMapper.getAcademyList();
+		return academyList;
+	}
+
+	@Override
+	public List<CurriculumVO> getCurriculumList(String acaNo) {
+		List<CurriculumVO> curriculumList = curriculumMapper.getCurriculumList(acaNo);
+		return curriculumList;
+	}
+	
+
 }

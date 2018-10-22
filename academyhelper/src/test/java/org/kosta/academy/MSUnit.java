@@ -1,17 +1,16 @@
 package org.kosta.academy;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.academy.model.mapper.AcademyMapper;
+import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.mapper.PromotionMapper;
+import org.kosta.academy.model.mapper.ReviewMapper;
 import org.kosta.academy.model.mapper.UserMapper;
-import org.kosta.academy.model.service.PagingBean;
-import org.kosta.academy.model.vo.AcaPromoPostVO;
-import org.kosta.academy.model.vo.AcaUserVO;
-import org.kosta.academy.model.vo.UserVO;
+import org.kosta.academy.model.vo.AcaReviewPostVO;
+import org.kosta.academy.model.vo.AcademyVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,9 +19,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MSUnit {
 	//member 단위 테스트
 	@Resource
+	AcademyMapper academyMapper;
+	@Resource
 	UserMapper userMapper;
 	@Resource
 	PromotionMapper promoMapper;
+	@Resource
+	ReviewMapper reviewMapper;
+	@Resource
+	CurriculumMapper curriculumMapper;
 	@Test
 	public void test() {
 		/*UserVO vo = mapper.findUserById("admin");
@@ -55,11 +60,78 @@ public class MSUnit {
 			System.out.println(file);
 		}
 		System.out.println(promoMapper.detailAcaPromoPost(map));*/
-		int totalCount = promoMapper.getTotalPromoPostCount();
+		/*int totalCount = promoMapper.getTotalPromoPostCount();
 		PagingBean pb = new PagingBean(totalCount);
 		List<AcaPromoPostVO> promoList = promoMapper.listAcaPromoPost(pb);
 		for(AcaPromoPostVO promo : promoList) {
 			System.out.println(promo);
+		}*/
+		
+		//System.out.println(reviewMapper.detailAcaReivewPost("5"));
+	/*	int totalPostCount = reviewMapper.getAcaReviewTotalCount();
+		PagingBean pb = new PagingBean(totalPostCount);
+		List<AcaReviewPostVO> reviewList = reviewMapper.listAcaReviewPost(pb);
+		for(AcaReviewPostVO post : reviewList) {
+			System.out.println(post);
+		}*/
+		/*List<CurriculumVO> curriculumList = curriculumMapper.getCurriculumList("3");
+		for(CurriculumVO cur : curriculumList) {
+			System.out.println(cur); 
+		}*/
+		/*UserVO userVO = new UserVO();
+		userVO.setUsrId("java1");
+		CurriculumVO curriculumVO = new CurriculumVO();
+		curriculumVO.setCurNo("4");
+		AcaReviewPostVO acaReviewPostVO = new AcaReviewPostVO();
+		acaReviewPostVO.setAcaRevTitle("후기123456789");
+		acaReviewPostVO.setAcaRevContent("후기내용");
+		acaReviewPostVO.setCurriculumVO(curriculumVO);
+		acaReviewPostVO.setUserVO(userVO);
+		reviewMapper.registerAcaReviewPost(acaReviewPostVO);*/
+		//System.out.println(acaReviewPostVO.getAcaRevNo());
+		//AcaReviewPostVO acaReview = reviewMapper.detailAcaReivewPost(acaReviewPostVO.getAcaRevNo());
+		//System.out.println(acaReview);
+		/*AcaReviewPostVO acaReviewPostVO = new AcaReviewPostVO();
+		acaReviewPostVO.setAcaRevContent("sdfsdfsdfsdf");
+		acaReviewPostVO.setAcaRevTitle("dsfsdew32423423");*/
+		/*HashTagVO hash = new HashTagVO();
+		hash.setAcaReviewPostVO(acaReviewPostVO);
+		hash.setHashTagName("#sfsdfsdfsdfsdfsdf");
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("ACAREVNO", acaReviewPostVO.getAcaRevNo());
+		map.put("HASHTAGNAME", hash.getHashTagName());
+		System.out.println("map : " + map);
+		reviewMapper.registerHashTag(map);*/
+		/*AcaCurSatisfactionVO acaCurSatisfactionVO = new AcaCurSatisfactionVO();
+		acaCurSatisfactionVO.setAcaReviewPostVO(acaReviewPostVO);
+		acaCurSatisfactionVO.setAmentiesSatis("10");
+		acaCurSatisfactionVO.setCurSatis("10");
+		acaCurSatisfactionVO.setEmpLinksSatis("10");
+		acaCurSatisfactionVO.setLecturerSatis("10");
+		acaCurSatisfactionVO.setTrafficSatis("10");
+		reviewMapper.registerAcaCurSatisfaction(acaCurSatisfactionVO);*/
+		/*List<HashTagVO> hashList = reviewMapper.hashtagListByAcaRevNo(acaReviewPostVO.getAcaRevNo());
+		AcaCurSatisfactionVO satisfaction = reviewMapper.satisfactionByAcaRevNo(acaReviewPostVO.getAcaRevNo());
+		Queue<Object> queue = new LinkedList<Object>();
+		queue.offer(hashList);
+		queue.offer(satisfaction);
+		queue.offer(acaReviewPostVO);
+		
+		
+		@SuppressWarnings("unchecked")
+		List<HashTagVO> hash = (List<HashTagVO>) queue.poll();
+		AcaCurSatisfactionVO satis = (AcaCurSatisfactionVO) queue.poll();
+		AcaReviewPostVO review = (AcaReviewPostVO) queue.poll();
+		
+		System.out.println(review);
+		for(HashTagVO hashs : hash) {
+			System.out.println(hashs);
 		}
+		System.out.println(satis);*/
+		
+		/*AcademyVO academy = academyMapper.getAcademyByAcaNo("3");
+		System.out.println(academy);*/
+		AcaReviewPostVO review = reviewMapper.detailAcaReivewPost("14");
+		System.out.println(review);
 	}
 }

@@ -47,4 +47,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAcademy" parameterType="string">
 		delete from academy where aca_no = #{value}
 	</delete>
+	<select id="getAcademyList" resultType="academyVO">
+		select aca_no,aca_name from academy
+	</select>
+	<select id="getAcademyByAcaNo" parameterType="string" resultType="academyVO">
+		select aca_name from academy where aca_no = #{value}
+	</select>
 </mapper>

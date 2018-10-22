@@ -1,5 +1,7 @@
 package org.kosta.academy.model.service;
 
+import java.util.List;
+
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -23,6 +25,7 @@ public interface AcademyService {
 	 * @param pageNo
 	 * @return
 	 */
+	
 	public ListVO listAcademy(String pageNo);
 	/**
 	 * 교육기관 상세정보를 불러오는 메소드
@@ -71,5 +74,6 @@ public interface AcademyService {
 	 * @param curNo
 	 */
 	public void deleteCurriculum(String curNo);
-
+	public List<AcademyVO> getAcademyList();
+	public List<CurriculumVO> getCurriculumList(String acaNo);
 }

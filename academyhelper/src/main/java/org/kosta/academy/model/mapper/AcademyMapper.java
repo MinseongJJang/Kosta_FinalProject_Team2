@@ -18,10 +18,7 @@ public interface AcademyMapper {
 	AcademyVO detailAcademy(String acaNo);
 
 	void updateAcademy(AcademyVO academyVO);
-
 	void deleteAcademy(String acaNo);
-
-
-
-	
+	List<AcademyVO> getAcademyList();
+	AcademyVO getAcademyByAcaNo(String acaNo);
 }
