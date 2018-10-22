@@ -9,8 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(-1) from aca_promo_post
 	</select>
 	<insert id="registerAcaPromoPost" parameterType="acaPromoPostVO">
+		<selectKey keyProperty="acaPromoNo" resultType="string" order="BEFORE">
+			select aca_promo_post_seq.nextval from dual
+		</selectKey>
 		insert into aca_promo_post(aca_promo_no,aca_promo_title,aca_promo_content,aca_promo_regdate,usr_id)
-		values(aca_promo_post_seq.nextval,#{acaPromoTitle},#{acaPromoContent},sysdate,#{acaUserVO.userVO.usrId})
+		values(#{acaPromoNo},#{acaPromoTitle},#{acaPromoContent},sysdate,#{acaUserVO.userVO.usrId})
 	</insert>
 	<resultMap type="acaPromoPostVO" id="acaPromoRM">
 		<result property="acaUserVO.userVO.usrId" column="usr_id"/>

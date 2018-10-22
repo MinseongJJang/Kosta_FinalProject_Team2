@@ -1,7 +1,6 @@
 package org.kosta.academy.controller;
 
 import javax.annotation.Resource;
-
 import org.kosta.academy.model.service.PromotionService;
 import org.kosta.academy.model.vo.AcaPromoAttachFileVO;
 import org.kosta.academy.model.vo.AcaPromoPostVO;
@@ -20,7 +19,6 @@ public class PromotionController {
 	public ModelAndView acaPromoList(String pageNo) {
 		ModelAndView mv = new ModelAndView();
 		ListVO promotion = promotionService.listAcaPromoPost(pageNo);
-		System.out.println(promotion);
 		mv.addObject("promotion",promotion);
 		mv.setViewName("promotion/aca_promo_list.tiles");
 		return mv;
@@ -39,10 +37,8 @@ public class PromotionController {
 	@RequestMapping("registerAcaPromoPost.do")
 	public ModelAndView registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println(acaPromoPostVO);
-		System.out.println(acaPromoAttachFileVO);
 		promotionService.registerAcaPromoPost(acaPromoPostVO,acaPromoAttachFileVO);
-		mv.setViewName("redirect:acaPromoList.do");
+		mv.setViewName("redirect:detailAcaPromoPost.do+acaPromoNo="+acaPromoPostVO.getAcaPromoNo());
 		return mv;
 	}
 	@Secured("ROLE_ACADEMY")

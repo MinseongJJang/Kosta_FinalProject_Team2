@@ -38,6 +38,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900"
 	rel="stylesheet">
+
+
 <script
 	src="${pageContext.request.contextPath}/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script
@@ -55,6 +57,7 @@
 	src="${pageContext.request.contextPath}/resources/js/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
 <!-- Bootstrap core JavaScript -->
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>

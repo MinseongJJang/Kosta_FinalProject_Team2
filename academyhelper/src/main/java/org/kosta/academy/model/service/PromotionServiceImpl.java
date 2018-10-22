@@ -18,7 +18,8 @@ public class PromotionServiceImpl implements PromotionService {
 	@Override
 	public void registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO) {
 		promotionMapper.registerAcaPromoPost(acaPromoPostVO);
-		if(acaPromoAttachFileVO !=null) {
+		acaPromoAttachFileVO.setAcaPromoPostVO(acaPromoPostVO);
+		if(acaPromoAttachFileVO.getAcaPromoFilepath() !=null) {
 			promotionMapper.registerAcaPromoFile(acaPromoAttachFileVO);
 		}
 	}

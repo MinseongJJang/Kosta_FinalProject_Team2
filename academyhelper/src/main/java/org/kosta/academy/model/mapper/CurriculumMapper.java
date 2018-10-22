@@ -14,5 +14,8 @@ public interface CurriculumMapper {
 	public void updateCurriculum(CurriculumVO curriculumVO);
 	public void deleteCurriculum(String curNo);
 	public int getTotalCurriculumCount(String acaNo);
+	public List<CurriculumVO> getCurriculumList(String acaNo);
+	public List<CurriculumVO> allListCurriculum(String acaNo);
+	public List<CurriculumVO> listCurriculumAsAcademy(String acaNo);
 
 }

@@ -22,8 +22,6 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 	
 	@Override
 	public void registerFAQ(FAQVO faqVO) {
-		// TODO Auto-generated method stub
-		System.out.println(faqVO);
 		faqAndNoticeMapper.registerFAQ(faqVO);
 	}
 

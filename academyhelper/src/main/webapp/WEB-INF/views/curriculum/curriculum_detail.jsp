@@ -40,23 +40,23 @@ $(document).ready(function(){
 				   <tbody>
 				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
 				         <tr>
-				            <td>과정번호</td>
+				            <th>과정번호</th>
 				            <td>${requestScope.DetailCurriculum.curNo }</td>
-				            <td>과정이름</td>
+				            <th>과정이름</th>
 				            <td>${requestScope.DetailCurriculum.curName}</td>
-				            <tD>강사명</td>
+				            <th>강사명</th>
 				            <td>${requestScope.DetailCurriculum.curLecturer}</td>
 				         </tr>
 				         <tr>
-				            <td>정원</td>
+				            <th>정원</th>
 				            <td>${requestScope.DetailCurriculum.limitMem }</td>
-				            <td>사용교재</td>
+				            <th>사용교재</th>
 				            <td>${requestScope.DetailCurriculum.curTextbook}</td>
-				            <tD>기관이름</td>
+				            <th>기관이름</th>
 				            <td>${requestScope.DetailCurriculum.academyVO.acaName}</td>
 				         </tr>
 				         <tr>
-				         	<td colspan="1">내용</td>
+				         	<th colspan="1">내용</th>
 				         	<td colspan="7"><pre style="white-space: pre-wrap;">${requestScope.DetailCurriculum.curContent}</pre></td>
 				         </tr>
 			      		<sec:authorize access="hasRole('ROLE_ADMIN')">

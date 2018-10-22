@@ -7,6 +7,7 @@ import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.UserVO;
+import org.springframework.security.core.Authentication;
 @Mapper
 public interface UserMapper {
 	public UserVO findUserById(String usrId);
@@ -26,4 +27,6 @@ public interface UserMapper {
 	public int idcheck(String usrId);
 	public List<UserVO> userList(PagingBean pagingBean);
 	public int getTotalUserCount();
+	public int loginCheck(UserVO userVO);
+	public String findLoginPass(UserVO userVO);
 }

@@ -4,5 +4,68 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.ReviewMapper">
-
+	<resultMap type="acaReviewPostVO" id="acaReviewPostRM1">
+		<result property="userVO.usrId" column="usr_id" />
+		<result property="userVO.usrName" column="usr_name" />
+	</resultMap>
+	<resultMap type="acaReviewPostVO" id="acaReviewPostRM2" extends="acaReviewPostRM1">
+		<result property="curriculumVO.curNo" column="cur_no"/>
+		<result property="curriculumVO.curName" column="cur_name"/>
+	</resultMap>
+	<resultMap type="acaReviewPostVO" id="acaReviewPostRM3" extends="acaReviewPostRM2">
+		<result property="curriculumVO.academyVO.acaNo" column="aca_no"/>
+		<result property="curriculumVO.academyVO.acaName" column="aca_name"/>
+	</resultMap>
+	<select id="getAcaReviewTotalCount" resultType="int">
+		select count(-1) from aca_review_post
+	</select>
+	<select id="listAcaReviewPost" parameterType="pagingBean" resultMap="acaReviewPostRM1">
+		select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
+		(select usr_name from users where usr_id=r.usr_id) as usr_name from 
+		(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,usr_id,
+		row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u
+		where r.usr_id = u.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
+		order by r.aca_rev_no desc
+	</select>
+	<select id="detailAcaReivewPost" parameterType="string" resultMap="acaReviewPostRM3">
+		select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
+		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name,
+		c.aca_no ,(select aca_name from academy where aca_no = c.aca_no) as aca_name
+		from aca_review_post r,users u , curriculum c
+		where r.usr_id = u.usr_id and 
+		c.cur_no = r.cur_no and
+		r.aca_rev_no = #{value}
+	</select>
+	<insert id="registerAcaReviewPost" parameterType="acaReviewPostVO">
+		<selectKey keyProperty="acaRevNo" order="BEFORE" resultType="string">
+			select aca_review_post_seq.nextval from dual
+		</selectKey>
+		insert into aca_review_post(aca_rev_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id,cur_no) 
+		values(#{acaRevNo},#{acaRevTitle},#{acaRevContent},sysdate,#{userVO.usrId},#{curriculumVO.curNo})
+	</insert>
+	<insert id="registerHashTag" parameterType="map">
+		<selectKey keyProperty="hashtagNo" resultType="string" order="BEFORE">
+			select hashtag_seq.nextval from dual
+		</selectKey>
+		insert into hashtag(hashtag_no,aca_rev_no,hashtag_name) values(#{hashtagNo},#{ACAREVNO},#{HASHTAGNAME})
+	</insert>
+	<insert id="registerAcaCurSatisfaction" parameterType="acaCurSatisfactionVO">
+		insert into aca_cur_satisfaction(aca_rev_no,cur_satis,amenities_satis,lecturer_satis,emp_links_satis,traffic_satis) values
+		(#{acaReviewPostVO.acaRevNo},#{curSatis},#{amenitiesSatis},#{lecturerSatis},#{empLinksSatis},#{trafficSatis})
+	</insert>
+	<select id="hashtagListByAcaRevNo" parameterType="string" resultType="hashTagVO">
+		select hashtag_no,hashtag_name from hashtag where aca_rev_no = #{value}
+	</select>
+	<select id="satisfactionByAcaRevNo" parameterType="string" resultType="acaCurSatisfactionVO">
+		select cur_satis,amenities_satis,lecturer_satis,emp_links_satis,traffic_satis from aca_cur_satisfaction where aca_rev_no = #{value}
+	</select>
+	<delete id="deleteHashTag" parameterType="string">
+		delete from hashtag where aca_rev_no = #{value}
+	</delete>
+	<update id="updateAcaReviewPost" parameterType="acaReviewPostVO">
+		update aca_review_post set aca_rev_title = #{acaRevTitle} , aca_rev_content = #{acaRevContent} where aca_rev_no = #{acaRevNo}
+	</update>
+	<delete id="deleteAcaReviewPost" parameterType="string">
+		delete from aca_review_post where aca_rev_no = #{value}
+	</delete>
 </mapper>
