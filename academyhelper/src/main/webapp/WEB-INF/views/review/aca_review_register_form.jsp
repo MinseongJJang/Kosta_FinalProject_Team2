@@ -82,17 +82,17 @@
 				   		<tr>
 							<td colspan="4" align="center"><h3>후기 등록하기</h3></td>
 						</tr>
-						<c:forEach items="${requestScope.academy}" var="aca">
 							<tr>
 								<td>
 									<select name="acaNo" id="academySelect">
+									<c:forEach items="${requestScope.academy}" var="aca">
 										<option value="0">학원</option>
 										<option value="${aca.acaNo}">${aca.acaName }</option>
+									</c:forEach>
 									</select>
 								</td>
 								<td><span id="curriculumSelect"></span></td>
 							</tr>
-						</c:forEach>
 				   </thead>
 				   <tbody>
 						<tr >
