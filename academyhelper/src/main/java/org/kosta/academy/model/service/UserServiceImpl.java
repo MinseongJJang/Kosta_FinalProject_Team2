@@ -10,6 +10,11 @@ import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.UserVO;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,4 +124,22 @@ public class UserServiceImpl implements UserService{
 		return userMapper.findUserPasswordByIdAndEmail(userVO);
 	}
 	
+	@Override
+	public String findLoginPass(UserVO userVO) {
+		String passwordEn = userMapper.findLoginPass(userVO);
+		return passwordEn;
+	}
+	
+	@Override
+	public int loginCheck(UserVO userVO) {
+		String passwordEn = userMapper.findLoginPass(userVO);
+		Boolean check = passwordEncoder.matches(userVO.getUsrPass(), passwordEn);
+		System.out.println("check결과"+check);
+		if(check==true) {
+			userVO.setUsrPass(passwordEn);
+			return userMapper.loginCheck(userVO);
+		}else {
+			return 0;
+		}
+	}
 }

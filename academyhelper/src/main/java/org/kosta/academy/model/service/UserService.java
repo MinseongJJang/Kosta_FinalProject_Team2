@@ -6,6 +6,7 @@ import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.UserVO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 /**
  * ROLE_USER , ROLE_ACADEMY 권한을 가지고 있는 회원들의
@@ -95,4 +96,8 @@ public interface UserService {
 	 * @return
 	 */
 	public String idcheck(String usrId);
+	
+	public int loginCheck(UserVO userVO);
+	
+	public String findLoginPass(UserVO userVO);
 }
