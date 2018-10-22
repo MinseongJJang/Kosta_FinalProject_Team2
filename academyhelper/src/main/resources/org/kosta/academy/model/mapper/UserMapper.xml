@@ -25,6 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idcheck" resultType="int">
 		select count(*) from users where usr_id=#{value}
 	</select>
+	
+	<select id="userLogin" resultType="int">
+		select count(*) from users where usr_id=#{usrId} and usr_pass=#{usrPass}
+	</select>
 
 	<select id="getUserInfo" parameterType="string" resultType="userVO">
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel

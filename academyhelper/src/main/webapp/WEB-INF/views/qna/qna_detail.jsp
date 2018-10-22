@@ -8,26 +8,102 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#deleteForm").submit(function() {
-			return confirm("게시물을 삭제하시겠습니까?");
-		});
-		$("#updateForm").submit(function() {
-			return confirm("게시물을 수정하시겠습니까?");
-		});
-	});
-	function checkComment() {
+	 
+/*$(function () {
+    var myObjects = [
+        {
+            id: 1,
+            firstname: "Gandalf",
+            lastname: "Greyhaem"
+        },
+        {
+            id: 2,
+            firstname: "Bilbo",
+            lastname: "Baggins"
+        },
+        {
+            id: 3,
+            firstname: "Frodo",
+            lastname: "Baggins"
+        }
+    ];
+    $.each(myObjects, function () {
+        console.log("ID: " + this.id);
+        console.log("First Name: " + this.firstname);
+        console.log("Last Name: " + this.lastname);
+        console.log(" ");
+    });
+});*/ 
+	 
+	 //txt_Value값을 가져옵니다.
+	 /*var value = document.getElementById("txt_Value").value;
+	
+	 var result;
+	 for(var i = 1; i < 10; i++){
+	 result = value * i;
+	 console.log(value+"*"+i+"="+result);
+	 }
+	 }*/
+	$(document)
+			.ready(
+					function() {
+						$("#deleteForm").submit(function() {
+							return confirm("게시물을 삭제하시겠습니까?");
+						});
+						$("#updateForm").submit(function() {
+							return confirm("게시물을 수정하시겠습니까?");
+						});
+						 $("#modifyReply").click(function(){
+											$("#modifyReplyDiv").append(
+															"<textarea class='form-control' rows='1' id='qnaRepContent'  placeholder='수정할 내용을 입력하세요' name='qnaRepContent' ></textarea>"
+																	+ "<input style='float: right;' class='aca-btn' type='submit' value='수정하기'>"
+
+													);
+											//"<input type='button' value='버튼' class='testBtn'><br>"); 
+
+										});
+										
+						/* $(".jBtn").click(function(e){
+							e.preventDefault();
+							$(this).hide();
+							$("#modifyReplyDiv_"+$(this).val()).append(
+									"<textarea class='form-control' rows='1' id='qnaRepContent'  placeholder='수정할 내용을 입력하세요' name='qnaRepContent' ></textarea>"
+											+ "<input style='float: right;' class='aca-btn jUpdate' type='button' value='수정하기'>"
+
+							);
+
+							
+						}); */
+										
+					/* 	$(".jUpdate").click(function(e){
+							e.preventDefault();
+							alert("asdsa");
+							$.ajax({
+					            url:'/academy/updateAcaQnAReply.do',
+					            type:'post',
+					            data:$('form').serialize(),
+					            success:function(data){
+					            	alert(data);
+					            	$(this).show();
+					            }
+					        });
+						});
+
+					}); */
+	/* function modifyReply() {
 		var comment = document.getElementById("qnaRepContent").value;
-		console.log('1');
-		//alert(comment);
+		alert(comment);
+		alert(qnaRepContent.value)
 		if (comment == "") {
 			alert("댓글 입력해주세요!");
 			return false;
 		}
-	}
-	
+	} */
 </script>
-
+<!-- 
+<input type='text' id='txt_Value'/>
+<input type='button' onclick='if_javascript()' value='버튼'/>
+ -->
 <div class="container">
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -40,7 +116,7 @@
 							<td colspan="8" align="center"><h3>질문과 응답 상세보기</h3></td>
 						</tr>
 						<tr>
-							<td style="border-top:0px"></td>
+							<td style="border-top: 0px"></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -104,9 +180,11 @@
 						<br>
 						<br>
 						<br>
-						<p align="left">${fn:length(requestScope.listQNAReply)}개의댓글</p>
+						<p align="left">${fn:length(requestScope.listQNAReply)}개의
+							&nbsp;댓글</p>
 						<br>
-						<c:forEach items="${requestScope.listQNAReply}" var="comment">
+						<c:forEach items="${requestScope.listQNAReply}" var="comment"
+							varStatus="status">
 							<p align="left">${comment.userVO.nickname }</p>
 							<sec:authorize access="hasRole('ROLE_USER')">
 								<form
@@ -117,16 +195,23 @@
 										value="삭제">
 								</form>
 								<form
-									action="${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=$${detailQNA.qnaNo}"
+									action="${pageContext.request.contextPath}/updateAcaQnAReply.do"
 									method="post">
+									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
+									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
+									<c:out value="${status.index}" />
 									<input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
 									<input type="hidden" name="acaQNAVO.qnaNo"
 										value="${detailQNA.qnaNo}">
-									<textarea class="form-control" rows="1" id="qnaRepContent"
-										name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
-									<input style="float: right;" class="aca-btn" type="submit"
-										value="수정">
+									<!-- <textarea class="form-control" rows="1" id="qnaRepContent"
+										name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea> -->
+									<button style="float: right;" type="button" class="aca-btn jBtn"
+										id="modifyReply" value="${status.index}">수정</button>
+									<!-- <input style="float: right;" class="aca-btn" type="submit"
+										value="수정">  -->
+									<div id="modifyReplyDiv_${status.index}"></div>
+
 								</form>
 							</sec:authorize>
 							<div>
