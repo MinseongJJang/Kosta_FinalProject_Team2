@@ -36,17 +36,17 @@ $(document).ready(function(){
 				   <tbody>
 				      	<c:set var="vo" value="${requestScope.vo}" />
 				         <tr>
-				            <td>글번호</td>
+				            <th>글번호</th>
 				            <td>${vo.sugNo}</td>
-				            <td>글제목</td>
+				            <th>글제목</th>
 				            <td>${vo.sugTitle}</td>
-				            <tD>작성자</td>
+				            <th>작성자</th>
 				            <td>${vo.userVO.nickname}</td>
-				            <td>등록일</td>
+				            <th>등록일</th>
 				            <td>${vo.sugRegdate}</td>
 				         </tr>
 				         <tr>
-				         	<td colspan="1">내용</td>
+				         	<th colspan="1">내용</th>
 				         	<td colspan="7"><pre style="white-space: pre-wrap;">${vo.sugContent}</pre></td>
 				         </tr>
 			      		<sec:authorize access="hasRole('ROLE_USER')">

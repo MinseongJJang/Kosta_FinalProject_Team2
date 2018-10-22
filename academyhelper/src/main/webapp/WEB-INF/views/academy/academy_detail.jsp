@@ -37,13 +37,13 @@ $(document).ready(function(){
                <tbody>
                      <c:set var="de" value="${requestScope.acaDetail}" />
                      <tr>
-                        <td>학원번호</td>
+                        <th>학원번호</th>
                      <td>${de.acaNo}</td>
-                        <td>학원이름</td>
+                        <th>학원이름</th>
                      <td>${de.acaName}</td>
-                        <td>학원주소</td>
+                        <th>학원주소</th>
                          <td>${de.acaAddr}</td>
-                        <td>학원전화번호</td>
+                        <th>학원전화번호</th>
                      <td>${de.acaTel}</td>
                      </tr>
                      
@@ -77,12 +77,12 @@ $(document).ready(function(){
                      </tr>
                   </sec:authorize>
                      <tr>
-                        <td>과정번호</td>
-                        <td colspan="3">과정이름</td>
-                        <td>강사명</td>
-                        <td>정원</td>
-                        <td>과정이름</td>
-                        <td>학원이름</td>
+                        <th>과정번호</th>
+                        <th colspan="3">과정이름</th>
+                        <th>강사명</th>
+                        <th>정원</th>
+                        <th>과정이름</th>
+                        <th>학원이름</th>
                      </tr>
                      <c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
                      <tr>

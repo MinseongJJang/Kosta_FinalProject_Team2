@@ -35,17 +35,17 @@
 				   <tbody>
 				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
 				         <tr>
-				            <td>글번호</td>
+				            <th>글번호</th>
 				            <td>${requestScope.nvo.noticeNo }</td>
-				            <td>제목</td>
+				            <th>제목</th>
 				            <td>${requestScope.nvo.noticeTitle} </td>
-				            <tD>작성자</td>
+				            <th>작성자</th>
 				            <td>${requestScope.nvo.userVO.usrName }</td>
-				            <td>등록일</td>
+				            <th>등록일</th>
 				            <td>${requestScope.nvo.noticeRegdate }</td>
 				         </tr>
 				         <tr>
-				         	<td colspan="1">내용</td>
+				         	<th colspan="1">내용</th>
 				         	<td colspan="7"><pre style="white-space: pre-wrap;">${requestScope.nvo.noticeContent}</pre></td>
 				         </tr>
 			      		<sec:authorize access="hasRole('ROLE_ADMIN')">

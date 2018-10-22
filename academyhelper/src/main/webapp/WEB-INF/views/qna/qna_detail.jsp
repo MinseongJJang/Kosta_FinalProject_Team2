@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <script type="text/javascript">
 
@@ -71,17 +70,17 @@ $(document).ready(function(){
 					<tbody>
 						<c:set var="detailQNA" value="${requestScope.detailQNA}" />
 						<tr>
-							<td>글번호</td>
+							<th>글번호</th>
 							<td>${detailQNA.qnaNo}</td>
-							<td>글제목</td>
+							<th>글제목</th>
 							<td>${detailQNA.qnaTitle}</td>
-							<tD>작성자</td>
+							<th>작성자</th>
 							<td>${detailQNA.userVO.nickname}</td>
-							<td>등록일</td>
+							<th>등록일</th>
 							<td>${detailQNA.qnaRegdate}</td>
 						</tr>
 						<tr>
-							<td colspan="1">내용</td>
+							<th colspan="1">내용</th>
 							<td colspan="7"><pre style="white-space: pre-wrap;">${detailQNA.qnaContent}</pre></td>
 						</tr>
 						<sec:authorize access="hasRole('ROLE_USER')">

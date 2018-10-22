@@ -46,7 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by
 		c.cur_no desc
 	</select>
-
+	<select id="allListCurriculum" resultType="curriculumVO" parameterType="string"> 
+		select * from curriculum where aca_no=#{acaNo}
+	</select>
+	<select id="listCurriculumAsAcademy" resultType="curriculumVO" parameterType="string">
+		select * from curriculum where aca_no=#{acaNo}
+	</select>
 	<select id="detailCurriculum" resultMap="curriculumRM">
 		select
 		c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
@@ -54,5 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		c,academy a where
 		c.aca_no=a.aca_no and
 		c.cur_no=#{value}
+	</select>
+	
+	<select id="getCurriculumList" parameterType="string" resultMap="curriculumRM">
+		select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a where aca_no = #{value} 
 	</select>
 </mapper>

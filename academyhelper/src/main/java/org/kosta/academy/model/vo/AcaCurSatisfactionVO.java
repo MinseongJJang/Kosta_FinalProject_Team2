@@ -3,7 +3,7 @@ package org.kosta.academy.model.vo;
 public class AcaCurSatisfactionVO {
 	private AcaReviewPostVO acaReviewPostVO;
 	private String curSatis;
-	private String amentiesSatis;
+	private String amenitiesSatis;
 	private String lecturerSatis;
 	private String empLinksSatis;
 	private String trafficSatis;
@@ -12,12 +12,12 @@ public class AcaCurSatisfactionVO {
 		super();
 	}
 
-	public AcaCurSatisfactionVO(AcaReviewPostVO acaReviewPostVO, String curSatis, String amentiesSatis, String lecturerSatis,
+	public AcaCurSatisfactionVO(AcaReviewPostVO acaReviewPostVO, String curSatis, String amenitiesSatis, String lecturerSatis,
 			String empLinksSatis, String trafficSatis) {
 		super();
 		this.acaReviewPostVO = acaReviewPostVO;
 		this.curSatis = curSatis;
-		this.amentiesSatis = amentiesSatis;
+		this.amenitiesSatis = amenitiesSatis;
 		this.lecturerSatis = lecturerSatis;
 		this.empLinksSatis = empLinksSatis;
 		this.trafficSatis = trafficSatis;
@@ -39,12 +39,12 @@ public class AcaCurSatisfactionVO {
 		this.curSatis = curSatis;
 	}
 
-	public String getAmentiesSatis() {
-		return amentiesSatis;
+	public String getamenitiesSatis() {
+		return amenitiesSatis;
 	}
 
-	public void setAmentiesSatis(String amentiesSatis) {
-		this.amentiesSatis = amentiesSatis;
+	public void setamenitiesSatis(String amenitiesSatis) {
+		this.amenitiesSatis = amenitiesSatis;
 	}
 
 	public String getLecturerSatis() {
@@ -73,8 +73,8 @@ public class AcaCurSatisfactionVO {
 
 	@Override
 	public String toString() {
-		return "AcaCurSatisfaction [acaReviewPostVO=" + acaReviewPostVO + ", curSatis=" + curSatis + ", amentiesSatis="
-				+ amentiesSatis + ", lecturerSatis=" + lecturerSatis + ", empLinksSatis=" + empLinksSatis
+		return "AcaCurSatisfaction [acaReviewPostVO=" + acaReviewPostVO + ", curSatis=" + curSatis + ", amenitiesSatis="
+				+ amenitiesSatis + ", lecturerSatis=" + lecturerSatis + ", empLinksSatis=" + empLinksSatis
 				+ ", trafficSatis=" + trafficSatis + "]";
 	}
 
