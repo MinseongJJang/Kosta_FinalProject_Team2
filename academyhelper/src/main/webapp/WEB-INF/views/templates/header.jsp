@@ -81,7 +81,7 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 				<button id="primary-nav-button" type="button">Menu</button>
 				<div class="logo"
 					style="width: 220px; height: 110px; padding-top: 10px">
-					<a href="index.html"> <img
+					<a href="${pageContext.request.contextPath}/home.do"> <img
 						src="${pageContext.request.contextPath}/resources/img/home_logo.png"
 						alt="Venue Logo">
 					</a>

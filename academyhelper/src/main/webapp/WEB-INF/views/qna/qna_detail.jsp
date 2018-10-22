@@ -7,40 +7,54 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	var moReply="";
 	$("#deleteForm").submit(function(){
-		if(confirm("정말로 탈퇴하시겠습니까?")==false){
+		if(confirm("삭제하시겠습니까?")==false){
 			return false;
 		}else{
 			return true;
 		}
 	});
 	$("#updateForm").submit(function(){
-		if(confirm("정말로 탈퇴하시겠습니까?")==false){
+		if(confirm("수정하시겠습니까?")==false){
 			return false;
 		}else{
 			return true;
 		}
 	});
 	$(".jBtn").click(function(e){
-		var value=$(this).val();
 		$(".jBtn").hide();
 		$("#replyBtn"+$(this).val()).show();
+		$("#content").hide();
+		moReply=$(this).val();
 		$("#modifyReplyDiv_"+$(this).val()).append(
-				"<textarea class='form-control qnaRepContent'"+$(this).val()+" rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
+				"<textarea class='form-control updateQnaRepContent"+$(this).val()+"' rows='1' id='qnaRepContent"+$(this).val()+"' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
 				);
 	});//click
+	
 	$(".replyBtn"+$(this).val()).click(function(e){
+		if($("#modifyReplyDiv_"+$(this).val()).val()==null){
+			alert("내용을 입력하세요");
+			return false;
+		}else{
 		$.ajax({
 			type:"POST",
-			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepContent="+$(".qnaRepContent"+$(this).val()).val(),		
+			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
 			data:$("#updateQnaReply"+$(this).val()).serialize(),	
 			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
 			success:function(data){
-				alert(data);
-			}
+				var info="";
+				info+="<pre>"+data+"</pre>";
+				$("#modifyReplyDiv_"+moReply).html(info);
+				}
+			
 		});//ajax
+		}
+		$("#replyBtn"+$(this).val()).hide();
+		$(".jBtn").show();
+		$("#content").show();
 	});//click
 });//ready
 </script>
@@ -119,36 +133,28 @@ $(document).ready(function(){
 					</sec:authorize>
 					<c:if test="${fn:length(requestScope.listQNAReply)!=0}">
 						<br>
-						<br>
-						<br>
 						<p align="left">${fn:length(requestScope.listQNAReply)}개의
 							&nbsp;댓글</p>
 						<br>
-						<c:forEach items="${requestScope.listQNAReply}" var="comment"
-							varStatus="status">
-							<p align="left">${comment.userVO.nickname }</p>
-							<sec:authorize access="hasRole('ROLE_USER')">
-								<form
-									action="${pageContext.request.contextPath}/deleteAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=${detailQNA.qnaNo}"
-									method="post">
-									<sec:csrfInput />
-									<input style="float: right;" class="aca-btn" type="submit"
-										value="삭제">
-								</form>
-								<form id="updateQnaReply${status.index}">
+						<c:forEach items="${requestScope.listQNAReply}" var="comment" varStatus="status">
+							<p align="left">${comment.userVO.nickname}</p>
+							<form id="updateQnaReply${status.index}">
+								<div align="left">
+									<div id="modifyReplyDiv_${status.index}"><pre style="display:block;" id="content">${comment.qnaRepContent}</pre></div>
+								</div>
 									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
 									<sec:csrfInput />
-									<button style="float: right;" type="button" class="aca-btn jBtn"
+									<button type="button" class="aca-btn jBtn"
 										id="modifyReply" value="${status.index}">수정</button>
-									<button style="float: right; display:none;" type="button" class="aca-btn replyBtn"
-										id="replyBtn${status.index}" value="${status.index}">수정g</button>
+									<button style="display:none;" type="button" class="aca-btn replyBtn"
+										id="replyBtn${status.index}" value="${status.index}">수정</button>
 								</form>
-							</sec:authorize>
-							<div>
-								<div align="left">
-									<div id="modifyReplyDiv_${status.index}"><pre>${comment.qnaRepContent}</pre></div>
-								</div>
-							</div>
+							<form action="${pageContext.request.contextPath}/deleteAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=${detailQNA.qnaNo}"
+									method="post">
+									<sec:csrfInput />
+									<input class="aca-btn" type="submit"
+										value="삭제">
+								</form>
 						</c:forEach>
 					</c:if>
 
