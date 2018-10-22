@@ -21,6 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from(select row_number() over(order by aca_no asc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id from academy) a, users u
 		where a.usr_id = u.usr_id  and rnum between #{startRowNumber}  and #{endRowNumber} order by aca_no asc
 	</select>
+	<select id="allListAcademy" resultType="academyVO">
+		select * from academy
+	</select>
 	<select id="getTotalListAcaCount" resultType="int">
 		select count(*) from academy
 	</select>

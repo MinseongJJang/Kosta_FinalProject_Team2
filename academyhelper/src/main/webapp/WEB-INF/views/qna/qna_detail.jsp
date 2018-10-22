@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -26,23 +25,20 @@ $(document).ready(function(){
 		$(".jBtn").hide();
 		$("#replyBtn"+$(this).val()).show();
 		$("#modifyReplyDiv_"+$(this).val()).append(
-				"<textarea class='form-control' rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
+				"<textarea class='form-control qnaRepContent'"+$(this).val()+" rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
 				);
-	});
-	$("#replyBtn"+$(this).val()).click(function(e){
+	});//click
+	$(".replyBtn"+$(this).val()).click(function(e){
 		$.ajax({
-			type:"post",
-			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
-			data:$("#updateQnaReply").serialize(),	
+			type:"POST",
+			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepContent="+$(".qnaRepContent"+$(this).val()).val(),		
+			data:$("#updateQnaReply"+$(this).val()).serialize(),	
 			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
 			success:function(data){
-					$("#modifyReplyDiv_"+$(this).val()).append(
-							"<pre>${comment.qnaRepContent}</pre>"
-				}
-				});			
-			}//callback			
+				alert(data);
+			}
 		});//ajax
 	});//click
 });//ready
@@ -65,17 +61,17 @@ $(document).ready(function(){
 					<tbody>
 						<c:set var="detailQNA" value="${requestScope.detailQNA}" />
 						<tr>
-							<td>글번호</td>
+							<th>글번호</th>
 							<td>${detailQNA.qnaNo}</td>
-							<td>글제목</td>
+							<th>글제목</th>
 							<td>${detailQNA.qnaTitle}</td>
-							<tD>작성자</td>
+							<th>작성자</th>
 							<td>${detailQNA.userVO.nickname}</td>
-							<td>등록일</td>
+							<th>등록일</th>
 							<td>${detailQNA.qnaRegdate}</td>
 						</tr>
 						<tr>
-							<td colspan="1">내용</td>
+							<th colspan="1">내용</th>
 							<td colspan="7"><pre style="white-space: pre-wrap;">${detailQNA.qnaContent}</pre></td>
 						</tr>
 						<sec:authorize access="hasRole('ROLE_USER')">
@@ -138,16 +134,13 @@ $(document).ready(function(){
 									<input style="float: right;" class="aca-btn" type="submit"
 										value="삭제">
 								</form>
-								<form
-									action="${pageContext.request.contextPath}/updateAcaQnAReply.do"
-									method="post" name="updateQnaReply">
+								<form id="updateQnaReply${status.index}">
 									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
-									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
 									<button style="float: right;" type="button" class="aca-btn jBtn"
 										id="modifyReply" value="${status.index}">수정</button>
 									<button style="float: right; display:none;" type="button" class="aca-btn replyBtn"
-										id="replyBtn${status.index}" value="${status.index}">수정</button>
+										id="replyBtn${status.index}" value="${status.index}">수정g</button>
 								</form>
 							</sec:authorize>
 							<div>

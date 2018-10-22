@@ -27,6 +27,7 @@ public interface AcademyService {
 	 */
 	
 	public ListVO listAcademy(String pageNo);
+
 	/**
 	 * 교육기관 상세정보를 불러오는 메소드
 	 * @param usrId
@@ -76,4 +77,7 @@ public interface AcademyService {
 	public void deleteCurriculum(String curNo);
 	public List<AcademyVO> getAcademyList();
 	public List<CurriculumVO> getCurriculumList(String acaNo);
+	public ListVO allListAcademy();
+	public ListVO allListCurriculum(String acaNo);
+	public ListVO listCurriculumAsAcademy(String acaNo);
 }

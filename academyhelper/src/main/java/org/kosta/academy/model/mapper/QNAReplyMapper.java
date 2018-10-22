@@ -13,5 +13,5 @@ public interface QNAReplyMapper {
 	public void registerAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
 	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
 	public void deleteAcaQnAReply(String qnaRepNo);
-	
+	public String getAcaQnAReply(String qnaRepNo);
 }
