@@ -49,10 +49,7 @@ table td{
 								
 								
 								<tr>
-									<td colspan="2" align="right">
-										<a href="${pageContext.request.contextPath}/user/aca_register_form.do">기업 회원 가입</a>
-									</td>
-			               			<td colspan="1" align="right">
+			               			<td colspan="3" align="right">
 			               				<a href="${pageContext.request.contextPath}/user/register_form.do">회원가입</a>
 		               				</td>
 								</tr>
