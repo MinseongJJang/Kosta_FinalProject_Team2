@@ -6,12 +6,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <script type="text/javascript">
-<c:forEach items="${requestScope.listQNAReply}" var="comment">
-	alert("${comment.qnaRepNo}");
-
-</c:forEach>
-
-
 
 $(document).ready(function(){
 	$("#deleteForm").submit(function(){
@@ -41,13 +35,20 @@ $(document).ready(function(){
 			type:"POST",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepContent="+$(".qnaRepContent"+$(this).val()).val(),		
 			data:$("#updateQnaReply"+$(this).val()).serialize(),	
+				"<textarea class='form-control qnaRepContent'"+$(this).val()+" rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
+	});//click
+	$(".replyBtn"+$(this).val()).click(function(e){
+			type:"POST",
+			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepContent="+$(".qnaRepContent"+$(this).val()).val(),		
+			data:$("#updateQnaReply"+$(this).val()).serialize(),	
 			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
 			success:function(data){
-	
-				alert(data);
-			}
+					$("#modifyReplyDiv_"+$(this).val()).append(
+							"<pre>${comment.qnaRepContent}</pre>"
+				);			
+			}//callback			
 		});//ajax
 	});//click
 });//ready
@@ -143,13 +144,16 @@ $(document).ready(function(){
 									<input style="float: right;" class="aca-btn" type="submit"
 										value="삭제">
 								</form>
-								<form id="updateQnaReply${status.index}">
+								<form
+									action="${pageContext.request.contextPath}/updateAcaQnAReply.do"
+									method="post" name="updateQnaReply">
 									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
+									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
 									<button style="float: right;" type="button" class="aca-btn jBtn"
 										id="modifyReply" value="${status.index}">수정</button>
 									<button style="float: right; display:none;" type="button" class="aca-btn replyBtn"
-										id="replyBtn${status.index}" value="${status.index}">수정g</button>
+										id="replyBtn${status.index}" value="${status.index}">수정</button>
 								</form>
 							</sec:authorize>
 							<div>
