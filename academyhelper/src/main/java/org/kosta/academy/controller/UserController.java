@@ -119,4 +119,12 @@ public class UserController {
 		model.addAttribute("pb",list.getPb());
 		return "user/user_list.tiles";
 	}
+	@RequestMapping("registerForm.do")
+	public String registerForm() {
+		return "user/register_form.tiles";
+	}
+	@RequestMapping("acaRegisterForm.do")
+	public String acaRegisterForm() {
+		return "user/aca_register_form.tiles";
+	}
 }
