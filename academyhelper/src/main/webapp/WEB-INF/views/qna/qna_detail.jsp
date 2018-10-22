@@ -6,6 +6,13 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <script type="text/javascript">
+<c:forEach items="${requestScope.listQNAReply}" var="comment">
+	alert("${comment.qnaRepNo}");
+
+</c:forEach>
+
+
+
 $(document).ready(function(){
 	$("#deleteForm").submit(function(){
 		if(confirm("정말로 탈퇴하시겠습니까?")==false){
@@ -40,8 +47,7 @@ $(document).ready(function(){
 			success:function(data){
 					$("#modifyReplyDiv_"+$(this).val()).append(
 							"<pre>${comment.qnaRepContent}</pre>"
-				}
-				});			
+				);			
 			}//callback			
 		});//ajax
 	});//click
