@@ -56,6 +56,13 @@ public class ReviewServiceImpl implements ReviewService {
 		listVO.setAcaReviewPostList(rlist);
 		return listVO;
 	}
+	public ListVO listAcaReviewPostByCurNo(String curNo) {
+		List<AcaReviewPostVO> reviewlist = reviewMapper.listAcaReviewPostByCurNo(curNo);
+		ListVO listVO = new ListVO();
+		listVO.setAcaReviewPostList(reviewlist);
+		return listVO;
+	}
+	
 	@Transactional
 	@Override
 	public Queue<Object> detailAcaReviewPost(String acaRevNo) {

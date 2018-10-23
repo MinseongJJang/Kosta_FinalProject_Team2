@@ -330,22 +330,36 @@ create table aca_review_post(
 	constraint aca_review_post_ffk foreign key(cur_no) references curriculum(cur_no) on delete cascade,
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+
+	select * from aca_review_post
+	
+select * from( 
+    select * from aca_review_post
+    order by DBMS_RANDOM.RANDOM 
+) where rownum < 6 and cur_no=11;
+
+
 alter table aca_review_post modify(aca_rev_hits number default 0)
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,8,'코스타좋아요','코스타개조음',sysdate,'java1')
 
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+
+
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요1','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,11,'코스타좋아요1','코스타개조음',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요2','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,11,'코스타2','코스타개조음',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요3','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,11,'코스타좋아요3','코스타개조음',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요4','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,11,'코스타14','코스타개조음1111',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요5','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,11,'코스타좋아요5','코스타개조음',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,3,'코스타좋아요6','코스타개조음',sysdate,'java123')
+values(aca_review_post_seq.nextval,11,'코스타좋아요6','코스타개조음',sysdate,'java1')
+
 
 
 select * from aca_review_post

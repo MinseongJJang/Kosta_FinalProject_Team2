@@ -22,5 +22,5 @@ public interface ReviewMapper {
 	public void deleteHashTag(String acaRevNo);
 	public void updateAcaReviewPost(AcaReviewPostVO acaReviewPostVO);
 	public void deleteAcaReviewPost(String acaRevNo);
-	
+	public List<AcaReviewPostVO> listAcaReviewPostByCurNo(String curNo);
 }
