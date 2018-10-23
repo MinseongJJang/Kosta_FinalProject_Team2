@@ -2,72 +2,48 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <script type="text/javascript">
-
 $(document).ready(function(){
-	var moReply="";
 	$("#deleteForm").submit(function(){
-		if(confirm("삭제하시겠습니까?")==false){
+		if(confirm("정말로 탈퇴하시겠습니까?")==false){
 			return false;
 		}else{
 			return true;
 		}
 	});
 	$("#updateForm").submit(function(){
-		if(confirm("수정하시겠습니까?")==false){
+		if(confirm("정말로 탈퇴하시겠습니까?")==false){
 			return false;
 		}else{
 			return true;
 		}
 	});
 	$(".jBtn").click(function(e){
+		var value=$(this).val();
 		$(".jBtn").hide();
 		$("#replyBtn"+$(this).val()).show();
-		$("#content").hide();
-		moReply=$(this).val();
 		$("#modifyReplyDiv_"+$(this).val()).append(
-				"<textarea class='form-control updateQnaRepContent"+$(this).val()+"' rows='1' id='qnaRepContent"+$(this).val()+"' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
+				"<textarea class='form-control' rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
 				);
-	});//click
-	
-	$(".replyBtn"+$(this).val()).click(function(e){
-		if($("#modifyReplyDiv_"+$(this).val()).val()==null){
-			alert("내용을 입력하세요");
-			return false;
-		}else{
+	});
+	$("#replyBtn"+$(this).val()).click(function(e){
 		$.ajax({
-			type:"POST",
+			type:"post",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
-			data:$("#updateQnaReply"+$(this).val()).serialize(),	
-				"<textarea class='form-control qnaRepContent'"+$(this).val()+" rows='1' id='qnaRepContent' name='qnaRepContent' placeholer='${comment.qnaRepContent}'></textarea>"
-	});//click
-	$(".replyBtn"+$(this).val()).click(function(e){
-			type:"POST",
-			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do?qnaRepContent="+$(".qnaRepContent"+$(this).val()).val(),		
-			data:$("#updateQnaReply"+$(this).val()).serialize(),	
+			data:$("#updateQnaReply").serialize(),	
 			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
 			success:function(data){
-<<<<<<< HEAD
 					$("#modifyReplyDiv_"+$(this).val()).append(
 							"<pre>${comment.qnaRepContent}</pre>"
-				);			
-			}//callback			
-=======
-				var info="";
-				info+="<pre>"+data+"</pre>";
-				$("#modifyReplyDiv_"+moReply).html(info);
 				}
-			
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+				});			
+			}//callback			
 		});//ajax
-		}
-		$("#replyBtn"+$(this).val()).hide();
-		$(".jBtn").show();
-		$("#content").show();
 	});//click
 });//ready
 </script>
@@ -89,17 +65,17 @@ $(document).ready(function(){
 					<tbody>
 						<c:set var="detailQNA" value="${requestScope.detailQNA}" />
 						<tr>
-							<th>글번호</th>
+							<td>글번호</td>
 							<td>${detailQNA.qnaNo}</td>
-							<th>글제목</th>
+							<td>글제목</td>
 							<td>${detailQNA.qnaTitle}</td>
-							<th>작성자</th>
+							<tD>작성자</td>
 							<td>${detailQNA.userVO.nickname}</td>
-							<th>등록일</th>
+							<td>등록일</td>
 							<td>${detailQNA.qnaRegdate}</td>
 						</tr>
 						<tr>
-							<th colspan="1">내용</th>
+							<td colspan="1">내용</td>
 							<td colspan="7"><pre style="white-space: pre-wrap;">${detailQNA.qnaContent}</pre></td>
 						</tr>
 						<sec:authorize access="hasRole('ROLE_USER')">
@@ -146,10 +122,11 @@ $(document).ready(function(){
 					</sec:authorize>
 					<c:if test="${fn:length(requestScope.listQNAReply)!=0}">
 						<br>
+						<br>
+						<br>
 						<p align="left">${fn:length(requestScope.listQNAReply)}개의
 							&nbsp;댓글</p>
 						<br>
-<<<<<<< HEAD
 						<c:forEach items="${requestScope.listQNAReply}" var="comment"
 							varStatus="status">
 							<p align="left">${comment.userVO.nickname }</p>
@@ -164,32 +141,20 @@ $(document).ready(function(){
 								<form
 									action="${pageContext.request.contextPath}/updateAcaQnAReply.do"
 									method="post" name="updateQnaReply">
-=======
-						<c:forEach items="${requestScope.listQNAReply}" var="comment" varStatus="status">
-							<p align="left">${comment.userVO.nickname}</p>
-							<form id="updateQnaReply${status.index}">
-								<div align="left">
-									<div id="modifyReplyDiv_${status.index}"><pre style="display:block;" id="content">${comment.qnaRepContent}</pre></div>
-								</div>
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 									<input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
 									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 									<sec:csrfInput />
-									<button type="button" class="aca-btn jBtn"
+									<button style="float: right;" type="button" class="aca-btn jBtn"
 										id="modifyReply" value="${status.index}">수정</button>
-<<<<<<< HEAD
 									<button style="float: right; display:none;" type="button" class="aca-btn replyBtn"
-=======
-									<button style="display:none;" type="button" class="aca-btn replyBtn"
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 										id="replyBtn${status.index}" value="${status.index}">수정</button>
 								</form>
-							<form action="${pageContext.request.contextPath}/deleteAcaQnAReply.do?qnaRepNo=${comment.qnaRepNo}&qnaNo=${detailQNA.qnaNo}"
-									method="post">
-									<sec:csrfInput />
-									<input class="aca-btn" type="submit"
-										value="삭제">
-								</form>
+							</sec:authorize>
+							<div>
+								<div align="left">
+									<div id="modifyReplyDiv_${status.index}"><pre>${comment.qnaRepContent}</pre></div>
+								</div>
+							</div>
 						</c:forEach>
 					</c:if>
 
