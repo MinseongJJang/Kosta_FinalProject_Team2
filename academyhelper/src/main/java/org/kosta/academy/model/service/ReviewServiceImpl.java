@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.ReviewMapper;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -121,6 +122,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo) {
 		AcaCurSatisfactionVO satisVO = reviewMapper.satisfactionByCurNo(curNo);
 		return satisVO;
+	}
+	
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach) {
+		reviewMapper.registerAcaReviewAttach(reviewAttach);
 	}
 	
 

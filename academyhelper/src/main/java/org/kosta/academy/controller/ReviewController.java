@@ -1,13 +1,16 @@
 package org.kosta.academy.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Queue;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.ReviewService;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -71,7 +74,8 @@ public class ReviewController {
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaReviewPost.do")
 	public ModelAndView registerAcaReviewPost(AcaReviewPostVO acaReviewPostVO,CurriculumVO curriculumVO,
-			HashTagVO hashTagVO,AcaCurSatisfactionVO acaCurSatisfactionVO,AcademyVO academyVO) {
+			HashTagVO hashTagVO,AcaCurSatisfactionVO acaCurSatisfactionVO,AcademyVO academyVO,
+			String[] curtime,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		acaReviewPostVO.setCurriculumVO(curriculumVO);
 		acaCurSatisfactionVO.setAcaReviewPostVO(acaReviewPostVO);
@@ -79,6 +83,28 @@ public class ReviewController {
 		curriculumVO.setAcademyVO(academyVO);
 		reviewService.registerAcaReviewPost(acaReviewPostVO,curriculumVO,
 				hashTagVO,acaCurSatisfactionVO);
+		String 	reviewUpload = request.getSession().getServletContext().getRealPath("/resources/reviewUpload/");
+		File reviewFile = new File(reviewUpload);
+		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
+		String[] fileNames = reviewFile.list();
+		/*
+		 * curtime hidden 값을 받아와 해당 디렉토리에 파일이름에 해당 이름이 들어가는 것이 있으면서
+		 * 맨마지막의 값이 1인 파일은 attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
+		 */
+		AcaReviewAttachFileVO reviewAttach = new AcaReviewAttachFileVO();
+		for(int i=0;i<curtime.length;i++) {
+			System.out.println("123");
+			for(int j=0;j<fileNames.length;j++) {
+				if(fileNames[j].substring(fileNames[j].length()-5,fileNames[j].length()-4).equals("1")) {
+					if(fileNames[j].contains(curtime[i])) {
+						System.out.println("조건에 만족하여 attach 테이블 추가");
+						reviewAttach.setAcaReviewPostVO(acaReviewPostVO);
+						reviewAttach.setAcaRevFilepath(reviewUpload+fileNames[j]);
+						reviewService.registerAcaReviewAttach(reviewAttach);
+					}
+				}
+			}
+		}
 		mv.setViewName("redirect:detailAcaReviewPost.do?acaRevNo="+acaReviewPostVO.getAcaRevNo());
 		return mv;
 	}

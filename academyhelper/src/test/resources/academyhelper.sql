@@ -11,6 +11,9 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
+select usr_email from users where usr_id='java3'
+)
 select * from academy
 select * from faq
 select sysdate from dual; 
@@ -33,6 +36,10 @@ create table aca_users(
 	constraint aca_users_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint aca_users_pk primary key(usr_id)
 )
+
+select usr_id
+		from users where usr_name='김성민' and birthday='1991-07-02' and usr_email='ksm0799@naver.com'
+select * from users
 
 /*공지사항 테이블 및 시퀀스*/
 drop table notice
@@ -323,7 +330,7 @@ create table aca_review_post(
 	aca_rev_no number primary key,
 	cur_no number not null,
 	aca_rev_title varchar2(100) not null,
-	aca_rev_content varchar2(100) not null,
+	aca_rev_content clob not null,
 	aca_rev_regdate date not null,
 	aca_rev_hits number default 0,
 	usr_id varchar2(100) not null,
@@ -331,13 +338,17 @@ create table aca_review_post(
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 
-	select * from aca_review_post
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+
+alter table aca_review_post modify(aca_rev_content clob not null)
+
+select * from aca_review_post
 	
 select * from( 
     select * from aca_review_post
     order by DBMS_RANDOM.RANDOM 
 ) where rownum < 6 and cur_no=11;
-
 
 alter table aca_review_post modify(aca_rev_hits number default 0)
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
@@ -397,15 +408,18 @@ from(
  
 /*해쉬태그 테이블*/
 create table hashtag(
-	hashtag_no number primary key,
-	aca_rev_no number not null,
-	hashtag_name varchar2(100) not null,
-	constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
+   hashtag_no number primary key,
+   aca_rev_no number not null,
+   hashtag_name varchar2(100) not null,
+   constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
 drop table hashtag
 create sequence hashtag_seq start with 1 nocache
 
-
+select count(*) from users where usr_id='java3'
+drop table hashtag
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_rev_attach_file
 create table aca_review_attach_file(
@@ -414,9 +428,10 @@ create table aca_review_attach_file(
 	aca_rev_filepath varchar2(100) not null,
 	constraint aca_review_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
-
+select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
 drop table aca_rev_reply
 create table aca_review_reply(
@@ -480,8 +495,7 @@ select distinct a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
 		from users where usr_id='java02'
-<<<<<<< HEAD
-		
+
 create table hashtag(
    hashtag_no number primary key,
    aca_rev_no number not null,
@@ -494,7 +508,6 @@ create sequence hashtag_seq start with 1 nocache
 		
 alter table aca_review_post drop column aca_rev_content
 alter table aca_review_post add(aca_rev_content clob)
-=======
 
 select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
 (select usr_name from users where usr_id = r.usr_id) as 
@@ -568,4 +581,4 @@ select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a
 select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
 where c.aca_no = a.aca_no and
 c.aca_no = '3'
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+select * from aca_review_attach_file

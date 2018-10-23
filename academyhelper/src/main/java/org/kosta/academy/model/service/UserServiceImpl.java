@@ -1,20 +1,18 @@
 package org.kosta.academy.model.service;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.kosta.academy.model.mapper.UserMapper;
 import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.UserVO;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +28,12 @@ public class UserServiceImpl implements UserService{
 	public UserVO findUserById(String usrId) {
 		return userMapper.findUserById(usrId);
 	}
-
+	@Override
+	public String findId(UserVO userVO) {
+		String id = userMapper.findId(userVO);
+		id=id.replace(id.substring(id.length()-3, id.length()),"***");
+		return id;
+	}
 	@Override
 	public List<AuthoritiesVO> selectAuthorityById(String usrId) {
 		return userMapper.selectAuthorityById(usrId);
@@ -115,15 +118,96 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String findUserIdByNameAndTel(UserVO userVO) {
-		return userMapper.findUserIdByNameAndTel(userVO);
+	public String emailCheck(UserVO userVO) {
+		return userMapper.emailCheck(userVO);
 	}
+	// 이메일 발송
+		@Override
+		public void send_mail(UserVO userVO, String div) throws Exception {
+			// Mail Server 설정
+			String charSet = "utf-8";
+			String hostSMTP = "smtp.naver.com";
+			String hostSMTPid = "ksm0799@naver.com";
+			String hostSMTPpwd = "qer1356";
 
-	@Override
-	public String findUserPasswordByIdAndEmail(UserVO userVO) {
-		return userMapper.findUserPasswordByIdAndEmail(userVO);
-	}
-	
+			// 보내는 사람 EMail, 제목, 내용
+			String fromEmail = "ksm0799@naver.com";
+			String fromName = "qer1356";
+			String subject = "";
+			String msg = "";
+			
+			if(div.equals("join")) {
+				// 회원가입 메일 내용
+				subject = "Spring Homepage 회원가입 인증 메일입니다.";
+				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+				msg += "<h3 style='color: blue;'>";
+				msg += userVO.getUsrId() + "님 회원가입을 환영합니다.</h3>";
+				msg += "<div style='font-size: 130%'>";
+				msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
+				msg += "<form method='post' action='http://localhost:8081/homepage/member/approval_member.do'>";
+				msg += "<input type='hidden' name='email' value='" + userVO.getUsrEmail() + "'>";
+				//msg += "<input type='hidden' name='approval_key' value='" + member.getApproval_key() + "'>";
+				msg += "<input type='submit' value='인증'></form><br/></div>";
+			}else if(div.equals("find_pw")) {
+				subject = "Spring Homepage 임시 비밀번호 입니다.";
+				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+				msg += "<h3 style='color: blue;'>";
+				msg += userVO.getUsrId() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+				msg += "<p>임시 비밀번호 : ";
+				msg += userVO.getUsrPass() + "</p></div>";
+			}
+			// 받는 사람 E-Mail 주소
+			String mail = userVO.getUsrEmail();
+			try {
+				HtmlEmail email = new HtmlEmail();
+				email.setDebug(true);
+				email.setCharset(charSet);
+				email.setSSL(true);
+				email.setHostName(hostSMTP);
+				email.setSmtpPort(587);
+				email.setAuthentication(hostSMTPid, hostSMTPpwd);
+				email.setTLS(true);
+				email.addTo(mail, charSet);
+				email.setFrom(fromEmail, fromName, charSet);
+				email.setSubject(subject);
+				email.setHtmlMsg(msg);
+				email.send();
+			} catch (Exception e) {
+				System.out.println("메일발송 실패 : " + e);
+			}
+		}
+		@Override
+		public void find_pw(HttpServletResponse response,UserVO userVO) throws Exception {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			// 아이디가 없으면
+			if(userMapper.check_id(userVO.getUsrId()) == 0) {
+				out.print("아이디가 없습니다.");
+				out.close();
+			}
+			// 가입에 사용한 이메일이 아니면
+			else if(!userVO.getUsrEmail().equals(userMapper.findEmailById(userVO.getUsrId()))) {
+				out.print("잘못된 이메일 입니다.");
+				out.close();
+			}else {
+				// 임시 비밀번호 생성
+				String pw = "";
+				for (int i = 0; i < 12; i++) {
+					pw += (char) ((Math.random() * 26) + 97);
+				}
+				userVO.setUsrPass(pw);
+				// 비밀번호 변경 메일 발송
+				send_mail(userVO, "find_pw");
+				// 비밀번호 변경
+				userVO.setUsrPass(passwordEncoder.encode(pw));
+
+				userMapper.updatePassword(userVO);
+				
+				out.print("이메일로 임시 비밀번호를 발송하였습니다.");
+				out.close();
+			}
+		}
+
 	@Override
 	public String findLoginPass(UserVO userVO) {
 		String passwordEn = userMapper.findLoginPass(userVO);
