@@ -2,6 +2,7 @@ package org.kosta.academy.model.service;
 import java.util.Queue;
 
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -62,6 +63,7 @@ public interface ReviewService {
 	 * @param acaRevRepNo
 	 */
 	public void deleteAcaReviewReply(String acaRevRepNo);
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
 	/**
 	 * 과정에 대한 학원 후기 목록을 불러오는 메소드
 	 * 페이징빈이 없다.

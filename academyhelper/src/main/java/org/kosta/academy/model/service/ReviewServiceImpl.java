@@ -10,9 +10,8 @@ import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.ReviewMapper;
-import org.kosta.academy.model.mapper.ReviewReplyMapper;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
-import org.kosta.academy.model.vo.AcaQNAReplyVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -32,14 +31,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Transactional
 	@Override
-	public void registerAcaReviewPost(AcaReviewPostVO acaReviewPostVO, CurriculumVO curriculumVO, HashTagVO hashTagVO,
-			AcaCurSatisfactionVO acaCurSatisfactionVO) {
+	public void registerAcaReviewPost(AcaReviewPostVO acaReviewPostVO,CurriculumVO curriculumVO,
+			HashTagVO hashTagVO,AcaCurSatisfactionVO acaCurSatisfactionVO) {
 		reviewMapper.registerAcaReviewPost(acaReviewPostVO);
 		String[] hashtagNames = hashTagVO.getHashTagName().split(",");
-
-		for (int i = 0; i < hashtagNames.length; i++) {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("ACAREVNO", acaReviewPostVO.getAcaRevNo());
+		
+		for(int i=0; i<hashtagNames.length;i++) {
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("ACAREVNO",acaReviewPostVO.getAcaRevNo() );
 			map.put("HASHTAGNAME", hashtagNames[i]);
 			reviewMapper.registerHashTag(map);
 		}
@@ -50,9 +49,9 @@ public class ReviewServiceImpl implements ReviewService {
 	public ListVO listAcaReviewPost(String pageNo) {
 		int totalPostCount = reviewMapper.getAcaReviewTotalCount();
 		PagingBean pb = null;
-		if (pageNo == null) {
+		if(pageNo == null) {
 			pb = new PagingBean(totalPostCount);
-		} else {
+		}else {
 			pb = new PagingBean(totalPostCount, Integer.parseInt(pageNo));
 		}
 		List<AcaReviewPostVO> rlist = reviewMapper.listAcaReviewPost(pb);
@@ -61,14 +60,13 @@ public class ReviewServiceImpl implements ReviewService {
 		listVO.setAcaReviewPostList(rlist);
 		return listVO;
 	}
-
 	public ListVO listAcaReviewPostByCurNo(String curNo) {
 		List<AcaReviewPostVO> reviewlist = reviewMapper.listAcaReviewPostByCurNo(curNo);
 		ListVO listVO = new ListVO();
 		listVO.setAcaReviewPostList(reviewlist);
 		return listVO;
 	}
-
+	
 	@Transactional
 	@Override
 	public Queue<Object> detailAcaReviewPost(String acaRevNo) {
@@ -81,19 +79,18 @@ public class ReviewServiceImpl implements ReviewService {
 		queue.offer(satisfactionVO);
 		return queue;
 	}
-
 	@Transactional
 	@Override
-	public void updateAcaReviewPost(AcaReviewPostVO acaReviewPostVO, HashTagVO hashTagVO) {
+	public void updateAcaReviewPost(AcaReviewPostVO acaReviewPostVO,HashTagVO hashTagVO) {
 		reviewMapper.updateAcaReviewPost(acaReviewPostVO);
-		reviewMapper.deleteHashTag(acaReviewPostVO.getAcaRevNo());
-		String[] hashtagNames = hashTagVO.getHashTagName().split(",");
-		for (int i = 0; i < hashtagNames.length; i++) {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("ACAREVNO", acaReviewPostVO.getAcaRevNo());
-			map.put("HASHTAGNAME", hashtagNames[i]);
-			reviewMapper.registerHashTag(map);
-		}
+			reviewMapper.deleteHashTag(acaReviewPostVO.getAcaRevNo());
+			String[] hashtagNames = hashTagVO.getHashTagName().split(",");
+			for(int i=0; i<hashtagNames.length;i++) {
+				Map<String,String> map = new HashMap<String,String>();
+				map.put("ACAREVNO",acaReviewPostVO.getAcaRevNo() );
+				map.put("HASHTAGNAME", hashtagNames[i]);
+				reviewMapper.registerHashTag(map);
+			}
 	}
 
 	@Override
@@ -103,7 +100,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-
+	
 	}
 
 	@Override
@@ -135,7 +132,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -143,5 +140,11 @@ public class ReviewServiceImpl implements ReviewService {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach) {
+		reviewMapper.registerAcaReviewAttach(reviewAttach);
+	}
+	
 
 }
