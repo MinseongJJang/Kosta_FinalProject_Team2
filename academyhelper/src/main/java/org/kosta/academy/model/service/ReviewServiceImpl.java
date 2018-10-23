@@ -147,6 +147,9 @@ public class ReviewServiceImpl implements ReviewService {
 	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach) {
 		reviewMapper.registerAcaReviewAttach(reviewAttach);
 	}
-	
 
+	@Override
+	public String getAcaReviewReply(String acaRevRepNo) {
+		return reviewReplyMapper.getAcaReviewReply(acaRevRepNo);
+	}
 }

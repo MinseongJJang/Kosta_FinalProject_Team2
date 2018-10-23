@@ -12,12 +12,14 @@ import org.kosta.academy.model.service.ReviewService;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
+import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.HashTagVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,16 +60,19 @@ public class ReviewController {
 	}
 	@Secured("ROLE_USER")
 	@RequestMapping("detailAcaReviewPost.do")
-	public ModelAndView detailAcaReviewPost(String acaRevNo) {
+	public ModelAndView detailAcaReviewPost(String acaRevNo, String pageNo) {
 		ModelAndView mv = new ModelAndView();
 		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo);
 		AcaReviewPostVO acaReviewPostVO = (AcaReviewPostVO) queue.poll();
 		@SuppressWarnings("unchecked")
 		List<HashTagVO> hashList = (List<HashTagVO>) queue.poll();
 		AcaCurSatisfactionVO satisfactionVO = (AcaCurSatisfactionVO) queue.poll();
+		ListVO listReply = reviewService.listAcaReviewReply(acaRevNo, pageNo);
 		mv.addObject("review",acaReviewPostVO);
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
+		mv.addObject("listQNAReply", listReply.getAcaReviewReplyList());
+		mv.addObject("pagingBean", listReply.getPb());
 		mv.setViewName("review/aca_review_detail.tiles");
 		return mv;
 	}
@@ -149,4 +154,36 @@ public class ReviewController {
 		return mv;
 	}
 	
+	@PostMapping("registerReviewReply.do")
+	public String registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
+		reviewService.registerAcaReviewReply(acaReviewReplyVO);
+		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo();
+	}
+
+	@PostMapping("deleteReviewReply.do")
+	public String deleteAcaReviewReply(String acaRevRepNo, String acaRevNo) {
+		reviewService.deleteAcaReviewReply(acaRevRepNo);
+		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaRevNo;
+	}
+
+	@PostMapping("updateReviewReply.do")
+	@ResponseBody
+	public String updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
+		try {
+		System.out.println(acaReviewReplyVO.getAcaRevRepContent());
+		if(acaReviewReplyVO.getAcaRevRepContent()==" "||acaReviewReplyVO.getAcaRevRepContent()=="") {
+			return null;
+		}else {
+			reviewService.updateAcaReviewReply(acaReviewReplyVO);
+			String acaRevRepNo=acaReviewReplyVO.getAcaRevRepNo();
+			String content=reviewService.getAcaReviewReply(acaRevRepNo);
+			return content;
+		}
+		
+		}catch(Exception e) {
+			System.out.println(acaReviewReplyVO.getAcaRevRepContent());
+			return null;
+		}
+		
+	}
 }

@@ -62,7 +62,15 @@ public interface ReviewService {
 	 * 학원후기 댓글을 삭제하는 메소드
 	 * @param acaRevRepNo
 	 */
-	public void deleteAcaReviewReply(String acaRevRepNo);
+	public void deleteAcaReviewReply(String acaRevRepNo);	
+	/**
+	 * 학원후기 댓글을 가져오는 메소드
+	 * @param acaRevRepNo
+	 */
+	public String getAcaReviewReply(String acaRevRepNo);
+
+	
+	
 	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
 	/**
 	 * 과정에 대한 학원 후기 목록을 불러오는 메소드
