@@ -51,7 +51,7 @@ public interface ReviewService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO listAcaReviewReply(String pageNo);
+	public ListVO listAcaReviewReply(String acaRevNo, String pageNo);
 	/**
 	 * 학원후기 댓글을 수정하는 메소드
 	 * @param acaReviewReplyVO
