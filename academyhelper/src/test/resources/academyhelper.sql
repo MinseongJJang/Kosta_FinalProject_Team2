@@ -446,6 +446,21 @@ select distinct a.busi_reg_num,a.aca_name,a.aca_addr,a.aca_tel,
 
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
 		from users where usr_id='java02'
+<<<<<<< HEAD
+		
+create table hashtag(
+   hashtag_no number primary key,
+   aca_rev_no number not null,
+   hashtag_name varchar2(100) not null,
+   constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
+)
+drop table hashtag
+
+create sequence hashtag_seq start with 1 nocache
+		
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+=======
 
 select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
 (select usr_name from users where usr_id = r.usr_id) as 
@@ -519,3 +534,4 @@ select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a
 select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
 where c.aca_no = a.aca_no and
 c.aca_no = '3'
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git

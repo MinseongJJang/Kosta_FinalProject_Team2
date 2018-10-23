@@ -4,5 +4,46 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.ReviewReplyMapper">
-
+<resultMap type="acaQNAReplyVO" id="acaQNARRM">
+		<result property="userVO.usrId" column="usr_id" />
+		<result property="userVO.nickname" column="nickname" />
+		<result property="acaQNAVO.qnaNo" column="qna_no" />
+	</resultMap>
+	<select id="getAcaQnAReply" parameterType="string"
+		resultType="string">
+		select qna_rep_content from
+		aca_qna_reply
+		where qna_rep_no=#{value}
+	</select>
+	<select id="listAcaQnAReply" resultMap="acaQNARRM">
+		select r.qna_rep_no,
+		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,
+		u.nickname
+		from
+		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no=#{qnaNo}
+	</select>
+	<select id="getTotalQNAReplyCount" resultType="int"
+		parameterType="string">
+		select count(*) from
+		aca_qna_reply where qna_no=#{value}
+	</select>
+	<insert id="registerAcaQnAReply" parameterType="acaQnAReplyVO">
+		<selectKey keyProperty="qnaRepNo" resultType="string"
+			order="BEFORE">
+			select
+			aca_qna_reply_seq.nextval from dual
+		</selectKey>
+		insert into
+		aca_qna_reply(qna_rep_no,qna_rep_regdate,qna_rep_content,qna_no,usr_id)
+		values(#{qnaRepNo},SYSDATE,#{qnaRepContent},#{acaQNAVO.qnaNo},#{userVO.usrId})
+	</insert>
+	<delete id="deleteAcaQnAReply" parameterType="string">
+		delete from
+		aca_qna_reply where qna_rep_no=#{qnaRepNo}
+	</delete>
+	<update id="updateAcaQnAReply" parameterType="acaQnAReplyVO">
+		update
+		aca_qna_reply set qna_rep_content=#{qnaRepContent} where
+		qna_rep_no=#{qnaRepNo}
+	</update>
 </mapper>
