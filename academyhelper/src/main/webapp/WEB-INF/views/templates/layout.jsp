@@ -50,7 +50,7 @@
 			|| document
 					.write('<script src="${pageContext.request.contextPath}/resources/js/vendor/jquery-1.11.2.min.js"><\/script>')
 </script>
-<script src="//cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>
+    
 <script
 	src="${pageContext.request.contextPath}/resources/js/vendor/bootstrap.min.js"></script>
 <script
