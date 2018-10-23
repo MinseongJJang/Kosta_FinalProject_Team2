@@ -83,7 +83,7 @@ public class ReviewController {
 		curriculumVO.setAcademyVO(academyVO);
 		reviewService.registerAcaReviewPost(acaReviewPostVO,curriculumVO,
 				hashTagVO,acaCurSatisfactionVO);
-		String 	reviewUpload = request.getSession().getServletContext().getRealPath("/resources/reviewUpload/");
+		String 	reviewUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\reviewUpload\\";
 		File reviewFile = new File(reviewUpload);
 		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
 		String[] fileNames = reviewFile.list();
@@ -93,14 +93,19 @@ public class ReviewController {
 		 */
 		AcaReviewAttachFileVO reviewAttach = new AcaReviewAttachFileVO();
 		for(int i=0;i<curtime.length;i++) {
-			System.out.println("123");
 			for(int j=0;j<fileNames.length;j++) {
-				if(fileNames[j].substring(fileNames[j].length()-5,fileNames[j].length()-4).equals("1")) {
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
 					if(fileNames[j].contains(curtime[i])) {
-						System.out.println("조건에 만족하여 attach 테이블 추가");
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(reviewUpload+fileNames[j]);
+						File newFile = new File(reviewUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
 						reviewAttach.setAcaReviewPostVO(acaReviewPostVO);
-						reviewAttach.setAcaRevFilepath(reviewUpload+fileNames[j]);
+						reviewAttach.setAcaRevFilepath(reviewUpload+builderFile);
 						reviewService.registerAcaReviewAttach(reviewAttach);
+						
 					}
 				}
 			}

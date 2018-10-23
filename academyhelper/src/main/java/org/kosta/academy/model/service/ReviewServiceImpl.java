@@ -30,6 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void registerAcaReviewPost(AcaReviewPostVO acaReviewPostVO,CurriculumVO curriculumVO,
 			HashTagVO hashTagVO,AcaCurSatisfactionVO acaCurSatisfactionVO) {
+		acaReviewPostVO.setAcaRevContent(acaReviewPostVO.getAcaRevContent().replaceAll("!!@@", ""));
 		reviewMapper.registerAcaReviewPost(acaReviewPostVO);
 		String[] hashtagNames = hashTagVO.getHashTagName().split(",");
 		
@@ -68,6 +69,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public Queue<Object> detailAcaReviewPost(String acaRevNo) {
 		AcaReviewPostVO reviewVO = reviewMapper.detailAcaReivewPost(acaRevNo);
+		
 		List<HashTagVO> hashList = reviewMapper.hashtagListByAcaRevNo(acaRevNo);
 		AcaCurSatisfactionVO satisfactionVO = reviewMapper.satisfactionByAcaRevNo(acaRevNo);
 		Queue<Object> queue = new LinkedList<Object>();

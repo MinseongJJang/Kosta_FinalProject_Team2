@@ -17,7 +17,7 @@
 	<tr>
 		<td>학원주소</td>
 		<td>
-			<input type="text" name="acaAddr" id="sample4_address" placeholder="주소" readonly>
+			<input type="text" name="acaAddr" id="sample4_address" placeholder="주소" readonly="readonly" >
 		</td>
 		 <td>
 			<span>
@@ -78,12 +78,12 @@
                 if(data.autoRoadAddress) {
                     //예상되는 도로명 주소에 조합형 주소를 추가한다.
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-
+                    //document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+					document.getElementById("sample4_address").value = expRoadAddr;
                 } else if(data.autoJibunAddress) {
                     var expJibunAddr = data.autoJibunAddress;
-                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-
+                   //document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    document.getElementById("sample4_address").value = expJibunAddr;
                 } else {
                     document.getElementById('guide').innerHTML = '';
                 }
