@@ -2,6 +2,8 @@ package org.kosta.academy.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.AuthoritiesVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -21,6 +23,12 @@ public interface UserService {
 	 * @return
 	 */
 	public UserVO findUserById(String usrId);
+	/**
+	 * 아이디를 찾을 때 사용하는 메소드
+	 * @param userVO
+	 * @return
+	 */
+	public String findId(UserVO userVO);
 	/**
 	 * 회원 권한을 확인하는 메소드
 	 * @param id
@@ -95,6 +103,25 @@ public interface UserService {
 	 * @return
 	 */
 	public String idcheck(String usrId);
-	
-	
+	/**
+	 * 이메일을 체크하는 메소드
+	 * @param userVO
+	 * @return
+	 */
+	public String emailCheck(UserVO userVO);
+	//public void tempSetPassword(String id, String password);
+	/**
+	 * 이메일에 임시 비밀번호를 발급하는 메소드
+	 * @param userVO
+	 * @param div
+	 * @throws Exception
+	 */
+	public void send_mail(UserVO userVO, String div) throws Exception;
+	/**
+	 * 비밀번호 찾기에 대한 전체 서비스 메소드
+	 * @param response
+	 * @param userVO
+	 * @throws Exception
+	 */
+	public void find_pw(HttpServletResponse response,UserVO userVO) throws Exception;
 }

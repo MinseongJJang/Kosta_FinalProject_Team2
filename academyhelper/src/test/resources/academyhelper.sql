@@ -10,7 +10,9 @@ create table users(
 	usr_regdate date not null,
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
-)
+)voquzfmjewvd
+select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
+select usr_email from users where usr_id='java3'
 
 select * from faq
 select sysdate from dual; 
@@ -33,6 +35,10 @@ create table aca_users(
 	constraint aca_users_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint aca_users_pk primary key(usr_id)
 )
+
+select usr_id
+		from users where usr_name='김성민' and birthday='1991-07-02' and usr_email='ksm0799@naver.com'
+select * from users
 
 /*공지사항 테이블 및 시퀀스*/
 drop table notice
@@ -343,12 +349,17 @@ create table aca_cur_satisfaction(
 
 /*해쉬태그 테이블*/
 create table hashtag(
-	aca_rev_no number not null,
-	hashtag_name varchar2(100) not null,
-	constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
-	constraint hashtag_pk primary key(aca_rev_no,hashtag_name)
+   hashtag_no number primary key,
+   aca_rev_no number not null,
+   hashtag_name varchar2(100) not null,
+   constraint hashtag_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
+create sequence hashtag_seq start with 1 nocache
 
+select count(*) from users where usr_id='java3'
+drop table hashtag
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_rev_attach_file
 create table aca_review_attach_file(
@@ -357,6 +368,7 @@ create table aca_review_attach_file(
 	aca_rev_filepath varchar2(100) not null,
 	constraint aca_review_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
 

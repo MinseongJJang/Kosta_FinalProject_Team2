@@ -10,6 +10,7 @@ import org.kosta.academy.model.vo.UserVO;
 @Mapper
 public interface UserMapper {
 	public UserVO findUserById(String usrId);
+	public String findId(UserVO userVO);
 	public List<AuthoritiesVO> selectAuthorityById(String usrId);
 	public void registerUser(UserVO userVO);
 	public void registerAcaUser(AcaUserVO acaUserVO);
@@ -26,4 +27,8 @@ public interface UserMapper {
 	public int idcheck(String usrId);
 	public List<UserVO> userList(PagingBean pagingBean);
 	public int getTotalUserCount();
+	public String emailCheck(UserVO userVO);
+	public int check_id(String id);
+	public String findEmailById(String id);
+	public void updatePassword(UserVO userVO);
 }
