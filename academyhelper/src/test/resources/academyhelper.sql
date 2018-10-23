@@ -323,13 +323,19 @@ create table aca_review_post(
 	aca_rev_no number primary key,
 	cur_no number not null,
 	aca_rev_title varchar2(100) not null,
-	aca_rev_content varchar2(100) not null,
+	aca_rev_content clob not null,
 	aca_rev_regdate date not null,
 	aca_rev_hits number default 0,
 	usr_id varchar2(100) not null,
 	constraint aca_review_post_ffk foreign key(cur_no) references curriculum(cur_no) on delete cascade,
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+<<<<<<< HEAD
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+
+alter table aca_review_post modify(aca_rev_content clob not null)
+=======
 
 	select * from aca_review_post
 	
@@ -339,6 +345,7 @@ select * from(
 ) where rownum < 6 and cur_no=11;
 
 
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 alter table aca_review_post modify(aca_rev_hits number default 0)
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,8,'코스타좋아요','코스타개조음',sysdate,'java1')
@@ -394,9 +401,10 @@ create table aca_review_attach_file(
 	aca_rev_filepath varchar2(100) not null,
 	constraint aca_review_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
-
+select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
 drop table aca_rev_reply
 create table aca_review_reply(
@@ -549,3 +557,4 @@ select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a
 where c.aca_no = a.aca_no and
 c.aca_no = '3'
 >>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+select * from aca_review_attach_file
