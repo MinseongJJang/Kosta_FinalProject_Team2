@@ -47,7 +47,6 @@ public class FileUploadController {
 		}
 		List<MultipartFile> fileList = fileVO.getFile();
 		ArrayList<Object> fileNameList= new ArrayList<Object>();
-		System.out.println(fileList.size());
 		for(int i=0;i<fileList.size();i++) {
 			long curTime = System.currentTimeMillis();
 			String fileName = fileList.get(i).getOriginalFilename().substring(0, fileList.get(i).getOriginalFilename().length()-4)+curTime+"!!@@"+fileList.get(i).getOriginalFilename().substring(fileList.get(i).getOriginalFilename().length()-4, fileList.get(i).getOriginalFilename().length());
@@ -57,7 +56,6 @@ public class FileUploadController {
 					fileList.get(i).transferTo(new File(uploadPath+fileName));
 					fileNameList.add(fileName);
 					fileNameList.add(curTime);
-					System.out.println("ajax 처리");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
