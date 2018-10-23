@@ -4,23 +4,22 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.QNAReplyMapper">
-	<resultMap type="acaQNAReplyVO" id="acaQNARRM">
+	<select id="getAcaQnAReply" parameterType="string" resultType="string">
+      select qna_rep_content from
+      aca_qna_reply 
+      where qna_rep_no=#{value}
+   </select>
+   <resultMap type="acaQNAReplyVO" id="acaQNARRM">
 		<result property="userVO.usrId" column="usr_id" />
 		<result property="userVO.nickname" column="nickname" />
 		<result property="acaQNAVO.qnaNo" column="qna_no" />
 	</resultMap>
-	<select id="getAcaQnAReply" parameterType="string"
-		resultType="string">
-		select qna_rep_content from
-		aca_qna_reply
-		where qna_rep_no=#{value}
-	</select>
-	<select id="listAcaQnAReply" resultMap="acaQNARRM">
-		select r.qna_rep_no,
-		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,
-		u.nickname
-		from
-		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no=#{qnaNo}
+	<select id="listAcaQnAReply" resultMap="acaQNARRM"
+		parameterType="map">
+		SELECT r.qna_rep_no,r.qna_rep_content,r.usr_id from(
+		SELECT row_number() over(order by qna_rep_no desc) as
+		rnum,qna_rep_no,qna_rep_content,usr_id,qna_no from aca_qna_reply)r, aca_qna q
+		where r.qna_no=q.qna_no and r.qna_no=#{qnaNo} and rnum between #{start} and #{end} order by r.qna_rep_no desc
 	</select>
 	<select id="getTotalQNAReplyCount" resultType="int"
 		parameterType="string">
