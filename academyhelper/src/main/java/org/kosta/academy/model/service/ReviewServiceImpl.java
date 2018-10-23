@@ -116,6 +116,12 @@ public class ReviewServiceImpl implements ReviewService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo) {
+		AcaCurSatisfactionVO satisVO = reviewMapper.satisfactionByCurNo(curNo);
+		return satisVO;
+	}
 	
 
 }

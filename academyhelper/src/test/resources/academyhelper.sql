@@ -374,8 +374,27 @@ create table aca_cur_satisfaction(
 	lecturer_satis number not null,
 	emp_links_satis number not null,
 	traffic_satis number not null,
-	constraint aca_cur_satisfaction_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
+	constraint aca_cur_satisfaction_fk foreign keyf references aca_review_post(aca_rev_no) on delete cascade
 )
+select * from aca_review_post
+select * from aca_cur_satisfaction
+select avg(cur_satis)*10, avg(amenities_satis)*10, avg(lecturer_satis)*10, avg(emp_links_satis)*10, avg(traffic_satis)*10 from aca_cur_satisfaction where 
+
+select (AVG(a.cur_satis)*10) as cur_satis, (AVG(a.amenities_satis)*10) as amenities_satis, (AVG(a.lecturer_satis)*10) as lecturer_satis, (AVG(a.emp_links_satis)*10) as emp_links_satis, (AVG(a.traffic_satis)*10) as traffic_satis
+from(
+	select * from aca_cur_satisfaction
+)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+
+select avg(a.cur_satis)*10, avg(a.amenities_satis)*10, avg(a.lecturer_satis)*10, avg(a.emp_links_satis)*10, avg(a.traffic_satis)*10
+from(
+	select * from aca_cur_satisfaction
+)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+
+ 	select a.cur_satis, a.amenities_satis, a.lecturer_satis, a.emp_links_satis, a.traffic_satis
+		from(
+			select * from aca_cur_satisfaction
+		)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+ 
 /*해쉬태그 테이블*/
 create table hashtag(
 	hashtag_no number primary key,
@@ -385,6 +404,7 @@ create table hashtag(
 )
 drop table hashtag
 create sequence hashtag_seq start with 1 nocache
+
 
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_rev_attach_file
