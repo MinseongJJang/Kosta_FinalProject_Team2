@@ -7,6 +7,7 @@ import org.kosta.academy.model.vo.AcaUserVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,5 +127,13 @@ public class UserController {
 	@RequestMapping("acaRegisterForm.do")
 	public String acaRegisterForm() {
 		return "user/aca_register_form.tiles";
+	}
+	@ResponseBody
+	@PostMapping("loginCheck.do")
+	public int loginCheck(UserVO userVO) {
+		System.out.println(userVO);
+		int loginCheck = userService.loginCheck(userVO);
+		System.out.println("결과"+loginCheck);
+		return loginCheck;
 	}
 }
