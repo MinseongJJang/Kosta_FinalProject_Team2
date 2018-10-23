@@ -80,9 +80,7 @@ public class QNAServiceImpl implements QNAService {
 	List<AcaQNAReplyVO> QNAReplyList = qnaReplyMapper.listAcaQnAReply(map);
 	ListVO vo = new ListVO();
 	vo.setAcaQNAReplyList(QNAReplyList);
-	vo.setPb(pagingBean);/*
-	System.out.println(map);
-	System.out.println(QNAReplyList);*/
+	vo.setPb(pagingBean);
 	return vo;
 	}
 
