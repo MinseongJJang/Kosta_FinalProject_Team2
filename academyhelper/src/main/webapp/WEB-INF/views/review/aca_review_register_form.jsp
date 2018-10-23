@@ -124,7 +124,7 @@
 				   <tfoot>
 				  		<tr>
 						   	<td colspan="2" align="right">
-						   		<sec:authorize access="hasRole('ROLE_ACADEMY')">
+						   		<sec:authorize access="hasRole('ROLE_USER')">
 								     <div class="btnArea">
 									     <button type="submit" class="aca-btn" >확인</button>  
 									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">

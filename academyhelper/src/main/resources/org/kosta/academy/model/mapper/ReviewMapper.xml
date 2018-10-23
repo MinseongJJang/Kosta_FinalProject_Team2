@@ -68,4 +68,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAcaReviewPost" parameterType="string">
 		delete from aca_review_post where aca_rev_no = #{value}
 	</delete>
+	<select id="listAcaReviewPostByCurNo" resultMap="acaReviewPostRM3" parameterType="string">
+		select * from( 
+		    select * from aca_review_post
+		    order by DBMS_RANDOM.RANDOM 
+		) where  <![CDATA[ROWNUM<6]]>  and cur_no=#{value}
+	</select>
 </mapper>
