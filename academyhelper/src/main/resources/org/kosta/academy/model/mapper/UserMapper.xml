@@ -29,6 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idcheck" resultType="int">
 		select count(*) from users where usr_id=#{value}
 	</select>
+	
+	<select id="userLogin" resultType="int">
+		select count(*) from users where usr_id=#{usrId} and usr_pass=#{usrPass}
+	</select>
 
 	<select id="getUserInfo" parameterType="string" resultType="userVO">
 		select usr_id,usr_name,usr_addr,nickname,birthday,usr_regdate,usr_email,usr_tel
@@ -63,12 +67,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update users set enabled=0
 		where usr_id=#{value}
 	</update>
-	<select id="findUserIdByNameAndTel" parameterType="userVO" resultType="string">
-		select usr_id from users where usr_name = #{usrName} and usr_tel=#{usrTel}
-	</select>
-	<select id="findUserPasswordByIdAndEmail" parameterType="userVO" resultType="string">
-		select usr_pass from users where usr_id = #{usrId} and usr_email=#{usrEmail}
-	</select>
 	<select id="getTotalUserCount" resultType="int">
 		select count(*) from
 		users
@@ -93,5 +91,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="findEmailById" parameterType="string" resultType="string">
 		select usr_email from users where usr_id=#{value}
+	</select>
+	<select id="loginCheck" parameterType="userVO" resultType="int">
+		select count(*) from users where usr_id = #{usrId} and usr_pass = #{usrPass}
+	</select>
+	<select id="findLoginPass" parameterType="userVO" resultType="string">
+		select usr_pass from users where usr_id = #{usrId}
 	</select>
 </mapper>

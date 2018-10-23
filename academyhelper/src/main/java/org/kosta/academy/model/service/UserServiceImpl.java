@@ -118,15 +118,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String findUserIdByNameAndTel(UserVO userVO) {
-		return userMapper.findUserIdByNameAndTel(userVO);
-	}
-
-	@Override
-	public String findUserPasswordByIdAndEmail(UserVO userVO) {
-		return userMapper.findUserPasswordByIdAndEmail(userVO);
-	}
-	@Override
 	public String emailCheck(UserVO userVO) {
 		return userMapper.emailCheck(userVO);
 	}
@@ -216,4 +207,23 @@ public class UserServiceImpl implements UserService{
 				out.close();
 			}
 		}
+
+	@Override
+	public String findLoginPass(UserVO userVO) {
+		String passwordEn = userMapper.findLoginPass(userVO);
+		return passwordEn;
+	}
+	
+	@Override
+	public int loginCheck(UserVO userVO) {
+		String passwordEn = userMapper.findLoginPass(userVO);
+		Boolean check = passwordEncoder.matches(userVO.getUsrPass(), passwordEn);
+		System.out.println("check결과"+check);
+		if(check==true) {
+			userVO.setUsrPass(passwordEn);
+			return userMapper.loginCheck(userVO);
+		}else {
+			return 0;
+		}
+	}
 }

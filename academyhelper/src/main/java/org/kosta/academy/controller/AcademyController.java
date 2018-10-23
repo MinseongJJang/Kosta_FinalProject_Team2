@@ -1,8 +1,10 @@
 package org.kosta.academy.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.academy.model.service.AcademyService;
+import org.kosta.academy.model.service.ReviewService;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,7 +21,47 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AcademyController {
 	@Resource
 	private AcademyService academyService;
+	@Resource
+	private ReviewService reviewService;
 
+	@Secured("ROLE_USER")
+	@RequestMapping("academyCompare.do")
+	public String academyCompare(Model model, HttpServletRequest request) {
+		String acaNoA = request.getParameter("acaNoA");
+		String curriNoA = request.getParameter("curriNoA");
+		String acaNoB = request.getParameter("acaNoB");
+		String curriNoB = request.getParameter("curriNoB");
+		
+		AcademyVO academyVOA = academyService.detailAcademy(acaNoA);
+		AcademyVO academyVOB = academyService.detailAcademy(acaNoB);
+		CurriculumVO curriVOA = academyService.detailCurriculum(curriNoA);
+		CurriculumVO curriVOB = academyService.detailCurriculum(curriNoB);
+		ListVO reviewlistA = reviewService.listAcaReviewPostByCurNo(curriNoA);
+		ListVO reviewlistB = reviewService.listAcaReviewPostByCurNo(curriNoB);
+		model.addAttribute("academyA", academyVOA);
+		model.addAttribute("academyB", academyVOB);
+		model.addAttribute("curriculumA", curriVOA);
+		model.addAttribute("curriculumB", curriVOB);
+		model.addAttribute("reviewListA", reviewlistA.getAcaReviewPostList());
+		System.out.println(reviewlistA.getAcaReviewPostList());
+		model.addAttribute("reviewListB", reviewlistB.getAcaReviewPostList());
+		return"academy/academy_compare.tiles";
+	}
+	@Secured("ROLE_USER")
+	@RequestMapping("listCurriculumAsAcademy.do")
+	@ResponseBody
+	public ListVO listCurriculumAsAcademy(Model model, String acaNo) {
+		return academyService.listCurriculumAsAcademy(acaNo);
+	}
+
+	@Secured("ROLE_USER")
+	@RequestMapping("academyCompareForm.do")
+	public String academyCompareForm(Model model) {
+		ListVO listVO = academyService.allListAcademy();
+		model.addAttribute("ListAcademy", listVO.getAcademyList());
+		return "academy/academy_compare_form.tiles";
+	}
+	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerAcademy.do")
 	public String registerAcademy(AcademyVO academyVO) {
@@ -127,9 +170,8 @@ public class AcademyController {
 		String acaNo=curVO.getAcademyVO().getAcaNo();
 		academyService.deleteCurriculum(curNo);
 		return new ModelAndView("redirect:detailAcademy.do?acaNo="+acaNo);
+		
 	}
-
-
 
 }
 

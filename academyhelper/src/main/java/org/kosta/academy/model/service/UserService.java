@@ -66,17 +66,6 @@ public interface UserService {
 	 */
 	public void deleteUser(String usrId);
 	/**
-	 * 일반 회원 아이디를 찾는 메소드
-	 * @param userVO
-	 * @return
-	 */
-	public String findUserIdByNameAndTel(UserVO userVO);
-	/**
-	 * 일반 회원 비밀번호를 찾는 메소드
-	 * @param userVO
-	 */
-	public String findUserPasswordByIdAndEmail(UserVO userVO);
-	/**
 	 * 회원 정보를 조회하는 메소드
 	 * @param id
 	 * @return 
@@ -103,6 +92,7 @@ public interface UserService {
 	 * @return
 	 */
 	public String idcheck(String usrId);
+
 	/**
 	 * 이메일을 체크하는 메소드
 	 * @param userVO
@@ -124,4 +114,8 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public void find_pw(HttpServletResponse response,UserVO userVO) throws Exception;
+	
+	public int loginCheck(UserVO userVO);
+	
+	public String findLoginPass(UserVO userVO);
 }

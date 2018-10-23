@@ -134,18 +134,6 @@ public class UserController extends Authenticator {
 		return "redirect:home.do";
 	}
 
-	@RequestMapping("findUserId")
-	public ModelAndView findUserIdByNameAndTel(UserVO userVO) {
-		String usrId = userService.findUserIdByNameAndTel(userVO);
-		return new ModelAndView("find_user_id.tiles", "usrId", usrId);
-	}
-
-	@RequestMapping("findUserPass")
-	public ModelAndView findUserPasswordByIdAndEmail(UserVO userVO) {
-		String usrPass = userService.findUserIdByNameAndTel(userVO);
-		return new ModelAndView("find_user_pass.tiles", "usrPass", usrPass);
-	}
-
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminMain.do")
 	public String adminMain() {
@@ -159,5 +147,21 @@ public class UserController extends Authenticator {
 		model.addAttribute("list", list.getUserList());
 		model.addAttribute("pb", list.getPb());
 		return "user/user_list.tiles";
+	}
+	@RequestMapping("registerForm.do")
+	public String registerForm() {
+		return "user/register_form.tiles";
+	}
+	@RequestMapping("acaRegisterForm.do")
+	public String acaRegisterForm() {
+		return "user/aca_register_form.tiles";
+	}
+	@ResponseBody
+	@PostMapping("loginCheck.do")
+	public int loginCheck(UserVO userVO) {
+		System.out.println(userVO);
+		int loginCheck = userService.loginCheck(userVO);
+		System.out.println("결과"+loginCheck);
+		return loginCheck;
 	}
 }

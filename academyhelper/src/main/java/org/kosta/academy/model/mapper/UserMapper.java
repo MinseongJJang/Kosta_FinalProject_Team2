@@ -19,8 +19,6 @@ public interface UserMapper {
 	public void updateUser(UserVO userVO);
 	public void deleteUser(String usrId);
 	public void updateUser(AcaUserVO acaUserVO);
-	public String findUserIdByNameAndTel(UserVO userVO);
-	public String findUserPasswordByIdAndEmail(UserVO userVO);
 	public UserVO getUserInfo(String usrId);
 	public AcaUserVO getAcaUserInfo(String usrId);
 	public void registerAuthorities(AuthoritiesVO authoritiesVO);
@@ -31,4 +29,6 @@ public interface UserMapper {
 	public int check_id(String id);
 	public String findEmailById(String id);
 	public void updatePassword(UserVO userVO);
+	public int loginCheck(UserVO userVO);
+	public String findLoginPass(UserVO userVO);
 }

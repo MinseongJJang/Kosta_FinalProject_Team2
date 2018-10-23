@@ -88,7 +88,6 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) {
-		// TODO Auto-generated method stub
 		qnaReplyMapper.updateAcaQnAReply(acaQNAReplyVO);
 	}
 
@@ -97,4 +96,9 @@ public class QNAServiceImpl implements QNAService {
 		qnaReplyMapper.deleteAcaQnAReply(qnaRepNo);
 	}
 
+	@Override
+	public String getAcaQnAReply(String qnaRepNo) {
+		return qnaReplyMapper.getAcaQnAReply(qnaRepNo);
+	}
+	
 }

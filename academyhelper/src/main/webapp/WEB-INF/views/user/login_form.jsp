@@ -12,6 +12,52 @@ table td{
 	padding:20px;
 }
 </style> 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#loginBtn').click(function(){
+			$.ajax({
+				type : "post",
+				url : "${pageContext.request.contextPath}/loginCheck.do",
+				data : "usrId="+$('#login_id').val()+"&usrPass="+$('#login_pass').val(),
+				beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success:function(loginCheck){
+					if(loginCheck == 1){
+						$("#loginForm").submit();
+					}else{
+						$("#checkResult").html("아이디 또는 비밀번호가 틀립니다").css("color","red");
+						$("#login_id").val("");
+						$("#login_pass").val("");
+						$("#login_id").focus();
+					}
+				}
+			});//ajax
+		});//click
+		$("#login_pass").keyup(function(event){
+				if(event.keyCode==13){
+					$.ajax({
+						type : "post",
+						url : "${pageContext.request.contextPath}/loginCheck.do",
+						data : "usrId="+$('#login_id').val()+"&usrPass="+$('#login_pass').val(),
+						beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+		                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		                },
+		                success:function(loginCheck){
+							if(loginCheck == 1){
+								$("#loginForm").submit();
+							}else{
+								$("#checkResult").html("아이디 또는 비밀번호가 틀립니다").css("color","red");
+								$("#login_id").val("");
+								$("#login_pass").val("");
+								$("#login_id").focus();
+							}
+						}
+					});//ajax
+				}
+		});//keyup
+	});//ready
+</script>
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-2"></div>
@@ -21,38 +67,32 @@ table td{
 					<tr>
 						<td>
 							<h3>회원 로그인</h3>
-							<form action="${pageContext.request.contextPath}/login.do" method="post" id="loginForm" >
+							<form method="post" id="loginForm"  action="${pageContext.request.contextPath}/login.do">
 							<sec:csrfInput/>
 							<table style="width:400px; align:center;">
 								<tr>
 									<td colspan="3">
-									<fieldset>
-										<input type="text" class="form-control" name="usrId" placeholder="아이디" id="login_text">
-									</fieldset>
+										<input type="text" class="form-control" name="usrId" placeholder="아이디" id="login_id">
 									</td>
 								</tr>
 								<tr>
 									<td colspan="3">
-									<fieldset>
-									 	<input type="password" class="form-control" placeholder="패스워드" name="usrPass" id="login_text">
-									</fieldset>
+									 	<input type="password" class="form-control" placeholder="패스워드" name="usrPass" id="login_pass">
 									</td>
 								</tr>
+								<!-- 
 								<tr>
 								<c:if test="${param.fail == 'true'}">
 									<td colspan="3"> <span id="loginCheck" style="color:red;">${SPRING_SECURITY_LAST_EXCEPTION.message}</span></td>
 								</c:if>							
 								</tr>
+								 -->
 								<tr>
-									<td colspan="3" align="right"> <button type="submit" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn">로그인</button></td>
+									<td><span id="checkResult"></span></td>
+									<td colspan="2" align="right"> <button type="button"  id="loginBtn" style="WIDTH: 70pt; HEIGHT: 30pt; margin-bottom:10px;" class="aca-btn">로그인</button></td>
 								</tr>
-								
-								
 								<tr>
-									<td colspan="2" align="right">
-										<a href="${pageContext.request.contextPath}/user/aca_register_form.do">기업 회원 가입</a>
-									</td>
-			               			<td colspan="1" align="right">
+			               			<td colspan="3" align="right">
 			               				<a href="${pageContext.request.contextPath}/user/register_form.do">회원가입</a>
 		               				</td>
 								</tr>

@@ -81,18 +81,18 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 				<button id="primary-nav-button" type="button">Menu</button>
 				<div class="logo"
 					style="width: 220px; height: 110px; padding-top: 10px">
-					<a href="index.html"> <img
+					<a href="${pageContext.request.contextPath}/home.do"><img
 						src="${pageContext.request.contextPath}/resources/img/home_logo.png"
-						alt="Venue Logo">
-					</a>
+						alt="Venue Logo"></a>
 				</div>
 				<nav id="primary-nav" class="dropdown cf">
 					<ul class="dropdown menu">
-						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 비교</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="#">IT기관 후기</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="acaPromoList.do">IT기관 홍보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="listAcademy.do">IT기관 정보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="listNotice.do">NOTICE</a></li>	
+
+						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/academyCompareForm.do">IT기관 비교</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/acaReviewList.do">IT기관 후기</a></li>
+						<li><a class="scrollTo" data-scrollTo="contact" href="${pageContext.request.contextPath}/acaPromoList.do">IT기관 홍보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcademy.do">IT기관 정보</a></li>
+						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listNotice.do">NOTICE</a></li>	
 						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcaQNA.do">질의 응답</a></li>
 						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listSuggestionPost.do">건의</a></li>
 						<li><a class="scrollTo" data-scrollTo="contact" href="listFAQ.do">FAQ</a></li>
