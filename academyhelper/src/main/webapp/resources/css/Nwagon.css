@@ -15,8 +15,9 @@ v\: * {behavior : url(#default#VML);}
 ul.accessibility {font-size: 1px;height: 1px; line-height: 1px; overflow: hidden; width: 1px;}
 .background .fields text{fill:#666;font-family:'나눔고딕', '돋움', Dotum;font-size:11px}
 .foreground .labels text{fill:#666;font-family:'나눔고딕', '돋움', Dotum;font-size:11px}
-.tooltip2 text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 11px;}
-.tooltip2 rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
+.tooltip text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 11px;}
+.tooltip rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
+.tooltip {filter:alpha(opacity=1) !important;opacity:1 !important;}
 .fields text{fill:#666;font-family:'나눔고딕', '돋움', Dotum;font-size:11px}
 .guide_line{stroke:#4010ad;stroke-width:1}
 
@@ -24,24 +25,24 @@ ul.accessibility {font-size: 1px;height: 1px; line-height: 1px; overflow: hidden
 .Nwagon_column .background line.h{stroke:#000;stroke-width:0.2;}
 .Nwagon_column .background line.v{stroke:#000;stroke-width:0.1;}
 .Nwagon_column .foreground .columns g rect{fill-opacity:0.7;cursor:pointer;}
-.Nwagon_column .foreground .tooltip2 text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 9px;}
-.Nwagon_column .foreground .tooltip2 rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
+.Nwagon_column .foreground .tooltip text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 9px;}
+.Nwagon_column .foreground .tooltip rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
 .Nwagon_column .labels text, .Nwagon_column .background text{fill:#666;font-family:'나눔고딕', '돋움', Dotum;font-size:11px;}
 
 /*stacked_column*/
 .Nwagon_stacked_column .background line.h{stroke:#000;stroke-width:0.2;}
 .Nwagon_stacked_column .background line.v{stroke:#000;stroke-width:0.1;}
 .Nwagon_stacked_column .foreground .columns g rect{fill-opacity:0.7;cursor:pointer;}
-.Nwagon_stacked_column .foreground .tooltip2 text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 9px;}
-.Nwagon_stacked_column .foreground .tooltip2 rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
+.Nwagon_stacked_column .foreground .tooltip text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 9px;}
+.Nwagon_stacked_column .foreground .tooltip rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
 .Nwagon_stacked_column .labels text, .Nwagon_stacked_column .background text{fill:#666;font-family:'나눔고딕', '돋움', Dotum;font-size:11px;}
 
 /*multi_column*/
 .Nwagon_multi_column .background line.h{stroke:#000;stroke-width:0.2;}
 .Nwagon_multi_column .background line.v{stroke:#000;stroke-width:0.1;}
 .Nwagon_multi_column .foreground .columns g rect{fill-opacity:0.7;cursor:pointer;}
-.Nwagon_multi_column .foreground .tooltip2 text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 9px;}
-.Nwagon_multi_column .foreground .tooltip2 rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
+.Nwagon_multi_column .foreground .tooltip text{fill:#777;font-family:'나눔고딕', '돋움', Dotum;font-size: 9px;}
+.Nwagon_multi_column .foreground .tooltip rect{fill:rgba(255,255,255,0.9);stroke:#ccc;stroke-width:0.5;}
 .Nwagon_multi_column .labels text, .Nwagon_stacked_column .background text{fill:#666;font-family:'나눔고딕', '돋움', Dotum;font-size:11px;}
 
 /*Line*/

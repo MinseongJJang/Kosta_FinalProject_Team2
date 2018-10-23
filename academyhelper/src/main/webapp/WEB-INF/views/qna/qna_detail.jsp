@@ -93,6 +93,36 @@
 										</div>
 								<div class="col-sm-1"></div>
 						</c:forEach>
+						<div class="col-sm-1"></div>
+						<div class="col-sm-10" align="center">
+						<div class="pagingInfo">
+		<c:set var="pb" value="${requestScope.pagingBean}"></c:set>
+		<ul class="pagination">
+			<c:if test="${pb.previousPageGroup}">
+				<li><a
+					href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.startPageOfPageGroup-1}&qnaNo=${requestScope.detailQNA.qnaNo}">&laquo;</a></li>
+			</c:if>
+			<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
+				end="${pb.endPageOfPageGroup}">
+				<c:choose>
+					<c:when test="${pb.nowPage!=i}">
+						<li><a
+							href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${i}&qnaNo=${requestScope.detailQNA.qnaNo}">${i}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="active"><a href="#">${i}</a></li>
+					</c:otherwise>
+				</c:choose>
+	&nbsp;
+	</c:forEach>
+			<c:if test="${pb.nextPageGroup}">
+				<li><a
+					href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.endPageOfPageGroup+1}&qnaNo=${requestScope.detailQNA.qnaNo}">&raquo;</a></li>
+			</c:if>
+		</ul>
+	</div>
+	</div>
+	<div class="col-sm-1"></div>
 					</c:if>
 					
 					<div class="col-sm-1"></div>

@@ -6091,7 +6091,7 @@ button.close {
 		width: 900px
 	}
 }
-/* 
+/
 .tooltip {
 	position: absolute;
 	z-index: 1070;
@@ -6101,8 +6101,6 @@ button.close {
 	font-weight: 400;
 	line-height: 1.4;
 	visibility: visible;
-	filter: alpha(opacity = 0);
-	opacity: 0
 }
 
 .tooltip.in {
@@ -6211,7 +6209,7 @@ button.close {
 	border-width: 0 5px 5px;
 	border-bottom-color: #000
 }
- */
+ 
 .popover {
 	position: absolute;
 	top: 0;

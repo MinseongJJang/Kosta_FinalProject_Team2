@@ -60,8 +60,8 @@ table td{
 </script>
 <div class="container" >
 	<div class="row">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-6 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align:center;" align="center">
 				<table class="test" >
 					<tr>
@@ -97,8 +97,8 @@ table td{
 		               				</td>
 								</tr>
 								<tr>
-			                		<td colspan="2" align="right"><a href="#">아이디 찾기</a></td>
-			                		<td colspan="1" align="right"><a href="#">비밀번호 찾기</a></td>
+			                		<td colspan="2" align="right"><a href="findIdForm.do">아이디 찾기</a></td>
+			                		<td colspan="1" align="right"><a href="findPasswordForm.do">비밀번호 찾기</a></td>
 								</tr>
 							</table>
 							</form>
@@ -107,7 +107,7 @@ table td{
 				</table>
 			</div>
 		</div>
-		<div class="col-sm-3"></div>
+		<div class="col-sm-2"></div>
 	</div>
 </div>
 
