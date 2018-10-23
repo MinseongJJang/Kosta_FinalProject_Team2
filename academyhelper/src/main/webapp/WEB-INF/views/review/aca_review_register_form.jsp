@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+ 
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#academySelect").change(function() {
@@ -97,24 +103,65 @@
 				   <tbody>
 						<tr >
 					        <td>제목</td>
-					        <td><input type="text" name="acaRevTitle" placeholder="제목을 입력하세요" required="required" style="width:90%"></td>
+					        <td><input type="text" name="acaRevTitle" placeholder="제목을 입력하세요" required="required" style="width:90%">
+					        </td>
+						
 				      	</tr>
 				      	<tr>
-				      		<td>내용</td>
-				      		<td><textarea cols="90" rows="15" id="acaRevContent" name="acaRevContent" required="required" placeholder="내용을 입력하세요"></textarea>
-				      		<script type="text/javascript">
-							CKEDITOR.replace("acaRevContent");
-							</script>	
+				      		<td>내용
+				      			<span id="curtime"></span>
+				      		</td>
+				      		<td><textarea cols="90" rows="130" id="acaRevContent" name="acaRevContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				      		<script>
+							    $(document).ready(function() {
+							    	var curtime = "";
+							        $('#acaRevContent').summernote({
+							        	 height: 500,               
+							        	 minHeight: null,           
+							        	 maxHeight: null,  
+							        	 callbacks: {
+							                 onImageUpload: function(files, editor, welEditable) {
+							                   for (var i = files.length - 1; i >= 0; i--) {
+							                     sendFile(files[i], this);
+							                   }
+							                 }
+							             }
+							        });//summernote
+							        function sendFile(file, el) {
+							            var form_data = new FormData();
+							            form_data.append("file", file);
+							            $.ajax({
+							              data: form_data,
+							              type: "POST",
+							              url: "review-file-upload.do",
+							              cache: false,
+							              contentType: false,
+							              enctype: "multipart/form-data",
+							              processData: false,
+							              beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+							            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+							         	  },
+							              success: function(url) {
+							            	var path = "${pageContext.request.contextPath}/resources/reviewUpload/"+url[0];
+							            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
+							            	$("#curtime").html(curtime);
+							                $(el).summernote("editor.insertImage", path);
+							                $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+							              }
+							          });//ajax
+							   	   }//sendFile
+							    });//ready
+						 	</script>
 				      		</td>
 				      	</tr>
 				      	<tr>
 				      		<td><label for="label-registerProduct">Hashtag</label><br></td>
 					      	<td><div class="input-group">
-							<input type="text" class="form-control" id="hashtagInsert"  style="width:90%;" placeholder="Hashtag pattern Example : #SpaceTaskForce">
+							<input type="text" class="form-control" id="hashtagInsert"  style="width:90%;" placeholder="Hashtag pattern Example : #AcademyHelper">
 							&nbsp;&nbsp;<span><input type="button" id="hashInsert" class="btn" value="추가" style="height: 60%; background-color: #32c5d2; color: white" ></span>
 							<br><br><br>
 							<div id="hash"></div>
-							<input type="text" class="form-control" id="hashtag" name="hashTagName" required="required" style="width: 60%;" readonly="readonly">&nbsp;&nbsp;
+							<input type="text" class="form-control" id="hashtag" name="hashTagName" required="required" style="width: 90%;" readonly="readonly">&nbsp;&nbsp;
 							<span><input type="button" id="hashDelete" class="btn" value="전체삭제" style="height: 80%; background-color: #32c5d2; color: white" ></span>
 							</div>
 							</td>
@@ -124,7 +171,7 @@
 				   <tfoot>
 				  		<tr>
 						   	<td colspan="2" align="right">
-						   		<sec:authorize access="hasRole('ROLE_ACADEMY')">
+						   		<sec:authorize access="hasRole('ROLE_USER')">
 								     <div class="btnArea">
 									     <button type="submit" class="aca-btn" >확인</button>  
 									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">

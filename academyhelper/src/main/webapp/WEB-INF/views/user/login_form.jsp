@@ -34,6 +34,28 @@ table td{
 				}
 			});//ajax
 		});//click
+		$("#login_pass").keyup(function(event){
+				if(event.keyCode==13){
+					$.ajax({
+						type : "post",
+						url : "${pageContext.request.contextPath}/loginCheck.do",
+						data : "usrId="+$('#login_id').val()+"&usrPass="+$('#login_pass').val(),
+						beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+		                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		                },
+		                success:function(loginCheck){
+							if(loginCheck == 1){
+								$("#loginForm").submit();
+							}else{
+								$("#checkResult").html("아이디 또는 비밀번호가 틀립니다").css("color","red");
+								$("#login_id").val("");
+								$("#login_pass").val("");
+								$("#login_id").focus();
+							}
+						}
+					});//ajax
+				}
+		});//keyup
 	});//ready
 </script>
 <div class="container" >

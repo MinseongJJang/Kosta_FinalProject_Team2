@@ -2,6 +2,7 @@ package org.kosta.academy.model.service;
 import java.util.Queue;
 
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -62,4 +63,5 @@ public interface ReviewService {
 	 * @param acaRevRepNo
 	 */
 	public void deleteAcaReviewReply(String acaRevRepNo);
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
 }

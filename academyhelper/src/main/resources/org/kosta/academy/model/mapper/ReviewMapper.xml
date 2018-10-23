@@ -68,4 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAcaReviewPost" parameterType="string">
 		delete from aca_review_post where aca_rev_no = #{value}
 	</delete>
+	<insert id="registerAcaReviewAttach" parameterType="acaReviewAttachFileVO">
+		<selectKey keyProperty="acaRevAttNo" order="BEFORE" resultType="string">
+			select aca_review_attach_file_seq.nextval from dual
+		</selectKey>
+		insert into aca_review_attach_file(aca_rev_att_no,aca_rev_no,aca_rev_filepath) values
+		(#{acaRevAttNo},#{acaReviewPostVO.acaRevNo},#{acaRevFilepath})
+	</insert>
 </mapper>

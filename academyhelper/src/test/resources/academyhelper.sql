@@ -384,9 +384,10 @@ create table aca_review_attach_file(
 	aca_rev_filepath varchar2(100) not null,
 	constraint aca_review_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
-
+select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
 drop table aca_rev_reply
 create table aca_review_reply(
@@ -539,3 +540,4 @@ select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a
 where c.aca_no = a.aca_no and
 c.aca_no = '3'
 >>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+select * from aca_review_attach_file
