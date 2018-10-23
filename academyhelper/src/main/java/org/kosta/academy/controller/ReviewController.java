@@ -38,6 +38,7 @@ public class ReviewController {
 		mv.setViewName("review/aca_review_list.tiles");
 		return mv;
 	}
+	
 	@Secured("ROLE_USER")
 	@RequestMapping("registerReviewPostForm.do")
 	public ModelAndView registerReviewPostForm() {

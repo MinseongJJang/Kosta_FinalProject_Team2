@@ -100,10 +100,22 @@ public class QNAController {
 	@PostMapping("updateAcaQnAReply.do")
 	@ResponseBody
 	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
-		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
-		String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
-		String content=qnaService.getAcaQnAReply(qnaRepNo);
-		return content;		
+		try {
+		System.out.println(acaQNAVOReplyVO.getQnaRepContent());
+		if(acaQNAVOReplyVO.getQnaRepContent()==" "||acaQNAVOReplyVO.getQnaRepContent()=="") {
+			return null;
+		}else {
+			qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+			String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
+			String content=qnaService.getAcaQnAReply(qnaRepNo);
+			return content;
+		}
+		
+		}catch(Exception e) {
+			System.out.println(acaQNAVOReplyVO.getQnaRepContent());
+			return null;
+		}
+		
 	}
 	
 }

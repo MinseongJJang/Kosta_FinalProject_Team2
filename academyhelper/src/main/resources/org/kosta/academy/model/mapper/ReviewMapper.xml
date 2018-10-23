@@ -75,4 +75,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into aca_review_attach_file(aca_rev_att_no,aca_rev_no,aca_rev_filepath) values
 		(#{acaRevAttNo},#{acaReviewPostVO.acaRevNo},#{acaRevFilepath})
 	</insert>
+	<select id="listAcaReviewPostByCurNo" resultMap="acaReviewPostRM3" parameterType="string">
+		select * from( 
+		    select * from aca_review_post
+		    order by DBMS_RANDOM.RANDOM 
+		) where  <![CDATA[ROWNUM<6]]>  and cur_no=#{value}
+	</select>
 </mapper>

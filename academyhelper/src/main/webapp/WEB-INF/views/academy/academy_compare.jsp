@@ -74,21 +74,36 @@
 								교육 내용
 							</th>
 							<td>
-								${curriculumA.curContent }
+								<pre>${curriculumA.curContent }</pre>
 							</td>
 							<td>
-								${curriculumB.curContent }
+								<pre>${curriculumB.curContent }</pre>
 							</td>
 						</tr>
 						<tr>
-							<th>
+							<th colspan="3">
 								후기
 							</th>
+						</tr>
+						<c:forEach var="reviewlistA"  items="${reviewListA }" >
+						<c:forEach var="reviewlistB" items="${reviewListB }" >
+						<tr>
 							<td>
 							</td>
 							<td>
+								<div style="text-align:left;">${reviewlistA.userVO.usrId }</div>
+								<div><pre>${reviewlistA.acaRevContent}</pre></div>
+								<div style="text-align:right;">${reviewlistA.acaRevRegdate}</div>
+							</td>
+							<td>
+								<div style="text-align:left;">${reviewlistB.userVO.usrId }</div>
+								<div><pre>${reviewlistB.acaRevContent }</pre></div>
+								<div style="text-align:right;">${reviewlistB.acaRevRegdate}</div>
 							</td>
 						</tr>
+						</c:forEach>
+						</c:forEach>
+						
 					</tbody>
 					<tfoot>
 					</tfoot>

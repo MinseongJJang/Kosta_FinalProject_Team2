@@ -64,4 +64,11 @@ public interface ReviewService {
 	 */
 	public void deleteAcaReviewReply(String acaRevRepNo);
 	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
+	/**
+	 * 과정에 대한 학원 후기 목록을 불러오는 메소드
+	 * 페이징빈이 없다.
+	 * @param curNo
+	 * @return
+	 */
+	public ListVO listAcaReviewPostByCurNo(String curNo);
 }
