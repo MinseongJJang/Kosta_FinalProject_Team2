@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.ReviewMapper;
+import org.kosta.academy.model.mapper.ReviewReplyMapper;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
@@ -100,7 +101,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-	
+		reviewReplyMapper.registerAcaReviewReply(acaReviewReplyVO);
 	}
 
 	@Override
@@ -120,33 +121,29 @@ public class ReviewServiceImpl implements ReviewService {
 			map.put("end", pagingBean.getEndRowNumber());
 			map.put("pageNo", pagingBean.getNowPage());
 		}
-		List<AcaQNAReplyVO> QNAReplyList = reviewReplyMapper.listAcaQnAReply(map);
+		List<AcaReviewReplyVO> QNAReplyList = reviewReplyMapper.listAcaReviewReply(map);
 		ListVO vo = new ListVO();
-		vo.setAcaQNAReplyList(QNAReplyList);
-		vo.setPb(pagingBean);/*
-								 * System.out.println(map); System.out.println(QNAReplyList);
-								 */
+		vo.setAcaReviewReplyList(QNAReplyList);
+		vo.setPb(pagingBean);
 		return vo;
 	}
 
 	@Override
 	public void updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-		// TODO Auto-generated method stub
-		
+		reviewReplyMapper.updateAcaReviewReply(acaReviewReplyVO);
 	}
 
 	@Override
 	public void deleteAcaReviewReply(String acaRevRepNo) {
-		// TODO Auto-generated method stub
-
+		reviewReplyMapper.deleteAcaReviewReply(acaRevRepNo);
 	}
 
 	@Override
-	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach) {
-		reviewMapper.registerAcaReviewAttach(reviewAttach);
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo) {
+		AcaCurSatisfactionVO satisVO = reviewMapper.satisfactionByCurNo(curNo);
+		return satisVO;
 	}
-
-	@Override
+	
 	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach) {
 		reviewMapper.registerAcaReviewAttach(reviewAttach);
 	}

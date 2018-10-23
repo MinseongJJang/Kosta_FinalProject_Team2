@@ -56,7 +56,6 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public void registerAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
-		System.out.println(acaQNAReplyVO);
 		qnaReplyMapper.registerAcaQnAReply(acaQNAReplyVO);
 	}
 

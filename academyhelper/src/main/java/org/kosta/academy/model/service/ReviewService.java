@@ -71,4 +71,11 @@ public interface ReviewService {
 	 * @return
 	 */
 	public ListVO listAcaReviewPostByCurNo(String curNo);
+	
+	/**
+	 * 과정에 대한 만족도를 불러온다.
+	 * @param curNo
+	 * @return
+	 */
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo);
 }
