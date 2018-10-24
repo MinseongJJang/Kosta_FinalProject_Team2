@@ -6,18 +6,23 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 <!-- Spring Security를 위해 ServletContextListener 를 이용해 로딩하므로 
 	  컨트롤러측은 제외하고 dbcp mybatis model 쪽만 빈을 생성하도록 설정한다 
- -->		
-<context:component-scan base-package="org.kosta">
+ -->
+ <!-- aop 설정 -->
+<aop:aspectj-autoproxy />
+<context:component-scan base-package="org.kosta" >
 	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 </context:component-scan>
+
 <!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
 <!-- dataSource -->
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -55,6 +60,10 @@ class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 </bean>
 <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />	
+
+<!-- spring scheduler 설정 -->
+<task:annotation-driven/>
+
 </beans>
 
 

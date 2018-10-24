@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTotalAcaReviewReplyCount" resultType="int"
 		parameterType="string">
 		select count(*) from
-		aca_review_reply where aca_rev_no=#{value}
+		aca_rev_reply where aca_rev_no=#{value}
 	</select>
 	<insert id="registerAcaReviewReply" parameterType="acaReviewReplyVO">
 		<selectKey keyProperty="acaRevRepNo" resultType="string"
@@ -34,16 +34,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			aca_rev_reply_seq.nextval from dual
 		</selectKey>
 		insert into
-		aca_review_reply(aca_rev_rep_no,review_rep_regdate,review_rep_content,aca_rev_no,usr_id)
+		aca_rev_reply(aca_rev_rep_no,review_rep_regdate,review_rep_content,aca_rev_no,usr_id)
 		values(#{acaRevRepNo},SYSDATE,#{acaRevRepContent},#{acaReviewPostVO.acaRevNo},#{userVO.usrId})
 	</insert>
 	<delete id="deleteAcaReviewReply" parameterType="string">
 		delete from
-		aca_review_reply where aca_rev_rep_no=#{acaRevRepNo}
+		aca_rev_reply where aca_rev_rep_no=#{acaRevRepNo}
 	</delete>
 	<update id="updateAcaReviewReply" parameterType="acaReviewReplyVO">
 		update
-		aca_review_reply set review_rep_content=#{acaRevRepContent} where
+		aca_rev_reply set review_rep_content=#{acaRevRepContent} where
 		aca_rev_rep_no=#{acaRevRepNo}
 	</update>
 </mapper>
