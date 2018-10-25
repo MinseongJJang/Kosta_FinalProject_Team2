@@ -72,7 +72,6 @@ select n.notice_no,n.notice_title,n.notice_content,n.notice_regdate,u.usr_id,u.u
 		notice_title,notice_content,notice_regdate,usr_id from notice) n, users u
 		where n.usr_id=u.usr_id and rnum between 1 and 10
 		order by notice_no desc
-
 /*권한 테이블*/
 drop table authorities
 create table authorities(
@@ -82,6 +81,10 @@ create table authorities(
 	constraint authorities_pk primary key(usr_id,authority)
 )
 insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
+insert into authorities(authority,usr_id) values('ROLE_ADMIN','java5')
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java5')
+select * from users where usr_id='java5'
+select * from authorities
 insert into authorities(authority,usr_id)
 values('ROLE_ACADEMY','admin1')
 insert into authorities(authority,usr_id)
@@ -424,6 +427,9 @@ create table aca_review_reply(
 	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
 	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_review_reply rename to aca_rev_reply
+drop sequence aca_review_reply_seq
+create sequence aca_rev_reply_seq start with 1 nocache
 drop sequence aca_rev_reply_seq
 create sequence aca_review_reply_seq start with 1 nocache
 
