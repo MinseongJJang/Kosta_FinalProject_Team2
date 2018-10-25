@@ -10,7 +10,7 @@ public class FileArrangeScheduler{
 	
 	private String filepath;
 	
-	@Scheduled(cron="0 0 10 * * *")
+	@Scheduled(cron="0 0 02 * * *")
 	public void run() {
 				System.out.println("파일정리 Thread run method 실행");
 				filepath = "C:\\java-kosta\\finalproject\\finalproject\\resources\\";
