@@ -17,6 +17,9 @@
 				   		<tr>
 							<td colspan="4" align="center"><h3>건의 사항 등록하기</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				   </thead>
 				   <tbody>
 						<tr >

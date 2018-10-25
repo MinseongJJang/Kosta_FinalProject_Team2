@@ -343,7 +343,11 @@ alter table aca_review_post add(aca_rev_content clob)
 
 alter table aca_review_post modify(aca_rev_content clob not null)
 
-select * from aca_review_post
+alter table aca_review_reply rename to aca_rev_reply
+drop sequence aca_review_reply_seq
+create sequence aca_rev_reply_seq start with 1 nocache
+
+select * from aca_review_reply
 	
 select * from( 
     select * from aca_review_post
