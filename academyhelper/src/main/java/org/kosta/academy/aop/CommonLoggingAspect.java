@@ -36,6 +36,7 @@ public class CommonLoggingAspect {
 		if(user!=null) {
 			log.warn("["+user.getUsrId()+","+user.getUsrName()+"님 ]" + point.getSignature().getName()+" 실행 , 실행시간 : " + (end-start));
 		}
+		
 		return retValue;
 	
 	}

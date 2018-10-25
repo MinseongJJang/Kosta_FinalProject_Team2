@@ -50,7 +50,12 @@ class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 class="org.springframework.web.servlet.view.BeanNameViewResolver">
 	<property name="order" value="1"/>
 </bean>
-		
+<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/logout.do"/>
+		<bean class="org.kosta.academy.controller.CheckLogoutInterceptor"/>
+	</mvc:interceptor>
+</mvc:interceptors>		
 </beans>
 
 
