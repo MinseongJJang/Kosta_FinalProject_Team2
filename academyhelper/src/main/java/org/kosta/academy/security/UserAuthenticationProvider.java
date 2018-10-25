@@ -81,7 +81,6 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		 ***************************************/
 		
 		Authentication auth = new UsernamePasswordAuthenticationToken(userVO, usrPass, authorities);
-		System.out.println("로그인 OK~"+auth);
 		return auth;		
 	}
 

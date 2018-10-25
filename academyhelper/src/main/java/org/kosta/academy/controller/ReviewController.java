@@ -12,12 +12,14 @@ import org.kosta.academy.model.service.ReviewService;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
+import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.HashTagVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,16 +60,19 @@ public class ReviewController {
 	}
 	@Secured("ROLE_USER")
 	@RequestMapping("detailAcaReviewPost.do")
-	public ModelAndView detailAcaReviewPost(String acaRevNo) {
+	public ModelAndView detailAcaReviewPost(String acaRevNo, String pageNo) {
 		ModelAndView mv = new ModelAndView();
 		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo);
 		AcaReviewPostVO acaReviewPostVO = (AcaReviewPostVO) queue.poll();
 		@SuppressWarnings("unchecked")
 		List<HashTagVO> hashList = (List<HashTagVO>) queue.poll();
 		AcaCurSatisfactionVO satisfactionVO = (AcaCurSatisfactionVO) queue.poll();
+		ListVO listReply = reviewService.listAcaReviewReply(acaRevNo, pageNo);
 		mv.addObject("review",acaReviewPostVO);
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
+		mv.addObject("listQNAReply", listReply.getAcaReviewReplyList());
+		mv.addObject("pagingBean", listReply.getPb());
 		mv.setViewName("review/aca_review_detail.tiles");
 		return mv;
 	}
@@ -83,7 +88,7 @@ public class ReviewController {
 		curriculumVO.setAcademyVO(academyVO);
 		reviewService.registerAcaReviewPost(acaReviewPostVO,curriculumVO,
 				hashTagVO,acaCurSatisfactionVO);
-		String 	reviewUpload = request.getSession().getServletContext().getRealPath("/resources/reviewUpload/");
+		String 	reviewUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\reviewUpload\\";
 		File reviewFile = new File(reviewUpload);
 		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
 		String[] fileNames = reviewFile.list();
@@ -93,14 +98,19 @@ public class ReviewController {
 		 */
 		AcaReviewAttachFileVO reviewAttach = new AcaReviewAttachFileVO();
 		for(int i=0;i<curtime.length;i++) {
-			System.out.println("123");
 			for(int j=0;j<fileNames.length;j++) {
-				if(fileNames[j].substring(fileNames[j].length()-5,fileNames[j].length()-4).equals("1")) {
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
 					if(fileNames[j].contains(curtime[i])) {
-						System.out.println("조건에 만족하여 attach 테이블 추가");
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(reviewUpload+fileNames[j]);
+						File newFile = new File(reviewUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
 						reviewAttach.setAcaReviewPostVO(acaReviewPostVO);
-						reviewAttach.setAcaRevFilepath(reviewUpload+fileNames[j]);
+						reviewAttach.setAcaRevFilepath(reviewUpload+builderFile);
 						reviewService.registerAcaReviewAttach(reviewAttach);
+						
 					}
 				}
 			}
@@ -149,4 +159,36 @@ public class ReviewController {
 		return mv;
 	}
 	
+	@PostMapping("registerReviewReply.do")
+	public String registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
+		reviewService.registerAcaReviewReply(acaReviewReplyVO);
+		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo();
+	}
+
+	@PostMapping("deleteReviewReply.do")
+	public String deleteAcaReviewReply(String acaRevRepNo, String acaRevNo) {
+		reviewService.deleteAcaReviewReply(acaRevRepNo);
+		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaRevNo;
+	}
+
+	@PostMapping("updateReviewReply.do")
+	@ResponseBody
+	public String updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
+		try {
+		System.out.println(acaReviewReplyVO.getAcaRevRepContent());
+		if(acaReviewReplyVO.getAcaRevRepContent()==" "||acaReviewReplyVO.getAcaRevRepContent()=="") {
+			return null;
+		}else {
+			reviewService.updateAcaReviewReply(acaReviewReplyVO);
+			String acaRevRepNo=acaReviewReplyVO.getAcaRevRepNo();
+			String content=reviewService.getAcaReviewReply(acaRevRepNo);
+			return content;
+		}
+		
+		}catch(Exception e) {
+			System.out.println(acaReviewReplyVO.getAcaRevRepContent());
+			return null;
+		}
+		
+	}
 }

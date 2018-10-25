@@ -19,13 +19,15 @@ public class ListVO {
 	private List<FAQVO> faqList;
 	private List<NoticeVO> noticeList;
 	private List<AcaReviewPostVO> acaReviewPostList; 
+	private List<AcaReviewReplyVO> acaReviewReplyList; 
 	private List<SuggestionPostVO> suggestionPostList;
 	private List<AcaPromoPostVO> acaPromoPostList;	
 	private PagingBean pb;
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
 			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<AcaQNAReplyVO> acaQNAReplyList,
 			List<FAQVO> faqList, List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
-			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
+			List<AcaReviewReplyVO> acaReviewReplyList, List<SuggestionPostVO> suggestionPostList,
+			List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
 		super();
 		this.userList = userList;
 		this.acaUserList = acaUserList;
@@ -36,6 +38,7 @@ public class ListVO {
 		this.faqList = faqList;
 		this.noticeList = noticeList;
 		this.acaReviewPostList = acaReviewPostList;
+		this.acaReviewReplyList = acaReviewReplyList;
 		this.suggestionPostList = suggestionPostList;
 		this.acaPromoPostList = acaPromoPostList;
 		this.pb = pb;
@@ -98,6 +101,12 @@ public class ListVO {
 	public void setAcaReviewPostList(List<AcaReviewPostVO> acaReviewPostList) {
 		this.acaReviewPostList = acaReviewPostList;
 	}
+	public List<AcaReviewReplyVO> getAcaReviewReplyList() {
+		return acaReviewReplyList;
+	}
+	public void setAcaReviewReplyList(List<AcaReviewReplyVO> acaReviewReplyList) {
+		this.acaReviewReplyList = acaReviewReplyList;
+	}
 	public List<SuggestionPostVO> getSuggestionPostList() {
 		return suggestionPostList;
 	}
@@ -121,10 +130,9 @@ public class ListVO {
 		return "ListVO [userList=" + userList + ", acaUserList=" + acaUserList + ", academyList=" + academyList
 				+ ", curriculumList=" + curriculumList + ", acaQNAList=" + acaQNAList + ", acaQNAReplyList="
 				+ acaQNAReplyList + ", faqList=" + faqList + ", noticeList=" + noticeList + ", acaReviewPostList="
-				+ acaReviewPostList + ", suggestionPostList=" + suggestionPostList + ", acaPromoPostList="
-				+ acaPromoPostList + ", pb=" + pb + "]";
+				+ acaReviewPostList + ", acaReviewReplyList=" + acaReviewReplyList + ", suggestionPostList="
+				+ suggestionPostList + ", acaPromoPostList=" + acaPromoPostList + ", pb=" + pb + "]";
 	}
-
 	
 
 }

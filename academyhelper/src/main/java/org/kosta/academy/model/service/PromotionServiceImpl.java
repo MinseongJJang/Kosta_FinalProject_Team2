@@ -17,6 +17,10 @@ public class PromotionServiceImpl implements PromotionService {
 	
 	@Override
 	public void registerAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO) {
+		/*
+		 * DB에 정보를 저장할 때 파일이 정상적으로 추가되었는 지 여부를 판단하기 위해 추가했던 !!@@를 지우고 추가한다.
+		 */
+		acaPromoPostVO.setAcaPromoContent(acaPromoPostVO.getAcaPromoContent().replaceAll("!!@@", ""));
 		promotionMapper.registerAcaPromoPost(acaPromoPostVO);
 		acaPromoAttachFileVO.setAcaPromoPostVO(acaPromoPostVO);
 		if(acaPromoAttachFileVO.getAcaPromoFilepath() !=null) {
@@ -56,6 +60,11 @@ public class PromotionServiceImpl implements PromotionService {
 	public void deleteAcaPromoPost(String acaPromoNo) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach) {
+		promotionMapper.registerAcaReviewAttach(promoAttach);
 	}
 
 }

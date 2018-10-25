@@ -9,10 +9,20 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
+	<appender name="dailyout" class="org.apache.log4j.DailyRollingFileAppender"> 
+		<param name="file" value="C:\\java-kosta\\academy_log\\academyDaily.log" />  
+        <param name="Append" value="true"/>  
+        <param name="DatePattern" value="'.'yyMMdd"/> 
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%t> [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n"/>  
+        </layout>
+    </appender>
+    <appender name="maxSize" class="org.apache.log4j.RollingFileAppender">
+    	<param name="MaxFileSize" value="10KB"/>
+    </appender>
 	<!-- Application Loggers -->
 	<logger name="org.kosta.academy">
-		<level value="warn" />
+		<level value="trace" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -32,10 +42,20 @@
 		<level value="warn" />
 	</logger>
 
+	<!-- 
+			org.kosta 팩키지 이하의 클래스들은 다음 로깅 설정이
+			반영되도록 해본다 
+			additivity="false" 는 root 의 priority 설정을 승계하지 않겠다
+	 -->  
+	  <logger name="org.kosta"  additivity="false">
+	  	<level value="debug" />
+	  	<appender-ref ref="console"/>
+	  	<appender-ref ref="dailyout"/>
+	  </logger>	  
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="dailyout"/>
 	</root>
-	
 </log4j:configuration>
