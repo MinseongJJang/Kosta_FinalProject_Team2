@@ -106,6 +106,8 @@ public class FAQAndNoticeController {
 	@PostMapping("suggestionRegister.do")
 	public ModelAndView suggestionRegister(SuggestionPostVO suggestionPostVO,SuggestionPostAttachFileVO suggestionPostAttachFileVO
 			,String[] curtime) {
+		ModelAndView mv = new ModelAndView();
+
 		fAQAndNotiAndSugService.registerSuggestionPost(suggestionPostVO,suggestionPostAttachFileVO);
 		String sugNo=suggestionPostVO.getSugNo();
 		
