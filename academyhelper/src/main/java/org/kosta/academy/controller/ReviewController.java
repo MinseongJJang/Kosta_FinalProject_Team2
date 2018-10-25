@@ -19,7 +19,6 @@ import org.kosta.academy.model.vo.HashTagVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,18 +61,17 @@ public class ReviewController {
 	@RequestMapping("detailAcaReviewPost.do")
 	public ModelAndView detailAcaReviewPost(String acaRevNo, String pageNo) {
 		ModelAndView mv = new ModelAndView();
-		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo);
+		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo,pageNo);
 		AcaReviewPostVO acaReviewPostVO = (AcaReviewPostVO) queue.poll();
 		@SuppressWarnings("unchecked")
 		List<HashTagVO> hashList = (List<HashTagVO>) queue.poll();
 		AcaCurSatisfactionVO satisfactionVO = (AcaCurSatisfactionVO) queue.poll();
-		ListVO listReply = reviewService.listAcaReviewReply(acaRevNo, pageNo);
+		@SuppressWarnings("unchecked")
+		List<AcaReviewReplyVO> acaReviewReplyVO = (List<AcaReviewReplyVO>)queue.poll();
 		mv.addObject("review",acaReviewPostVO);
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
-		//reply 기능 추가 (윤준상)
-		mv.addObject("listReviewReply", listReply.getAcaReviewReplyList());
-		mv.addObject("pagingBean", listReply.getPb());
+		mv.addObject("reply",acaReviewReplyVO);
 		mv.setViewName("review/aca_review_detail.tiles");
 		return mv;
 	}
@@ -121,9 +119,9 @@ public class ReviewController {
 	}
 	@Secured("ROLE_USER")
 	@RequestMapping("updateReviewForm.do")
-	public ModelAndView updateReviewForm(String acaRevNo) {
+	public ModelAndView updateReviewForm(String acaRevNo,String pageNo) {
 		ModelAndView mv = new ModelAndView();
-		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo);
+		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo,pageNo);
 		AcaReviewPostVO acaReviewPostVO = (AcaReviewPostVO) queue.poll();
 		@SuppressWarnings("unchecked")
 		List<HashTagVO> hashList = (List<HashTagVO>) queue.poll();

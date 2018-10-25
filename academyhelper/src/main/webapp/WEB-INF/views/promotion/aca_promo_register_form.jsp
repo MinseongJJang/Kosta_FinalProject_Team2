@@ -30,7 +30,9 @@
 					        <td><input type="text" name="acaPromoTitle" placeholder="질문 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
-				      		<td>내용</td>
+				      		<td>내용
+				      		<span id="curtime"></span>
+				      		</td>
 				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
 				      		<script>
 							    $(document).ready(function() {

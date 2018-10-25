@@ -61,11 +61,9 @@ public class PromotionController {
 						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
 						//StringBuilder로 0으로 변경 후 파일도 변경
 						oldFile.renameTo(newFile);
-						
 						promoAttach.setAcaPromoPostVO(acaPromoPostVO);
 						promoAttach.setAcaPromoFilepath(promotionUpload+builderFile);
 						promotionService.registerAcaPromoAttach(promoAttach);
-						
 					}
 				}
 			}

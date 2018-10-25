@@ -440,6 +440,7 @@ create sequence aca_review_attach_file_seq start with 1 nocache
 select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
 drop table aca_review_reply
+select * from aca_rev_reply
 create table aca_review_reply(
 	aca_rev_rep_no number primary key,
 	review_rep_regdate date not null,
@@ -588,4 +589,30 @@ select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a
 select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
 where c.aca_no = a.aca_no and
 c.aca_no = '3'
-select * from aca_review_attach_file
+
+create table aca_review_reply(
+	aca_rev_rep_no number primary key,
+	review_rep_regdate date not null,
+	review_rep_content clob not null,
+	aca_rev_no number not null,
+	usr_id varchar2(100) not null,
+	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
+	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
+)
+insert into aca_rev_reply(aca_rev_rep_no,review_rep_regdate,review_rep_content,aca_rev_no,usr_id) values(
+aca_rev_reply_seq.nextval,sysdate,'댓글2','67','spring')
+select r.aca_rev_rep_no,r.review_rep_regdate,r.review_rep_content,u.usr_id,u.nickname,r.aca_rev_no
+		from (select aca_rev_rep_no,row_number() over(order by aca_rev_rep_no desc) as rnum,review_rep_regdate,review_rep_content,
+		aca_rev_no,usr_id from aca_rev_reply) r , users u
+		where u.usr_id = r.usr_id and
+		r.aca_rev_no = 30 and
+		rnum between 1 and 5
+		order by r.aca_rev_rep_no desc
+
+
+
+
+
+
+
+
