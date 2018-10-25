@@ -53,6 +53,10 @@
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
- 
+ <listener>
+    <listener-class>
+        org.springframework.security.web.session.HttpSessionEventPublisher
+    </listener-class>
+</listener>
   
 </web-app>

@@ -159,9 +159,9 @@ public class UserController extends Authenticator {
 	@ResponseBody
 	@PostMapping("loginCheck.do")
 	public int loginCheck(UserVO userVO) {
-		System.out.println(userVO);
 		int loginCheck = userService.loginCheck(userVO);
-		System.out.println("결과"+loginCheck);
 		return loginCheck;
 	}
+
+	
 }

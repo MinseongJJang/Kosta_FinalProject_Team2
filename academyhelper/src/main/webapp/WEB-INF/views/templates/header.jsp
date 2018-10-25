@@ -33,7 +33,13 @@
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<sec:authentication property="principal.usrName" />님 반갑습니다.<br>
 			</sec:authorize>
-			</li>
+		</li>
+		<li>
+			<textarea rows="18" cols="27"></textarea>
+		</li>
+		<li>
+			<input type="text" placeholder="채팅 메세지를 입력하세요"  style="width:210px">
+		</li>
 	</ul>
 </div>
 <!-- /#sidebar-wrapper -->
