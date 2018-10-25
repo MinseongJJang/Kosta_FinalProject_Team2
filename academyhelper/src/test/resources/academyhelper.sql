@@ -81,7 +81,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
-insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java1')
 insert into authorities(authority,usr_id)
 values('ROLE_ACADEMY','admin1')
 insert into authorities(authority,usr_id)
