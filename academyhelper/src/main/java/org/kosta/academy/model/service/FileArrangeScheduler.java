@@ -1,20 +1,17 @@
 package org.kosta.academy.model.service;
 
 import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class FileTheoremWorker{
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+public class FileArrangeScheduler{
 	
 	private String filepath;
-	public void runTimer() {
-		Timer timer = new Timer();
-		timer.schedule(timerTask, 60*60*24*1000);//24시간에 한번만 실행
-	}
-	TimerTask timerTask = new TimerTask() {
-		@Override
-		public void run() {
-			
+	
+	@Scheduled(cron="0 0 10 * * *")
+	public void run() {
 				System.out.println("파일정리 Thread run method 실행");
 				filepath = "C:\\java-kosta\\finalproject\\finalproject\\resources\\";
 				File fileCheck = new File(filepath + "reviewUpload\\");
@@ -32,8 +29,6 @@ public class FileTheoremWorker{
 					}
 				}
 		
-			
 		}
-	};
 	
 }

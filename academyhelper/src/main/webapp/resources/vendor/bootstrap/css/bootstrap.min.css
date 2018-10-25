@@ -572,6 +572,7 @@ pre code {
 	flex-wrap: wrap;
 	margin-right: -15px;
 	margin-left: -15px
+	
 }
 
 .no-gutters {
@@ -3058,7 +3059,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 	margin-left: 0
 }
 
-.dropdown-menu {
+/* .dropdown-menu {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -3237,7 +3238,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 	display: block;
 	padding: .25rem 1.5rem;
 	color: #212529
-}
+} */
 
 .btn-group, .btn-group-vertical {
 	position: relative;

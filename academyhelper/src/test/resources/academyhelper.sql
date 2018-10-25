@@ -81,7 +81,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
-insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java1')
 insert into authorities(authority,usr_id)
 values('ROLE_ACADEMY','admin1')
 insert into authorities(authority,usr_id)
@@ -433,7 +433,7 @@ drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
 select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
-drop table aca_rev_reply
+drop table aca_review_reply
 create table aca_review_reply(
 	aca_rev_rep_no number primary key,
 	review_rep_regdate date not null,
@@ -443,8 +443,9 @@ create table aca_review_reply(
 	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
 	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-drop sequence aca_rev_reply_seq
-create sequence aca_review_reply_seq start with 1 nocache
+alter table aca_review_reply rename to aca_rev_reply
+drop sequence aca_review_reply_seq
+create sequence aca_rev_reply_seq start with 1 nocache
 
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_review_reply_attach_file
