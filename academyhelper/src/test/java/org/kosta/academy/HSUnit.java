@@ -5,8 +5,9 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.QNAMapper;
+import org.kosta.academy.model.mapper.ReviewMapper;
 import org.kosta.academy.model.service.QNAService;
-import org.kosta.academy.model.vo.AcaQNAVO;
+import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,6 +18,8 @@ public class HSUnit {
 	QNAMapper qnaMapper;
 	@Resource
 	QNAService qnaService;
+	@Resource
+	ReviewMapper reviewMapper;
 	@Test
 	public void test() {
 		//총 게시물 수
@@ -36,7 +39,11 @@ public class HSUnit {
 
 		System.out.println(list.getAcaQNAList());*/
 		//QNA 상세보기
-		AcaQNAVO qnaVO = qnaMapper.detailAcaQNA("12");
-		System.out.println(qnaVO);
+		/*AcaQNAVO qnaVO = qnaMapper.detailAcaQNA("12");
+		System.out.println(qnaVO);*/
+		
+		//과정에 대한 만족도 불러오기
+		AcaCurSatisfactionVO acsVO = reviewMapper.satisfactionByCurNo("11");
+		System.out.println(acsVO);
 	}
 }

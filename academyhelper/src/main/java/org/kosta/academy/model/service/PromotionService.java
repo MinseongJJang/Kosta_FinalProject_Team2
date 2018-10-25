@@ -35,4 +35,5 @@ public interface PromotionService {
 	 * @param acaPromoNo
 	 */
 	public void deleteAcaPromoPost(String acaPromoNo);
+	public void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach);
 }

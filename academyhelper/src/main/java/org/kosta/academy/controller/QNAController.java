@@ -29,10 +29,11 @@ public class QNAController {
 	@RequestMapping("detailAcaQNA.do")
 	public String detailQna(String qnaNo, String pageNo, Model model) {
 		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
-		model.addAttribute("listQNAReply", listReply.getAcaQNAReplyList());
-		model.addAttribute("pagingBean", listReply.getPb());
-		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
+		model.addAttribute("listQNAReply", listReply);
+/*		model.addAttribute("pagingBean", listReply.getPb());
+*/		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
 		model.addAttribute("detailQNA", qnaVO);
+		model.addAttribute("pageNo",pageNo);
 		return "qna/qna_detail.tiles";
 	}
 	
@@ -92,9 +93,14 @@ public class QNAController {
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQnAReply.do")
-	public String deleteAcaQnAReply(String qnaRepNo, String qnaNo) {
+	@ResponseBody
+	public ListVO deleteAcaQnAReply(String qnaRepNo, String qnaNo, String pageNo) {
+		System.out.println(qnaRepNo);
+		System.out.println(qnaNo);
+		System.out.println(pageNo);
 		qnaService.deleteAcaQNAReply(qnaRepNo);
-		return "redirect:detailAcaQNA.do?qnaNo="+qnaNo;
+		ListVO list = qnaService.listAcaQNAReply(qnaNo, pageNo);
+		return list;
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQnAReply.do")

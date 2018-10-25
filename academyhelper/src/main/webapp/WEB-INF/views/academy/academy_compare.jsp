@@ -24,6 +24,8 @@
 							 <c:set var="academyB" value="${requestScope.academyB}" />
 							 <c:set var="curriculumA" value="${requestScope.curriculumA}" />
 							 <c:set var="curriculumB" value="${requestScope.curriculumB}" />
+							 <c:set var="satisfactionA" value="${requestScope.satisfactionA}" />
+							 <c:set var="satisfactionB" value="${requestScope.satisfactionB}" />
 							 <th>
 							 	기관
 							 </th>
@@ -136,9 +138,9 @@
    		},
    		'dataset': {
    			title: '${curriculumA.curName}',
-   			values: [[34,53,67,23,78]],
+   			values: [[${satisfactionA.curSatis},${satisfactionA.amenitiesSatis},${satisfactionA.empLinksSatis},${satisfactionA.trafficSatis},${satisfactionA.lecturerSatis}]],
    			bgColor: '#f9f9f9',
-   			fgColor: '#30a1ce',
+   			fgColor: '#004e92',
    		},
    		'chartDiv': 'AcademyA',
    		'chartType': 'radar',
@@ -168,9 +170,9 @@
    		},
    		'dataset': {
    			title: '${curriculumB.curName}',
-   			values: [[34,53,67,23,78]],
+   			values: [[${satisfactionB.curSatis},${satisfactionB.amenitiesSatis},${satisfactionB.empLinksSatis},${satisfactionB.trafficSatis},${satisfactionB.lecturerSatis}]],
    			bgColor: '#f9f9f9',
-   			fgColor: '#30a1ce',
+   			fgColor: '#004e92',
    		},
    		'chartDiv': 'AcademyB',
    		'chartType': 'radar',

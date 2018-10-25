@@ -25,4 +25,5 @@ public interface ReviewMapper {
 	public void deleteAcaReviewPost(String acaRevNo);
 	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
 	public List<AcaReviewPostVO> listAcaReviewPostByCurNo(String curNo);
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo);
 }

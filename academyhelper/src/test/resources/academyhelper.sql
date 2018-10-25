@@ -85,6 +85,7 @@ insert into authorities(authority,usr_id) values('ROLE_ADMIN','java5')
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java5')
 select * from users where usr_id='java5'
 select * from authorities
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java1')
 insert into authorities(authority,usr_id)
 values('ROLE_ACADEMY','admin1')
 insert into authorities(authority,usr_id)
@@ -346,7 +347,11 @@ alter table aca_review_post add(aca_rev_content clob)
 
 alter table aca_review_post modify(aca_rev_content clob not null)
 
-select * from aca_review_post
+alter table aca_review_reply rename to aca_rev_reply
+drop sequence aca_review_reply_seq
+create sequence aca_rev_reply_seq start with 1 nocache
+
+select * from aca_review_reply
 	
 select * from( 
     select * from aca_review_post
@@ -374,8 +379,6 @@ values(aca_review_post_seq.nextval,11,'코스타좋아요5','코스타개조음'
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,11,'코스타좋아요6','코스타개조음',sysdate,'java1')
 
-
-
 select * from aca_review_post
 select * from aca_review_post
 create sequence aca_review_post_seq start with 1 nocache
@@ -388,8 +391,27 @@ create table aca_cur_satisfaction(
 	lecturer_satis number not null,
 	emp_links_satis number not null,
 	traffic_satis number not null,
-	constraint aca_cur_satisfaction_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
+	constraint aca_cur_satisfaction_fk foreign keyf references aca_review_post(aca_rev_no) on delete cascade
 )
+select * from aca_review_post
+select * from aca_cur_satisfaction
+select avg(cur_satis)*10, avg(amenities_satis)*10, avg(lecturer_satis)*10, avg(emp_links_satis)*10, avg(traffic_satis)*10 from aca_cur_satisfaction where 
+
+select (AVG(a.cur_satis)*10) as cur_satis, (AVG(a.amenities_satis)*10) as amenities_satis, (AVG(a.lecturer_satis)*10) as lecturer_satis, (AVG(a.emp_links_satis)*10) as emp_links_satis, (AVG(a.traffic_satis)*10) as traffic_satis
+from(
+	select * from aca_cur_satisfaction
+)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+
+select avg(a.cur_satis)*10, avg(a.amenities_satis)*10, avg(a.lecturer_satis)*10, avg(a.emp_links_satis)*10, avg(a.traffic_satis)*10
+from(
+	select * from aca_cur_satisfaction
+)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+
+ 	select a.cur_satis, a.amenities_satis, a.lecturer_satis, a.emp_links_satis, a.traffic_satis
+		from(
+			select * from aca_cur_satisfaction
+		)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+ 
 /*해쉬태그 테이블*/
 create table hashtag(
    hashtag_no number primary key,
@@ -417,7 +439,7 @@ drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
 select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
-drop table aca_rev_reply
+drop table aca_review_reply
 create table aca_review_reply(
 	aca_rev_rep_no number primary key,
 	review_rep_regdate date not null,
@@ -430,8 +452,6 @@ create table aca_review_reply(
 alter table aca_review_reply rename to aca_rev_reply
 drop sequence aca_review_reply_seq
 create sequence aca_rev_reply_seq start with 1 nocache
-drop sequence aca_rev_reply_seq
-create sequence aca_review_reply_seq start with 1 nocache
 
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_review_reply_attach_file

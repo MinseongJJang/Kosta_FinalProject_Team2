@@ -77,7 +77,7 @@
 									     <button type="submit" class="aca-btn" >등록</button>  
 									     <input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
 									     <button type="reset" class="aca-btn" >취소</button>   
-								    </div>  
+								    </div>
 							    </sec:authorize>
 						   	</td>
 				   		</tr>

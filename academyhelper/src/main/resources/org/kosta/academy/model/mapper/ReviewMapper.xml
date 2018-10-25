@@ -79,6 +79,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from( 
 		    select * from aca_review_post
 		    order by DBMS_RANDOM.RANDOM 
-		) where  <![CDATA[ROWNUM<6]]>  and cur_no=#{value}
+		) where  <![CDATA[ROWNUM<5]]>  and cur_no=#{value}
+	</select>
+	<select id="satisfactionByCurNo" resultType="acaCurSatisfactionVO" parameterType="string">
+		select (AVG(a.cur_satis)*10) as cur_satis, (AVG(a.amenities_satis)*10) as amenities_satis, (AVG(a.lecturer_satis)*10) as lecturer_satis, (AVG(a.emp_links_satis)*10) as emp_links_satis, (AVG(a.traffic_satis)*10) as traffic_satis
+		from(
+			select * from aca_cur_satisfaction
+		)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=#{value}
 	</select>
 </mapper>
