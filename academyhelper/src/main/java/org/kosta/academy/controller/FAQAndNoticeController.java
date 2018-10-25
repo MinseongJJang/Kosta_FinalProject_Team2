@@ -102,7 +102,7 @@ public class FAQAndNoticeController {
 	public String suggestionRegisterForm() {
 		return "suggestion/suggestion_register_form.tiles";
 	}
-	@Secured("ROLE_USER")
+/*	@Secured("ROLE_USER")
 	@PostMapping("suggestionRegister.do")
 	public ModelAndView suggestionRegister(SuggestionPostVO suggestionPostVO,SuggestionPostAttachFileVO suggestionPostAttachFileVO
 			,String[] curtime) {
@@ -116,7 +116,7 @@ public class FAQAndNoticeController {
 		
 		
 		return "redirect:detailSuggestionPost.do?sugNo="+sugNo;
-	}
+	}*/
 	@RequestMapping("listSuggestionPost.do")
 	public String listSuggestionPost(String pageNo,Model model) {
 		ListVO list=fAQAndNotiAndSugService.listSuggestionPost(pageNo);
