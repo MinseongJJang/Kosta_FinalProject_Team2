@@ -72,7 +72,6 @@ select n.notice_no,n.notice_title,n.notice_content,n.notice_regdate,u.usr_id,u.u
 		notice_title,notice_content,notice_regdate,usr_id from notice) n, users u
 		where n.usr_id=u.usr_id and rnum between 1 and 10
 		order by notice_no desc
-
 /*권한 테이블*/
 drop table authorities
 create table authorities(
@@ -81,6 +80,11 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
+insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
+insert into authorities(authority,usr_id) values('ROLE_ADMIN','java5')
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java5')
+select * from users where usr_id='java5'
+select * from authorities
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java1')
 insert into authorities(authority,usr_id)
 values('ROLE_ACADEMY','admin1')
@@ -374,8 +378,6 @@ insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_
 values(aca_review_post_seq.nextval,11,'코스타좋아요5','코스타개조음',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,11,'코스타좋아요6','코스타개조음',sysdate,'java1')
-
-
 
 select * from aca_review_post
 select * from aca_review_post
