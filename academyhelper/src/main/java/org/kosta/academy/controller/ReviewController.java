@@ -71,7 +71,8 @@ public class ReviewController {
 		mv.addObject("review",acaReviewPostVO);
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
-		mv.addObject("listQNAReply", listReply.getAcaReviewReplyList());
+		//reply 기능 추가 (윤준상)
+		mv.addObject("listReviewReply", listReply.getAcaReviewReplyList());
 		mv.addObject("pagingBean", listReply.getPb());
 		mv.setViewName("review/aca_review_detail.tiles");
 		return mv;

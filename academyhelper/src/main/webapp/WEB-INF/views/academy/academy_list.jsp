@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <meta charset="utf-8">
 <div class="container" >
 	<div class="row">
@@ -10,7 +12,7 @@
 				<table class="table table-hover">
 				   <thead style="text-align:center;">
 					   	<tr>
-							<td colspan="4" align="center"><h3>학원 목록</h3></td>
+							<td colspan="5" align="center"><h3>학원 목록</h3></td>
 						</tr>
 						<tr>
 							<td style="border-top:0px"></td>
@@ -35,6 +37,16 @@
 				            <td>${academy.userVO.nickname}</td>
 				         </tr>
 				      </c:forEach>
+				      <sec:authorize access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')">
+					      <tr>
+					      	<td colspan="5" align="right">
+							   <button form="registerQNAForm" type="submit" class="aca-btn">학원 등록</button>
+							   <form action="${pageContext.request.contextPath}/academyRegisterForm.do" id="registerQNAForm" method="post">
+							      <sec:csrfInput />
+							   </form>
+					      	</td>
+					      </tr>
+						</sec:authorize>
 				   </tbody>
 				   <tfoot>
 				   <tr>
