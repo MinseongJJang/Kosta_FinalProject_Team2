@@ -99,6 +99,11 @@ create table aca_promo_post(
 	usr_id varchar2(100) not null,
 	constraint aca_promo_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+ALTER TABLE aca_promo_post
+ALTER COLUMN aca_promo_hits not null default 0;
+
+alter table aca_promo_post modify(aca_promo_hits default 0)
+
 create sequence aca_promo_post_seq start with 1 nocache
 
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/

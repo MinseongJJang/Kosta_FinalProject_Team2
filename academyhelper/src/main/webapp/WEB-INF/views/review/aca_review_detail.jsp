@@ -82,7 +82,8 @@
 			if(confirm("삭제하시겠습니까?")){
 				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo}
 			}
-		});//click
+		});
+		//click
 		
 
 </script> 

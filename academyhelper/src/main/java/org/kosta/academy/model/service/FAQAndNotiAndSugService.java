@@ -3,6 +3,7 @@ package org.kosta.academy.model.service;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
+import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 import org.kosta.academy.model.vo.SuggestionPostVO;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,7 @@ public interface FAQAndNotiAndSugService {
 	 * 건의사항을 등록하는 메소드
 	 * @param suggestionPostVO
 	 */
-	public void registerSuggestionPost(SuggestionPostVO suggestionPostVO);
+	public void registerSuggestionPost(SuggestionPostVO suggestionPostVO,SuggestionPostAttachFileVO suggestionPostAttachFileVO);
 	/**
 	 * 건의사항 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다

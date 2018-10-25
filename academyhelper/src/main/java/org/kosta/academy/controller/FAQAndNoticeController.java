@@ -3,15 +3,18 @@ package org.kosta.academy.controller;
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.FAQAndNotiAndSugService;
+import org.kosta.academy.model.vo.AcaPromoAttachFileVO;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
+import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 import org.kosta.academy.model.vo.SuggestionPostVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FAQAndNoticeController {
@@ -101,9 +104,15 @@ public class FAQAndNoticeController {
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("suggestionRegister.do")
-	public String suggestionRegister(SuggestionPostVO suggestionPostVO) {
-		fAQAndNotiAndSugService.registerSuggestionPost(suggestionPostVO);
+	public ModelAndView suggestionRegister(SuggestionPostVO suggestionPostVO,SuggestionPostAttachFileVO suggestionPostAttachFileVO
+			,String[] curtime) {
+		fAQAndNotiAndSugService.registerSuggestionPost(suggestionPostVO,suggestionPostAttachFileVO);
 		String sugNo=suggestionPostVO.getSugNo();
+		
+		
+		
+		
+		
 		return "redirect:detailSuggestionPost.do?sugNo="+sugNo;
 	}
 	@RequestMapping("listSuggestionPost.do")
@@ -138,4 +147,5 @@ public class FAQAndNoticeController {
 		fAQAndNotiAndSugService.deleteSuggestionPost(sugNo);
 		return "redirect:listSuggestionPost.do";
 	}
+	
 }
