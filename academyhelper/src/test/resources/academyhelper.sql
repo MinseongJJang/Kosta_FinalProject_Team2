@@ -100,7 +100,7 @@ create table aca_promo_post(
 	constraint aca_promo_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 create sequence aca_promo_post_seq start with 1 nocache
-
+alter table aca_promo_post  modify(aca_promo_hits number default 0)
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/
 create table aca_promo_attach_file(
 	aca_promo_att_no number primary key,
