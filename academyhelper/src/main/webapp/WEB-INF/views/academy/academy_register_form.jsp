@@ -2,41 +2,65 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%> 
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-<sec:authentication var="mvo" property="principal" />  
-학원등록(관리자만 가능 추가)
-<form action = "registerAcademy.do" method="post">
-<sec:csrfInput/>
-<table>
-	<tr>
-		<td>학원이름</td>
-		<td colspan="2">
-			<input type="text" name ="acaName" required="required">
-		</td>
-	</tr>
-	<tr>
-		<td>학원주소</td>
-		<td>
-			<input type="text" name="acaAddr" id="sample4_address" placeholder="주소" readonly="readonly" >
-		</td>
-		 <td>
-			<span>
-				<input type="button" onclick="sample4_execDaumPostcode()"  value="주소검색" >
-			</span>
-			<span id="guide" style="color:#999"></span>
-		</td>
-	</tr>
-		<tr>
-		<td>학원전화번호</td>
-		<td colspan="2">
-			<input type="text" name="acaTel" required="required">	
-		</td>
-	</tr>
-</table>
-<input type="hidden"  name="userVO.usrId" value="${mvo.usrId}">
-<input type="submit" value="학원등록">
-</form>
-</sec:authorize>
+<div class="container" >
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
+			<div style="margin-top: 100px; text-align:center;" align="center">
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<sec:authentication var="mvo" property="principal" />  
+				<form action = "registerAcademy.do" method="post">
+			<sec:csrfInput/>
+			<table class="table">
+				   <thead style="text-align:center;">
+				   		<tr>
+							<td colspan="3" align="center"><h3>기관 정보 등록하기</h3></td>
+						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
+				   </thead>
+				   <tbody>
+						<tr >
+					        <th>학원 이름</th>
+					        <td colspan="2"><input type="text" name="acaName" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
+				      	</tr>
+				      	<tr>
+				      		<th>학원 주소</th>
+				      		<td><input type="text" name="acaAddr" id="sample4_address" placeholder="주소" readonly="readonly" style="width:100%"></td>
+				      		<td>
+								<span>
+									<input type="button" onclick="sample4_execDaumPostcode()"  class="aca-btn" value="주소검색" >
+								</span>
+								<span id="guide" style="color:#999"></span>
+							</td>
+				      	</tr>
+				      	<tr >
+					        <th>학원 전화번호</th>
+					        <td colspan="2"><input type="text" name="acaTel" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
+				      	</tr>
+				   </tbody>
+				   <tfoot>
+				  		<tr>
+						   	<td colspan="3" align="right">
+						   		<sec:authorize access="hasRole('ROLE_USER')">
+								     <div class="btnArea">
+									     <button type="submit" class="aca-btn" >확인</button>  
+									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
+									     <button type="reset" class="aca-btn" >취소</button>   
+								    </div>  
+							    </sec:authorize>
+						   	</td>
+				   		</tr>
+				   </tfoot>
+				</table>
+			  </form>
+			  </sec:authorize>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>

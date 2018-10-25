@@ -30,7 +30,10 @@ $(document).ready(function(){
 			<table class="table">
 				   <thead style="text-align:center;">
 				   		<tr>
-							<td colspan="4" align="center"><h3>건의 사항 등록하기</h3></td>
+							<td colspan="4" align="center"><h3>건의 사항 수정하기</h3></td>
+						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
 						</tr>
 				   </thead>
 				   <tbody>

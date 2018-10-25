@@ -67,6 +67,9 @@
 							<td colspan="4" align="center"><h3>후기 수정하기</h3></td>
 						</tr>
 						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
+						<tr>
 							<td>학원명 : ${requestScope.review.curriculumVO.academyVO.acaName }
 							<input type="hidden" name="acaNo" value="${requestScope.review.curriculumVO.academyVO.acaNo }">
 							</td>
@@ -96,11 +99,11 @@
 				      		<td><label for="label-registerProduct">Hashtag</label><br></td>
 					      	<td><div class="input-group">
 							<input type="text" class="form-control" id="hashtagInsert"  style="width:90%;" placeholder="Hashtag pattern Example : #SpaceTaskForce">
-							&nbsp;&nbsp;<span><input type="button" id="hashInsert" class="btn" value="추가" style="height: 60%; background-color: #32c5d2; color: white" ></span>
+							&nbsp;&nbsp;<span><input type="button" id="hashInsert" class="aca-tn" value="추가" ></span>
 							<br><br><br>
 							<div id="hash"></div>
 							<input value="${requestScope.hashList}" type="text" class="form-control" id="hashtag" name="hashTagName" required="required" style="width: 60%;" readonly="readonly">&nbsp;&nbsp;
-							<span><input type="button" id="hashDelete" class="btn" value="전체삭제" style="height: 80%; background-color: #32c5d2; color: white" ></span>
+							<span><input type="button" id="hashDelete" class="aca-btn" value="전체삭제" ></span>
 							</div>
 							<input type="hidden" id="hashDeleteCheck" name="hashDeleteCheck" value="false">
 							</td>

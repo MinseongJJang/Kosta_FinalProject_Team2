@@ -18,15 +18,16 @@
 			<table class="table">
 				   <thead style="text-align:center;">
 				   		<tr>
-							<td colspan="4" align="center"><h3>학원 홍보 등록하기</h3></td>
+							<td colspan="4" align="center"><h3>기관 홍보 등록하기</h3></td>
+						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
 						</tr>
 				   </thead>
 				   <tbody>
 						<tr >
-					        <td>제목
-					        	<span id="curtime"></span>
-					        </td>
-					        <td><input type="text" name="acaPromoTitle" placeholder="제목을 입력하세요" required="required" style="width:80%"></td>
+					        <td>제목</td>
+					        <td><input type="text" name="acaPromoTitle" placeholder="질문 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
 				      		<td>내용</td>
@@ -94,7 +95,6 @@
 		<div class="col-sm-1"></div>
 	</div>
 </div>
-		   		
 
 
 
