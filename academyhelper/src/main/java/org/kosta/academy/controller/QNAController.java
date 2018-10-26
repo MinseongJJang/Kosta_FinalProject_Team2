@@ -28,10 +28,13 @@ public class QNAController {
 
 	@RequestMapping("detailAcaQNA.do")
 	public String detailQna(String qnaNo, String pageNo, Model model) {
+		if(pageNo==null) {
+			pageNo="1";
+		}
+		System.out.println(pageNo);
 		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
 		model.addAttribute("listQNAReply", listReply);
-/*		model.addAttribute("pagingBean", listReply.getPb());
-*/		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
+		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
 		model.addAttribute("detailQNA", qnaVO);
 		model.addAttribute("pageNo",pageNo);
 		return "qna/qna_detail.tiles";
@@ -95,19 +98,25 @@ public class QNAController {
 	@PostMapping("deleteAcaQnAReply.do")
 	@ResponseBody
 	public ListVO deleteAcaQnAReply(String qnaRepNo, String qnaNo, String pageNo) {
+		try{
+			System.out.println("deleteAcaQnAReply");
 		System.out.println(qnaRepNo);
 		System.out.println(qnaNo);
 		System.out.println(pageNo);
 		qnaService.deleteAcaQNAReply(qnaRepNo);
-		ListVO list = qnaService.listAcaQNAReply(qnaNo, pageNo);
-		return list;
+		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+		System.out.println("deleteAcaQnAReply list "+listQNAReply);
+		return listQNAReply;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQnAReply.do")
 	@ResponseBody
 	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
 		try {
-		System.out.println(acaQNAVOReplyVO.getQnaRepContent());
 		if(acaQNAVOReplyVO.getQnaRepContent()==" "||acaQNAVOReplyVO.getQnaRepContent()=="") {
 			return null;
 		}else {
@@ -118,7 +127,6 @@ public class QNAController {
 		}
 		
 		}catch(Exception e) {
-			System.out.println(acaQNAVOReplyVO.getQnaRepContent());
 			return null;
 		}
 		
