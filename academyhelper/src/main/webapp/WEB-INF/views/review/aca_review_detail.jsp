@@ -4,8 +4,6 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication var="mvo" property="principal"/>
-
-
 <table class="table">
 <thead>
 	<tr>
@@ -69,20 +67,36 @@
 	<button id="deleteReview">삭제</button>
 </c:if>
 
+<div class="container">
+		<c:choose>
+			<c:when test="${requestScope.reply.acaReviewReplyList != null }">
+				<c:forEach items="${requestScope.reply.acaReviewReplyList }" var="reply">
+					<textarea rows="" cols="" readonly="readonly">${reply.acaRevRepContent }</textarea>
+					<button type="button">수정</button>
+					<br>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<form>
+					<input type="text" placeholder="댓글을 입력하세요" name="">
+				</form>	
+			</c:otherwise>
+		</c:choose>
+</div>
 
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#updateReview").click(function(){
+			alert(123);			
 			if(confirm("수정하시겠습니까?")){
 				location.href="updateReviewForm.do?acaRevNo="+${requestScope.review.acaRevNo};
 			}
 		});//click
 		$("#deleteReview").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo}
+				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo};
 			}
 		});//click
-		
-
+	});//ready
 </script> 

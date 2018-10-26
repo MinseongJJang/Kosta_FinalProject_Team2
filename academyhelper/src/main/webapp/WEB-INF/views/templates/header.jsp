@@ -20,6 +20,7 @@
 		$("#logoutAction").click(function() {
 			$("#logoutForm").submit();
 		});
+
 	});
 </script>
 
@@ -47,12 +48,14 @@
 <header id="header" style="border-bottom: 1px solid #c0c0c0;">
 	<div class="container" >
 		<div class="row" >
-			<div class="col-md-12">
-				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px">
-					<a href="${pageContext.request.contextPath}/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png" alt="Venue Logo"></a>
-				</div>
+			<div class="col-sm-4">
+				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px" id="logoDiv">
+					<a href="${pageContext.request.contextPath }/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png"></a>
+				</div> 
+			</div>
+			<div class="col-sm-8">		
 				<nav id="primary-nav" class="dropdown cf">
-					<ul class="dropdown menu">
+					<ul class="pdown menu">
 						<li><a href="#">IT기관 </a>
 							<ul class="sub-menu">
 								<li><a href="${pageContext.request.contextPath}/academyCompareForm.do">IT기관 비교</a></li>
