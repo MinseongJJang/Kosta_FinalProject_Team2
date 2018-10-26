@@ -115,16 +115,18 @@ public class QNAController {
 	@PostMapping("updateAcaQnAReply.do")
 	@ResponseBody
 	public ListVO updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO, String pageNo, String qnaNo) {
+		ListVO listQNAReply=null;
+		ListVO list=null;
 		if(pageNo==null) {
 			pageNo="1";
 		}
 		try {
 			qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
-			ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+			listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
 			return listQNAReply;
-		}catch(Exception e) {
-			e.getStackTrace();
-			return null;
+		}catch(Exception i) {
+			i.getStackTrace();
+			return list;
 		}
 		
 	}
