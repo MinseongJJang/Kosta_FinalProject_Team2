@@ -333,6 +333,20 @@ update curriculum
 		cur_name='9',limit_mem='9',cur_content='9',cur_lecturer='9',cur_textbook='9'
 		where cur_no='53'
 		
+/*커리큘럼 파일첨부테이블 및 시퀀스*/
+private String curriculumAttNo;
+	private String curriculumFilepath;
+	private CurriculumVO curriculumVO;
+	
+create table cur_attach_file(
+	cur_att_no number primary key,
+	cur_filepath varchar2(1000) not null,
+	cur_no number not null,
+	constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
+)
+
+create sequence cur_attach_file_seq start with 1 nocache
+
 
 /*학원후기 게시판 테이블 및 시퀀스*/
 create table aca_review_post(
