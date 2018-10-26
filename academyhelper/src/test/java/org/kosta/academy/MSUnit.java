@@ -1,5 +1,8 @@
 package org.kosta.academy;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.logging.Log;
@@ -10,7 +13,9 @@ import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.mapper.PromotionMapper;
 import org.kosta.academy.model.mapper.ReviewMapper;
+import org.kosta.academy.model.mapper.ReviewReplyMapper;
 import org.kosta.academy.model.mapper.UserMapper;
+import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,6 +34,8 @@ public class MSUnit {
 	ReviewMapper reviewMapper;
 	@Resource
 	CurriculumMapper curriculumMapper;
+	@Resource
+	ReviewReplyMapper reviewReplyMapper;
 	public void testLog() {
 		log.debug("로그테스트");
 		
@@ -138,7 +145,15 @@ public class MSUnit {
 		System.out.println(academy);*/
 		/*AcaReviewPostVO review = reviewMapper.detailAcaReivewPost("14");
 		System.out.println(review);*/
-		MSUnit ms = new MSUnit();
-		ms.testLog();
+/*		MSUnit ms = new MSUnit();
+		ms.testLog();*/
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("acaRevNo","25");
+		map.put("start","1");
+		map.put("end", "5");
+		List<AcaReviewReplyVO> review = reviewReplyMapper.listAcaReviewReply(map);
+		for(AcaReviewReplyVO vo : review) {
+			System.out.println(vo);
+		}
 	}
 }

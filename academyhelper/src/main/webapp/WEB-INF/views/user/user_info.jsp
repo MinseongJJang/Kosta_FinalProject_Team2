@@ -62,7 +62,7 @@ $(document).ready(function(){
 				   </tbody>
 				   <tfoot>
 			   			<tr>
-			   				<td colspan="2" align="center">
+			   				<td colspan="2" align="right">
 			   					<form action="updateUserForm.do">
 			   						<sec:csrfInput/>
 			   						<button type="submit" class="aca-btn">회원 정보 수정</button>			

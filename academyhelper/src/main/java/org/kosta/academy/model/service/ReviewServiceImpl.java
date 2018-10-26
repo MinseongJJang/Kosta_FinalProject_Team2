@@ -69,7 +69,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return listVO;
 	}
 	
-	@Transactional
 	@Override
 	public Queue<Object> detailAcaReviewPost(String acaRevNo,String pageNo) {
 		AcaReviewPostVO reviewVO = reviewMapper.detailAcaReivewPost(acaRevNo);
@@ -96,8 +95,10 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		List<AcaReviewReplyVO> acaReviewReplyList = reviewReplyMapper.listAcaReviewReply(map);
 		ListVO vo = new ListVO();
-		vo.setAcaReviewReplyList(acaReviewReplyList);
-		vo.setPb(pagingBean);
+		if(!acaReviewReplyList.isEmpty()) {
+			vo.setAcaReviewReplyList(acaReviewReplyList);
+			vo.setPb(pagingBean);
+		}
 		if(acaReviewReplyList!=null) {
 			queue.offer(vo);
 		}

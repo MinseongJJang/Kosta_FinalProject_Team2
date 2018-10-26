@@ -57,21 +57,30 @@ public class ReviewController {
 		
 		return curriculumList;
 	}
+	@SuppressWarnings("unchecked")
 	@Secured("ROLE_USER")
 	@RequestMapping("detailAcaReviewPost.do")
 	public ModelAndView detailAcaReviewPost(String acaRevNo, String pageNo) {
 		ModelAndView mv = new ModelAndView();
 		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo,pageNo);
+		int size = queue.size();
+		
 		AcaReviewPostVO acaReviewPostVO = (AcaReviewPostVO) queue.poll();
-		@SuppressWarnings("unchecked")
 		List<HashTagVO> hashList = (List<HashTagVO>) queue.poll();
 		AcaCurSatisfactionVO satisfactionVO = (AcaCurSatisfactionVO) queue.poll();
-		@SuppressWarnings("unchecked")
-		List<AcaReviewReplyVO> acaReviewReplyVO = (List<AcaReviewReplyVO>)queue.poll();
+		ListVO lvo = null;
+		if(size==4) {
+			lvo = (ListVO)queue.poll();
+		}
 		mv.addObject("review",acaReviewPostVO);
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
-		mv.addObject("reply",acaReviewReplyVO);
+		if(lvo!=null) {
+			System.out.println(lvo.getAcaReviewReplyList());
+			mv.addObject("reply",lvo);
+		}else {
+			mv.addObject("reply","null");
+		}
 		mv.setViewName("review/aca_review_detail.tiles");
 		return mv;
 	}
