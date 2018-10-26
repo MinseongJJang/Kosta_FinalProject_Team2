@@ -20,12 +20,18 @@ public class ListVO {
 	private List<NoticeVO> noticeList;
 	private List<AcaReviewPostVO> acaReviewPostList; 
 	private List<SuggestionPostVO> suggestionPostList;
-	private List<AcaPromoPostVO> acaPromoPostList;	
+	private List<AcaPromoPostVO> acaPromoPostList;
+	private List<LocationVO> locationList;
 	private PagingBean pb;
+	public ListVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
 			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<AcaQNAReplyVO> acaQNAReplyList,
 			List<FAQVO> faqList, List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
-			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
+			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList,
+			List<LocationVO> locationList, PagingBean pb) {
 		super();
 		this.userList = userList;
 		this.acaUserList = acaUserList;
@@ -38,11 +44,8 @@ public class ListVO {
 		this.acaReviewPostList = acaReviewPostList;
 		this.suggestionPostList = suggestionPostList;
 		this.acaPromoPostList = acaPromoPostList;
+		this.locationList = locationList;
 		this.pb = pb;
-	}
-	public ListVO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public List<UserVO> getUserList() {
 		return userList;
@@ -110,6 +113,12 @@ public class ListVO {
 	public void setAcaPromoPostList(List<AcaPromoPostVO> acaPromoPostList) {
 		this.acaPromoPostList = acaPromoPostList;
 	}
+	public List<LocationVO> getLocationList() {
+		return locationList;
+	}
+	public void setLocationList(List<LocationVO> locationList) {
+		this.locationList = locationList;
+	}
 	public PagingBean getPb() {
 		return pb;
 	}
@@ -122,9 +131,7 @@ public class ListVO {
 				+ ", curriculumList=" + curriculumList + ", acaQNAList=" + acaQNAList + ", acaQNAReplyList="
 				+ acaQNAReplyList + ", faqList=" + faqList + ", noticeList=" + noticeList + ", acaReviewPostList="
 				+ acaReviewPostList + ", suggestionPostList=" + suggestionPostList + ", acaPromoPostList="
-				+ acaPromoPostList + ", pb=" + pb + "]";
+				+ acaPromoPostList + ", locationList=" + locationList + ", pb=" + pb + "]";
 	}
-
 	
-
 }

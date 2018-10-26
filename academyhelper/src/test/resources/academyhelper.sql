@@ -460,78 +460,55 @@ create sequence hashtag_seq start with 1 nocache
 		
 alter table aca_review_post drop column aca_rev_content
 alter table aca_review_post add(aca_rev_content clob)
-=======
 
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
-(select usr_name from users where usr_id = r.usr_id) as 
-
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
-(select usr_name from users where usr_id=r.usr_id) as usr_name from 
-(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,cur_no,usr_id,
-row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u , curriculum c 
-where r.usr_id = u.usr_id and rnum between 1 and 5
-order by r.aca_rev_no desc		
-
-
-select p.aca_promo_no,p.aca_promo_title,p.aca_promo_regdate,p.aca_promo_hits,u.usr_id,
-(select usr_name from users where usr_id=p.usr_id) as usr_name from
-(select aca_promo_no,row_number() over(order by aca_promo_no desc) as rnum,aca_promo_title,to_char(aca_promo_regdate,'YYYY-MM-DD') as aca_promo_regdate,
-aca_promo_hits,usr_id from aca_promo_post) p , users u
-where p.usr_id = u.usr_id and rnum between 1 and 5
-order by p.aca_promo_no desc
-
-select * from curriculum
-select cur_no,cur_name from curriculum where aca_no = 3
-
-
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name from aca_review_post r,users u
-		where r.usr_id = u.usr_id and 
-		r.aca_rev_no = 5
-		
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name from 
-		(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,usr_id,
-		row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u
-		where r.usr_id = u.usr_id and rnum between 1 and 5
-		order by r.aca_rev_no desc
-		
-select * from academy
-select * from curriculum where aca_no = '5';
-select cur_no,cur_name from curriculum where aca_no = '3';
-
-select * from aca_review_post
-
-select * from hashtag where aca_rev_no = 14
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name
-		from aca_review_post r,users u
-		where r.usr_id = u.usr_id and 
-		r.aca_rev_no = '11'
-		
-select * from ACA_CUR_SATISFACTION
-select * from hashtag
-select hashtag_name from hashtag where aca_rev_no = '14'
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 
 
 
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name,
-		c.aca_no ,(select aca_name from academy where aca_no = c.aca_no) as aca_name
-		from aca_review_post r,users u , curriculum c
-		where r.usr_id = u.usr_id and 
-		c.cur_no = r.cur_no and
-		r.aca_rev_no = '14'
-		
-select * from hashtag
-select hashtag_no,hashtag_name from hashtag where aca_rev_no = '27'
-select * from academy
-select cur_no,cur_name from curriculum
-select aca_no,aca_name from academy
-select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
-		where c.aca_no = a.aca_no and
-		c.aca_no = '3'
-select c.cur_no,c.cur_name,a.aca_no,a.aca_name from curriculum c , academy a 
-where c.aca_no = a.aca_no and
-c.aca_no = '3'
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+
+create table location(
+	province varchar2(100) not null,
+	district varchar2(100) ,
+	constraint province primary key (province, district)
+)
+select * from location
+insert into location (province, district) values ('서울특별시', '종로구');
+insert into location (province, district) values ('서울특별시', '중구');
+insert into location (province, district) values ('서울특별시', '용산구');
+insert into location (province, district) values ('서울특별시', '광진구');
+insert into location (province, district) values ('서울특별시', '성북구');
+insert into location (province, district) values ('서울특별시', '도봉구');
+insert into location (province, district) values ('서울특별시', '노원구');
+insert into location (province, district) values ('서울특별시', '은평구');
+insert into location (province, district) values ('서울특별시', '서대문구');
+insert into location (province, district) values ('서울특별시', '강남구');
+insert into location (province, district) values ('서울특별시', '송파구');
+insert into location (province, district) values ('서울특별시', '관악구');
+insert into location (province, district) values ('서울특별시', '동작구');
+insert into location (province, district) values ('서울특별시', '강서구');
+insert into location (province, district) values ('서울특별시', '서초구');
+insert into location (province, district) values ('서울특별시', '중랑구');
+insert into location (province, district) values ('경기도 수원시', '장안구');
+insert into location (province, district) values ('경기도 수원시', '권선구');
+insert into location (province, district) values ('경기도 수원시', '팔달구');
+insert into location (province, district) values ('경기도 수원시', '영통구');
+insert into location (province, district) values ('경기도 성남시', '수정구');
+insert into location (province, district) values ('경기도 성남시', '중원구');
+insert into location (province, district) values ('경기도 성남시', '분당구');
+insert into location (province, district) values ('경기도 안양시', '만안구');
+insert into location (province, district) values ('경기도 안양시', '동안구');
+insert into location (province, district) values ('경기도 용인시', '처인구');
+insert into location (province, district) values ('경기도 용인시', '기흥구');
+insert into location (province, district) values ('경기도 용인시', '수지구');
+insert into location (province, district) values ('경기도 의정부시', '의정부동');
+insert into location (province, district) values ('경기도 의정부시', '호원동');
+insert into location (province, district) values ('경기도 의정부시', '신곡동');
+insert into location (province, district) values ('경기도 의정부시', '송산동');
+insert into location (province, district) values ('강원도', '춘천시');
+insert into location (province, district) values ('충청북도', '청주시');
+insert into location (province, district) values ('충청남도', '천안시');
+insert into location (province, district) values ('전라북도', '목포시');
+insert into location (province, district) values ('전라남도', '여수시');
+insert into location (province, district) values ('경상북도', '포항시');
+insert into location (province, district) values ('경상남도', '창원시');
+insert into location (province, district) values ('제주특별자치도', '제주시');

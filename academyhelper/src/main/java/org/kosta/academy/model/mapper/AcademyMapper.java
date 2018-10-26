@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumVO;
 
 @Mapper
 public interface AcademyMapper {
@@ -23,5 +24,7 @@ public interface AcademyMapper {
 	AcademyVO getAcademyByAcaNo(String acaNo);
 
 	List<AcademyVO> allListAcademy();
+
+
 	
 }

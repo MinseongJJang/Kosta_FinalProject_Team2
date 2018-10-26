@@ -79,11 +79,9 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 		<div class="row">
 			<div class="col-md-12">
 				<button id="primary-nav-button" type="button">Menu</button>
-				<div class="logo"
-					style="width: 220px; height: 110px; padding-top: 10px">
-					<a href="${pageContext.request.contextPath}/home.do"> <img
-						src="${pageContext.request.contextPath}/resources/img/home_logo.png"
-						alt="Venue Logo">
+				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px">
+					<a href="${pageContext.request.contextPath}/home.do">
+						<img src="${pageContext.request.contextPath}/resources/img/home_logo.png" alt="Venue Logo"  style="z-index:10;">
 					</a>
 				</div>
 				<nav id="primary-nav" class="dropdown cf">
