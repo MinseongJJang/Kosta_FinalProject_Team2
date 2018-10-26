@@ -56,7 +56,6 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public void registerAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
-		System.out.println(acaQNAReplyVO);
 		qnaReplyMapper.registerAcaQnAReply(acaQNAReplyVO);
 	}
 
@@ -90,8 +89,12 @@ public class QNAServiceImpl implements QNAService {
 	}
 
 	@Override
-	public void deleteAcaQNAReply(String qnaRepNo) {
+	public void deleteAcaQNAReply(String qnaRepNo) throws Exception {
+		try {
 		qnaReplyMapper.deleteAcaQnAReply(qnaRepNo);
+		}catch(Exception e) {
+			throw new Exception("삭제 실패");
+		}
 	}
 
 	@Override
