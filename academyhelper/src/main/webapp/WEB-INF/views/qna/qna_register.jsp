@@ -26,11 +26,11 @@
 				      	</tr>
 				      	<tr>
 				      		<td>내용</td>
-				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				      		<td><textarea cols="90" rows="15" id="qnaContent" name="qnaContent" required="required" placeholder="내용을 입력하세요"></textarea>
 				      		<script>
 							    $(document).ready(function() {
 							    	var curtime = "";
-							        $('#acaPromoContent').summernote({
+							        $('#qnaContent').summernote({
 							        	 height: 500,               
 							        	 minHeight: null,           
 							        	 maxHeight: null,  
