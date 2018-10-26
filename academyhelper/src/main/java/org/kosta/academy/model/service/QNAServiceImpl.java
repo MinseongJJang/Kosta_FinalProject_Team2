@@ -84,8 +84,12 @@ public class QNAServiceImpl implements QNAService {
 	}
 
 	@Override
-	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) {
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) throws Exception {
+		try {
 		qnaReplyMapper.updateAcaQnAReply(acaQNAReplyVO);
+		}catch(Exception i) {
+			throw new Exception("내용을 입력하세요");
+		}
 	}
 
 	@Override

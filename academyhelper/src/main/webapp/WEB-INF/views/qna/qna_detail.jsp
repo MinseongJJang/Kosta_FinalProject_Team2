@@ -69,8 +69,9 @@
                      </div>
                      <div class="col-sm-7">
                      <form id="updateQnaReply${status.index}" method="post">
-                           <div align="left" id="modifyReplyDiv_${status.index}"></div>
-                           <pre style="display:block;" id="content" >${comment.qnaRepContent}</pre>
+                           <div align="left" id="modifyReplyDiv_${status.index}">
+                           <pre style="display:block;" id="content${status.index}" >${comment.qnaRepContent}</pre>
+                           </div>
                            <input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
                            <input type="hidden" name="pageNo" value="${requestScope.pageNo}">
                            <input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
@@ -126,22 +127,13 @@
    </div>
    </div>
    <div class="col-sm-1"></div>
-               <div class="col-sm-1"></div>
-               <div class="col-sm-10" align="center">
-               <label for="comment">댓글</label>
-               </div>
-               <div class="col-sm-1"></div>
-               
-               
-
-                  
-                  <div class="col-sm-2"></div>
-                  <div class="col-sm-7">
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-5">
                   <form id="qnaReplyRegister" method="post">
                         <input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
                         <input type="hidden" name="acaQNAVO.qnaNo"
                            value="${detailQNA.qnaNo}">
-                        <textarea required class="form-control" rows="1" id="qnaRepContent"
+                        <textarea required class="form-control" rows="1" id="qnaRepContentRegister"
                            name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
                   </form>
                   </div>
@@ -170,7 +162,6 @@ $(document).ready(function(){
 		}
 	});
 	$("#replyRegister").click(function(){
-		alert(1);
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/registerAcaQnAReply.do",		
@@ -179,14 +170,15 @@ $(document).ready(function(){
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
 			success:function(result){
-				alert(result);
 				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
 			},
 			complete : function() {
+				$("#qnaReplyRegister").val();
+				$("#qnaRepContentRegister").val("");
 		    }
 		});//ajax
 	});
-	$(".jBtn").click(function(){
+	$(document).on("click",".jBtn",function(event){
 		$(".jBtn").hide();
 	      $("#replyBtn"+$(this).val()).show();
 	      $("#content").hide();
@@ -195,7 +187,7 @@ $(document).ready(function(){
 	            "<textarea required class='form-control updateQnaRepContent"+$(this).val()+"' rows='1' id='qnaRepContent"+$(this).val()+"' name='qnaRepContent'></textarea>"
 	            );
 	   });//click
-	$(".replyBtn"+$(this).val()).click(function(){
+	$(document).on("click",".replyBtn"+$(this).val(),function(event){
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
@@ -205,19 +197,21 @@ $(document).ready(function(){
             },
 			success:function(result){
 				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
-				}
+			},
+			complete : function() {
+				$("#updateQnaReply"+$(this).val());
+		    }
 		});//ajax
 		$("#replyBtn"+$(this).val()).hide();
 		$(".jBtn").show();
 	});//click
 	
 	$(document).on("click",".replyDeleteBtn"+$(this).val(),function(event){
-		var value=$("#deleteQnaReply"+$(this).val());
 		if(confirm("삭제하시겠습니까?")){
 			$.ajax({
 				type:"POST",
 				url:"${pageContext.request.contextPath}/deleteAcaQnAReply.do",		
-				data:value.serialize(),
+				data:$("#deleteQnaReply"+$(this).val()).serialize(),
 				beforeSend : function(xhr){
 	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	            },
@@ -225,7 +219,7 @@ $(document).ready(function(){
 					qnaReplyRefresh(result.acaQNAReplyList,result.pb);
 				},
 				complete : function() {
-					value.empty();
+					$("#deleteQnaReply"+$(this).val());
 			    }
 			});//ajax
 		}//if
@@ -240,12 +234,12 @@ $(document).ready(function(){
         info+="</div>";
         info+="<div class='col-sm-7'>";
         info+="<form id='updateQnaReply"+index+"'>";
-        info+="<div align='left' id='modifyReplyDiv_"+index+"'></div>";
-        info+="<pre style='display:block;' id='content'>"+listQNAReply.qnaRepContent+"</pre>";
+        info+="<div align='left' id='modifyReplyDiv_"+index+"'>";
+        info+="<pre style='display:block;' id='content"+index+"'>"+listQNAReply.qnaRepContent+"</pre></div>";
         info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
         info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
         info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'></form></div>";
-        info+="<form id='qnaReplyDelete"+index+"'>";
+        info+="<form id='deleteQnaReply"+index+"'>";
         info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
         info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'>";
         info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
