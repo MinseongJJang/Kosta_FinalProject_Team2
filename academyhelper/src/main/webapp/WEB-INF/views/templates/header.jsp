@@ -45,18 +45,7 @@
 	</ul>
 </div>
 <!-- /#sidebar-wrapper -->
-<<<<<<< HEAD
-<header id="header">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<button id="primary-nav-button" type="button">Menu</button>
-				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px">
-					<a href="${pageContext.request.contextPath}/home.do">
-						<img src="${pageContext.request.contextPath}/resources/img/home_logo.png" alt="Venue Logo"  style="z-index:10;">
-					</a>
-				</div>
-=======
+
 <div class="wrap">
 <header id="header" style="border-bottom: 1px solid #c0c0c0;">
 	<div class="container" >
@@ -67,7 +56,6 @@
 				</div> 
 			</div>
 			<div class="col-sm-8">		
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 				<nav id="primary-nav" class="dropdown cf">
 					<ul class="pdown menu">
 						<li><a href="#">IT기관 </a>

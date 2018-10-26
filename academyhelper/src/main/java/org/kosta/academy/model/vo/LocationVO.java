@@ -5,7 +5,6 @@ public class LocationVO {
 	private String district;
 	public LocationVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public LocationVO(String province, String district) {
 		super();
