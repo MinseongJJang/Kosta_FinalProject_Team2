@@ -58,7 +58,7 @@
             </div>
             <div class="col-sm-1"></div>
             <br>
-            
+            <sec:authentication var="mvo" property="principal" />
             
                   <div id="refreshReply" class="col-sm-12">
                   <c:forEach items="${requestScope.listQNAReply.acaQNAReplyList}" var="comment" varStatus="status">
@@ -69,9 +69,8 @@
                      </div>
                      <div class="col-sm-7">
                      <form id="updateQnaReply${status.index}" method="post">
-                        <sec:csrfInput />
                            <div align="left" id="modifyReplyDiv_${status.index}"></div>
-                           <pre style="display:block;" id="content">${comment.qnaRepContent}</pre>
+                           <pre style="display:block;" id="content" >${comment.qnaRepContent}</pre>
                            <input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
                            <input type="hidden" name="pageNo" value="${requestScope.pageNo}">
                            <input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
@@ -134,27 +133,23 @@
                <div class="col-sm-1"></div>
                
                
-               <sec:authorize access="hasRole('ROLE_USER')">
-                  <sec:authentication var="mvo" property="principal" />
+
+                  
                   <div class="col-sm-2"></div>
                   <div class="col-sm-7">
-                  <form id="qnaReplyRegister" action="${pageContext.request.contextPath}/registerAcaQnAReply.do"
-                     method="post">
-                     <sec:csrfInput />
+                  <form id="qnaReplyRegister" method="post">
                         <input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
                         <input type="hidden" name="acaQNAVO.qnaNo"
                            value="${detailQNA.qnaNo}">
                         <textarea required class="form-control" rows="1" id="qnaRepContent"
                            name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
-                     
                   </form>
                   </div>
                   <div class="col-sm-2" align="center">
-                  <button form="qnaReplyRegister" onclick="return checkComment()" class="aca-btn"
+                  <button form="qnaReplyRegister" id="replyRegister" class="aca-btn" type="button"
                         >등록</button>
                   </div>
                   <div class="col-sm-1"></div>
-               </sec:authorize>
    </div>
 </div>
 <script type="text/javascript">
@@ -174,29 +169,44 @@ $(document).ready(function(){
 			return true;
 		}
 	});
-	$(".jBtn").click(function(){
+	$("#replyRegister").click(function(){
 		alert(1);
-	});//click
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/registerAcaQnAReply.do",		
+			data:$("#qnaReplyRegister").serialize(),	
+			beforeSend : function(xhr){
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+			success:function(result){
+				alert(result);
+				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+			},
+			complete : function() {
+		    }
+		});//ajax
+	});
+	$(".jBtn").click(function(){
+		$(".jBtn").hide();
+	      $("#replyBtn"+$(this).val()).show();
+	      $("#content").hide();
+	      moReply=$(this).val();
+	      $("#modifyReplyDiv_"+$(this).val()).append(
+	            "<textarea required class='form-control updateQnaRepContent"+$(this).val()+"' rows='1' id='qnaRepContent"+$(this).val()+"' name='qnaRepContent'></textarea>"
+	            );
+	   });//click
 	$(".replyBtn"+$(this).val()).click(function(){
-		var value=$("#qnaRepContent"+$(this).val()).val();
-		if(value==""){
-			alert("내용을 입력하세요");
-			return false;
-		}else{
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
 			data:$("#updateQnaReply"+$(this).val()).serialize(),	
-			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+			beforeSend : function(xhr){
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
-			success:function(data){
-				var info="";
-				info+="<pre>"+data+"</pre>";
-				$("#modifyReplyDiv_"+moReply).html(info);
+			success:function(result){
+				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
 				}
 		});//ajax
-		}
 		$("#replyBtn"+$(this).val()).hide();
 		$(".jBtn").show();
 	});//click
@@ -212,12 +222,7 @@ $(document).ready(function(){
 	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	            },
 				success: function(result){
-					alert(result);
-					if(result==null){
-						alert("삭제 실패");
-					}else{
 					qnaReplyRefresh(result.acaQNAReplyList,result.pb);
-					}
 				},
 				complete : function() {
 					value.empty();
@@ -228,13 +233,10 @@ $(document).ready(function(){
 	function qnaReplyRefresh(acaQNAReplyList,pb){
         var info="";
         $.each(acaQNAReplyList, function(index,listQNAReply){
-        	index=index+1;
-        	alert(pb.nowPage);
-            alert(listQNAReply.qnaRepContent);
-            alert(listQNAReply.acaQNAVO.qnaNo);
+        index=index+1;
         info+="<div class='col-sm-12'><div class='col-sm-1'></div>";
         info+="<div class='col-sm-1'>";
-        info+="<p align='left'></p>";
+        info+="<p align='left'>"+listQNAReply.userVO.nickname+"</p>";
         info+="</div>";
         info+="<div class='col-sm-7'>";
         info+="<form id='updateQnaReply"+index+"'>";
@@ -255,7 +257,6 @@ $(document).ready(function(){
         info+="id='replyDeleteBtn"+index+"' value='"+index+"'>삭제</button>";
         info+="</div><div class='col-sm-1'></div></div>";
         });
-           
         $("#refreshReply").html(info);
         }
 });//ready

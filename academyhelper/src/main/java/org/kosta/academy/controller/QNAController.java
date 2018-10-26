@@ -90,22 +90,21 @@ public class QNAController {
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
-	public String registerAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+	@ResponseBody
+	public ListVO registerAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+		String pageNo="1";
+		String qnaNo=acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
 		qnaService.registerAcaQNAReply(acaQNAVOReplyVO);
-		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
+		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+		return listQNAReply;
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQnAReply.do")
 	@ResponseBody
 	public ListVO deleteAcaQnAReply(String qnaRepNo, String qnaNo, String pageNo) {
 		try{
-			System.out.println("deleteAcaQnAReply");
-		System.out.println(qnaRepNo);
-		System.out.println(qnaNo);
-		System.out.println(pageNo);
 		qnaService.deleteAcaQNAReply(qnaRepNo);
 		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
-		System.out.println("deleteAcaQnAReply list "+listQNAReply);
 		return listQNAReply;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -115,18 +114,16 @@ public class QNAController {
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQnAReply.do")
 	@ResponseBody
-	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
-		try {
-		if(acaQNAVOReplyVO.getQnaRepContent()==" "||acaQNAVOReplyVO.getQnaRepContent()=="") {
-			return null;
-		}else {
-			qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
-			String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
-			String content=qnaService.getAcaQnAReply(qnaRepNo);
-			return content;
+	public ListVO updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO, String pageNo, String qnaNo) {
+		if(pageNo==null) {
+			pageNo="1";
 		}
-		
+		try {
+			qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+			ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+			return listQNAReply;
 		}catch(Exception e) {
+			e.getStackTrace();
 			return null;
 		}
 		
