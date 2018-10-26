@@ -9,6 +9,7 @@ import org.kosta.academy.model.mapper.SuggestionMapper;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
+import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 import org.kosta.academy.model.vo.SuggestionPostVO;
 import org.springframework.stereotype.Service;
 
@@ -99,8 +100,14 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 	}
 
 	@Override
-	public void registerSuggestionPost(SuggestionPostVO suggestionPostVO) {
+	public void registerSuggestionPost(SuggestionPostVO suggestionPostVO,SuggestionPostAttachFileVO suggestionPostAttachFileVO) {
+		suggestionPostVO.setSugContent(suggestionPostVO.getSugContent().replaceAll("!!@@", ""));
 		suggestionMapper.registerSuggestionPost(suggestionPostVO);
+		suggestionPostAttachFileVO.setSuggestionPostVO(suggestionPostVO);
+		if(suggestionPostAttachFileVO.getSugPostFilepath() !=null) {
+			suggestionMapper.registerSuggestionFile(suggestionPostAttachFileVO);
+		}
+		
 	}
 
 	@Override
@@ -132,6 +139,11 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 	@Override
 	public void deleteSuggestionPost(String sugNo) {
 		suggestionMapper.deleteSuggestionPost(sugNo);
+	}
+
+	@Override
+	public void registerSuggestionAttach(SuggestionPostAttachFileVO suggestionPostAttachFileVO) {
+		suggestionMapper.registerSuggestionFile(suggestionPostAttachFileVO);
 	}
 
 }

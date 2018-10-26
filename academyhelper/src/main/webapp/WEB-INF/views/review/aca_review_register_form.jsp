@@ -75,6 +75,8 @@
 	});//ready
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -86,30 +88,31 @@
 			<table class="table">
 				   <thead style="text-align:center;">
 				   		<tr>
-							<td colspan="4" align="center"><h3>후기 등록하기</h3></td>
+							<td colspan="4" align="center"><h3>IT기관 후기 등록하기</h3></td>
 						</tr>
-							<tr>
-								<td>
-									<select name="acaNo" id="academySelect">
-									<c:forEach items="${requestScope.academy}" var="aca">
-										<option value="0">학원</option>
-										<option value="${aca.acaNo}">${aca.acaName }</option>
-									</c:forEach>
-									</select>
-								</td>
-								<td><span id="curriculumSelect"></span></td>
-							</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				   </thead>
 				   <tbody>
+				   		<tr>
+							<td>
+								<select name="acaNo" id="academySelect">
+								<c:forEach items="${requestScope.academy}" var="aca">
+									<option value="0">학원</option>
+									<option value="${aca.acaNo}">${aca.acaName }</option>
+								</c:forEach>
+								</select>
+							</td>
+							<td><span id="curriculumSelect"></span></td>
+						</tr>
 						<tr >
 					        <td>제목</td>
-					        <td><input type="text" name="acaRevTitle" placeholder="제목을 입력하세요" required="required" style="width:90%">
-					        </td>
-						
+					        <td><input type="text" name="acaRevTitle" placeholder="질문 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
 				      		<td>내용
-				      			<span id="curtime"></span>
+				      		<span id="curtime"></span>
 				      		</td>
 				      		<td><textarea cols="90" rows="130" id="acaRevContent" name="acaRevContent" required="required" placeholder="내용을 입력하세요"></textarea>
 				      		<script>
@@ -158,15 +161,14 @@
 				      		<td><label for="label-registerProduct">Hashtag</label><br></td>
 					      	<td><div class="input-group">
 							<input type="text" class="form-control" id="hashtagInsert"  style="width:90%;" placeholder="Hashtag pattern Example : #AcademyHelper">
-							&nbsp;&nbsp;<span><input type="button" id="hashInsert" class="btn" value="추가" style="height: 60%; background-color: #32c5d2; color: white" ></span>
+							&nbsp;&nbsp;<span><input type="button" id="hashInsert" class="aca-btn" value="추가"></span>
 							<br><br><br>
 							<div id="hash"></div>
-							<input type="text" class="form-control" id="hashtag" name="hashTagName" required="required" style="width: 90%;" readonly="readonly">&nbsp;&nbsp;
-							<span><input type="button" id="hashDelete" class="btn" value="전체삭제" style="height: 80%; background-color: #32c5d2; color: white" ></span>
+							<input type="text" class="form-control" id="hashtag" name="hashTagName" required="required" style="width: 86%;" readonly="readonly">&nbsp;&nbsp;
+							<span><input type="button" id="hashDelete" class="aca-btn" value="전체삭제"></span>
 							</div>
 							</td>
 				      	</tr>
-				    
 				   </tbody>
 				   <tfoot>
 				  		<tr>
@@ -177,146 +179,142 @@
 									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
 									     <button type="reset" class="aca-btn" >취소</button>   
 								    </div>  
-							    </sec:authorize>	
+							    </sec:authorize>
 						   	</td>
 				   		</tr>
 				   </tfoot>
 				</table>
-		<fieldset class="rating">
-        <legend class="ratingLegend">교육과정 만족도</legend>
-        <div class="ratingGroup">
-            <input id="rating-1" class="ratingInput" name="curSatis" type="radio" value="1" required="required">
-            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
-            <input id="rating-2" class="ratingInput" name="curSatis" type="radio" value="2" required="required">
-            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
-            <input id="rating-3" class="ratingInput" name="curSatis" type="radio" value="3" required="required">
-            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
-            <input id="rating-4" class="ratingInput" name="curSatis" type="radio" value="4" required="required">
-            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
-            <input id="rating-5" class="ratingInput" name="curSatis" type="radio" value="5" required="required">
-            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
-            <input id="rating-6" class="ratingInput" name="curSatis" type="radio" value="6" required="required">
-            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
-            <input id="rating-7" class="ratingInput" name="curSatis" type="radio" value="7" required="required">
-            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
-            <input id="rating-8" class="ratingInput" name="curSatis" type="radio" value="8" required="required">
-            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
-            <input id="rating-9" class="ratingInput" name="curSatis" type="radio" value="9" required="required">
-            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
-            <input id="rating-10" class="ratingInput" name="curSatis" type="radio" value="10" required="required">
-            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
-        </div>
-    </fieldset>
-    <fieldset class="rating">
-    <legend class="ratingLegend">편의시설 만족도</legend>
-        <div class="ratingGroup">
-            <input id="rating-1" class="ratingInput" name="amenitiesSatis" type="radio" value="1" required="required">
-            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
-            <input id="rating-2" class="ratingInput" name="amenitiesSatis" type="radio" value="2" required="required">
-            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
-            <input id="rating-3" class="ratingInput" name="amenitiesSatis" type="radio" value="3" required="required">
-            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
-            <input id="rating-4" class="ratingInput" name="amenitiesSatis" type="radio" value="4" required="required">
-            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
-            <input id="rating-5" class="ratingInput" name="amenitiesSatis" type="radio" value="5" required="required">
-            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
-            <input id="rating-6" class="ratingInput" name="amenitiesSatis" type="radio" value="6" required="required">
-            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
-            <input id="rating-7" class="ratingInput" name="amenitiesSatis" type="radio" value="7" required="required">
-            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
-            <input id="rating-8" class="ratingInput" name="amenitiesSatis" type="radio" value="8" required="required">
-            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
-            <input id="rating-9" class="ratingInput" name="amenitiesSatis" type="radio" value="9" required="required">
-            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
-            <input id="rating-10" class="ratingInput" name="amenitiesSatis" type="radio" value="10" required="required"> 
-            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
-        </div>
-    </fieldset>
-    <fieldset class="rating">
-    <legend class="ratingLegend">강사님 만족도</legend>
-        <div class="ratingGroup">
-            <input id="rating-1" class="ratingInput" name="lecturerSatis" type="radio" value="1" required="required">
-            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
-            <input id="rating-2" class="ratingInput" name="lecturerSatis" type="radio" value="2" required="required">
-            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
-            <input id="rating-3" class="ratingInput" name="lecturerSatis" type="radio" value="3" required="required">
-            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
-            <input id="rating-4" class="ratingInput" name="lecturerSatis" type="radio" value="4" required="required">
-            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
-            <input id="rating-5" class="ratingInput" name="lecturerSatis" type="radio" value="5" required="required">
-            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
-            <input id="rating-6" class="ratingInput" name="lecturerSatis" type="radio" value="6" required="required">
-            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
-            <input id="rating-7" class="ratingInput" name="lecturerSatis" type="radio" value="7" required="required">
-            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
-            <input id="rating-8" class="ratingInput" name="lecturerSatis" type="radio" value="8" required="required">
-            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
-            <input id="rating-9" class="ratingInput" name="lecturerSatis" type="radio" value="9" required="required">
-            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
-            <input id="rating-10" class="ratingInput" name="lecturerSatis" type="radio" value="10" required="required">
-            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
-        </div>
-    </fieldset>
-    <fieldset class="rating">
-    <legend class="ratingLegend">취업연계 만족도</legend>
-        <div class="ratingGroup">
-            <input id="rating-1" class="ratingInput" name="empLinksSatis" type="radio" value="1" required="required">
-            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
-            <input id="rating-2" class="ratingInput" name="empLinksSatis" type="radio" value="2" required="required">
-            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
-            <input id="rating-3" class="ratingInput" name="empLinksSatis" type="radio" value="3" required="required">
-            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
-            <input id="rating-4" class="ratingInput" name="empLinksSatis" type="radio" value="4" required="required">
-            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
-            <input id="rating-5" class="ratingInput" name="empLinksSatis" type="radio" value="5" required="required">
-            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
-            <input id="rating-6" class="ratingInput" name="empLinksSatis" type="radio" value="6" required="required">
-            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
-            <input id="rating-7" class="ratingInput" name="empLinksSatis" type="radio" value="7" required="required">
-            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
-            <input id="rating-8" class="ratingInput" name="empLinksSatis" type="radio" value="8" required="required">
-            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
-            <input id="rating-9" class="ratingInput" name="empLinksSatis" type="radio" value="9" required="required">
-            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
-            <input id="rating-10" class="ratingInput" name="empLinksSatis" type="radio" value="10" required="required">
-            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
-        </div>
-    </fieldset>
-    <fieldset class="rating">
-    <legend class="ratingLegend">교통편 만족도</legend>
-        <div class="ratingGroup">
-            <input id="rating-1" class="ratingInput" name="trafficSatis" type="radio" value="1">
-            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
-            <input id="rating-2" class="ratingInput" name="trafficSatis" type="radio" value="2">
-            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
-            <input id="rating-3" class="ratingInput" name="trafficSatis" type="radio" value="3">
-            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
-            <input id="rating-4" class="ratingInput" name="trafficSatis" type="radio" value="4">
-            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
-            <input id="rating-5" class="ratingInput" name="trafficSatis" type="radio" value="5">
-            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
-            <input id="rating-6" class="ratingInput" name="trafficSatis" type="radio" value="6">
-            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
-            <input id="rating-7" class="ratingInput" name="trafficSatis" type="radio" value="7">
-            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
-            <input id="rating-8" class="ratingInput" name="trafficSatis" type="radio" value="8">
-            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
-            <input id="rating-9" class="ratingInput" name="trafficSatis" type="radio" value="9">
-            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
-            <input id="rating-10" class="ratingInput" name="trafficSatis" type="radio" value="10">
-            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
-        </div>
-    </fieldset>
+				<fieldset class="rating">
+			        <legend class="ratingLegend">교육과정 만족도</legend>
+			        <div class="ratingGroup">
+			            <input id="rating-1" class="ratingInput" name="curSatis" type="radio" value="1" required="required">
+			            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
+			            <input id="rating-2" class="ratingInput" name="curSatis" type="radio" value="2" required="required">
+			            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
+			            <input id="rating-3" class="ratingInput" name="curSatis" type="radio" value="3" required="required">
+			            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
+			            <input id="rating-4" class="ratingInput" name="curSatis" type="radio" value="4" required="required">
+			            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
+			            <input id="rating-5" class="ratingInput" name="curSatis" type="radio" value="5" required="required">
+			            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
+			            <input id="rating-6" class="ratingInput" name="curSatis" type="radio" value="6" required="required">
+			            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
+			            <input id="rating-7" class="ratingInput" name="curSatis" type="radio" value="7" required="required">
+			            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
+			            <input id="rating-8" class="ratingInput" name="curSatis" type="radio" value="8" required="required">
+			            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
+			            <input id="rating-9" class="ratingInput" name="curSatis" type="radio" value="9" required="required">
+			            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
+			            <input id="rating-10" class="ratingInput" name="curSatis" type="radio" value="10" required="required">
+			            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
+			        </div>
+			    </fieldset>
+			    <fieldset class="rating">
+			    <legend class="ratingLegend">편의시설 만족도</legend>
+			        <div class="ratingGroup">
+			            <input id="rating-1" class="ratingInput" name="amenitiesSatis" type="radio" value="1" required="required">
+			            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
+			            <input id="rating-2" class="ratingInput" name="amenitiesSatis" type="radio" value="2" required="required">
+			            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
+			            <input id="rating-3" class="ratingInput" name="amenitiesSatis" type="radio" value="3" required="required">
+			            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
+			            <input id="rating-4" class="ratingInput" name="amenitiesSatis" type="radio" value="4" required="required">
+			            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
+			            <input id="rating-5" class="ratingInput" name="amenitiesSatis" type="radio" value="5" required="required">
+			            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
+			            <input id="rating-6" class="ratingInput" name="amenitiesSatis" type="radio" value="6" required="required">
+			            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
+			            <input id="rating-7" class="ratingInput" name="amenitiesSatis" type="radio" value="7" required="required">
+			            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
+			            <input id="rating-8" class="ratingInput" name="amenitiesSatis" type="radio" value="8" required="required">
+			            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
+			            <input id="rating-9" class="ratingInput" name="amenitiesSatis" type="radio" value="9" required="required">
+			            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
+			            <input id="rating-10" class="ratingInput" name="amenitiesSatis" type="radio" value="10" required="required"> 
+			            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
+			        </div>
+			    </fieldset>
+			    <fieldset class="rating">
+			    <legend class="ratingLegend">강사님 만족도</legend>
+			        <div class="ratingGroup">
+			            <input id="rating-1" class="ratingInput" name="lecturerSatis" type="radio" value="1" required="required">
+			            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
+			            <input id="rating-2" class="ratingInput" name="lecturerSatis" type="radio" value="2" required="required">
+			            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
+			            <input id="rating-3" class="ratingInput" name="lecturerSatis" type="radio" value="3" required="required">
+			            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
+			            <input id="rating-4" class="ratingInput" name="lecturerSatis" type="radio" value="4" required="required">
+			            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
+			            <input id="rating-5" class="ratingInput" name="lecturerSatis" type="radio" value="5" required="required">
+			            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
+			            <input id="rating-6" class="ratingInput" name="lecturerSatis" type="radio" value="6" required="required">
+			            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
+			            <input id="rating-7" class="ratingInput" name="lecturerSatis" type="radio" value="7" required="required">
+			            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
+			            <input id="rating-8" class="ratingInput" name="lecturerSatis" type="radio" value="8" required="required">
+			            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
+			            <input id="rating-9" class="ratingInput" name="lecturerSatis" type="radio" value="9" required="required">
+			            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
+			            <input id="rating-10" class="ratingInput" name="lecturerSatis" type="radio" value="10" required="required">
+			            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
+			        </div>
+			    </fieldset>
+			    <fieldset class="rating">
+			    <legend class="ratingLegend">취업연계 만족도</legend>
+			        <div class="ratingGroup">
+			            <input id="rating-1" class="ratingInput" name="empLinksSatis" type="radio" value="1" required="required">
+			            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
+			            <input id="rating-2" class="ratingInput" name="empLinksSatis" type="radio" value="2" required="required">
+			            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
+			            <input id="rating-3" class="ratingInput" name="empLinksSatis" type="radio" value="3" required="required">
+			            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
+			            <input id="rating-4" class="ratingInput" name="empLinksSatis" type="radio" value="4" required="required">
+			            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
+			            <input id="rating-5" class="ratingInput" name="empLinksSatis" type="radio" value="5" required="required">
+			            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
+			            <input id="rating-6" class="ratingInput" name="empLinksSatis" type="radio" value="6" required="required">
+			            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
+			            <input id="rating-7" class="ratingInput" name="empLinksSatis" type="radio" value="7" required="required">
+			            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
+			            <input id="rating-8" class="ratingInput" name="empLinksSatis" type="radio" value="8" required="required">
+			            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
+			            <input id="rating-9" class="ratingInput" name="empLinksSatis" type="radio" value="9" required="required">
+			            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
+			            <input id="rating-10" class="ratingInput" name="empLinksSatis" type="radio" value="10" required="required">
+			            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
+			        </div>
+			    </fieldset>
+			    <fieldset class="rating">
+			    <legend class="ratingLegend">교통편 만족도</legend>
+			        <div class="ratingGroup">
+			            <input id="rating-1" class="ratingInput" name="trafficSatis" type="radio" value="1">
+			            <label for="rating-1" class="ratingLabel">최악이에요! 1점!</label>
+			            <input id="rating-2" class="ratingInput" name="trafficSatis" type="radio" value="2">
+			            <label for="rating-2" class="ratingLabel">실망이에요! 2점!</label>
+			            <input id="rating-3" class="ratingInput" name="trafficSatis" type="radio" value="3">
+			            <label for="rating-3" class="ratingLabel">그저그래요! 3점!</label>
+			            <input id="rating-4" class="ratingInput" name="trafficSatis" type="radio" value="4">
+			            <label for="rating-4" class="ratingLabel">별로예요! 4점!</label>
+			            <input id="rating-5" class="ratingInput" name="trafficSatis" type="radio" value="5">
+			            <label for="rating-5" class="ratingLabel">보통이에요! 5점!</label>
+			            <input id="rating-6" class="ratingInput" name="trafficSatis" type="radio" value="6">
+			            <label for="rating-6" class="ratingLabel">괜찮아요! 6점!</label>
+			            <input id="rating-7" class="ratingInput" name="trafficSatis" type="radio" value="7">
+			            <label for="rating-7" class="ratingLabel">좋았어요! 7점!</label>
+			            <input id="rating-8" class="ratingInput" name="trafficSatis" type="radio" value="8">
+			            <label for="rating-8" class="ratingLabel">재미있어요! 8점!</label>
+			            <input id="rating-9" class="ratingInput" name="trafficSatis" type="radio" value="9">
+			            <label for="rating-9" class="ratingLabel">꿀잼이에요! 9점!</label>
+			            <input id="rating-10" class="ratingInput" name="trafficSatis" type="radio" value="10">
+			            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
+			        </div>
+			    </fieldset>
 			  </form>
 			</div>
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
 </div>
-<form>
-    
-</form>
-
 <style type="text/css">
 .title { font-size: 20px; }
 .title:before {
@@ -335,7 +333,7 @@
 .rating :after { box-sizing: border-box; }
 .rating {
     position: relative;
-    padding: 80px 0 30px;
+    padding: 80px 0 10px;
     text-align: center;
     border: 0;
     border-top: 1px solid #dbdee3;
@@ -349,7 +347,7 @@
     text-align: center;
     line-height: 24px;
     font-size: 16px;
-    color: #333;
+    color: #ef5630;
 }
 .ratingGroup {
     position: relative;
@@ -429,7 +427,7 @@
     text-align: center;
     line-height: 24px;
     font-size: 16px;
-    color: #333;
+    color: #ef5630;
     background: #fff;
 }
 </style>

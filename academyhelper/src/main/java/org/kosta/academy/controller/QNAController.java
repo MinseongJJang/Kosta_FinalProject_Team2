@@ -111,7 +111,6 @@ public class QNAController {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQnAReply.do")

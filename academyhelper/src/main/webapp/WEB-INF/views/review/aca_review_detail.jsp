@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication var="mvo" property="principal"/>
+
+
 <table class="table">
 <thead>
 	<tr>
@@ -66,6 +69,8 @@
 	<button id="deleteReview">삭제</button>
 </c:if>
 
+
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#updateReview").click(function(){
@@ -77,6 +82,8 @@
 			if(confirm("삭제하시겠습니까?")){
 				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo}
 			}
-		});//click
-	});//ready
+		});
+		//click
+		
+
 </script> 

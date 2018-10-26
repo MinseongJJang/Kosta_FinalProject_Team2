@@ -170,7 +170,7 @@
    		},
    		'dataset': {
    			title: '${curriculumB.curName}',
-   			values: [[34,53,67,23,78]],
+   			values: [[${satisfactionB.curSatis},${satisfactionB.amenitiesSatis},${satisfactionB.empLinksSatis},${satisfactionB.trafficSatis},${satisfactionB.lecturerSatis}]],
    			bgColor: '#f9f9f9',
    			fgColor: '#004e92',
    		},

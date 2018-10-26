@@ -4,7 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.ReviewReplyMapper">
-<resultMap type="acaReviewReplyVO" id="acaReviewRRM">
+<resultMap type="acaReviewReplyVO" id="acaReviewRM">
 		<result property="userVO.usrId" column="usr_id" />
 		<result property="userVO.nickname" column="nickname" />
 		<result property="acaReviewPostVO.acaRevNo" column="aca_rev_no" />
@@ -15,17 +15,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		aca_rev_reply
 		where aca_rev_rep_no=#{value}
 	</select>
-	<select id="listAcaReviewReply" resultMap="acaReviewRRM">
-		select r.aca_rev_rep_no,
-		r.review_rep_regdate, r.review_rep_content, u.usr_id,
-		u.nickname
-		from
-		aca_rev_reply r,users u where r.usr_id=u.usr_id and aca_rev_no=#{acaRevNo}
+	<select id="listAcaReviewReply" resultMap="acaReviewRM" parameterType="map">
+		select r.aca_rev_rep_no,r.review_rep_regdate,r.review_rep_content,u.usr_id,u.nickname,r.aca_rev_no
+		from (select aca_rev_rep_no,row_number() over(order by aca_rev_rep_no desc) as rnum,review_rep_regdate,review_rep_content,
+		aca_rev_no,usr_id from aca_rev_reply) r , users u
+		where u.usr_id = r.usr_id and
+		r.aca_rev_no = #{acaRevNo} and
+		rnum between #{start} and #{end}
+		order by r.aca_rev_rep_no desc
 	</select>
 	<select id="getTotalAcaReviewReplyCount" resultType="int"
 		parameterType="string">
 		select count(*) from
-		aca_review_reply where aca_rev_no=#{value}
+		aca_rev_reply where aca_rev_no=#{value}
 	</select>
 	<insert id="registerAcaReviewReply" parameterType="acaReviewReplyVO">
 		<selectKey keyProperty="acaRevRepNo" resultType="string"
@@ -34,16 +36,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			aca_rev_reply_seq.nextval from dual
 		</selectKey>
 		insert into
-		aca_review_reply(aca_rev_rep_no,review_rep_regdate,review_rep_content,aca_rev_no,usr_id)
+		aca_rev_reply(aca_rev_rep_no,review_rep_regdate,review_rep_content,aca_rev_no,usr_id)
 		values(#{acaRevRepNo},SYSDATE,#{acaRevRepContent},#{acaReviewPostVO.acaRevNo},#{userVO.usrId})
 	</insert>
 	<delete id="deleteAcaReviewReply" parameterType="string">
 		delete from
-		aca_review_reply where aca_rev_rep_no=#{acaRevRepNo}
+		aca_rev_reply where aca_rev_rep_no=#{acaRevRepNo}
 	</delete>
 	<update id="updateAcaReviewReply" parameterType="acaReviewReplyVO">
 		update
-		aca_review_reply set review_rep_content=#{acaRevRepContent} where
+		aca_rev_reply set review_rep_content=#{acaRevRepContent} where
 		aca_rev_rep_no=#{acaRevRepNo}
 	</update>
 </mapper>

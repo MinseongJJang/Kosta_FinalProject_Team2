@@ -15,6 +15,9 @@
 				   		<tr>
 							<td colspan="4" align="center"><h3>질문과 응답 등록하기</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 				   </thead>
 				   <tbody>
 						<tr >
@@ -23,10 +26,47 @@
 				      	</tr>
 				      	<tr>
 				      		<td>내용</td>
-				      		<td><textarea cols="90" rows="15" id="qnaContent" name="qnaContent" required="required" placeholder="질문 내용을 입력하세요"></textarea>
-				      		<script type="text/javascript">
-							CKEDITOR.replace("qnaContent");
-							</script>	
+				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				      		<script>
+							    $(document).ready(function() {
+							    	var curtime = "";
+							        $('#acaPromoContent').summernote({
+							        	 height: 500,               
+							        	 minHeight: null,           
+							        	 maxHeight: null,  
+							        	 callbacks: {
+							                 onImageUpload: function(files, editor, welEditable) {
+							                   for (var i = files.length - 1; i >= 0; i--) {
+							                     sendFile(files[i], this);
+							                   }
+							                 }
+							             }
+							        });//summernote
+							        function sendFile(file, el) {
+							            var form_data = new FormData();
+							            form_data.append("file", file);
+							            $.ajax({
+							              data: form_data,
+							              type: "POST",
+							              url: "promotion-file-upload.do",
+							              cache: false,
+							              contentType: false,
+							              enctype: "multipart/form-data",
+							              processData: false,
+							              beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+							            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+							         	  },
+							              success: function(url) {
+							            	var path = "${pageContext.request.contextPath}/resources/promotionUpload/"+url[0];
+							            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
+							            	$("#curtime").html(curtime);
+							                $(el).summernote("editor.insertImage", path);
+							                $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+							              }
+							          });//ajax
+							   	   }//sendFile
+							    });//ready
+						 	</script>
 				      		</td>
 				      		
 				      	</tr>
