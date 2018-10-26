@@ -111,7 +111,9 @@
 					        <td><input type="text" name="acaRevTitle" placeholder="질문 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
-				      		<td>내용</td>
+				      		<td>내용
+				      		<span id="curtime"></span>
+				      		</td>
 				      		<td><textarea cols="90" rows="130" id="acaRevContent" name="acaRevContent" required="required" placeholder="내용을 입력하세요"></textarea>
 				      		<script>
 							    $(document).ready(function() {

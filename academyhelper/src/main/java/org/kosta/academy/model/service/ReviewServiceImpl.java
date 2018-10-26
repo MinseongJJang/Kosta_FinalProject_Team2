@@ -71,15 +71,36 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Transactional
 	@Override
-	public Queue<Object> detailAcaReviewPost(String acaRevNo) {
+	public Queue<Object> detailAcaReviewPost(String acaRevNo,String pageNo) {
 		AcaReviewPostVO reviewVO = reviewMapper.detailAcaReivewPost(acaRevNo);
-		
 		List<HashTagVO> hashList = reviewMapper.hashtagListByAcaRevNo(acaRevNo);
 		AcaCurSatisfactionVO satisfactionVO = reviewMapper.satisfactionByAcaRevNo(acaRevNo);
 		Queue<Object> queue = new LinkedList<Object>();
 		queue.offer(reviewVO);
 		queue.offer(hashList);
 		queue.offer(satisfactionVO);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalCount = reviewReplyMapper.getTotalAcaReviewReplyCount(acaRevNo);
+		PagingBean pagingBean = null;
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalCount);
+			map.put("acaRevNo", acaRevNo);
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+		} else {
+			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			map.put("acaRevNo", acaRevNo);
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+		}
+		List<AcaReviewReplyVO> acaReviewReplyList = reviewReplyMapper.listAcaReviewReply(map);
+		ListVO vo = new ListVO();
+		vo.setAcaReviewReplyList(acaReviewReplyList);
+		vo.setPb(pagingBean);
+		if(acaReviewReplyList!=null) {
+			queue.offer(vo);
+		}
 		return queue;
 	}
 	@Transactional
@@ -104,30 +125,6 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
 		reviewReplyMapper.registerAcaReviewReply(acaReviewReplyVO);
-	}
-
-	@Override
-	public ListVO listAcaReviewReply(String acaRevNo, String pageNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCount = reviewReplyMapper.getTotalAcaReviewReplyCount(acaRevNo);
-		PagingBean pagingBean = null;
-		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCount);
-			map.put("acaRevNo", acaRevNo);
-			map.put("start", pagingBean.getStartRowNumber());
-			map.put("end", pagingBean.getEndRowNumber());
-		} else {
-			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
-			map.put("acaRevNo", acaRevNo);
-			map.put("start", pagingBean.getStartRowNumber());
-			map.put("end", pagingBean.getEndRowNumber());
-			map.put("pageNo", pagingBean.getNowPage());
-		}
-		List<AcaReviewReplyVO> QNAReplyList = reviewReplyMapper.listAcaReviewReply(map);
-		ListVO vo = new ListVO();
-		vo.setAcaReviewReplyList(QNAReplyList);
-		vo.setPb(pagingBean);
-		return vo;
 	}
 
 	@Override

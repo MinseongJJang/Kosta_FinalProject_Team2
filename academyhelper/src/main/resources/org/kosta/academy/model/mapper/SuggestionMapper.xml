@@ -43,4 +43,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteSuggestionPost" parameterType="string">
 		delete from suggestion_post where sug_no = #{value}
 	</delete>
-</mapper>
+	<insert id="registerSuggestionFile" parameterType="suggestionPostAttachFileVO" >
+		insert into sug_post_attach_file(sug_post_att_no,sug_post_filepath,sug_no)
+		values(sug_post_attach_file_seq.nextval,#{sugPostFilepath},#{suggestionPostVO.sugNo})
+	</insert>
+	<resultMap type="suggestionPostAttachFileVO" id="suggestionPostAttachFileRM">
+		<result property="suggestionPostVO.sugNo" column="sug_no" />
+	</resultMap>
+	<select id="listSuggestionFile" parameterType="suggestionPostAttachFileVO" resultMap="suggestionPostAttachFileRM">
+		select sug_post_att_no,sug_post_filepath,sug_no from 
+		sug_post_attach_file where sug_no = #{suggestionPostVO.sugNo}
+	</select>
+	</mapper>

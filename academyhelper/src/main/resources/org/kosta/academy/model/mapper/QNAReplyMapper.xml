@@ -16,10 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<select id="listAcaQnAReply" resultMap="acaQNARRM"
 		parameterType="map">
-		SELECT r.qna_rep_no,r.qna_rep_content,r.usr_id from(
+		SELECT r.qna_rep_no,r.qna_rep_content,r.usr_id,u.nickname,r.qna_no from(
 		SELECT row_number() over(order by qna_rep_no desc) as
-		rnum,qna_rep_no,qna_rep_content,usr_id,qna_no from aca_qna_reply)r, aca_qna q
-		where r.qna_no=q.qna_no and r.qna_no=#{qnaNo} and rnum between #{start} and #{end} order by r.qna_rep_no desc
+		rnum,qna_rep_no,qna_rep_content,usr_id,qna_no from aca_qna_reply)r, aca_qna q, users u
+		where r.qna_no=q.qna_no and r.qna_no=#{qnaNo} and u.usr_id=r.usr_id and rnum between #{start} and #{end} order by r.qna_rep_no desc
 	</select>
 	<select id="getTotalQNAReplyCount" resultType="int"
 		parameterType="string">

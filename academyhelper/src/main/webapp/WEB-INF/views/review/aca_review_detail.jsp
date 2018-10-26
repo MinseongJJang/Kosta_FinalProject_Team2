@@ -6,6 +6,22 @@
 
 
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#updateReview").click(function(){
+			if(confirm("수정하시겠습니까?")){
+				location.href="updateReviewForm.do?acaRevNo="+${requestScope.review.acaRevNo};
+			}
+		});//click
+		$("#deleteReview").click(function(){
+			if(confirm("삭제하시겠습니까?")){
+				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo}
+			}
+		});
+		//click
+	});
+</script>
+	
 
 <div class="container">
 	<div class="row">
