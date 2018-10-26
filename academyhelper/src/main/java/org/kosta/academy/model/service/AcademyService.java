@@ -3,8 +3,10 @@ package org.kosta.academy.model.service;
 import java.util.List;
 
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 
 /**
  * Academy 및 Curriculum에 대한
@@ -80,4 +82,10 @@ public interface AcademyService {
 	public ListVO allListAcademy();
 	public ListVO allListCurriculum(String acaNo);
 	public ListVO listCurriculumAsAcademy(String acaNo);
+	/**
+	 * 교육과정에 파일 추가하는 메서드
+	 * @param suggestionPostAttachFileVO
+	 */	
+	public void registerCurriculumAttach(CurriculumAttachFileVO curriculumAttachFileVO);
+
 }

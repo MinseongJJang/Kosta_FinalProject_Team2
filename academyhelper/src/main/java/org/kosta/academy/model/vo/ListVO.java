@@ -21,13 +21,23 @@ public class ListVO {
 	private List<AcaReviewPostVO> acaReviewPostList; 
 	private List<AcaReviewReplyVO> acaReviewReplyList; 
 	private List<SuggestionPostVO> suggestionPostList;
-	private List<AcaPromoPostVO> acaPromoPostList;	
+	private List<AcaPromoPostVO> acaPromoPostList;
+	private List<LocationVO> locationList;
 	private PagingBean pb;
+	public ListVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public ListVO(List<UserVO> userList, List<AcaUserVO> acaUserList, List<AcademyVO> academyList,
 			List<CurriculumVO> curriculumList, List<AcaQNAVO> acaQNAList, List<AcaQNAReplyVO> acaQNAReplyList,
 			List<FAQVO> faqList, List<NoticeVO> noticeList, List<AcaReviewPostVO> acaReviewPostList,
+<<<<<<< HEAD
+			List<SuggestionPostVO> suggestionPostList, List<AcaPromoPostVO> acaPromoPostList,
+			List<LocationVO> locationList, PagingBean pb) {
+=======
 			List<AcaReviewReplyVO> acaReviewReplyList, List<SuggestionPostVO> suggestionPostList,
 			List<AcaPromoPostVO> acaPromoPostList, PagingBean pb) {
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 		super();
 		this.userList = userList;
 		this.acaUserList = acaUserList;
@@ -41,11 +51,8 @@ public class ListVO {
 		this.acaReviewReplyList = acaReviewReplyList;
 		this.suggestionPostList = suggestionPostList;
 		this.acaPromoPostList = acaPromoPostList;
+		this.locationList = locationList;
 		this.pb = pb;
-	}
-	public ListVO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public List<UserVO> getUserList() {
 		return userList;
@@ -119,6 +126,12 @@ public class ListVO {
 	public void setAcaPromoPostList(List<AcaPromoPostVO> acaPromoPostList) {
 		this.acaPromoPostList = acaPromoPostList;
 	}
+	public List<LocationVO> getLocationList() {
+		return locationList;
+	}
+	public void setLocationList(List<LocationVO> locationList) {
+		this.locationList = locationList;
+	}
 	public PagingBean getPb() {
 		return pb;
 	}
@@ -130,9 +143,13 @@ public class ListVO {
 		return "ListVO [userList=" + userList + ", acaUserList=" + acaUserList + ", academyList=" + academyList
 				+ ", curriculumList=" + curriculumList + ", acaQNAList=" + acaQNAList + ", acaQNAReplyList="
 				+ acaQNAReplyList + ", faqList=" + faqList + ", noticeList=" + noticeList + ", acaReviewPostList="
+<<<<<<< HEAD
+				+ acaReviewPostList + ", suggestionPostList=" + suggestionPostList + ", acaPromoPostList="
+				+ acaPromoPostList + ", locationList=" + locationList + ", pb=" + pb + "]";
+=======
 				+ acaReviewPostList + ", acaReviewReplyList=" + acaReviewReplyList + ", suggestionPostList="
 				+ suggestionPostList + ", acaPromoPostList=" + acaPromoPostList + ", pb=" + pb + "]";
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 	}
 	
-
 }

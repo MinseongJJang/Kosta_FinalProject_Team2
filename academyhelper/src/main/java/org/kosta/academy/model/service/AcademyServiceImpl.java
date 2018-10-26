@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Service;
@@ -134,6 +135,11 @@ public class AcademyServiceImpl implements AcademyService {
 	public List<CurriculumVO> getCurriculumList(String acaNo) {
 		List<CurriculumVO> curriculumList = curriculumMapper.getCurriculumList(acaNo);
 		return curriculumList;
+	}
+
+	@Override
+	public void registerCurriculumAttach(CurriculumAttachFileVO curriculumAttachFileVO) {
+		curriculumMapper.registerCurriculumFile(curriculumAttachFileVO);
 	}
 	
 
