@@ -1,9 +1,10 @@
 package org.kosta.academy.controller;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.FAQAndNotiAndSugService;
-import org.kosta.academy.model.vo.AcaPromoAttachFileVO;
 import org.kosta.academy.model.vo.FAQVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.kosta.academy.model.vo.NoticeVO;
@@ -21,6 +22,7 @@ public class FAQAndNoticeController {
 	@Resource
 	FAQAndNotiAndSugService fAQAndNotiAndSugService;
 
+	
 	@RequestMapping("listFAQ.do")
 	public String listFAQ(Model model,String pageNo) {
 		ListVO lvo = fAQAndNotiAndSugService.listFAQ(pageNo);
@@ -102,21 +104,43 @@ public class FAQAndNoticeController {
 	public String suggestionRegisterForm() {
 		return "suggestion/suggestion_register_form.tiles";
 	}
-/*	@Secured("ROLE_USER")
+	@Secured("ROLE_USER")
 	@PostMapping("suggestionRegister.do")
 	public ModelAndView suggestionRegister(SuggestionPostVO suggestionPostVO,SuggestionPostAttachFileVO suggestionPostAttachFileVO
 			,String[] curtime) {
 		ModelAndView mv = new ModelAndView();
-
 		fAQAndNotiAndSugService.registerSuggestionPost(suggestionPostVO,suggestionPostAttachFileVO);
+		String suggestionUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\suggestionUpload\\";
+		File suggestionFile = new File(suggestionUpload);
+		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
+		String[] fileNames = suggestionFile.list();
+		/*
+		 * curtime hidden 값을 받아와 해당 디렉토리에 파일이름에 해당 이름이 들어가는 것이 있으면서
+		 * 맨마지막의 값이 1인 파일은 attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
+		 */
+		SuggestionPostAttachFileVO suggestAttach = new SuggestionPostAttachFileVO();
+		for(int i=0;i<curtime.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				System.out.println(fileNames[j]);
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
+					if(fileNames[j].contains(curtime[i])) {
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(suggestionUpload+fileNames[j]);
+						File newFile = new File(suggestionUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
+						suggestAttach.setSuggestionPostVO(suggestionPostVO);
+						suggestAttach.setSugPostFilepath(suggestionUpload+builderFile);
+						fAQAndNotiAndSugService.registerSuggestionAttach(suggestAttach);			
+					}
+				}
+			}
+		}
 		String sugNo=suggestionPostVO.getSugNo();
-		
-		
-		
-		
-		
-		return "redirect:detailSuggestionPost.do?sugNo="+sugNo;
-	}*/
+		mv.setViewName("redirect:detailSuggestionPost.do?sugNo="+sugNo);
+		return mv;
+	}
 	@RequestMapping("listSuggestionPost.do")
 	public String listSuggestionPost(String pageNo,Model model) {
 		ListVO list=fAQAndNotiAndSugService.listSuggestionPost(pageNo);

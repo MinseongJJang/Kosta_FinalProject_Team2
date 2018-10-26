@@ -95,8 +95,13 @@ public interface FAQAndNotiAndSugService {
 	 */
 	public void updateSuggestionPost(SuggestionPostVO suggestionPostVO);
 	/**
-	 * 건의사항을 삭제하는 메소드
 	 * @param sugNo
+	 * 건의사항을 삭제하는 메소드
 	 */
 	public void deleteSuggestionPost(String sugNo);
+	/**
+	 * 제안에 파일 추가하는 메서드
+	 * @param suggestionPostAttachFileVO
+	 */	
+	public void registerSuggestionAttach(SuggestionPostAttachFileVO suggestionPostAttachFileVO);
 }

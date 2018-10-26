@@ -141,4 +141,9 @@ public class FAQAndNotiAndSugServiceImpl implements FAQAndNotiAndSugService {
 		suggestionMapper.deleteSuggestionPost(sugNo);
 	}
 
+	@Override
+	public void registerSuggestionAttach(SuggestionPostAttachFileVO suggestionPostAttachFileVO) {
+		suggestionMapper.registerSuggestionFile(suggestionPostAttachFileVO);
+	}
+
 }

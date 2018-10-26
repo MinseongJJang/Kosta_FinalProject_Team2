@@ -66,7 +66,7 @@
 							            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 							         	  },
 							              success: function(url) {
-							            	var path = "${pageContext.request.contextPath}/resources/reviewUpload/"+url[0];
+							            	var path = "${pageContext.request.contextPath}/resources/suggestionUpload/"+url[0];
 							            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
 							            	$("#curtime").html(curtime);
 							                $(el).summernote("editor.insertImage", path);
