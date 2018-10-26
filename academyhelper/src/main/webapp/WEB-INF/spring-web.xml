@@ -5,7 +5,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -29,6 +31,10 @@ class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 <property name="suffix" value=".jsp"></property>
 <property name="order" value="2"></property>
 </bean>
+<bean id="chatHandler" class="org.kosta.academy.controller.ChatHandler"/>
+	<websocket:handlers>
+		<websocket:mapping handler="chatHandler" path="/chat-ws.do"/>
+	</websocket:handlers>	
 <!--  Tiles 설정 -->
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
 <property name="definitions">
@@ -50,6 +56,7 @@ class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 class="org.springframework.web.servlet.view.BeanNameViewResolver">
 	<property name="order" value="1"/>
 </bean>
+
 <mvc:interceptors>
 	<mvc:interceptor>
 		<mvc:mapping path="/logout.do"/>

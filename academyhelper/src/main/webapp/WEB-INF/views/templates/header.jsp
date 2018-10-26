@@ -1,27 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-
-<script type="text/javascript">
-	$(function() {
-		// .attr()은 속성값(property)을 설정할 수 있다.
-		$('#imgChange').click(function() {
-			if ($(this).attr('src') == '/academy/resources/img/chatting_off.png') {
-				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_on.png");
-			} else {
-				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_off.png");
-			}
-		});
-	});
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#logoutAction").click(function() {
-			$("#logoutForm").submit();
-		});
-	});
-</script>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!-- Sidebar -->
 <div id="sidebar-wrapper" class=".row-sm-3">
@@ -35,10 +14,11 @@
 			</sec:authorize>
 		</li>
 		<li>
-			<textarea rows="18" cols="27"></textarea>
+			<div id="chatStatus"></div>
+			<textarea name="chatMsg" rows="18" cols="27"></textarea>
 		</li>
 		<li>
-			<input type="text" placeholder="채팅 메세지를 입력하세요"  style="width:210px">
+			<input type="text" placeholder="채팅 메세지를 입력하세요"  name="chatInput" autofocus="autofocus" style="width:210px" id="messageinput">
 		</li>
 	</ul>
 </div>
@@ -124,5 +104,45 @@
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
 		$("#wrapper").toggleClass("toggled");
+	});
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	 	$("#logoutAction").click(function() {
+			$("#logoutForm").submit();
+		});
+	    // 서버의 실제 ip 로 접근해야 한다 
+	    var ws = new WebSocket("ws://192.168.0.135:8888/academyhelper/chat-ws.do");
+	   	//onopen : 웹소켓이 열리면 호출됨      
+	    ws.onopen = function () {
+	    	alert('1123123213');	
+	        $('#chatStatus').text('Info: connection opened.');	 
+	        $('input[name=chatInput]').keyup(function(event){
+	        	  if(event.keyCode==13){
+		                var msg = $('input[name=chatInput]').val();
+		                //send : 메세지를 전송 
+		                ws.send(msg);
+		                $('input[name=chatInput]').val('');
+		           }
+	        	});	
+		    };
+		    //onmessage : 서버가 보낸 메세지가 도착하면 호출됨 
+		    ws.onmessage = function (event) {
+		        $('textarea').eq(0).prepend(event.data+'\n');
+		    };
+		    //onclose : 웹소켓이 닫히면 호출됨 
+		    ws.onclose = function (event) {
+		        $('#chatStatus').text('Info: connection closed.');
+		    };
+	    });
+		$(function() {
+		// .attr()은 속성값(property)을 설정할 수 있다.
+		$('#imgChange').click(function() {
+			if ($(this).attr('src') == '/academy/resources/img/chatting_off.png') {
+				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_on.png");
+			} else {
+				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_off.png");
+			}
+		});
 	});
 </script>
