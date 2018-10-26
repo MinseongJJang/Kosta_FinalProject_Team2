@@ -7,7 +7,6 @@ public class AcaPromoAttachFileVO {
 	
 	public AcaPromoAttachFileVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public AcaPromoAttachFileVO(String acaPromoAttNo, String acaPromoFilepath, AcaPromoPostVO acaPromoPostVO) {
 		super();

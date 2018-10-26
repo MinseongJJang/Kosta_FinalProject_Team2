@@ -1,22 +1,28 @@
 package org.kosta.academy;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.impl.SLF4JLogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.mapper.PromotionMapper;
 import org.kosta.academy.model.mapper.ReviewMapper;
+import org.kosta.academy.model.mapper.ReviewReplyMapper;
 import org.kosta.academy.model.mapper.UserMapper;
-import org.kosta.academy.model.vo.AcaReviewPostVO;
-import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring-model.xml","file:src/main/webapp/WEB-INF/spring-security.xml"})
 public class MSUnit {
+	Log log = SLF4JLogFactory.getLog(getClass());
 	//member 단위 테스트
 	@Resource
 	AcademyMapper academyMapper;
@@ -28,6 +34,12 @@ public class MSUnit {
 	ReviewMapper reviewMapper;
 	@Resource
 	CurriculumMapper curriculumMapper;
+	@Resource
+	ReviewReplyMapper reviewReplyMapper;
+	public void testLog() {
+		log.debug("로그테스트");
+		
+	}
 	@Test
 	public void test() {
 		/*UserVO vo = mapper.findUserById("admin");
@@ -131,7 +143,17 @@ public class MSUnit {
 		
 		/*AcademyVO academy = academyMapper.getAcademyByAcaNo("3");
 		System.out.println(academy);*/
-		AcaReviewPostVO review = reviewMapper.detailAcaReivewPost("14");
-		System.out.println(review);
+		/*AcaReviewPostVO review = reviewMapper.detailAcaReivewPost("14");
+		System.out.println(review);*/
+/*		MSUnit ms = new MSUnit();
+		ms.testLog();*/
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("acaRevNo","25");
+		map.put("start","1");
+		map.put("end", "5");
+		List<AcaReviewReplyVO> review = reviewReplyMapper.listAcaReviewReply(map);
+		for(AcaReviewReplyVO vo : review) {
+			System.out.println(vo);
+		}
 	}
 }

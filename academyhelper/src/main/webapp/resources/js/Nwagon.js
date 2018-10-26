@@ -145,30 +145,30 @@ var Nwagon = {
     },
 
     createTooltip: function(){
-        var tooltip2 = Nwagon.createSvgElem('g', {'class':'tooltip2'});
+        var tooltip = Nwagon.createSvgElem('g', {'class':'tooltip'});
         var tooltipbg = Nwagon.createSvgElem('rect', {});
-        tooltip2.appendChild(tooltipbg);
+        tooltip.appendChild(tooltipbg);
 
         var tooltiptxt = Nwagon.createSvgElem('text', {});
-        tooltip2.appendChild(tooltiptxt);
+        tooltip.appendChild(tooltiptxt);
 
-        return tooltip2;
+        return tooltip;
     },
 
-    showToolTip: function(tooltip2, px, py, value, height, ytextOffset, yRectOffset){
+    showToolTip: function(tooltip, px, py, value, height, ytextOffset, yRectOffset){
         return function(){
-            tooltip2.style.cssText = "display: block";
-            var text_el = tooltip2.getElementsByTagName('text')[0];
+            tooltip.style.cssText = "display: block";
+            var text_el = tooltip.getElementsByTagName('text')[0];
             text_el.textContent = ' '+value;
             Nwagon.setAttributes(text_el, {'x':px, 'y':py-ytextOffset, 'text-anchor':'middle'});
             var width = text_el.getBBox().width;
-            Nwagon.setAttributes(tooltip2.getElementsByTagName('rect')[0], {'x':(px-width/2)-5, 'y':py-yRectOffset, 'width':width+10,'height':height});
+            Nwagon.setAttributes(tooltip.getElementsByTagName('rect')[0], {'x':(px-width/2)-5, 'y':py-yRectOffset, 'width':width+10,'height':height});
         }
     },
 
-    hideToolTip: function(tooltip2){
+    hideToolTip: function(tooltip){
         return function(){
-            tooltip2.style.cssText = "display: none";
+            tooltip.style.cssText = "display: none";
         }
     },
 
@@ -428,15 +428,15 @@ var Nwagon = {
             var circles = Nwagon.createSvgElem('g', {'class':'circles'});
             parentSVG.appendChild(circles);
             if(!guide_needed){
-                var tooltip2 = Nwagon.createTooltip();
-                parentSVG.appendChild(tooltip2);
+                var tooltip = Nwagon.createTooltip();
+                parentSVG.appendChild(tooltip);
             }
             for (var i = 0; i<data.length; i++){
                 var vertex = Nwagon.createSvgElem('circle', data[i]['attributes']);
                 circles.appendChild(vertex);
                 if(!guide_needed){
-                    vertex.onmouseover = Nwagon.showToolTip(tooltip2, data[i]['tooltip2_x'], data[i]['tooltip2_y'], data[i]['text'], 14, 7, 18);
-                    vertex.onmouseout = Nwagon.hidetooltip(tooltip2);
+                    vertex.onmouseover = Nwagon.showToolTip(tooltip, data[i]['tooltip_x'], data[i]['tooltip_y'], data[i]['text'], 14, 7, 18);
+                    vertex.onmouseout = Nwagon.hidetooltip(tooltip);
                 }
             }
         },
@@ -504,8 +504,8 @@ var Nwagon = {
 
                             circle_and_tooltip_data['attributes'] = attributes;
                             circle_and_tooltip_data['text'] = tooltip_text;
-                            circle_and_tooltip_data['tooltip2_x'] =  px+cw/2;
-                            circle_and_tooltip_data['tooltip2_y'] =  -py;
+                            circle_and_tooltip_data['tooltip_x'] =  px+cw/2;
+                            circle_and_tooltip_data['tooltip_y'] =  -py;
                             circle_and_tooltips.push(circle_and_tooltip_data);
 
                             if(innerUL){
@@ -683,8 +683,8 @@ var Nwagon = {
             var labels = Nwagon.createSvgElem('g', {'class':'labels'});
             foreground.appendChild(labels);
 
-            var tooltip2 = Nwagon.createTooltip();
-            foreground.appendChild(tooltip2);
+            var tooltip = Nwagon.createTooltip();
+            foreground.appendChild(tooltip);
 
             var drawColGroups = function(columns, ch, px, color, tooltipText, isStackedColumn, yValue){
                 var colgroup  =  Nwagon.createSvgElem('g', {});
@@ -700,8 +700,8 @@ var Nwagon = {
                     ch = py;
                 }
 
-                column.onmouseover = Nwagon.showToolTip(tooltip2, px+cw/2, -ch, tooltipText, 14, 7, 18);
-                column.onmouseout = Nwagon.hideToolTip(tooltip2);
+                column.onmouseover = Nwagon.showToolTip(tooltip, px+cw/2, -ch, tooltipText, 14, 7, 18);
+                column.onmouseout = Nwagon.hideToolTip(tooltip);
 
                 column = null;  //prevent memory leak (in IE) 
             };
@@ -901,8 +901,8 @@ var Nwagon = {
             parentSVG.appendChild(foreground);
             var donuts = Nwagon.createSvgElem('g', {'class':'donuts'});
             foreground.appendChild(donuts);
-            var tooltip2 = Nwagon.createTooltip();
-            foreground.appendChild(tooltip2);
+            var tooltip = Nwagon.createTooltip();
+            foreground.appendChild(tooltip);
 
             var colors = data['colorset'];
            
@@ -992,14 +992,14 @@ var Nwagon = {
 				}
 
                 var tooltip_angle = (Math.PI * (angle_to_rotate-90))/180; 
-                var tooltip2_y = radius * Math.sin(tooltip2_angle); 
-                var tooltip2_x = radius * Math.cos(tooltip2_angle);// * Math.cos(angle_to_rotate);
+                var tooltip_y = radius * Math.sin(tooltip_angle); 
+                var tooltip_x = radius * Math.cos(tooltip_angle);// * Math.cos(angle_to_rotate);
 
                 var degree_value = angles['values'][j].toFixed(0);
                 text_to_add = names[j] ? (names[j]+ '(' +(angles['percent'][j]*100).toFixed(1) +'%) ' + degree_value) : 'undefiend';
             
-                path.onmouseover = Nwagon.showToolTip(tooltip2, tooltip2_x, tooltip2_y, text_to_add, 14, 7, 18);
-                path.onmouseout = Nwagon.hideToolTip(tooltip2);
+                path.onmouseover = Nwagon.showToolTip(tooltip, tooltip_x, tooltip_y, text_to_add, 14, 7, 18);
+                path.onmouseout = Nwagon.hideToolTip(tooltip);
                 
                 create_data_li(text_to_add);
             }
@@ -1141,8 +1141,8 @@ var Nwagon = {
             parentSVG.appendChild(foreground);
             var pies = Nwagon.createSvgElem('g', {'class':'pies'});
             foreground.appendChild(pies);
-            var tooltip2 = Nwagon.createTooltip();
-            foreground.appendChild(tooltip2);
+            var tooltip = Nwagon.createTooltip();
+            foreground.appendChild(tooltip);
 
             var colors = data['colorset'];
             var dataGroup = data['values'];
@@ -1221,9 +1221,9 @@ var Nwagon = {
 						}
                         
                         
-                        var tooltip2_angle = (Math.PI * (angle_to_rotate-90))/180; 
-                        var tooltip2_y = (core_circle_radius+max) * Math.sin(tooltip2_angle); 
-                        var tooltip2_x = (core_circle_radius+max) * Math.cos(tooltip2_angle);// * Math.cos(angle_to_rotate);
+                        var tooltip_angle = (Math.PI * (angle_to_rotate-90))/180; 
+                        var tooltip_y = (core_circle_radius+max) * Math.sin(tooltip_angle); 
+                        var tooltip_x = (core_circle_radius+max) * Math.cos(tooltip_angle);// * Math.cos(angle_to_rotate);
                         
                         if(angles['values'].length){
                             var degree_value = angles['values'][j].toFixed(0);
@@ -1233,8 +1233,8 @@ var Nwagon = {
                             text_to_add = names[j][k] ? (names[j][k] + ', Value: '+ (radius-core_circle_radius).toFixed(1)) : 'undefiend';
                         }
                         
-                        path.onmouseover = Nwagon.showToolTip(tooltip2, tooltip2_x, tooltip2_y, text_to_add, 14, 7, 18);
-                        path.onmouseout = Nwagon.hidetooltip(tooltip2);
+                        path.onmouseover = Nwagon.showToolTip(tooltip, tooltip_x, tooltip_y, text_to_add, 14, 7, 18);
+                        path.onmouseout = Nwagon.hidetooltip(tooltip);
                         
                         create_data_li(text_to_add);
                     }
@@ -1480,9 +1480,9 @@ var Nwagon = {
                 if(ul)
                 {
                     var textEl = document.createElement('li');
-                    textEl.innerHTML = 'Data set number ' + (i+1).toString();
+                    //textEl.innerHTML = 'Data set number ' + (i+1).toString();
                     var innerUL = document.createElement('ul');
-                    textEl.appendChild(innerUL);
+                    //textEl.appendChild(innerUL);
                     ul.appendChild(textEl);
                 }
                 var dataset = dataGroup[i];
@@ -1498,10 +1498,10 @@ var Nwagon = {
                 var polygon = Nwagon.createSvgElem('polyline', {'class':'polygon'});
                 foreground.appendChild(polygon);
 
-                var tooltip2 = {};
+                var tooltip = {};
                 if (istooltipNeeded)
                 {
-                    tooltip2 = Nwagon.createTooltip();
+                    tooltip = Nwagon.createTooltip();
                 }
 
                 for(var index =0; index < dataset.length; index++){
@@ -1528,8 +1528,8 @@ var Nwagon = {
 
                     if (istooltipNeeded)
                     {
-                        vertex.onmouseover = Nwagon.showToolTip(tooltip2, px, py, names[index] + ' : ' +  pointDisplay, 20, 15, 28);
-                        vertex.onmouseout = Nwagon.hideToolTip(tooltip2);
+                        vertex.onmouseover = Nwagon.showToolTip(tooltip, px, py, names[index] + ' : ' +  pointDisplay, 20, 15, 28);
+                        vertex.onmouseout = Nwagon.hideToolTip(tooltip);
                     }
                     foreground.appendChild(vertex);
                     vertex = null;
@@ -1539,7 +1539,7 @@ var Nwagon = {
                 var attributes = {'points':coordinates, 'class':'polygon', 'fill': fg_color, 'stroke':fg_color};
                 Nwagon.setAttributes(polygon, attributes);
 
-                if (istooltipNeeded) foreground.appendChild(tooltip2);
+                if (istooltipNeeded) foreground.appendChild(tooltip);
             }
         }
     }
@@ -1593,19 +1593,19 @@ var Nwagon_ie = {
         return tip;
     },
 
-    showToolTip: function(tooltip2, px,  py, value){
+    showToolTip: function(tooltip, px,  py, value){
         return function(){
-            tooltip2.style.cssText = 'display: block; padding: 0 5px 0 5px; background-color:#f9f9f9; border: 1px solid #666; position:absolute; z-index:100';
-            tooltip2.lastChild.nodeValue = value;
-            tooltip2.style.left = px + 'px'; 
-            tooltip2.style.top = (py -15) + 'px'; 
-            tooltip2.style.fontSize = '12px'; 
+            tooltip.style.cssText = 'display: block; padding: 0 5px 0 5px; background-color:#f9f9f9; border: 1px solid #666; position:absolute; z-index:100';
+            tooltip.lastChild.nodeValue = value;
+            tooltip.style.left = px + 'px'; 
+            tooltip.style.top = (py -15) + 'px'; 
+            tooltip.style.fontSize = '12px'; 
         }
     },
 
-    hideToolTip: function(tooltip2){
+    hideToolTip: function(tooltip){
         return function(){
-            tooltip2.style.cssText = "display: none";
+            tooltip.style.cssText = "display: none";
         }
     },
     drawWedges: function(cx, cy, r, fillcolor, start_a, end_a, s_attr){
@@ -1692,7 +1692,7 @@ var Nwagon_ie = {
             var yRatio = rowHeight/increment;
             var colors = [];
             var attributes = {}, style_attr={};
-            var tooltip2  = Nwagon_ie.createTooltip(canvas);
+            var tooltip  = Nwagon_ie.createTooltip(canvas);
             var text_to_add = ''; 
             
             var drawColumn = function(attr, w, h, x, y, text, tip){
@@ -1741,7 +1741,7 @@ var Nwagon_ie = {
                     var path = 'M ' + x1 + ' ' + y1 + ' L ' + x1 + ' ' + y2 + ' L ' + x2 + ' ' + y2 + ' L ' + x2 + ' ' + y1 +' X E';
                     attributes = {'path': path, 'strokecolor': colors[i], 'strokeweight':'1px', 'fillcolor': colors[i]};    
                     text_to_add =  data[i].toString();
-                    var c = drawColumn(attributes, canvas.style.width, canvas.style.height, x1+5, y2+rowHeight, text_to_add, tooltip2);
+                    var c = drawColumn(attributes, canvas.style.width, canvas.style.height, x1+5, y2+rowHeight, text_to_add, tooltip);
                     canvas.appendChild(c);
 
                     var innerLI = document.createElement('li');
@@ -1772,7 +1772,7 @@ var Nwagon_ie = {
                         var path = 'M ' + x1 + ' ' + y1 + ' L ' + x1 + ' ' + y2 + ' L ' + x2 + ' ' + y2 + ' L ' + x2 + ' ' + y1 +' X E';
                         attributes = {'path': path, 'strokecolor': colors[k], 'strokeweight':'1px', 'fillcolor': colors[k]};    
                         text_to_add =  one_data[k].toString();
-                        var c = drawColumn(attributes, canvas.style.width, canvas.style.height, x1+5, y2+rowHeight, text_to_add, tooltip2);
+                        var c = drawColumn(attributes, canvas.style.width, canvas.style.height, x1+5, y2+rowHeight, text_to_add, tooltip);
                         canvas.appendChild(c);
                         chart_data[fields[k]].push('Label ' + names[i] + ', Value  '+ one_data[k]);
                     }
@@ -1801,7 +1801,7 @@ var Nwagon_ie = {
                         var path = 'M ' + x1 + ' ' + y1 + ' L ' + x1 + ' ' + y2 + ' L ' + x2 + ' ' + y2 + ' L ' + x2 + ' ' + y1 +' X E';
                         attributes = {'path': path, 'strokecolor': colors[k], 'strokeweight':'1px', 'fillcolor': colors[k]};    
                         text_to_add =  one_data[k].toString();
-                        var c = drawColumn(attributes, canvas.style.width, canvas.style.height, x1+5, y2+rowHeight, text_to_add, tooltip2);
+                        var c = drawColumn(attributes, canvas.style.width, canvas.style.height, x1+5, y2+rowHeight, text_to_add, tooltip);
                         canvas.appendChild(c);
 
                         chart_data[fields[k]].push('Label ' + names[i] + ', Value  '+ one_data[k]);
@@ -2133,7 +2133,7 @@ var Nwagon_ie = {
             var paths = [], polygon_paths = [];
             var text_to_add = '';
             var value = values[0]; 
-            var tooltip2 = Nwagon_ie.createTooltip(canvas);
+            var tooltip = Nwagon_ie.createTooltip(canvas);
             var style_attr = {};
             var jira_points = [];
 
@@ -2174,8 +2174,8 @@ var Nwagon_ie = {
                         var vertex = Nwagon_ie.drawVertex(x, y, colors[k]); 
                         text_to_add = fields ? names[i] + '('+ fields[k] + '): ' + values[i][k].toString() : names[i] + ': ' + values[i][k].toString();
                         if(!guide_line_needed){
-                            vertex.onmouseover = Nwagon_ie.showToolTip(tooltip2, x, y, text_to_add);
-                            vertex.onmouseout = Nwagon_ie.hideToolTip(tooltip2);
+                            vertex.onmouseover = Nwagon_ie.showToolTip(tooltip, x, y, text_to_add);
+                            vertex.onmouseout = Nwagon_ie.hideToolTip(tooltip);
                         }
                         canvas.appendChild(vertex);
                         if(innerUL){
@@ -2497,7 +2497,7 @@ var Nwagon_ie = {
                 }
             };
 
-            var tooltip2 = Nwagon_ie.createTooltip(canvas);
+            var tooltip = Nwagon_ie.createTooltip(canvas);
             var values = data['values'];
             var colors = data['colorset'];
             var fields = data['fields'];
@@ -2515,12 +2515,12 @@ var Nwagon_ie = {
                 canvas.appendChild(wedge);  
 
                 var tooltip_angle = (Math.PI * start_angle)/180; 
-                var tooltip2_x = cx + radius * Math.cos(tooltip_angle);
-                var tooltip2_y = cy + radius * Math.sin(tooltip_angle); 
+                var tooltip_x = cx + radius * Math.cos(tooltip_angle);
+                var tooltip_y = cy + radius * Math.sin(tooltip_angle); 
                 var degree_value = angles['values'][i].toFixed(0);
                 text_to_add = fields[i] ? (fields[i]+ '(' +(angles['percent'][i]*100).toFixed(1) +'%) ' + degree_value) : 'undefiend';
-                wedge.onmouseover = Nwagon_ie.showToolTip(tooltip2, tooltip2_x, tooltip2_y, text_to_add);
-                wedge.onmouseout = Nwagon_ie.hideToolTip(tooltip2);
+                wedge.onmouseover = Nwagon_ie.showToolTip(tooltip, tooltip_x, tooltip_y, text_to_add);
+                wedge.onmouseout = Nwagon_ie.hideToolTip(tooltip);
 
                 if(chartType == 'donut'){
                     style_attr = {'cssText':'position:absolute; z-index:50', 'width': canvas.style.width, 'height': canvas.style.height};
@@ -2649,7 +2649,7 @@ var Nwagon_ie = {
                 ul.innerHTML = title; 
             }
             if(istooltipNeeded){
-                var tooltip2 = Nwagon_ie.createTooltip(canvas);
+                var tooltip = Nwagon_ie.createTooltip(canvas);
             }
             for(var i = 0; i<dataGroup.length; i++){
                 if(ul)
@@ -2694,8 +2694,8 @@ var Nwagon_ie = {
                     var vertex = Nwagon_ie.drawVertex(cx- Math.round(radius * Math.cos(point_angle)), (h - cy - Math.round((radius) * Math.sin(point_angle))), fg_color) ; 
                     text_to_add = names[k] + ': ' + dataset[k];
                     if(istooltipNeeded){
-                        vertex.onmouseover = Nwagon_ie.showToolTip(tooltip2, cx- Math.round(radius * Math.cos(point_angle)), (h - cy - Math.round((radius) * Math.sin(point_angle))), text_to_add);
-                        vertex.onmouseout = Nwagon_ie.hideToolTip(tooltip2);
+                        vertex.onmouseover = Nwagon_ie.showToolTip(tooltip, cx- Math.round(radius * Math.cos(point_angle)), (h - cy - Math.round((radius) * Math.sin(point_angle))), text_to_add);
+                        vertex.onmouseout = Nwagon_ie.hideToolTip(tooltip);
                     }
                     canvas.appendChild(vertex);
                 }

@@ -10,7 +10,9 @@ import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.ReviewMapper;
+import org.kosta.academy.model.mapper.ReviewReplyMapper;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -25,10 +27,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewMapper reviewMapper;
 	@Resource
 	public AcademyMapper academyMapper;
+	@Resource
+	public ReviewReplyMapper reviewReplyMapper;
+
 	@Transactional
 	@Override
 	public void registerAcaReviewPost(AcaReviewPostVO acaReviewPostVO,CurriculumVO curriculumVO,
 			HashTagVO hashTagVO,AcaCurSatisfactionVO acaCurSatisfactionVO) {
+		acaReviewPostVO.setAcaRevContent(acaReviewPostVO.getAcaRevContent().replaceAll("!!@@", ""));
 		reviewMapper.registerAcaReviewPost(acaReviewPostVO);
 		String[] hashtagNames = hashTagVO.getHashTagName().split(",");
 		
@@ -56,9 +62,15 @@ public class ReviewServiceImpl implements ReviewService {
 		listVO.setAcaReviewPostList(rlist);
 		return listVO;
 	}
-	@Transactional
+	public ListVO listAcaReviewPostByCurNo(String curNo) {
+		List<AcaReviewPostVO> reviewlist = reviewMapper.listAcaReviewPostByCurNo(curNo);
+		ListVO listVO = new ListVO();
+		listVO.setAcaReviewPostList(reviewlist);
+		return listVO;
+	}
+	
 	@Override
-	public Queue<Object> detailAcaReviewPost(String acaRevNo) {
+	public Queue<Object> detailAcaReviewPost(String acaRevNo,String pageNo) {
 		AcaReviewPostVO reviewVO = reviewMapper.detailAcaReivewPost(acaRevNo);
 		List<HashTagVO> hashList = reviewMapper.hashtagListByAcaRevNo(acaRevNo);
 		AcaCurSatisfactionVO satisfactionVO = reviewMapper.satisfactionByAcaRevNo(acaRevNo);
@@ -66,6 +78,30 @@ public class ReviewServiceImpl implements ReviewService {
 		queue.offer(reviewVO);
 		queue.offer(hashList);
 		queue.offer(satisfactionVO);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalCount = reviewReplyMapper.getTotalAcaReviewReplyCount(acaRevNo);
+		PagingBean pagingBean = null;
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalCount);
+			map.put("acaRevNo", acaRevNo);
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+		} else {
+			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			map.put("acaRevNo", acaRevNo);
+			map.put("start", pagingBean.getStartRowNumber());
+			map.put("end", pagingBean.getEndRowNumber());
+		}
+		List<AcaReviewReplyVO> acaReviewReplyList = reviewReplyMapper.listAcaReviewReply(map);
+		ListVO vo = new ListVO();
+		if(!acaReviewReplyList.isEmpty()) {
+			vo.setAcaReviewReplyList(acaReviewReplyList);
+			vo.setPb(pagingBean);
+		}
+		if(acaReviewReplyList!=null) {
+			queue.offer(vo);
+		}
 		return queue;
 	}
 	@Transactional
@@ -89,26 +125,31 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-	
-	}
-
-	@Override
-	public ListVO listAcaReviewReply(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		reviewReplyMapper.registerAcaReviewReply(acaReviewReplyVO);
 	}
 
 	@Override
 	public void updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-		// TODO Auto-generated method stub
-		
+		reviewReplyMapper.updateAcaReviewReply(acaReviewReplyVO);
 	}
 
 	@Override
 	public void deleteAcaReviewReply(String acaRevRepNo) {
-		// TODO Auto-generated method stub
-		
+		reviewReplyMapper.deleteAcaReviewReply(acaRevRepNo);
+	}
+
+	@Override
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo) {
+		AcaCurSatisfactionVO satisVO = reviewMapper.satisfactionByCurNo(curNo);
+		return satisVO;
 	}
 	
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach) {
+		reviewMapper.registerAcaReviewAttach(reviewAttach);
+	}
 
+	@Override
+	public String getAcaReviewReply(String acaRevRepNo) {
+		return reviewReplyMapper.getAcaReviewReply(acaRevRepNo);
+	}
 }

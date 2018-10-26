@@ -24,6 +24,8 @@
 							 <c:set var="academyB" value="${requestScope.academyB}" />
 							 <c:set var="curriculumA" value="${requestScope.curriculumA}" />
 							 <c:set var="curriculumB" value="${requestScope.curriculumB}" />
+							 <c:set var="satisfactionA" value="${requestScope.satisfactionA}" />
+							 <c:set var="satisfactionB" value="${requestScope.satisfactionB}" />
 							 <th>
 							 	기관
 							 </th>
@@ -74,21 +76,36 @@
 								교육 내용
 							</th>
 							<td>
-								${curriculumA.curContent }
+								<pre>${curriculumA.curContent }</pre>
 							</td>
 							<td>
-								${curriculumB.curContent }
+								<pre>${curriculumB.curContent }</pre>
 							</td>
 						</tr>
 						<tr>
-							<th>
+							<th colspan="3">
 								후기
 							</th>
+						</tr>
+						<c:forEach var="reviewlistA"  items="${reviewListA }" >
+						<c:forEach var="reviewlistB" items="${reviewListB }" >
+						<tr>
 							<td>
 							</td>
 							<td>
+								<div style="text-align:left;">${reviewlistA.userVO.usrId }</div>
+								<div><pre>${reviewlistA.acaRevContent}</pre></div>
+								<div style="text-align:right;">${reviewlistA.acaRevRegdate}</div>
+							</td>
+							<td>
+								<div style="text-align:left;">${reviewlistB.userVO.usrId }</div>
+								<div><pre>${reviewlistB.acaRevContent }</pre></div>
+								<div style="text-align:right;">${reviewlistB.acaRevRegdate}</div>
 							</td>
 						</tr>
+						</c:forEach>
+						</c:forEach>
+						
 					</tbody>
 					<tfoot>
 					</tfoot>
@@ -121,9 +138,9 @@
    		},
    		'dataset': {
    			title: '${curriculumA.curName}',
-   			values: [[34,53,67,23,78]],
+   			values: [[${satisfactionA.curSatis},${satisfactionA.amenitiesSatis},${satisfactionA.empLinksSatis},${satisfactionA.trafficSatis},${satisfactionA.lecturerSatis}]],
    			bgColor: '#f9f9f9',
-   			fgColor: '#30a1ce',
+   			fgColor: '#004e92',
    		},
    		'chartDiv': 'AcademyA',
    		'chartType': 'radar',
@@ -153,9 +170,9 @@
    		},
    		'dataset': {
    			title: '${curriculumB.curName}',
-   			values: [[34,53,67,23,78]],
+   			values: [[${satisfactionB.curSatis},${satisfactionB.amenitiesSatis},${satisfactionB.empLinksSatis},${satisfactionB.trafficSatis},${satisfactionB.lecturerSatis}]],
    			bgColor: '#f9f9f9',
-   			fgColor: '#30a1ce',
+   			fgColor: '#004e92',
    		},
    		'chartDiv': 'AcademyB',
    		'chartType': 'radar',

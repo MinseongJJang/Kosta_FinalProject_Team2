@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>accessDenied</title>
-<script type="text/javascript">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
 $(function(){
 	$('#out').click(function(){
+		location.href="${pageContext.request.contextPath}/home.do";
 	});
 	$('#loginModal').modal();
 });
@@ -109,7 +113,7 @@ body {
 					<h4 class="modal-title"></h4>
 				</div>
 				<div class="modal-body">
-					권한이 없습니다. 관리자에게 문의하세요.
+					권한이 없습니다. 메인화면으로 이동합니다.
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" id="out" value="닫기">

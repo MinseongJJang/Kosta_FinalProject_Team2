@@ -2,6 +2,7 @@ package org.kosta.academy.model.service;
 import java.util.Queue;
 
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -29,7 +30,7 @@ public interface ReviewService {
 	 * @param acaRevNo
 	 * @return
 	 */
-	public Queue<Object> detailAcaReviewPost(String acaRevNo);
+	public Queue<Object> detailAcaReviewPost(String acaRevNo,String pageNo);
 	/**
 	 * 학원후기를 수정하는 메소드
 	 * @param acaReviewPostVO
@@ -45,13 +46,7 @@ public interface ReviewService {
 	 * @param acaReviewReplyVO
 	 */
 	public void registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO);
-	/**
-	 * 학원후기 댓글 목록을 불러오는 메소드
-	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
-	 * @param pageNo
-	 * @return
-	 */
-	public ListVO listAcaReviewReply(String pageNo);
+
 	/**
 	 * 학원후기 댓글을 수정하는 메소드
 	 * @param acaReviewReplyVO
@@ -61,5 +56,28 @@ public interface ReviewService {
 	 * 학원후기 댓글을 삭제하는 메소드
 	 * @param acaRevRepNo
 	 */
-	public void deleteAcaReviewReply(String acaRevRepNo);
+	public void deleteAcaReviewReply(String acaRevRepNo);	
+	/**
+	 * 학원후기 댓글을 가져오는 메소드
+	 * @param acaRevRepNo
+	 */
+	public String getAcaReviewReply(String acaRevRepNo);
+	
+	
+	
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
+	/**
+	 * 과정에 대한 학원 후기 목록을 불러오는 메소드
+	 * 페이징빈이 없다.
+	 * @param curNo
+	 * @return
+	 */
+	public ListVO listAcaReviewPostByCurNo(String curNo);
+	
+	/**
+	 * 과정에 대한 만족도를 불러온다.
+	 * @param curNo
+	 * @return
+	 */
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo);
 }

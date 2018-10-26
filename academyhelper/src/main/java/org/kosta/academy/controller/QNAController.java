@@ -28,11 +28,15 @@ public class QNAController {
 
 	@RequestMapping("detailAcaQNA.do")
 	public String detailQna(String qnaNo, String pageNo, Model model) {
+		if(pageNo==null) {
+			pageNo="1";
+		}
+		System.out.println(pageNo);
 		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
-		model.addAttribute("listQNAReply", listReply.getAcaQNAReplyList());
-		model.addAttribute("pagingBean", listReply.getPb());
+		model.addAttribute("listQNAReply", listReply);
 		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
 		model.addAttribute("detailQNA", qnaVO);
+		model.addAttribute("pageNo",pageNo);
 		return "qna/qna_detail.tiles";
 	}
 	
@@ -86,24 +90,45 @@ public class QNAController {
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("registerAcaQnAReply.do")
-	public String registerAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+	@ResponseBody
+	public ListVO registerAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
+		String pageNo="1";
+		String qnaNo=acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
 		qnaService.registerAcaQNAReply(acaQNAVOReplyVO);
-		return "redirect:detailAcaQNA.do?qnaNo="+acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
+		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+		return listQNAReply;
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("deleteAcaQnAReply.do")
-	public String deleteAcaQnAReply(String qnaRepNo, String qnaNo) {
+	@ResponseBody
+	public ListVO deleteAcaQnAReply(String qnaRepNo, String qnaNo, String pageNo) {
+		try{
 		qnaService.deleteAcaQNAReply(qnaRepNo);
-		return "redirect:detailAcaQNA.do?qnaNo="+qnaNo;
+		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+		return listQNAReply;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@Secured("ROLE_USER")
 	@PostMapping("updateAcaQnAReply.do")
 	@ResponseBody
-	public String updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
-		qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
-		String qnaRepNo=acaQNAVOReplyVO.getQnaRepNo();
-		String content=qnaService.getAcaQnAReply(qnaRepNo);
-		return content;		
+	public ListVO updateAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO, String pageNo, String qnaNo) {
+		ListVO listQNAReply=null;
+		ListVO list=null;
+		if(pageNo==null) {
+			pageNo="1";
+		}
+		try {
+			qnaService.updateAcaQnAReply(acaQNAVOReplyVO);
+			listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
+			return listQNAReply;
+		}catch(Exception i) {
+			i.getStackTrace();
+			return list;
+		}
+		
 	}
 	
 }

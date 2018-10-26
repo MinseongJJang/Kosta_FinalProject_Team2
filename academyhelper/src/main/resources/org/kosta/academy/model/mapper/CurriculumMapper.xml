@@ -66,4 +66,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where c.aca_no = a.aca_no and
 		c.aca_no = #{value}
 	</select>
+	
+	<insert id="registerCurriculumFile" parameterType="CurriculumAttachFileVO" >
+		insert into cur_attach_file(cur_att_no,cur_filepath,cur_no)
+		values(cur_attach_file_seq.nextval,#{curriculumFilepath},#{curriculumVO.curNo})
+	</insert>
+	<resultMap type="CurriculumAttachFileVO" id="curriculumAttachFileRM">
+		<result property="curriculumVO.curNo" column="cur_no" />
+	</resultMap>
+	<select id="listCurriculumFile" parameterType="CurriculumAttachFileVO" resultMap="curriculumAttachFileRM">
+		select cur_att_no,cur_filepath,cur_no from 
+		cur_attach_file where cur_no = #{curriculumVO.curNo}
+	</select>
+	
 </mapper>

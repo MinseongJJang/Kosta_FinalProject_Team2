@@ -32,6 +32,9 @@ $(document).ready(function(){
 				   		<tr>
 							<td colspan="8" align="center"><h3>건의사항 상세보기</h3></td>
 						</tr>
+						<tr>
+							<td style="border-top:0px"></td>
+						</tr>
 					</thead>
 				   <tbody>
 				      	<c:set var="vo" value="${requestScope.vo}" />

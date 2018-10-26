@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.academy.model.service.PagingBean;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
+import org.kosta.academy.model.vo.AcaReviewAttachFileVO;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.HashTagVO;
 
@@ -22,5 +23,7 @@ public interface ReviewMapper {
 	public void deleteHashTag(String acaRevNo);
 	public void updateAcaReviewPost(AcaReviewPostVO acaReviewPostVO);
 	public void deleteAcaReviewPost(String acaRevNo);
-	
+	public void registerAcaReviewAttach(AcaReviewAttachFileVO reviewAttach);
+	public List<AcaReviewPostVO> listAcaReviewPostByCurNo(String curNo);
+	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo);
 }

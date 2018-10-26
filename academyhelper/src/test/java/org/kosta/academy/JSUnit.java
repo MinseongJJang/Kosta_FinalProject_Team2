@@ -1,16 +1,16 @@
 package org.kosta.academy;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
 import org.kosta.academy.model.mapper.QNAReplyMapper;
-import org.kosta.academy.model.service.PagingBean;
-import org.kosta.academy.model.vo.CurriculumVO;
-import org.kosta.academy.model.vo.ListVO;
+import org.kosta.academy.model.mapper.ReviewMapper;
+import org.kosta.academy.model.mapper.ReviewReplyMapper;
+import org.kosta.academy.model.mapper.UserMapper;
+import org.kosta.academy.model.vo.AcaReviewPostVO;
+import org.kosta.academy.model.vo.AcaReviewReplyVO;
+import org.kosta.academy.model.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,13 +25,30 @@ public class JSUnit {
 	private AcademyMapper academyMapper;
 	@Autowired
 	private QNAReplyMapper qnaReplyMapper;
+	@Autowired
+	private ReviewReplyMapper reviewReplyMapper;
+	@Autowired
+	private ReviewMapper reviewMapper;
+	@Autowired
+	private UserMapper userMapper;
 	@Test
 	public void test() {
+		
+		//review 댓글 등록
+		
+		AcaReviewPostVO acaReviewPostVO = reviewMapper.detailAcaReivewPost("19");
+		AcaReviewReplyVO acaReviewReplyVO = new AcaReviewReplyVO();
+		UserVO userVO = userMapper.getUserInfo("jdbc");
+		acaReviewReplyVO.setUserVO(userVO);
+		acaReviewReplyVO.setAcaReviewPostVO(acaReviewPostVO);
+		acaReviewReplyVO.setAcaRevRepContent("adg");
+		reviewReplyMapper.registerAcaReviewReply(acaReviewReplyVO);
+		
 		// QNA 댓글 삭제
 /*		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("qnaRepNo", "4");
 		map.put("qnaNo", "7");*/
-		qnaReplyMapper.deleteAcaQnAReply("6");
+		//qnaReplyMapper.deleteAcaQnAReply("6");
 
 		// QNA 댓글  총합 출력
 		/*int totalCount=qnaReplyMapper.getTotalQNAReplyCount("7");

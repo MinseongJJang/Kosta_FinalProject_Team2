@@ -186,7 +186,7 @@ section {
 }
 
 .sub-menu {
-  border-top: 3px solid #4883ff;
+  border-top: 3px solid #004e92;
 }
 
 .sub-menu li a {
@@ -921,6 +921,26 @@ section.contact .section-heading {
   background-color: transparent;
   color: #004e92;
 }
+/* 채팅 버븐 */
+.cha-btn {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #004e92;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  /*transition: all 0.5s;*/
+}
+
+.cha-btn:hover {
+  background-color: transparent;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+}
+
+
 /* Modal */
 .modal {
   background-color: rgba(0,0,0,.65);

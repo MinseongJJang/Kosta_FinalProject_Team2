@@ -52,4 +52,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select aca_promo_att_no,aca_promo_filepath,aca_promo_no from 
 		aca_promo_attach_file where aca_promo_no = #{acaPromoPostVO.acaPromoNo}
 	</select>
+	<insert id="registerAcaReviewAttach" parameterType="acaPromoAttachFileVO">
+		<selectKey keyProperty="acaPromoAttNo" order="BEFORE" resultType="string">
+			select aca_promo_attach_file_seq.nextval from dual
+		</selectKey>
+		insert into aca_promo_attach_file(aca_promo_att_no,aca_promo_filepath,aca_promo_no) values
+		(#{acaPromoAttNo},#{acaPromoFilepath},#{acaPromoPostVO.acaPromoNo})
+	</insert>
 </mapper>

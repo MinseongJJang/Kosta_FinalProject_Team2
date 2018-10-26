@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.academy.model.service.AcademyService;
+import org.kosta.academy.model.service.ReviewService;
+import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AcademyController {
 	@Resource
 	private AcademyService academyService;
+	@Resource
+	private ReviewService reviewService;
 
 	@Secured("ROLE_USER")
 	@RequestMapping("academyCompare.do")
@@ -33,10 +37,18 @@ public class AcademyController {
 		AcademyVO academyVOB = academyService.detailAcademy(acaNoB);
 		CurriculumVO curriVOA = academyService.detailCurriculum(curriNoA);
 		CurriculumVO curriVOB = academyService.detailCurriculum(curriNoB);
+		AcaCurSatisfactionVO satisVOA = reviewService.satisfactionByCurNo(curriNoA);
+		AcaCurSatisfactionVO satisVOB = reviewService.satisfactionByCurNo(curriNoB);
+		ListVO reviewlistA = reviewService.listAcaReviewPostByCurNo(curriNoA);
+		ListVO reviewlistB = reviewService.listAcaReviewPostByCurNo(curriNoB);
 		model.addAttribute("academyA", academyVOA);
 		model.addAttribute("academyB", academyVOB);
 		model.addAttribute("curriculumA", curriVOA);
 		model.addAttribute("curriculumB", curriVOB);
+		model.addAttribute("satisfactionA", satisVOA);
+		model.addAttribute("satisfactionB", satisVOB);
+		model.addAttribute("reviewListA", reviewlistA.getAcaReviewPostList());
+		model.addAttribute("reviewListB", reviewlistB.getAcaReviewPostList());
 		return"academy/academy_compare.tiles";
 	}
 	@Secured("ROLE_USER")

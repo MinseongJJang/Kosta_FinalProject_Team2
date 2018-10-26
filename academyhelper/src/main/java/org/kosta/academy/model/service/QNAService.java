@@ -50,13 +50,15 @@ public interface QNAService {
 	/**
 	 * QNA 댓글을 수정하는 메소드
 	 * @param acaQNAReplyVO
+	 * @throws Exception 
 	 */
-	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) throws Exception;
 	/**
 	 * QNA 댓글을 삭제하는 메소드
 	 * @param qnaRepNo
+	 * @throws Exception 
 	 */
-	public void deleteAcaQNAReply(String qnaRepNo);
+	public void deleteAcaQNAReply(String qnaRepNo) throws Exception;
 	
 	public String getAcaQnAReply(String qnaRepNo);
 	}

@@ -56,7 +56,6 @@ public class QNAServiceImpl implements QNAService {
 
 	@Override
 	public void registerAcaQNAReply(AcaQNAReplyVO acaQNAReplyVO) {
-		System.out.println(acaQNAReplyVO);
 		qnaReplyMapper.registerAcaQnAReply(acaQNAReplyVO);
 	}
 
@@ -80,20 +79,26 @@ public class QNAServiceImpl implements QNAService {
 	List<AcaQNAReplyVO> QNAReplyList = qnaReplyMapper.listAcaQnAReply(map);
 	ListVO vo = new ListVO();
 	vo.setAcaQNAReplyList(QNAReplyList);
-	vo.setPb(pagingBean);/*
-	System.out.println(map);
-	System.out.println(QNAReplyList);*/
+	vo.setPb(pagingBean);
 	return vo;
 	}
 
 	@Override
-	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) {
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) throws Exception {
+		try {
 		qnaReplyMapper.updateAcaQnAReply(acaQNAReplyVO);
+		}catch(Exception i) {
+			throw new Exception("내용을 입력하세요");
+		}
 	}
 
 	@Override
-	public void deleteAcaQNAReply(String qnaRepNo) {
+	public void deleteAcaQNAReply(String qnaRepNo) throws Exception {
+		try {
 		qnaReplyMapper.deleteAcaQnAReply(qnaRepNo);
+		}catch(Exception e) {
+			throw new Exception("삭제 실패");
+		}
 	}
 
 	@Override

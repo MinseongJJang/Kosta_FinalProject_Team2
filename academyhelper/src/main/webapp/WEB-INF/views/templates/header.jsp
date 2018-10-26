@@ -15,65 +15,37 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#logoutAction").click(function() {
+			$("#logoutForm").submit();
+		});
+	});
+</script>
+
 
 <!-- Sidebar -->
-<div id="sidebar-wrapper">
+<div id="sidebar-wrapper" class=".row-sm-3">
 	<ul class="sidebar-nav">
-		<li class="sidebar-brand"><sec:authorize
-				access="!hasRole('ROLE_USER')">
+		<li class="sidebar-brand" style="color:white">
+			<sec:authorize access="!hasRole('ROLE_USER')">
 				<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
-			</sec:authorize> <sec:authorize access="hasRole('ROLE_USER')">
-				<%-- 
-Spring Security를 이용하면 Authentication Bean 이 생성
-로그인 한 사용자의 정보는 Authentication 객체의 principal 에 저장된다 
- --%>
-				<sec:authentication property="principal.usrName" />님 <br>
-
-				<%-- <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a> --%>
-				<%-- spring security logout은 다음과 같은 처리가 필요하다
-	로그인 로그아웃은 모두 post 방식 요청으로 해야 하면  csrf 토큰처리가 필요하다 --%>
-				<script type="text/javascript">
-					$(document).ready(function() {
-						$("#logoutAction").click(function() {
-							$("#logoutForm").submit();
-						});
-					});
-				</script>
-				<a href="#" id="logoutAction">로그아웃</a>
-				<form id="logoutForm"
-					action="${pageContext.request.contextPath}/logout.do" method="post"
-					style="display: none">
-					<sec:csrfInput />
-				</form>
-				<sec:authorize
-				access="hasRole('ROLE_USER') and !hasRole('ROLE_ACADEMY')">
-				<a
-					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
-					정보</a>
-					</sec:authorize>
-					<sec:authorize
-				access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and !hasRole('ROLE_ADMIN')">
-				<a
-					href="${pageContext.request.contextPath}/acaUserInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원
-					정보</a>
-					</sec:authorize>
-					<sec:authorize
-				access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and hasRole('ROLE_ADMIN')">
-				<a
-					href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">관리자 정보</a>
-					</sec:authorize>
+			</sec:authorize> 
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<sec:authentication property="principal.usrName" />님 반갑습니다.<br>
 			</sec:authorize>
-			<sec:authorize
-				access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')">
-				<%-- 아래는 관리자이자 회원일 때 보이는 메뉴 --%>
-				<sec:authentication var="mvo" property="principal" />  
-				${mvo.usrName} 관리자님  admin 메인화면입니다. <br>
- 				<a href="userList.do">회원 목록</a><br>
-				<a href="${pageContext.request.contextPath}/academyRegisterForm.do">학원등록</a><br>
-			</sec:authorize></li>
+		</li>
+		<li>
+			<div id="chatStatus"></div>
+			<textarea name="chatMsg" rows="18" cols="27"></textarea>
+		</li>
+		<li>
+			<input type="text" placeholder="채팅 메세지를 입력하세요"  name="chatInput" autofocus="autofocus" style="width:210px" id="messageinput">
+		</li>
 	</ul>
 </div>
 <!-- /#sidebar-wrapper -->
+<<<<<<< HEAD
 <header id="header">
 	<div class="container">
 		<div class="row">
@@ -84,25 +56,79 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 						<img src="${pageContext.request.contextPath}/resources/img/home_logo.png" alt="Venue Logo"  style="z-index:10;">
 					</a>
 				</div>
+=======
+<div class="wrap">
+<header id="header" style="border-bottom: 1px solid #c0c0c0;">
+	<div class="container" >
+		<div class="row" >
+			<div class="col-sm-4">
+				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px" id="logoDiv">
+					<a href="${pageContext.request.contextPath }/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png"></a>
+				</div> 
+			</div>
+			<div class="col-sm-8">		
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 				<nav id="primary-nav" class="dropdown cf">
-					<ul class="dropdown menu">
-
-						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/academyCompareForm.do">IT기관 비교</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/acaReviewList.do">IT기관 후기</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="${pageContext.request.contextPath}/acaPromoList.do">IT기관 홍보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcademy.do">IT기관 정보</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listNotice.do">NOTICE</a></li>	
-						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listAcaQNA.do">질의 응답</a></li>
-						<li><a class="scrollTo" data-scrollTo="services" href="${pageContext.request.contextPath}/listSuggestionPost.do">건의</a></li>
-						<li><a class="scrollTo" data-scrollTo="contact" href="listFAQ.do">FAQ</a></li>
-						<li><a href="#"><img
-								src="${pageContext.request.contextPath}/resources/img/login.png"
-								style="width: 20px; height: 20px;"></a></li>
-						<li></li>
-						<li><a href="#menu-toggle" class="btn btn-secondary"
-							id="menu-toggle"><img
-								src="${pageContext.request.contextPath}/resources/img/chatting_off.png"
-								style="width: 20px; height: 20px" name="img" id="imgChange"></a></li>
+					<ul class="pdown menu">
+						<li><a href="#">IT기관 </a>
+							<ul class="sub-menu">
+								<li><a href="${pageContext.request.contextPath}/academyCompareForm.do">IT기관 비교</a></li>
+								<li><a href="${pageContext.request.contextPath}/acaReviewList.do">IT기관 후기</a></li>
+							</ul>
+						</li>
+						<li><a href="#">IT기관 정보</a>
+							<ul class="sub-menu">
+								<li><a href="${pageContext.request.contextPath}/acaPromoList.do">IT기관 홍보</a></li>
+								<li><a href="${pageContext.request.contextPath}/listAcademy.do">IT기관 정보</a></li>
+							</ul>						
+						</li>
+						<li><a href="#">Contact</a>
+							<ul class="sub-menu">
+								<li><a href="${pageContext.request.contextPath}/listNotice.do">NOTICE</a></li>	
+								<li><a href="${pageContext.request.contextPath}/listAcaQNA.do">질의응답</a></li>
+								<li><a href="${pageContext.request.contextPath}/listSuggestionPost.do">건의하기</a></li>
+								<li><a href="listFAQ.do">FAQ</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								<img src="${pageContext.request.contextPath}/resources/img/login.png" style="width: 20px; height: 20px;">
+							</a>
+							<ul class="sub-menu">
+								<sec:authorize access="!hasRole('ROLE_USER')">
+									<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_USER')">
+									<li>
+										<a href="#" id="logoutAction">로그아웃</a>
+										<form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
+											<sec:csrfInput />
+										</form>
+									</li>
+									<li>
+										<sec:authorize access="hasRole('ROLE_USER') and !hasRole('ROLE_ACADEMY')">
+											<a href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원 정보</a>
+										</sec:authorize>
+									</li>
+								</sec:authorize>
+								<li>
+									<sec:authorize access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')">
+										<sec:authentication var="mvo" property="principal" />  
+						 				<a href="userList.do">회원 목록</a>
+									</sec:authorize>
+								</li>
+								<li>
+									<sec:authorize access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and hasRole('ROLE_ADMIN')">
+										<a href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">관리자 정보</a>
+									</sec:authorize>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
+								<img src="${pageContext.request.contextPath}/resources/img/chatting_off.png" style="width: 20px; height: 20px" name="img" id="imgChange">
+							</a>
+						</li>
 					</ul>
 				</nav>
 				<!-- / #primary-nav -->
@@ -110,10 +136,50 @@ Spring Security를 이용하면 Authentication Bean 이 생성
 		</div>
 	</div>
 </header>
-
+</div>
 <script>
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
 		$("#wrapper").toggleClass("toggled");
+	});
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	 	$("#logoutAction").click(function() {
+			$("#logoutForm").submit();
+		});
+	    // 서버의 실제 ip 로 접근해야 한다 
+	    var ws = new WebSocket("ws://192.168.0.135:8888/academyhelper/chat-ws.do");
+	   	//onopen : 웹소켓이 열리면 호출됨      
+	    ws.onopen = function () {
+	    	alert('1123123213');	
+	        $('#chatStatus').text('Info: connection opened.');	 
+	        $('input[name=chatInput]').keyup(function(event){
+	        	  if(event.keyCode==13){
+		                var msg = $('input[name=chatInput]').val();
+		                //send : 메세지를 전송 
+		                ws.send(msg);
+		                $('input[name=chatInput]').val('');
+		           }
+	        	});	
+		    };
+		    //onmessage : 서버가 보낸 메세지가 도착하면 호출됨 
+		    ws.onmessage = function (event) {
+		        $('textarea').eq(0).prepend(event.data+'\n');
+		    };
+		    //onclose : 웹소켓이 닫히면 호출됨 
+		    ws.onclose = function (event) {
+		        $('#chatStatus').text('Info: connection closed.');
+		    };
+	    });
+		$(function() {
+		// .attr()은 속성값(property)을 설정할 수 있다.
+		$('#imgChange').click(function() {
+			if ($(this).attr('src') == '/academy/resources/img/chatting_off.png') {
+				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_on.png");
+			} else {
+				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_off.png");
+			}
+		});
 	});
 </script>
