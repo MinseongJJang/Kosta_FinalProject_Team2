@@ -646,8 +646,14 @@ select r.aca_rev_rep_no,r.review_rep_regdate,r.review_rep_content,u.usr_id,u.nic
 		order by r.aca_rev_rep_no desc
 
 
+create table cur_attach_file(
+   cur_att_no number primary key,
+   cur_filepath varchar2(1000) not null,
+   cur_no number not null,
+   constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
+)
+
+create sequence cur_attach_file_seq start with 1 nocache
 
 
 
-
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
