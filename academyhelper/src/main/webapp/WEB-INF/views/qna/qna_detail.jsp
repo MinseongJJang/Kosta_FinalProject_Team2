@@ -99,19 +99,19 @@
                   
                   <div class="col-sm-1"></div>
                   <div class="col-sm-10" align="center">
-                  <div class="pagingInfo">
+                  <div class="pagingInfo" id="qnaReplyPagingRefresh">
       <c:set var="pb" value="${requestScope.listQNAReply.pb}"></c:set>
       <ul class="pagination">
          <c:if test="${pb.previousPageGroup}">
             <li><a
-               href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.startPageOfPageGroup-1}&qnaNo=${requestScope.detailQNA.qnaNo}">&laquo;</a></li>
+               href="${pageContext.request.contextPath}/listAcaQNAReply.do?pageNo=${pb.startPageOfPageGroup-1}&qnaNo=${requestScope.detailQNA.qnaNo}">&laquo;</a></li>
          </c:if>
          <c:forEach var="i" begin="${pb.startPageOfPageGroup}"
             end="${pb.endPageOfPageGroup}">
             <c:choose>
                <c:when test="${pb.nowPage!=i}">
                   <li><a
-                     href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${i}&qnaNo=${requestScope.detailQNA.qnaNo}">${i}</a></li>
+                     href="${pageContext.request.contextPath}/listAcaQNAReply.do?pageNo=${i}&qnaNo=${requestScope.detailQNA.qnaNo}">${i}</a></li>
                </c:when>
                <c:otherwise>
                   <li class="active"><a href="#">${i}</a></li>
@@ -121,7 +121,7 @@
    </c:forEach>
          <c:if test="${pb.nextPageGroup}">
             <li><a
-               href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.endPageOfPageGroup+1}&qnaNo=${requestScope.detailQNA.qnaNo}">&raquo;</a></li>
+               href="${pageContext.request.contextPath}/listAcaQNAReply.do?pageNo=${pb.endPageOfPageGroup+1}&qnaNo=${requestScope.detailQNA.qnaNo}">&raquo;</a></li>
          </c:if>
       </ul>
    </div>
@@ -171,9 +171,10 @@ $(document).ready(function(){
             },
 			success:function(result){
 				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.acaQNAReplyList,result.pb);
 			},
 			complete : function() {
-				$("#qnaReplyRegister").val();
+				$("#qnaReplyRegister").val("");
 				$("#qnaRepContentRegister").val("");
 		    }
 		});//ajax
@@ -188,6 +189,10 @@ $(document).ready(function(){
 	            );
 	   });//click
 	$(document).on("click",".replyBtn"+$(this).val(),function(event){
+		if($("#qnaRepContent"+$(this).val()).val()==""){
+			alert("수정내용을입력하셈");
+			return false;
+		}
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
@@ -197,9 +202,10 @@ $(document).ready(function(){
             },
 			success:function(result){
 				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.acaQNAReplyList,result.pb);
 			},
 			complete : function() {
-				$("#updateQnaReply"+$(this).val());
+				$("#updateQnaReply"+$(this).val(""));
 		    }
 		});//ajax
 		$("#replyBtn"+$(this).val()).hide();
@@ -217,9 +223,10 @@ $(document).ready(function(){
 	            },
 				success: function(result){
 					qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+					qnaReplyPagingRefresh(result.acaQNAReplyList,result.pb);
 				},
 				complete : function() {
-					$("#deleteQnaReply"+$(this).val());
+					$("#deleteQnaReply"+$(this).val(""));
 			    }
 			});//ajax
 		}//if
@@ -253,5 +260,25 @@ $(document).ready(function(){
         });
         $("#refreshReply").html(info);
         }
+	function qnaReplyPagingRefresh(pb,listQNAReply){
+		var paging="<ul class='pagination'>";
+		var start=pb.startPageOfPageGroup;
+	    var end=pb.endPageOfPageGroup;
+	      if(pb.previousPageGroup){
+	    	 paging+="<li><a href='${pageContext.request.contextPath}/listAcaQNAReply.do?pageNo="+pb.startPageOfPageGroup-1+"&qnaNo="+listQNAReply.acaQNAVO.qnaNo+"'>&laquo;</a></li>"; 
+	      }
+	      for(var i=start;i<end;i++){
+	    	  if(pb.nowPage!=i){
+	    		  paging+="<li><a href='${pageContext.request.contextPath}/listAcaQNAReply.do?pageNo="+i+"&qnaNo="+listQNAReply.acaQNAVO.qnaNo+"'>"+i+"</a></li>";
+	    	  }else{
+	    		  paging+="<li class='active'><a href='#'>"+i+"</a></li>";
+	    	  }
+	    	  paging+="&nbsp;";
+	     }   
+	     if(pb.nextPageGroup){
+	    	 paging+="<li><a href='${pageContext.request.contextPath}/listAcaQNAReply.do?pageNo="+pb.endPageOfPageGroup+1+"&qnaNo="+listQNAReply.acaQNAVO.qnaNo+"'>&raquo;</a></li></ul>";
+     	 }
+	     $("#qnaReplyPagingRefresh").html(paging);
+	}
 });//ready
 </script>
