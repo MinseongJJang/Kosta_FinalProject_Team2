@@ -3,6 +3,7 @@ package org.kosta.academy.model.service;
 import java.util.List;
 
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
 
@@ -48,7 +49,7 @@ public interface AcademyService {
 	 * 교육과정을 등록하는 메소드
 	 * @param curriculumVO
 	 */
-	public void registerCurriculum(CurriculumVO curriculumVO);
+	public void registerCurriculum(CurriculumVO curriculumVO,CurriculumAttachFileVO curriculumAttachFileVO);
 	/**
 	 * 인자값으로 받아온 학원 acaNo의 
 	 * 교육과정 목록을  불러오는 메소드
@@ -80,4 +81,10 @@ public interface AcademyService {
 	public ListVO allListAcademy();
 	public ListVO allListCurriculum(String acaNo);
 	public ListVO listCurriculumAsAcademy(String acaNo);
+	/**
+	 * 교육과정에 파일 추가하는 메서드
+	 * @param suggestionPostAttachFileVO
+	 */	
+	public void registerCurriculumAttach(CurriculumAttachFileVO curriculumAttachFileVO);
+
 }

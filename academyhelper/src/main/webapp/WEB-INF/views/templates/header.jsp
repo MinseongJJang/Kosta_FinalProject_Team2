@@ -45,6 +45,7 @@
 	</ul>
 </div>
 <!-- /#sidebar-wrapper -->
+
 <div class="wrap">
 <header id="header" style="border-bottom: 1px solid #c0c0c0;">
 	<div class="container" >

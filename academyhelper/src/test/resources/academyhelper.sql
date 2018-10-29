@@ -333,6 +333,20 @@ update curriculum
 		cur_name='9',limit_mem='9',cur_content='9',cur_lecturer='9',cur_textbook='9'
 		where cur_no='53'
 		
+/*커리큘럼 파일첨부테이블 및 시퀀스*/
+private String curriculumAttNo;
+	private String curriculumFilepath;
+	private CurriculumVO curriculumVO;
+	
+create table cur_attach_file(
+	cur_att_no number primary key,
+	cur_filepath varchar2(1000) not null,
+	cur_no number not null,
+	constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
+)
+
+create sequence cur_attach_file_seq start with 1 nocache
+
 
 /*학원후기 게시판 테이블 및 시퀀스*/
 create table aca_review_post(
@@ -524,61 +538,65 @@ drop table hashtag
 create sequence hashtag_seq start with 1 nocache
 		
 alter table aca_review_post drop column aca_rev_content
+<<<<<<< HEAD
 alter table aca_review_post add(aca_rev_content clob)
+=======
+alter table aca_review_post add(aca_rev_content clob)
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
-(select usr_name from users where usr_id = r.usr_id) as 
-
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
-(select usr_name from users where usr_id=r.usr_id) as usr_name from 
-(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,cur_no,usr_id,
-row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u , curriculum c 
-where r.usr_id = u.usr_id and rnum between 1 and 5
-order by r.aca_rev_no desc		
-
-
-select p.aca_promo_no,p.aca_promo_title,p.aca_promo_regdate,p.aca_promo_hits,u.usr_id,
-(select usr_name from users where usr_id=p.usr_id) as usr_name from
-(select aca_promo_no,row_number() over(order by aca_promo_no desc) as rnum,aca_promo_title,to_char(aca_promo_regdate,'YYYY-MM-DD') as aca_promo_regdate,
-aca_promo_hits,usr_id from aca_promo_post) p , users u
-where p.usr_id = u.usr_id and rnum between 1 and 5
-order by p.aca_promo_no desc
-
-select * from curriculum
-select cur_no,cur_name from curriculum where aca_no = 3
-
-
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name from aca_review_post r,users u
-		where r.usr_id = u.usr_id and 
-		r.aca_rev_no = 5
-		
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name from 
-		(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,usr_id,
-		row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u
-		where r.usr_id = u.usr_id and rnum between 1 and 5
-		order by r.aca_rev_no desc
-		
-select * from academy
-select * from curriculum where aca_no = '5';
-select cur_no,cur_name from curriculum where aca_no = '3';
-
-select * from aca_review_post
-
-select * from hashtag where aca_rev_no = 14
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name
-		from aca_review_post r,users u
-		where r.usr_id = u.usr_id and 
-		r.aca_rev_no = '11'
-		
-select * from ACA_CUR_SATISFACTION
-select * from hashtag
-select hashtag_name from hashtag where aca_rev_no = '14'
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 
 
 
+<<<<<<< HEAD
+
+create table location(
+	province varchar2(100) not null,
+	district varchar2(100) ,
+	constraint province primary key (province, district)
+)
+select * from location
+insert into location (province, district) values ('서울특별시', '종로구');
+insert into location (province, district) values ('서울특별시', '중구');
+insert into location (province, district) values ('서울특별시', '용산구');
+insert into location (province, district) values ('서울특별시', '광진구');
+insert into location (province, district) values ('서울특별시', '성북구');
+insert into location (province, district) values ('서울특별시', '도봉구');
+insert into location (province, district) values ('서울특별시', '노원구');
+insert into location (province, district) values ('서울특별시', '은평구');
+insert into location (province, district) values ('서울특별시', '서대문구');
+insert into location (province, district) values ('서울특별시', '강남구');
+insert into location (province, district) values ('서울특별시', '송파구');
+insert into location (province, district) values ('서울특별시', '관악구');
+insert into location (province, district) values ('서울특별시', '동작구');
+insert into location (province, district) values ('서울특별시', '강서구');
+insert into location (province, district) values ('서울특별시', '서초구');
+insert into location (province, district) values ('서울특별시', '중랑구');
+insert into location (province, district) values ('경기도 수원시', '장안구');
+insert into location (province, district) values ('경기도 수원시', '권선구');
+insert into location (province, district) values ('경기도 수원시', '팔달구');
+insert into location (province, district) values ('경기도 수원시', '영통구');
+insert into location (province, district) values ('경기도 성남시', '수정구');
+insert into location (province, district) values ('경기도 성남시', '중원구');
+insert into location (province, district) values ('경기도 성남시', '분당구');
+insert into location (province, district) values ('경기도 안양시', '만안구');
+insert into location (province, district) values ('경기도 안양시', '동안구');
+insert into location (province, district) values ('경기도 용인시', '처인구');
+insert into location (province, district) values ('경기도 용인시', '기흥구');
+insert into location (province, district) values ('경기도 용인시', '수지구');
+insert into location (province, district) values ('경기도 의정부시', '의정부동');
+insert into location (province, district) values ('경기도 의정부시', '호원동');
+insert into location (province, district) values ('경기도 의정부시', '신곡동');
+insert into location (province, district) values ('경기도 의정부시', '송산동');
+insert into location (province, district) values ('강원도', '춘천시');
+insert into location (province, district) values ('충청북도', '청주시');
+insert into location (province, district) values ('충청남도', '천안시');
+insert into location (province, district) values ('전라북도', '목포시');
+insert into location (province, district) values ('전라남도', '여수시');
+insert into location (province, district) values ('경상북도', '포항시');
+insert into location (province, district) values ('경상남도', '창원시');
+insert into location (province, district) values ('제주특별자치도', '제주시');
+=======
 select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
 		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name,
 		c.aca_no ,(select aca_name from academy where aca_no = c.aca_no) as aca_name
@@ -628,7 +646,14 @@ select r.aca_rev_rep_no,r.review_rep_regdate,r.review_rep_content,u.usr_id,u.nic
 		order by r.aca_rev_rep_no desc
 
 
+create table cur_attach_file(
+   cur_att_no number primary key,
+   cur_filepath varchar2(1000) not null,
+   cur_no number not null,
+   constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
+)
 
+create sequence cur_attach_file_seq start with 1 nocache
 
 
 

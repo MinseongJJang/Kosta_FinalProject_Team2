@@ -17,7 +17,11 @@
 				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo};
 			}
 		});//click
+		
 	});//ready
+	function updateReply(index){
+		$("#updateArea").html("<textarea>"+$("#"+index).val()+"</textarea>");
+	}
 </script> 
 	
 
@@ -109,20 +113,19 @@
 	</div>
 </div>
 <div class="container">
-		<c:choose>
-			<c:when test="${requestScope.reply.acaReviewReplyList != null }">
-				<c:forEach items="${requestScope.reply.acaReviewReplyList }" var="reply">
-					<textarea rows="" cols="" readonly="readonly">${reply.acaRevRepContent }</textarea>
-					<button type="button">수정</button>
-					<br>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<form>
-					<input type="text" placeholder="댓글을 입력하세요" name="">
-				</form>	
-			</c:otherwise>
-		</c:choose>
+	
+	<form method="post">
+		<c:if test="${requestScope.reply.acaReviewReplyList != null }"><br>
+			<c:forEach items="${requestScope.reply.acaReviewReplyList }" var="reply" varStatus="index">
+				<span id="updateArea"><textarea rows="" cols="" readonly="readonly" id="content${index.count}">${reply.acaRevRepContent }</textarea></span>
+				<input type="hidden" name="repNo" value="${reply.acaRevRepNo }">
+				<Button type="button" onclick="updateReply('content${index.count}')">수정</Button>
+				<input type="button" id="deleteReply" value="삭제">
+				<br>
+			</c:forEach>
+		</c:if>
+		<input type="text" placeholder="댓글을 입력하세요" name="">
+	</form>
 </div>
 <style type="text/css">
 .title { font-size: 20px; }
@@ -241,4 +244,3 @@
 }
 </style>
 
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git

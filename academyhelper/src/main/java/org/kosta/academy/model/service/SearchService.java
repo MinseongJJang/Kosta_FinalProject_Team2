@@ -1,8 +1,11 @@
 package org.kosta.academy.model.service;
 
+import java.util.List;
+
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.HashTagVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.kosta.academy.model.vo.LocationVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +17,7 @@ public interface SearchService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO academySearch(CurriculumVO curriculumVO,String pageNo);
+	public ListVO academySearch(CurriculumVO curriculumVO, String pageNo);
 	/**
 	 * 학원후기에 달린 해쉬태그를 검색해 그 후기에 대한 
 	 * 교육과정 목록을 불러오는 메소드
@@ -23,5 +26,18 @@ public interface SearchService {
 	 * @param pageNo
 	 * @return
 	 */
+
 	public ListVO academyHashSearch(HashTagVO hashTagVO,String pageNo);
+
+	public ListVO provinceList();
+	
+	public ListVO districtList(String province);
+	public ListVO locationAndCurName(CurriculumVO curriculumVO, String pageNo);
+	public ListVO locationAndSearch(CurriculumVO curriculumVO, String pageNo);
+	public ListVO curNameAndSearch(CurriculumVO curriculumVO, String pageNo);
+	public ListVO locationAndCurNameAndSearch(CurriculumVO curriculumVO, String pageNo);
+
+
+	
+	
 }

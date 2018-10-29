@@ -76,7 +76,8 @@
 							   	   }//sendFile
 							    });//ready
 						 	</script>
-				      		</td>				      	</tr>
+				      		</td>				      	
+				      		</tr>
 				   </tbody>
 				   <tfoot>
 				  		<tr>
