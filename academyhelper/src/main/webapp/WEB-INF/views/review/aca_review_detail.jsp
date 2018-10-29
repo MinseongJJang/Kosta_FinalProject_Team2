@@ -203,7 +203,7 @@
 							<td colspan="7">${requestScope.satisfaction.trafficSatis }</td>
 						</tr>
 				   <tbody>
-			      		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			      		<c:if test="${mvo.usrId == requestScope.review.userVO.usrId || mvo.usrId == 'java'}">
 					      <tr>
 					      	<td colspan="8" align="right">
 							   	<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
@@ -218,7 +218,7 @@
 								</form>
 					      	</td>
 					      </tr>
-						</sec:authorize>
+					     </c:if>
 					</tbody>
 				</table>
 			</div>
