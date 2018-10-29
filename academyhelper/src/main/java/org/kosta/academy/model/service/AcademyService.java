@@ -6,7 +6,6 @@ import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
-import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 
 /**
  * Academy 및 Curriculum에 대한
@@ -50,7 +49,7 @@ public interface AcademyService {
 	 * 교육과정을 등록하는 메소드
 	 * @param curriculumVO
 	 */
-	public void registerCurriculum(CurriculumVO curriculumVO);
+	public void registerCurriculum(CurriculumVO curriculumVO,CurriculumAttachFileVO curriculumAttachFileVO);
 	/**
 	 * 인자값으로 받아온 학원 acaNo의 
 	 * 교육과정 목록을  불러오는 메소드

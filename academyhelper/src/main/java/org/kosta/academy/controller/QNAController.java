@@ -31,7 +31,6 @@ public class QNAController {
 		if(pageNo==null) {
 			pageNo="1";
 		}
-		System.out.println(pageNo);
 		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
 		model.addAttribute("listQNAReply", listReply);
 		AcaQNAVO qnaVO = qnaService.detailAcaQNA(qnaNo);
@@ -40,18 +39,15 @@ public class QNAController {
 		return "qna/qna_detail.tiles";
 	}
 	
-/*	@RequestMapping("listAcaQNAReply.do")
-	public String listQnaReply(String pageNo, Model model) {
-		ListVO listReply = qnaService.listAcaQNAReply(pageNo);
-		
-		 * ArrayList<Aca> rvoList = new ArrayList<ReplyVO>(); rvoList =
-		 * ReplyDAO.getInstance().getDReplyListBydNo(dno);
-		 * request.setAttribute("rvoList", rvoList);
-		 
-		model.addAttribute("listQNAReply", listReply.getAcaQNAList());
-		model.addAttribute("pagingBean", listReply.getPb());
-		return "qna/qna_detail.tiles";
-	}*/
+	@RequestMapping("listAcaQNAReply.do")
+	@ResponseBody
+	public ListVO listQnaReply(String qnaNo, String pageNo, Model model) {
+		if(pageNo==null) {
+			pageNo="1";
+		}
+		ListVO listReply = qnaService.listAcaQNAReply(qnaNo,pageNo);
+		return listReply;
+	}
 
 
 	@Secured("ROLE_USER")
@@ -103,6 +99,9 @@ public class QNAController {
 	@PostMapping("deleteAcaQnAReply.do")
 	@ResponseBody
 	public ListVO deleteAcaQnAReply(String qnaRepNo, String qnaNo, String pageNo) {
+		if(pageNo==null) {
+			pageNo="1";
+		}
 		try{
 		qnaService.deleteAcaQNAReply(qnaRepNo);
 		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
