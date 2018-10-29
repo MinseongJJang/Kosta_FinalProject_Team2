@@ -6,6 +6,7 @@
 <sec:authentication var="mvo" property="principal"/>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var mvoId ="";
 		var usrId = "";
 		var acaRevRepNo = "";
 		var acaRevNo = "";
@@ -43,8 +44,8 @@
 	}
 	function update(reply){
 		var info = "";
-		
 	   $.each(reply,function(index,reply){
+		   
 		   usrId = reply.userVO.usrId;
 		   acaRevRepNo = reply.acaRevRepNo;
 		   acaRevNo = reply.acaReviewPostVO.acaRevNo;
@@ -56,8 +57,10 @@
 				info +='<input type="hidden" name="userVO.usrId" value="'+usrId+'">'
 				info +='<input type="hidden" name="acaRevRepNo" value="'+acaRevRepNo+'">';
 				info +='<input type="hidden" name="acaReviewPostVO.acaRevNo" value="'+acaRevNo+'">';
-				info +='<input type="button" id="updateReply'+index+'" onclick="updateReplyForm\(\''+index+'\',\''+usrId+'\',\''+acaRevNo+'\',\''+acaRevRepNo+'\')" value="수정">';
-				info +='<input type="button" id="deleteReply'+index+'" onclick="deleteReply('+index+')" value="삭제">';
+				if(mvoId == usrId){
+					info +='<input type="button" id="updateReply'+index+'" onclick="updateReplyForm\(\''+index+'\',\''+usrId+'\',\''+acaRevNo+'\',\''+acaRevRepNo+'\',\''+mvoId+'\')" value="수정">';
+					info +='<input type="button" id="deleteReply'+index+'" onclick="deleteReply('+index+')" value="삭제">';
+				}
 				info +='</span>';
 				info +='<br>';
 				info +='</form>';
@@ -83,7 +86,8 @@
 			});//ajax
 		}
 	} 
- 	function updateReplyForm(index,usrId,acaRevNo,acaRevRepNo){
+ 	function updateReplyForm(index,usrId,acaRevNo,acaRevRepNo,mvo){
+ 		mvoId = mvo;
  		for(i=1;i<6;i++){
 			$("#updateReply"+i).hide();
 			$("#deleteReply"+i).hide();
@@ -229,11 +233,13 @@
 				<sec:csrfInput/>
 				<span id="contentArea${index.count }">
 					<pre style="display:block;" id="content${index.count}" >${reply.acaRevRepContent }</pre>
-					<input type="hidden" name="userVO.usrId" value="${mvo.usrId }">
+					<input type="hidden" name="userVO.usrId" value="${reply.userVO.usrId }">
 					<input type="hidden" name="acaReviewPostVO.acaRevNo" value="${requestScope.review.acaRevNo }">
 					<input type="hidden" name="acaRevRepNo" value="${reply.acaRevRepNo }">
-					<input type="button" id="updateReply${index.count }" onclick="updateReplyForm('${index.count}','${mvo.usrId }','${requestScope.review.acaRevNo }','${reply.acaRevRepNo }')" value="수정">
-					<input type="button" id="deleteReply${index.count }" onclick="deleteReply('${index.count}')" value="삭제">
+					<c:if test="${reply.userVO.usrId == mvo.usrId }">
+						<input type="button" id="updateReply${index.count }" onclick="updateReplyForm('${index.count}','${reply.userVO.usrId}','${requestScope.review.acaRevNo }','${reply.acaRevRepNo }','${mvo.usrId }')" value="수정">
+						<input type="button" id="deleteReply${index.count }" onclick="deleteReply('${index.count}')" value="삭제">
+					</c:if>
 				</span>
 				<br>
 			</form>
