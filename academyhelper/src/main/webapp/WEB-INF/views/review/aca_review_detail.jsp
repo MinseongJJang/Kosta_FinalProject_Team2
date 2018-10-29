@@ -6,22 +6,132 @@
 <sec:authentication var="mvo" property="principal"/>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#updateReview").click(function(){
-			alert(123);			
-			if(confirm("수정하시겠습니까?")){
-				location.href="updateReviewForm.do?acaRevNo="+${requestScope.review.acaRevNo};
-			}
+		var usrId = "";
+		var acaRevRepNo = "";
+		var acaRevNo = "";
+		$("#reviewReplyRegisterBtn").click(function(){
+			if(confirm("댓글을 등록하시겠습니까?")){
+				$.ajax({
+					type:"post",
+					url:"${pageContext.request.contextPath}/registerReviewReply.do",
+					data:$("#repRegisterForm").serialize(),
+					beforeSend : function(xhr){
+		                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		            },
+					success:function(result){
+						update(result.acaReviewReplyList);	
+						updatePaging(result.pb);
+					}//success
+				});//ajax
+			}//if
 		});//click
-		$("#deleteReview").click(function(){
-			if(confirm("삭제하시겠습니까?")){
-				location.href="deleteReview.do?acaRevNo="+${requestScope.review.acaRevNo};
-			}
-		});//click
-		
+	
 	});//ready
 	function updateReply(index){
-		$("#updateArea").html("<textarea>"+$("#"+index).val()+"</textarea>");
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/updateReviewReply.do",
+			data:$("#repUpdateForm"+index).serialize(),
+			beforeSend : function(xhr){
+				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			},
+			success:function(result){
+				update(result.acaReviewReplyList);
+				updatePaging(result.pb)
+			}
+		});//ajax 
 	}
+	function update(reply){
+		var info = "";
+		
+	   $.each(reply,function(index,reply){
+		   usrId = reply.userVO.usrId;
+		   acaRevRepNo = reply.acaRevRepNo;
+		   acaRevNo = reply.acaReviewPostVO.acaRevNo;
+		   index++;
+		        info +='<form method="post" id="repUpdateForm'+index+'">';
+				info +='<sec:csrfInput/>';
+				info +='<span id="contentArea'+index+'">';
+				info +='<pre style="display:block;" id="content'+index+'" >'+reply.acaRevRepContent+'</pre>';
+				info +='<input type="hidden" name="userVO.usrId" value="'+usrId+'">'
+				info +='<input type="hidden" name="acaRevRepNo" value="'+acaRevRepNo+'">';
+				info +='<input type="hidden" name="acaReviewPostVO.acaRevNo" value="'+acaRevNo+'">';
+				info +='<input type="button" id="updateReply'+index+'" onclick="updateReplyForm\(\''+index+'\',\''+usrId+'\',\''+acaRevNo+'\',\''+acaRevRepNo+'\')" value="수정">';
+				info +='<input type="button" id="deleteReply'+index+'" onclick="deleteReply('+index+')" value="삭제">';
+				info +='</span>';
+				info +='<br>';
+				info +='</form>';
+	   });
+	 
+			$("#updateDiv").html(info);
+			$("#registerReplyForm").val("");
+		
+	}
+ 	function deleteReply(index){
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/deleteReviewReply.do",
+				data:$("#repUpdateForm"+index).serialize(),
+				beforeSend : function(xhr){
+	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+	            success:function(result){
+					update(result.acaReviewReplyList);	
+					updatePaging(result.pb);
+	            }//success
+			});//ajax
+		}
+	} 
+ 	function updateReplyForm(index,usrId,acaRevNo,acaRevRepNo){
+ 		for(i=1;i<6;i++){
+			$("#updateReply"+i).hide();
+			$("#deleteReply"+i).hide();
+		}
+		var info ="";
+		info += "<textarea name='acaRevRepContent'></textarea>";
+		info += "<input type='button' value='수정' id='update' onclick='updateReply("+index+")'>";
+		info += "<input type='reset' value='취소' id='reset'>";
+		info += "<input type='hidden' name='userVO.usrId' value='"+usrId+"'>";
+		info += "<input type='hidden' name='acaReviewPostVO.acaRevNo' value='"+acaRevNo+"'>";
+		info += "<input type='hidden' name='acaRevRepNo' value='"+acaRevRepNo+"'>";
+		$("#contentArea"+index).html(info);
+	} 
+ 	function pageMove(pageNo){
+ 		$.ajax({
+ 			type:"post",
+ 			url:"${pageContext.request.contextPath}/listReviewReply.do",
+ 			data:$("#repRegisterForm").serialize()+"&pageNo="+pageNo,
+ 			beforeSend : function(xhr){
+ 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+ 			},
+ 			success : function(result){
+ 				update(result.acaReviewReplyList);
+ 				updatePaging(result.pb);
+ 			}
+ 		});//ajax
+ 	}
+ 	function updatePaging(result){
+ 		var info ="";
+ 		var end = result.endPageOfPageGroup+1;
+ 		var start = result.startPageOfPageGroup-1;
+ 		info += '<ul class="pagination">';
+ 		if(result.previousPageGroup){
+ 			info += '<li><a href="javascript:pageMove('+start+')">&laquo;</a></li>';
+ 		}
+		for(i=result.startPageOfPageGroup;i<=result.endPageOfPageGroup;i++){
+			if(i==result.nowPage){
+				info += '<li class="active"><a>'+i+'</a></li>';
+			}else{
+				info += '<li><a href="javascript:pageMove('+i+')">'+i+'</a></li>'
+			}
+		}
+		if(result.nextPageGroup){
+			info += '<li><a href="javascript:pageMove('+end+')">&raquo;</a></li>'
+		}
+		info += '</ul>';
+		$("#pagingInfo").html(info);
+ 	}
 </script> 
 	
 
@@ -113,18 +223,51 @@
 	</div>
 </div>
 <div class="container">
-	
-	<form method="post">
-		<c:if test="${requestScope.reply.acaReviewReplyList != null }"><br>
-			<c:forEach items="${requestScope.reply.acaReviewReplyList }" var="reply" varStatus="index">
-				<span id="updateArea"><textarea rows="" cols="" readonly="readonly" id="content${index.count}">${reply.acaRevRepContent }</textarea></span>
-				<input type="hidden" name="repNo" value="${reply.acaRevRepNo }">
-				<Button type="button" onclick="updateReply('content${index.count}')">수정</Button>
-				<input type="button" id="deleteReply" value="삭제">
+	<div id="updateDiv">
+		<c:forEach items="${requestScope.reply.acaReviewReplyList }" var="reply" varStatus="index">
+			<form method="post" id="repUpdateForm${index.count }">
+				<sec:csrfInput/>
+				<span id="contentArea${index.count }">
+					<pre style="display:block;" id="content${index.count}" >${reply.acaRevRepContent }</pre>
+					<input type="hidden" name="userVO.usrId" value="${mvo.usrId }">
+					<input type="hidden" name="acaReviewPostVO.acaRevNo" value="${requestScope.review.acaRevNo }">
+					<input type="hidden" name="acaRevRepNo" value="${reply.acaRevRepNo }">
+					<input type="button" id="updateReply${index.count }" onclick="updateReplyForm('${index.count}','${mvo.usrId }','${requestScope.review.acaRevNo }','${reply.acaRevRepNo }')" value="수정">
+					<input type="button" id="deleteReply${index.count }" onclick="deleteReply('${index.count}')" value="삭제">
+				</span>
 				<br>
-			</c:forEach>
-		</c:if>
-		<input type="text" placeholder="댓글을 입력하세요" name="">
+			</form>
+		</c:forEach>
+	</div>
+		<div class="pagingInfo" id="pagingInfo">
+			<ul class="pagination">
+				<c:if test="${requestScope.reply.pb.previousPageGroup}">
+					<li><a href="javascript:pageMove('${requestScope.reply.pb.startPageOfPageGroup-1 }')">&laquo;</a></li>
+				</c:if>
+				<c:forEach var="page" begin="${requestScope.reply.pb.startPageOfPageGroup }" end="${requestScope.reply.pb.endPageOfPageGroup }">
+					<c:choose>
+						<c:when test="${page==requestScope.reply.pb.nowPage}">
+							<li class="active"><a>${page}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="javascript:pageMove('${page}')">${page}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+					<c:if test="${requestScope.reply.pb.nextPageGroup}">
+						<li><a href="javascript:pageMove('${requestScope.reply.pb.endPageOfPageGroup+1 }')">&raquo;</a></li>
+					</c:if>
+			</ul>
+		</div>
+	
+	
+	<form method="post" id="repRegisterForm">
+		<sec:csrfInput/>
+		<input type="hidden" name="userVO.usrId" value="${mvo.usrId }">
+		<input type="hidden" name="acaReviewPostVO.acaRevNo" value="${requestScope.review.acaRevNo }">
+		<input type="text" name="acaRevRepContent" id="registerReplyForm">
+		<input type="button" id="reviewReplyRegisterBtn" value="등록">
+		<input type="reset" value="취소">
 	</form>
 </div>
 <style type="text/css">

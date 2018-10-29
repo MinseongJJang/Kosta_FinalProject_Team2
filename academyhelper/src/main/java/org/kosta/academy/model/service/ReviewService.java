@@ -1,4 +1,5 @@
 package org.kosta.academy.model.service;
+import java.util.List;
 import java.util.Queue;
 
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
@@ -80,4 +81,8 @@ public interface ReviewService {
 	 * @return
 	 */
 	public AcaCurSatisfactionVO satisfactionByCurNo(String curNo);
+	/**
+	 * 해당 게시글의 댓글 리스트를 불러온다.
+	 */
+	public ListVO listAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo);
 }
