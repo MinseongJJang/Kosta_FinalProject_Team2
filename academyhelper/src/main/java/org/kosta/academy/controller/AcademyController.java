@@ -186,7 +186,7 @@ public class AcademyController {
 						curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
 						System.out.println(oldFile);
 						System.out.println(newFile);
-
+ 
 						academyService.registerCurriculumAttach(curriculumAttach);			
 					}
 				}
