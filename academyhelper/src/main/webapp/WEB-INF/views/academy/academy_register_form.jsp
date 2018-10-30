@@ -39,6 +39,52 @@
 					        <th>학원 전화번호</th>
 					        <td colspan="2"><input type="text" name="acaTel" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
 				      	</tr>
+				      	<tr>
+				      		<th>학원 대표 사진
+				      			<span id="curtime"></span>
+				      		</th>
+				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				   			<script>
+							    $(document).ready(function() {
+							    	var curtime = "";
+							        $('#acaPromoContent').summernote({
+							        	 height: 500,               
+							        	 minHeight: null,           
+							        	 maxHeight: null,  
+							        	 callbacks: {
+							                 onImageUpload: function(files, editor, welEditable) {
+							                   for (var i = files.length - 1; i >= 0; i--) {
+							                     sendFile(files[i], this);
+							                   }
+							                 }
+							             }
+							        });//summernote
+							        function sendFile(file, el) {
+							            var form_data = new FormData();
+							            form_data.append("file", file);
+							            $.ajax({
+							              data: form_data,
+							              type: "POST",
+							              url: "promotion-file-upload.do",
+							              cache: false,
+							              contentType: false,
+							              enctype: "multipart/form-data",
+							              processData: false,
+							              beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+							            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+							         	  },
+							              success: function(url) {
+							            	var path = "${pageContext.request.contextPath}/resources/promotionUpload/"+url[0];
+							            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
+							            	alert(curtime);
+							            	$("#curtime").html(curtime);
+							                $(el).summernote("editor.insertImage", path);
+							                $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+							              }
+							          });//ajax
+							   	   }//sendFile
+							    });//ready
+						 	</script>
 				   </tbody>
 				   <tfoot>
 				  		<tr>

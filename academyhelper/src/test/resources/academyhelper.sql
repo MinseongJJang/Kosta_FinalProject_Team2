@@ -11,6 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+drop table users
 select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
 select usr_email from users where usr_id='java3'
 )
@@ -188,7 +189,7 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-delete academy
+drop table academy
 select * from academy
 create sequence academy_seq start with 1 nocache
 
@@ -199,7 +200,7 @@ select*from academy;
 
 /*학원 Q&A 및 시퀀스*/
 drop table aca_qna
-delete aca_qna
+DELETE from aca_qna
 create table aca_qna(
 	qna_no number primary key,
 	qna_title varchar2(100) not null,
@@ -208,6 +209,8 @@ create table aca_qna(
 	usr_id varchar2(100) not null,
 	constraint aca_qna_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_qna drop constraint aca_qna_sfk
+select * from ACA_QNA
 select r.qna_rep_no,
 		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,
 		u.nickname
@@ -217,7 +220,7 @@ select * from curriculum
 select count(*)
 		from curriculum where aca_no='1'
 select * from aca_qna
-alter table aca_qna drop column aca_no
+alter table aca_qna drop column aca_noss
 alter table aca_qna drop constraint aca_qna_ffk
 select qna_no, qna_title, qna_content, qna_regdate, usr_id from aca_qna where qna_no='12';
 create sequence aca_qna_seq start with 1 nocache
@@ -245,7 +248,7 @@ from(
 	qna_title, qna_regdate,usr_id from aca_qna
 )q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
 order by q.qna_no desc
-
+drop table aca_qna_attach_file
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
@@ -298,10 +301,17 @@ create table curriculum(
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 
+<<<<<<< HEAD
 select * from curriculum
 alter table curriculum add(cur_main_pic clob);
 alter table curriculum drop column cur_main_pic
 alter table curriculum add(cur_main_pic varchar2(1000));
+=======
+
+alter table curriculum add(cur_main_pic clob);
+select*from curriculum
+
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum

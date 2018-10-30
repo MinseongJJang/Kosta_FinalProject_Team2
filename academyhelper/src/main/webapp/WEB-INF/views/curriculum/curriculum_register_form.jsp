@@ -91,6 +91,7 @@
 										xhr.setRequestHeader("${_csrf.headerName}","${_csrf.token}");
 									},
 									success : function(url){
+										alert(url[1]);
 										curtime1 += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
 										$("#curtime1").html(curtime1);
 									}

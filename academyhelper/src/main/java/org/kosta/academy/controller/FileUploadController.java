@@ -146,6 +146,7 @@ public class FileUploadController {
 		}
 		return fileNameList;
 	}
+
 	/*
 	 *  curriculum의 main 이미지를 처리하는 곳
 	 */

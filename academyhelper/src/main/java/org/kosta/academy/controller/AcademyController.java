@@ -155,8 +155,7 @@ public class AcademyController {
 */
 		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
 		File curriculumFile = new File(curriculumUpload);
-		String[] fileNames = curriculumFile.list();
-		
+		String[] fileNames = curriculumFile.list();	
 		for(int i=0;i<curtime1.length;i++) {
 			for(int j=0;j<fileNames.length;j++) {
 				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {	
@@ -177,6 +176,7 @@ public class AcademyController {
 			for(int j=0;j<fileNames.length;j++) {
 				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
 					if(fileNames[j].contains(curtime[i])) {
+						
 						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
 						File oldFile = new File(curriculumUpload+fileNames[j]);
 						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
@@ -185,6 +185,7 @@ public class AcademyController {
 						oldFile.renameTo(newFile);
 						curriculumAttach.setCurriculumVO(curriculumVO);
 						curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
+ 
 						academyService.registerCurriculumAttach(curriculumAttach);			
 					}
 				}
@@ -197,11 +198,11 @@ public class AcademyController {
 	}
 		
 		
-	@Secured("ROLE_ADMIN")
+	/*@Secured("ROLE_ADMIN")
 	@RequestMapping("register-curriculum.do")
-	public String postDetailNoHits(String curNo) {
+	public String registercurriculum(String curNo) {
 		return "redirect:detailCurriculum.do?curNo="+curNo;
-	}
+	}*/
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculumForm.do")
@@ -223,9 +224,7 @@ public class AcademyController {
 		String acaNo=curVO.getAcademyVO().getAcaNo();
 		academyService.deleteCurriculum(curNo);
 		return new ModelAndView("redirect:detailAcademy.do?acaNo="+acaNo);
-		
 	}
-
 }
 
 	

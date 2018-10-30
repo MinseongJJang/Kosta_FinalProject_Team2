@@ -64,7 +64,7 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach) {
-		promotionMapper.registerAcaReviewAttach(promoAttach);
+		promotionMapper.registerAcaPromoAttach(promoAttach);
 	}
 
 }

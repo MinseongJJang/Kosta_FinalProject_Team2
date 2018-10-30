@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCurriculum" parameterType="curriculumVO">
 		update curriculum
 		set
-		cur_name=#{curName},limit_mem=#{limitMem},cur_content=#{curContent},cur_lecturer=#{curLecturer},cur_textbook=#{curTextbook}
+		cur_name=#{curName},cur_main_pic=#{curMainPic},limit_mem=#{limitMem},cur_content=#{curContent},cur_lecturer=#{curLecturer},cur_textbook=#{curTextbook}
 		where cur_no=#{curNo}
 	</update>
 	<delete id="deleteCurriculum">
@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="detailCurriculum" resultMap="curriculumRM">
 		select
-		c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		c.cur_no,c.cur_name,c.cur_main_pic,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
 		from curriculum
 		c,academy a where
 		c.aca_no=a.aca_no and
