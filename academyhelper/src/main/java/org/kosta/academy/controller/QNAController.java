@@ -42,6 +42,7 @@ public class QNAController {
 	@RequestMapping("listAcaQNAReply.do")
 	@ResponseBody
 	public ListVO listQnaReply(String qnaNo, String pageNo, Model model) {
+		System.out.println(qnaNo);
 		if(pageNo==null) {
 			pageNo="1";
 		}
