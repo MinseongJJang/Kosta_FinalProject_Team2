@@ -9,6 +9,7 @@ import org.kosta.academy.model.mapper.QNAMapper;
 import org.kosta.academy.model.mapper.QNAReplyMapper;
 import org.kosta.academy.model.vo.AcaQNAReplyVO;
 import org.kosta.academy.model.vo.AcaQNAVO;
+import org.kosta.academy.model.vo.AcaQNQAttachFileVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,19 @@ public class QNAServiceImpl implements QNAService {
 	private QNAReplyMapper qnaReplyMapper;
 
 	@Override
-	public void registerAcaQNA(AcaQNAVO acaQNAVO) {
-		qnaMapper.registerAcaQNA(acaQNAVO);
+	public void registerAcaQNA(AcaQNAVO acaQnaVO, AcaQNQAttachFileVO acaQnaAttachFileVO) {
+		
+		/*
+		 * DB에 정보를 저장할 때 파일이 정상적으로 추가되었는 지 여부를 판단하기 위해 추가했던 !!@@를 지우고 추가한다.
+		 */
+		acaQnaVO.setQnaContent(acaQnaVO.getQnaContent().replaceAll("!!@@", ""));
+		qnaMapper.registerAcaQNA(acaQnaVO);
+		acaQnaAttachFileVO.setAcademyQNAVO(acaQnaVO);
+		System.out.println(acaQnaAttachFileVO.getQnaFilepath());
+		if(acaQnaAttachFileVO.getQnaFilepath() !=null) {
+			qnaMapper.registerAcaQNAFile(acaQnaAttachFileVO);
+		}
 	}
-
 	@Override
 	public ListVO listAcaQNA(String pageNo) {
 		int totalCount = qnaMapper.getTotalQNACount();
@@ -105,5 +115,11 @@ public class QNAServiceImpl implements QNAService {
 	public String getAcaQnAReply(String qnaRepNo) {
 		return qnaReplyMapper.getAcaQnAReply(qnaRepNo);
 	}
+	@Override
+	public void registerAcaQnaAttach(AcaQNQAttachFileVO acaQnaAttachFileVO) {
+		qnaMapper.registerAcaQnaAttach(acaQnaAttachFileVO);
+	}
+
+	
 	
 }

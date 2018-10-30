@@ -174,9 +174,7 @@ public class AcademyController {
 		String acaNo=curVO.getAcademyVO().getAcaNo();
 		academyService.deleteCurriculum(curNo);
 		return new ModelAndView("redirect:detailAcademy.do?acaNo="+acaNo);
-		
 	}
-
 }
 
 	
