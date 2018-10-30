@@ -6,7 +6,7 @@
 <sec:authentication var="mvo" property="principal"/>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var mvoId ="";
+		var mvoId = $("mvoId").val();
 		var usrId = "";
 		var acaRevRepNo = "";
 		var acaRevNo = "";
@@ -57,7 +57,7 @@
 				info +='<input type="hidden" name="userVO.usrId" value="'+usrId+'">'
 				info +='<input type="hidden" name="acaRevRepNo" value="'+acaRevRepNo+'">';
 				info +='<input type="hidden" name="acaReviewPostVO.acaRevNo" value="'+acaRevNo+'">';
-				if(mvoId == usrId){
+				if(mvoId !="" && mvoId == usrId){
 					info +='<input type="button" id="updateReply'+index+'" onclick="updateReplyForm\(\''+index+'\',\''+usrId+'\',\''+acaRevNo+'\',\''+acaRevRepNo+'\',\''+mvoId+'\')" value="수정">';
 					info +='<input type="button" id="deleteReply'+index+'" onclick="deleteReply('+index+')" value="삭제">';
 				}
@@ -116,6 +116,7 @@
  		});//ajax
  	}
  	function updatePaging(result){
+ 		mvoId = $("#mvoId").val();
  		var info ="";
  		var end = result.endPageOfPageGroup+1;
  		var start = result.startPageOfPageGroup-1;
@@ -137,7 +138,7 @@
 		$("#pagingInfo").html(info);
  	}
 </script> 
-	
+<input type="hidden" value="${mvo.usrId }" id="mvoId">
 
 <div class="container">
 	<div class="row">
