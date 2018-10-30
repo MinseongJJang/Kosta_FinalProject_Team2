@@ -1,5 +1,7 @@
 package org.kosta.academy.controller;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,8 +9,10 @@ import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.ReviewService;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
+import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -142,17 +146,64 @@ public class AcademyController {
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
-	public String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
+	public ModelAndView registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO
+			,String[] curtime) {
+		ModelAndView mv = new ModelAndView();
+/*	String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		academyService.registerCurriculum(curriculumVO);
 		redirectAttributes.addAttribute("curNo", curriculumVO.getCurNo());
 		return "redirect:register-curriculum.do";
 		}
-	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("register-curriculum.do")
-	public String postDetailNoHits(String curNo) {
-		return "redirect:detailCurriculum.do?curNo="+curNo;
+*/
+		academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
+		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
+		File curriculumFile = new File(curriculumUpload);
+		String[] fileNames = curriculumFile.list();
+		System.out.println(curtime);
+		System.out.println(curtime.length);
+		System.out.println(fileNames);
+		System.out.println(fileNames.length);
+		System.out.println("========");
+
+		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
+		for(int i=0;i<curtime.length;i++) {
+			//System.out.println(curtime);
+			System.out.println(curtime[i]);
+
+			for(int j=0;j<fileNames.length;j++) {
+				System.out.println("=============================");
+				System.out.println(fileNames[j]);
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
+					if(fileNames[j].contains(curtime[i])) {
+						
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(curriculumUpload+fileNames[j]);
+						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
+						curriculumAttach.setCurriculumVO(curriculumVO);
+						curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
+						System.out.println(oldFile);
+						System.out.println(newFile);
+ 
+						academyService.registerCurriculumAttach(curriculumAttach);			
+					}
+				}
+			}
+		}
+		String curNo=curriculumVO.getCurNo();
+		mv.setViewName("redirect:detailCurriculum.do?curNo="+curNo);
+		return mv;
+
 	}
+		
+		
+	/*@Secured("ROLE_ADMIN")
+	@RequestMapping("register-curriculum.do")
+	public String registercurriculum(String curNo) {
+		return "redirect:detailCurriculum.do?curNo="+curNo;
+	}*/
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculumForm.do")

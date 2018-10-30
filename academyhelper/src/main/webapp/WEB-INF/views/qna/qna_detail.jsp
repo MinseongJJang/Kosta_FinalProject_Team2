@@ -99,29 +99,29 @@
                   
                   <div class="col-sm-1"></div>
                   <div class="col-sm-10" align="center">
-                  <div class="pagingInfo">
+                  <div class="pagingInfo" id="qnaReplyPagingRefresh">
       <c:set var="pb" value="${requestScope.listQNAReply.pb}"></c:set>
       <ul class="pagination">
          <c:if test="${pb.previousPageGroup}">
-            <li><a
-               href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.startPageOfPageGroup-1}&qnaNo=${requestScope.detailQNA.qnaNo}">&laquo;</a></li>
-         </c:if>
+            <li>
+            <a href="javascript:pageMove('${pb.startPageOfPageGroup-1}')">&laquo;</a></li>
+            </c:if>
          <c:forEach var="i" begin="${pb.startPageOfPageGroup}"
             end="${pb.endPageOfPageGroup}">
             <c:choose>
                <c:when test="${pb.nowPage!=i}">
                   <li><a
-                     href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${i}&qnaNo=${requestScope.detailQNA.qnaNo}">${i}</a></li>
+                     href="javascript:pageMove('${i}')">${i}</a></li>
                </c:when>
                <c:otherwise>
-                  <li class="active"><a href="#">${i}</a></li>
+                  <li class="active"><a href="javascript:pageMove('${i}')#">${i}</a></li>
                </c:otherwise>
             </c:choose>
    &nbsp;
    </c:forEach>
          <c:if test="${pb.nextPageGroup}">
             <li><a
-               href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.endPageOfPageGroup+1}&qnaNo=${requestScope.detailQNA.qnaNo}">&raquo;</a></li>
+               href="javascript:pageMove('${pb.endPageOfPageGroup+1}')">&raquo;</a></li>
          </c:if>
       </ul>
    </div>
@@ -132,6 +132,8 @@
                   <form id="qnaReplyRegister" method="post">
                         <input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
                         <input type="hidden" name="acaQNAVO.qnaNo"
+                           value="${detailQNA.qnaNo}">
+                            <input type="hidden" name="qnaNo"
                            value="${detailQNA.qnaNo}">
                         <textarea required class="form-control" rows="1" id="qnaRepContentRegister"
                            name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
@@ -171,9 +173,10 @@ $(document).ready(function(){
             },
 			success:function(result){
 				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.pb);
 			},
 			complete : function() {
-				$("#qnaReplyRegister").val();
+				$("#qnaReplyRegister").val("");
 				$("#qnaRepContentRegister").val("");
 		    }
 		});//ajax
@@ -188,6 +191,10 @@ $(document).ready(function(){
 	            );
 	   });//click
 	$(document).on("click",".replyBtn"+$(this).val(),function(event){
+		if($("#qnaRepContent"+$(this).val()).val()==""){
+			alert("수정내용을입력하셈");
+			return false;
+		}
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
@@ -197,9 +204,10 @@ $(document).ready(function(){
             },
 			success:function(result){
 				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.pb);
 			},
 			complete : function() {
-				$("#updateQnaReply"+$(this).val());
+				$("#updateQnaReply"+$(this).val(""));
 		    }
 		});//ajax
 		$("#replyBtn"+$(this).val()).hide();
@@ -217,41 +225,77 @@ $(document).ready(function(){
 	            },
 				success: function(result){
 					qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+					qnaReplyPagingRefresh(result.pb);
 				},
 				complete : function() {
-					$("#deleteQnaReply"+$(this).val());
+					$("#deleteQnaReply"+$(this).val(""));
 			    }
 			});//ajax
 		}//if
 	});//click
-	function qnaReplyRefresh(acaQNAReplyList,pb){
-        var info="";
-        $.each(acaQNAReplyList, function(index,listQNAReply){
-        index=index+1;
-        info+="<div class='col-sm-12'><div class='col-sm-1'></div>";
-        info+="<div class='col-sm-1'>";
-        info+="<p align='left'>"+listQNAReply.userVO.nickname+"</p>";
-        info+="</div>";
-        info+="<div class='col-sm-7'>";
-        info+="<form id='updateQnaReply"+index+"'>";
-        info+="<div align='left' id='modifyReplyDiv_"+index+"'>";
-        info+="<pre style='display:block;' id='content"+index+"'>"+listQNAReply.qnaRepContent+"</pre></div>";
-        info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
-        info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
-        info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'></form></div>";
-        info+="<form id='deleteQnaReply"+index+"'>";
-        info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
-        info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'>";
-        info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
-        info+="</form><div align='right' class='col-sm-2'>";
-        info+="<button type='button' class='aca-btn jBtn' id='modifyReply' value='"+index+"'>수정</button>";
-        info+="<button form='updateQnaReply"+index+"' style='display:none;' type='button' class='aca-btn replyBtn'";
-        info+="id='replyBtn"+index+"' value='"+index+"'>수정</button>";
-        info+="<button form='qnaReplyDelete"+index+"' class='aca-btn replyDeleteBtn' type='button'";
-        info+="id='replyDeleteBtn"+index+"' value='"+index+"'>삭제</button>";
-        info+="</div><div class='col-sm-1'></div></div>";
-        });
-        $("#refreshReply").html(info);
-        }
 });//ready
+function pageMove(pageNo){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/listAcaQNAReply.do",
+			data:$("#qnaReplyRegister").serialize()+"&pageNo="+pageNo,
+			beforeSend : function(xhr){
+				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			},
+			success : function(result){
+				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.pb);
+			}
+		});//ajax
+	}
+function qnaReplyRefresh(acaQNAReplyList,pb){
+    var info="";
+    $.each(acaQNAReplyList, function(index,listQNAReply){
+    index=index+1;
+    info+="<div class='col-sm-12'><div class='col-sm-1'></div>";
+    info+="<div class='col-sm-1'>";
+    info+="<p align='left'>"+listQNAReply.userVO.nickname+"</p>";
+    info+="</div>";
+    info+="<div class='col-sm-7'>";
+    info+="<form id='updateQnaReply"+index+"'>";
+    info+="<div align='left' id='modifyReplyDiv_"+index+"'>";
+    info+="<pre style='display:block;' id='content"+index+"'>"+listQNAReply.qnaRepContent+"</pre></div>";
+    info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
+    info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
+    info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'></form></div>";
+    info+="<form id='deleteQnaReply"+index+"'>";
+    info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
+    info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'>";
+    info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
+    info+="</form><div align='right' class='col-sm-2'>";
+    info+="<button type='button' class='aca-btn jBtn' id='modifyReply' value='"+index+"'>수정</button>";
+    info+="<button form='updateQnaReply"+index+"' style='display:none;' type='button' class='aca-btn replyBtn'";
+    info+="id='replyBtn"+index+"' value='"+index+"'>수정</button>";
+    info+="<button form='qnaReplyDelete"+index+"' class='aca-btn replyDeleteBtn' type='button'";
+    info+="id='replyDeleteBtn"+index+"' value='"+index+"'>삭제</button>";
+    info+="</div><div class='col-sm-1'></div></div>";
+    });
+    $("#refreshReply").html(info);
+    }
+function qnaReplyPagingRefresh(pb){
+	var paging="<ul class='pagination'>";
+	var start=pb.startPageOfPageGroup-1;
+    var end=pb.endPageOfPageGroup+1;
+      if(pb.previousPageGroup){
+    	 paging+='<li><a href="javascript:pageMove('+start+')">&laquo;</a></li>'; 
+      }
+      for(var i=pb.startPageOfPageGroup;i<=pb.endPageOfPageGroup;i++){
+    	  if(pb.nowPage!=i){
+    		  paging+='<li><a href="javascript:pageMove('+i+')">'+i+'</a></li>';
+    	  }else{
+    		  paging+='<li class="active"><a href="javascript:pageMove('+i+')#">'+i+'</a></li>';
+    	  }
+    	  paging+="&nbsp;";
+     }   
+     if(pb.nextPageGroup){
+    	 paging+='<li><a href="javascript:pageMove('+end+')">&raquo;</a></li>';
+ 	 }
+     paging+="</ul>";
+     $("#qnaReplyPagingRefresh").html(paging);
+}
 </script>
