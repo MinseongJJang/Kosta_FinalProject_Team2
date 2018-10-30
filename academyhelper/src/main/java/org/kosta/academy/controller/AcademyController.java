@@ -159,12 +159,23 @@ public class AcademyController {
 		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
 		File curriculumFile = new File(curriculumUpload);
 		String[] fileNames = curriculumFile.list();
+		System.out.println(curtime);
+		System.out.println(curtime.length);
+		System.out.println(fileNames);
+		System.out.println(fileNames.length);
+		System.out.println("========");
+
 		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
 		for(int i=0;i<curtime.length;i++) {
+			//System.out.println(curtime);
+			System.out.println(curtime[i]);
+
 			for(int j=0;j<fileNames.length;j++) {
+				System.out.println("=============================");
 				System.out.println(fileNames[j]);
 				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
 					if(fileNames[j].contains(curtime[i])) {
+						
 						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
 						File oldFile = new File(curriculumUpload+fileNames[j]);
 						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
@@ -173,6 +184,9 @@ public class AcademyController {
 						oldFile.renameTo(newFile);
 						curriculumAttach.setCurriculumVO(curriculumVO);
 						curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
+						System.out.println(oldFile);
+						System.out.println(newFile);
+
 						academyService.registerCurriculumAttach(curriculumAttach);			
 					}
 				}
@@ -185,11 +199,11 @@ public class AcademyController {
 	}
 		
 		
-	@Secured("ROLE_ADMIN")
+	/*@Secured("ROLE_ADMIN")
 	@RequestMapping("register-curriculum.do")
-	public String postDetailNoHits(String curNo) {
+	public String registercurriculum(String curNo) {
 		return "redirect:detailCurriculum.do?curNo="+curNo;
-	}
+	}*/
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculumForm.do")

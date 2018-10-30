@@ -297,6 +297,11 @@ create table curriculum(
 	cur_textbook varchar2(100) not null,
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
+
+
+alter table curriculum add(cur_main_pic clob);
+select*from curriculum
+
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum

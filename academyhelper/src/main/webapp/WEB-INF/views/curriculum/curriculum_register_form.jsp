@@ -23,10 +23,57 @@
 				</td>
 			</tr> 
 			<tr>
+				<td>타이틀 사진 <span id="curtime"></span>
+				</td>
+				<td><textarea cols="90" rows="15" name="curMainPic" id="curMainPic"
+						required="required" placeholder="본문내용을 입력하세요"></textarea> 	<script>
+							$(document).ready(function() {
+												var curtime = "";
+												$('#curMainPic').summernote({
+													height : 500,
+													minHeight : null,
+													maxHeight : null,
+													callbacks : {
+													onImageUpload : function(files, editor, welEditable) {
+														for (var i = files.length - 1; i >= 0; i--) {
+															sendFile(files[i],this);
+															}
+														}
+													}
+												});//summernote
+												function sendFile(file, el) {
+													var form_data = new FormData();
+													form_data.append("file",file);
+													$.ajax({
+														data : form_data,
+														type : "POST",
+														url : "curriculum-file-upload.do",
+														cache : false,
+														contentType : false,
+														enctype : "multipart/form-data",
+														processData : false,
+														beforeSend : function(xhr) { /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+																	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+														},
+														success : function(url) {
+															var path = "${pageContext.request.contextPath}/resources/curriculumUpload/"+ url[0];
+															curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
+																	$("#curtime").html(curtime);
+																	$(el).summernote("editor.insertImage", path);
+																	$('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+																}
+															});//ajax
+													}//sendFile
+												});//ready
+						</script>
+			</td>
+			</tr>
+			<tr>
 				<td>최대 수강인원 &nbsp;&nbsp; <input type="number" name="limitMem"
 					placeholder="숫자만 입력해주세요!" required="required">
 				</td>
 			</tr>
+			
 			<tr>
 				<td>내용 <span id="curtime"></span>
 				</td>
