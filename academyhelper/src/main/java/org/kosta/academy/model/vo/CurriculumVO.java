@@ -1,5 +1,7 @@
 package org.kosta.academy.model.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CurriculumVO {
 	private String curNo;
 	private String curName;
@@ -7,6 +9,7 @@ public class CurriculumVO {
 	private String limitMem;
 	private String curContent;
 	private String curTextbook;
+	private String curMainPic;
 	private AcademyVO academyVO;
 	
 	public CurriculumVO() {
@@ -81,12 +84,20 @@ public class CurriculumVO {
 		this.academyVO = academyVO;
 	}
 
+	public String getCurMainPic() {
+		return curMainPic;
+	}
+
+	public void setCurMainPic(String curMainPic) {
+		this.curMainPic = curMainPic;
+	}
+
 	@Override
 	public String toString() {
 		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", curLecturer=" + curLecturer + ", limitMem="
-				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + ", academyVO=" + academyVO
-				+ "]";
+				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + ", curMainPic="
+				+ curMainPic + ", academyVO=" + academyVO + "]";
 	}
-	
+
 
 }

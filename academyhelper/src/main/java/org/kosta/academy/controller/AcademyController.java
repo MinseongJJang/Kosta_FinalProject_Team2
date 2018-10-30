@@ -12,7 +12,6 @@ import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
-import org.kosta.academy.model.vo.SuggestionPostAttachFileVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AcademyController {
@@ -98,7 +96,7 @@ public class AcademyController {
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
-		
+		System.out.println(listVO.getCurriculumList());
 		return "academy/academy_detail.tiles";
 	}
 	@Secured("ROLE_ADMIN")
@@ -147,7 +145,7 @@ public class AcademyController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
 	public ModelAndView registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO
-			,String[] curtime) {
+			,String[] curtime,String[] curtime1) {
 		ModelAndView mv = new ModelAndView();
 /*	String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		academyService.registerCurriculum(curriculumVO);
@@ -155,14 +153,28 @@ public class AcademyController {
 		return "redirect:register-curriculum.do";
 		}
 */
-		academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
 		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
 		File curriculumFile = new File(curriculumUpload);
 		String[] fileNames = curriculumFile.list();
+		
+		for(int i=0;i<curtime1.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {	
+					if(fileNames[j].substring(fileNames[j].length()-14,fileNames[j].length()-8).equals("@main@")&&fileNames[j].contains(curtime1[i])) {
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(curriculumUpload+fileNames[j]);
+						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						curriculumVO.setCurMainPic("/academy/resources/curriculumUpload/"+builderFile);
+						academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
+						oldFile.renameTo(newFile);
+						curriculumVO.setCurMainPic(curriculumUpload+builderFile);
+					}
+				}
+			}
+		}
 		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
 		for(int i=0;i<curtime.length;i++) {
 			for(int j=0;j<fileNames.length;j++) {
-				System.out.println(fileNames[j]);
 				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
 					if(fileNames[j].contains(curtime[i])) {
 						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
