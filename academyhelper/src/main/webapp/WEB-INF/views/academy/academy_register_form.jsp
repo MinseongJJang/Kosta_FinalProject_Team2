@@ -2,14 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%> 
-<div class="container" >
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<div class="container">
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align:center;" align="center">
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<sec:authentication var="mvo" property="principal" />  
-				<form action = "registerAcademy.do" method="post">
+			<form action = "registerAcademy.do" method="post">
 			<sec:csrfInput/>
 			<table class="table">
 				   <thead style="text-align:center;">
@@ -21,7 +26,7 @@
 						</tr>
 				   </thead>
 				   <tbody>
-						<tr >
+						<tr>
 					        <th>학원 이름</th>
 					        <td colspan="2"><input type="text" name="acaName" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
 				      	</tr>
@@ -35,10 +40,62 @@
 								<span id="guide" style="color:#999"></span>
 							</td>
 				      	</tr>
-				      	<tr >
+				      	<tr>
 					        <th>학원 전화번호</th>
 					        <td colspan="2"><input type="text" name="acaTel" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
 				      	</tr>
+				      	<tr>
+				      		<th>학원 대표 사진
+				      			<span id="curtime"></span>
+				      		</th>
+				      		<td>
+				   			<script>
+							    $(document).ready(function() {
+							    	var curtime = "";
+							        $('#acaMainPic').change(function() {
+							        	$.ajax({
+								              data: ("#file").serialize(),
+								              type: "POST",
+								              url: "academy-file-upload.do",
+								              cache: false,
+								              contentType: false,
+								              enctype: "multipart/form-data",
+								              processData: false,
+								              beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+								            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+								         	  },
+								              success: function(url) {
+								            	var path = "${pageContext.request.contextPath}/resources/academyUpload/"+url[0];
+								            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
+								            	alert(curtime);
+								            	$("#curtime").html(curtime);
+								                $(el).summernote("editor.insertImage", path);
+								                $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+								              }
+								          });//ajax
+							        })
+							        
+							        /* ({
+							        	 height: 500,               
+							        	 minHeight: null,           
+							        	 maxHeight: null,  
+							        	 callbacks: {
+							                 onImageUpload: function(files, editor, welEditable) {
+							                   for (var i = files.length - 1; i >= 0; i--) {
+							                     sendFile(files[i], this);
+							                   }
+							                 }
+							             }
+							        });//summernote */
+							        function sendFile(file, el) {
+							            var form_data = new FormData();
+							            form_data.append("file", file);
+							            
+							   	   }//sendFile
+							    });//ready
+						 	</script>
+						 	</td>
+						 	</tr>
 				   </tbody>
 				   <tfoot>
 				  		<tr>
@@ -55,13 +112,16 @@
 				   </tfoot>
 				</table>
 			  </form>
+			  <form>
+				    <input type="file" id="file" name="file">
+					<input type="submit">
+			  </form>
 			  </sec:authorize>
 			</div>
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
 </div>
-
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.

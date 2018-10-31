@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.kosta.academy.model.mapper.AcademyMapper;
 import org.kosta.academy.model.mapper.CurriculumMapper;
+import org.kosta.academy.model.vo.AcaAttachFileVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -20,11 +21,6 @@ public class AcademyServiceImpl implements AcademyService {
 	private AcademyMapper academyMapper;
 	@Resource
 	private CurriculumMapper curriculumMapper;
-
-	@Override
-	public void registerAcademy(AcademyVO academyVO) {
-		academyMapper.registerAcademy(academyVO);
-	}
 
 	@Override
 	public ListVO listAcademy(String pageNo) {
@@ -70,15 +66,23 @@ public class AcademyServiceImpl implements AcademyService {
 	@Override
 	public void registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO) {
 		curriculumVO.setCurContent(curriculumVO.getCurContent().replaceAll("!!@@", ""));
+		System.out.println(curriculumVO);
 		curriculumMapper.registerCurriculum(curriculumVO);
 		curriculumAttachFileVO.setCurriculumVO(curriculumVO);
 		if(curriculumAttachFileVO.getCurriculumFilepath() !=null) {
 			curriculumMapper.registerCurriculumFile(curriculumAttachFileVO);
 		}
-		
-
 	}
-
+	@Override
+	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO) {
+		academyVO.setAcaMainPic(academyVO.getAcaMainPic().replaceAll("!!@@", ""));
+		academyMapper.registerAcademy(academyVO);
+		acaAttachFileVO.setAcademyVO(academyVO);
+		if(acaAttachFileVO.getAcaFilepath() !=null) {
+			academyMapper.registerAcademyFile(acaAttachFileVO);
+		}
+	}
+	
 	@Override
 	public ListVO listCurriculum(String acaNo, String pageNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -122,8 +126,13 @@ public class AcademyServiceImpl implements AcademyService {
 	}
 
 	@Override
-	public void updateCurriculum(CurriculumVO curriculumVO) {
+	public void updateCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO) {
+		curriculumVO.setCurContent(curriculumVO.getCurContent().replaceAll("!!@@", ""));
 		curriculumMapper.updateCurriculum(curriculumVO);
+		curriculumAttachFileVO.setCurriculumVO(curriculumVO);
+		if(curriculumAttachFileVO.getCurriculumFilepath() !=null) {
+			curriculumMapper.updateCurriculumFile(curriculumAttachFileVO);
+		}
 	}
 
 	@Override
@@ -147,6 +156,8 @@ public class AcademyServiceImpl implements AcademyService {
 	public void registerCurriculumAttach(CurriculumAttachFileVO curriculumAttachFileVO) {
 		curriculumMapper.registerCurriculumFile(curriculumAttachFileVO);
 	}
-	
-
+	@Override
+	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO) {
+		academyMapper.registerAcademyFile(acaAttachFileVO);
+	}
 }

@@ -11,6 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+drop table users
 select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
 select usr_email from users where usr_id='java3'
 )
@@ -20,7 +21,7 @@ select sysdate from dual;
 select*from users;
 select * from aca_users;
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
-values('java','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
+values('academy','1','윤준상','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
 insert into users(usr_id,usr_pass,usr_name,usr_addr,enabled,nickname,birthday,usr_regdate,usr_email,usr_tel) 
 values('admin','1','관리자','판교',1,'자바','19841030',sysdate,'hopemans30@gmail.com','01042842646');
 insert into users(usr_id, usr_pass, usr_name, usr_addr, nickname, birthday, usr_regdate, usr_email, usr_tel) 
@@ -188,6 +189,7 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+<<<<<<< HEAD
 create table aca_attach_file(
    aca_att_no number primary key,
    aca_filepath varchar2(1000) not null,
@@ -198,17 +200,31 @@ create sequence aca_attach_file_seq start with 1 nocache
 alter table academy add(aca_main_pic clob)
 create 
 delete academy
+=======
+drop table academy
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 select * from academy
 create sequence academy_seq start with 1 nocache
+alter table academy add(aca_main_pic clob);
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
 values(academy_seq.nextval,'코스타1','판교','0312558779','java0');
 
 select*from academy;
 
+/*학원 첨부 파일 및 시퀀스*/
+drop table aca_attach_file
+create table aca_attach_file(
+	aca_att_no number primary key,
+	aca_filepath varchar2(1000) not null,
+	aca_no number not null,
+	constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocache
+
 /*학원 Q&A 및 시퀀스*/
 drop table aca_qna
-delete aca_qna
+DELETE from aca_qna
 create table aca_qna(
 	qna_no number primary key,
 	qna_title varchar2(100) not null,
@@ -217,16 +233,18 @@ create table aca_qna(
 	usr_id varchar2(100) not null,
 	constraint aca_qna_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_qna drop constraint aca_qna_sfk
+select * from ACA_QNA
 select r.qna_rep_no,
 		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,
 		u.nickname
 		from
 		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no='7'
-
+select * from curriculum
 select count(*)
 		from curriculum where aca_no='1'
 select * from aca_qna
-alter table aca_qna drop column aca_no
+alter table aca_qna drop column aca_noss
 alter table aca_qna drop constraint aca_qna_ffk
 select qna_no, qna_title, qna_content, qna_regdate, usr_id from aca_qna where qna_no='12';
 create sequence aca_qna_seq start with 1 nocache
@@ -254,7 +272,7 @@ from(
 	qna_title, qna_regdate,usr_id from aca_qna
 )q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
 order by q.qna_no desc
-
+drop table aca_qna_attach_file
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
@@ -306,7 +324,22 @@ create table curriculum(
 	cur_textbook varchar2(100) not null,
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
+<<<<<<< HEAD
 alter table curriculum add(cur_main_pic clob)
+=======
+
+<<<<<<< HEAD
+select * from curriculum
+alter table curriculum add(cur_main_pic clob);
+alter table curriculum drop column cur_main_pic
+alter table curriculum add(cur_main_pic varchar2(1000));
+=======
+
+alter table curriculum add(cur_main_pic clob);
+select*from curriculum
+
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -320,7 +353,31 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 		order by c.cur_no desc
 		
 delete from curriculum where cur_no='2';
+select
+			curriculum_seq.nextval from dual
+select
+		c.cur_no,c.cur_name,NVL( c.cur_main_pic, 'UNKNOWN' ),c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no='99'
+		
+		select
+		c.cur_no,c.cur_name,c.cur_main_pic,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no='112'
+		
+	insert into
+		curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,cur_main_pic)
+		values('100','5','자바','15','ㅁㅁ','ㅁ','ㅎ','ㅂ')
 
+select cur_no,cur_name,NVL( cur_main_pic, 'UNKNOWN' ),limit_mem,cur_content,cur_lecturer,cur_textbook
+		from curriculum
+		 where
+		cur_no='99'
+		
 create sequence curriculum_seq start with 1 nocache
 insert into curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook) 
 values(curriculum_seq.nextval,'1','자바의 기초',10,'자바 쉽지 않지만 재밌다.','윤준상','자바의 정석');
@@ -666,6 +723,7 @@ create table cur_attach_file(
 
 create sequence cur_attach_file_seq start with 1 nocache
 
+<<<<<<< HEAD
 select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
 	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
 	where upper (cur_name) LIKE '%'||upper('sp')||'%' and a.aca_no = c.aca_no 
@@ -679,4 +737,14 @@ select * from curriculum
 	and  rnum between 1  and 10 order by a.aca_no desc
 
 
+=======
+drop table aca_attach_file
+create table aca_attach_file(
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocachecurr
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 

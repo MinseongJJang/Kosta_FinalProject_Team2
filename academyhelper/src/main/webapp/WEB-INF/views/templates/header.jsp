@@ -37,10 +37,15 @@
 		</li>
 		<li>
 			<div id="chatStatus"></div>
-			<textarea name="chatMsg" rows="18" cols="27"></textarea>
+			<textarea name="chatMsg" rows="18" cols="27" readonly="readonly" style="overflow-y:scroll" id="chatMsg"></textarea>
 		</li>
 		<li>
+			<sec:authorize access="!hasRole('ROLE_USER')">
+				<div>로그인이 필요합니다.</div>
+			</sec:authorize> 
+			<sec:authorize access="hasRole('ROLE_USER')">
 			<input type="text" placeholder="채팅 메세지를 입력하세요"  name="chatInput" autofocus="autofocus" style="width:210px" id="messageinput">
+			</sec:authorize>
 		</li>
 	</ul>
 </div>
@@ -109,6 +114,7 @@
 									<sec:authorize access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and hasRole('ROLE_ADMIN')">
 										<a href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">관리자 정보</a>
 									</sec:authorize>
+									<input type="hidden" value="${mvo.usrId }" id="usrId">
 								</li>
 							</ul>
 						</li>
@@ -140,7 +146,6 @@
 	    var ws = new WebSocket("ws://192.168.0.135:8888/academyhelper/chat-ws.do");
 	   	//onopen : 웹소켓이 열리면 호출됨      
 	    ws.onopen = function () {
-	    	alert('1123123213');	
 	        $('#chatStatus').text('Info: connection opened.');	 
 	        $('input[name=chatInput]').keyup(function(event){
 	        	  if(event.keyCode==13){
@@ -153,7 +158,8 @@
 		    };
 		    //onmessage : 서버가 보낸 메세지가 도착하면 호출됨 
 		    ws.onmessage = function (event) {
-		        $('textarea').eq(0).prepend(event.data+'\n');
+		        $('textarea').eq(0).append(event.data+'\n');
+		        document.getElementById("chatMsg").scrollTop = document.getElementById("chatMsg").scrollHeight;
 		    };
 		    //onclose : 웹소켓이 닫히면 호출됨 
 		    ws.onclose = function (event) {

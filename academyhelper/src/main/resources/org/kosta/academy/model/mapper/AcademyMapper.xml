@@ -18,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<select id="listAcademy" resultMap="usrIdRM"  parameterType="pagingBean">
 		select a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, u.usr_id, u.nickname
-		from(select row_number() over(order by aca_no asc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id from academy) a, users u
-		where a.usr_id = u.usr_id  and rnum between #{startRowNumber}  and #{endRowNumber} order by aca_no asc
+		from(select row_number() over(order by aca_no desc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id from academy) a, users u
+		where a.usr_id = u.usr_id  and rnum between #{startRowNumber}  and #{endRowNumber} order by aca_no desc
 	</select>
 	<select id="allListAcademy" resultType="academyVO">
 		select * from academy
@@ -56,4 +56,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAcademyByAcaNo" parameterType="string" resultType="academyVO">
 		select aca_name from academy where aca_no = #{value}
 	</select>
+	<insert id="registerAcademyFile" parameterType="acaAttachFileVO" >
+		insert into aca_attach_file(cur_att_no,cur_filepath,cur_no)
+		values(cur_attach_file_seq.nextval,#{curriculumFilepath},#{curriculumVO.curNo})
+	</insert>
 </mapper>

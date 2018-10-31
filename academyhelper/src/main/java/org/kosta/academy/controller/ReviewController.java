@@ -76,7 +76,6 @@ public class ReviewController {
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
 		if(lvo!=null) {
-			System.out.println(lvo.getAcaReviewReplyList());
 			mv.addObject("reply",lvo);
 		}else {
 			mv.addObject("reply","null");
@@ -168,35 +167,33 @@ public class ReviewController {
 	}
 	
 	@PostMapping("registerReviewReply.do")
-	public String registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
+	@ResponseBody
+	public ListVO registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
 		reviewService.registerAcaReviewReply(acaReviewReplyVO);
-		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo();
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
 	}
 
 	@PostMapping("deleteReviewReply.do")
-	public String deleteAcaReviewReply(String acaRevRepNo, String acaRevNo) {
-		reviewService.deleteAcaReviewReply(acaRevRepNo);
-		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaRevNo;
+	@ResponseBody
+	public ListVO deleteAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO , String pageNo) {
+		reviewService.deleteAcaReviewReply(acaReviewReplyVO.getAcaRevRepNo());
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
 	}
 
 	@PostMapping("updateReviewReply.do")
 	@ResponseBody
-	public String updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-		try {
-		System.out.println(acaReviewReplyVO.getAcaRevRepContent());
-		if(acaReviewReplyVO.getAcaRevRepContent()==" "||acaReviewReplyVO.getAcaRevRepContent()=="") {
-			return null;
-		}else {
-			reviewService.updateAcaReviewReply(acaReviewReplyVO);
-			String acaRevRepNo=acaReviewReplyVO.getAcaRevRepNo();
-			String content=reviewService.getAcaReviewReply(acaRevRepNo);
-			return content;
-		}
-		
-		}catch(Exception e) {
-			System.out.println(acaReviewReplyVO.getAcaRevRepContent());
-			return null;
-		}
-		
+	public ListVO updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
+		reviewService.updateAcaReviewReply(acaReviewReplyVO);
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
+	}
+	@PostMapping("listReviewReply.do")
+	@ResponseBody
+	public ListVO listAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
+		System.out.println(pageNo);
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
 	}
 }

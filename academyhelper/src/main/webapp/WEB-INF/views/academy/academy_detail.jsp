@@ -21,7 +21,6 @@ $(document).ready(function(){
  
  
  
- 
 <div class="container">
    <div class="row">
       <div class="col-sm-1"></div>
@@ -81,6 +80,8 @@ $(document).ready(function(){
                   </sec:authorize>
                      <tr>
                         <th>과정번호</th>
+			 <th>과정사진</th>
+                        
                         <th colspan="3">과정이름</th>
                         <th>강사명</th>
                         <th>정원</th>
@@ -90,6 +91,7 @@ $(document).ready(function(){
                      <c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
                      <tr>
                         <td>${curriculum.curNo }</td>
+                        <td><img src="${curriculum.curMainPic }"></td>
                         <td colspan="3"><a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">${curriculum.curName }</a></td>
                         <td>${curriculum.curLecturer }</td>
                         <td>${curriculum.limitMem }</td>
