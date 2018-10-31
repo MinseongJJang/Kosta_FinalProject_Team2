@@ -21,7 +21,6 @@ $(document).ready(function(){
  
  
  
- 
 <div class="container">
    <div class="row">
       <div class="col-sm-1"></div>
@@ -89,7 +88,7 @@ $(document).ready(function(){
                      </tr>
                      <c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
                      <tr>
-                        <td>${curriculum.curNo }</td>
+                        <td><img src="${curriculum.curMainPic }"></td>
                         <td colspan="3"><a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">${curriculum.curName }</a></td>
                         <td>${curriculum.curLecturer }</td>
                         <td>${curriculum.limitMem }</td>

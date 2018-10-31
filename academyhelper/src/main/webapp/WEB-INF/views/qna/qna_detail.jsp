@@ -58,7 +58,7 @@
             </div>
             <div class="col-sm-1"></div>
             <br>
-            
+            <sec:authentication var="mvo" property="principal" />
             
                   <div id="refreshReply" class="col-sm-12">
                   <c:forEach items="${requestScope.listQNAReply.acaQNAReplyList}" var="comment" varStatus="status">
@@ -69,9 +69,9 @@
                      </div>
                      <div class="col-sm-7">
                      <form id="updateQnaReply${status.index}" method="post">
-                        <sec:csrfInput />
-                           <div align="left" id="modifyReplyDiv_${status.index}"></div>
-                           <pre style="display:block;" id="content">${comment.qnaRepContent}</pre>
+                           <div align="left" id="modifyReplyDiv_${status.index}">
+                           <pre style="display:block;" id="content${status.index}" >${comment.qnaRepContent}</pre>
+                           </div>
                            <input type="hidden" name="qnaRepNo" value="${comment.qnaRepNo}">
                            <input type="hidden" name="pageNo" value="${requestScope.pageNo}">
                            <input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
@@ -99,62 +99,51 @@
                   
                   <div class="col-sm-1"></div>
                   <div class="col-sm-10" align="center">
-                  <div class="pagingInfo">
+                  <div class="pagingInfo" id="qnaReplyPagingRefresh">
       <c:set var="pb" value="${requestScope.listQNAReply.pb}"></c:set>
       <ul class="pagination">
          <c:if test="${pb.previousPageGroup}">
-            <li><a
-               href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.startPageOfPageGroup-1}&qnaNo=${requestScope.detailQNA.qnaNo}">&laquo;</a></li>
-         </c:if>
+            <li>
+            <a href="javascript:pageMove('${pb.startPageOfPageGroup-1}')">&laquo;</a></li>
+            </c:if>
          <c:forEach var="i" begin="${pb.startPageOfPageGroup}"
             end="${pb.endPageOfPageGroup}">
             <c:choose>
                <c:when test="${pb.nowPage!=i}">
                   <li><a
-                     href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${i}&qnaNo=${requestScope.detailQNA.qnaNo}">${i}</a></li>
+                     href="javascript:pageMove('${i}')">${i}</a></li>
                </c:when>
                <c:otherwise>
-                  <li class="active"><a href="#">${i}</a></li>
+                  <li class="active"><a href="javascript:pageMove('${i}')#">${i}</a></li>
                </c:otherwise>
             </c:choose>
    &nbsp;
    </c:forEach>
          <c:if test="${pb.nextPageGroup}">
             <li><a
-               href="${pageContext.request.contextPath}/detailAcaQNA.do?pageNo=${pb.endPageOfPageGroup+1}&qnaNo=${requestScope.detailQNA.qnaNo}">&raquo;</a></li>
+               href="javascript:pageMove('${pb.endPageOfPageGroup+1}')">&raquo;</a></li>
          </c:if>
       </ul>
    </div>
    </div>
    <div class="col-sm-1"></div>
-               <div class="col-sm-1"></div>
-               <div class="col-sm-10" align="center">
-               <label for="comment">댓글</label>
-               </div>
-               <div class="col-sm-1"></div>
-               
-               
-               <sec:authorize access="hasRole('ROLE_USER')">
-                  <sec:authentication var="mvo" property="principal" />
-                  <div class="col-sm-2"></div>
-                  <div class="col-sm-7">
-                  <form id="qnaReplyRegister" action="${pageContext.request.contextPath}/registerAcaQnAReply.do"
-                     method="post">
-                     <sec:csrfInput />
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-5">
+                  <form id="qnaReplyRegister" method="post">
                         <input type="hidden" name="userVO.usrId" value="${mvo.usrId}">
                         <input type="hidden" name="acaQNAVO.qnaNo"
                            value="${detailQNA.qnaNo}">
-                        <textarea required class="form-control" rows="1" id="qnaRepContent"
+                            <input type="hidden" name="qnaNo"
+                           value="${detailQNA.qnaNo}">
+                        <textarea required class="form-control" rows="1" id="qnaRepContentRegister"
                            name="qnaRepContent" placeholder="댓글을 입력하세요"></textarea>
-                     
                   </form>
                   </div>
                   <div class="col-sm-2" align="center">
-                  <button form="qnaReplyRegister" onclick="return checkComment()" class="aca-btn"
+                  <button form="qnaReplyRegister" id="replyRegister" class="aca-btn" type="button"
                         >등록</button>
                   </div>
                   <div class="col-sm-1"></div>
-               </sec:authorize>
    </div>
 </div>
 <script type="text/javascript">
@@ -174,89 +163,139 @@ $(document).ready(function(){
 			return true;
 		}
 	});
-	$(".jBtn").click(function(){
-		alert(1);
-	});//click
-	$(".replyBtn"+$(this).val()).click(function(){
-		var value=$("#qnaRepContent"+$(this).val()).val();
-		if(value==""){
-			alert("내용을 입력하세요");
+	$("#replyRegister").click(function(){
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/registerAcaQnAReply.do",		
+			data:$("#qnaReplyRegister").serialize(),	
+			beforeSend : function(xhr){
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+			success:function(result){
+				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.pb);
+			},
+			complete : function() {
+				$("#qnaReplyRegister").val("");
+				$("#qnaRepContentRegister").val("");
+		    }
+		});//ajax
+	});
+	$(document).on("click",".jBtn",function(event){
+		$(".jBtn").hide();
+	      $("#replyBtn"+$(this).val()).show();
+	      $("#content").hide();
+	      moReply=$(this).val();
+	      $("#modifyReplyDiv_"+$(this).val()).append(
+	            "<textarea required class='form-control updateQnaRepContent"+$(this).val()+"' rows='1' id='qnaRepContent"+$(this).val()+"' name='qnaRepContent'></textarea>"
+	            );
+	   });//click
+	$(document).on("click",".replyBtn"+$(this).val(),function(event){
+		if($("#qnaRepContent"+$(this).val()).val()==""){
+			alert("수정내용을입력하셈");
 			return false;
-		}else{
+		}
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/updateAcaQnAReply.do",		
 			data:$("#updateQnaReply"+$(this).val()).serialize(),	
-			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+			beforeSend : function(xhr){
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
-			success:function(data){
-				var info="";
-				info+="<pre>"+data+"</pre>";
-				$("#modifyReplyDiv_"+moReply).html(info);
-				}
+			success:function(result){
+				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.pb);
+			},
+			complete : function() {
+				$("#updateQnaReply"+$(this).val(""));
+		    }
 		});//ajax
-		}
 		$("#replyBtn"+$(this).val()).hide();
 		$(".jBtn").show();
 	});//click
 	
 	$(document).on("click",".replyDeleteBtn"+$(this).val(),function(event){
-		var value=$("#deleteQnaReply"+$(this).val());
 		if(confirm("삭제하시겠습니까?")){
 			$.ajax({
 				type:"POST",
 				url:"${pageContext.request.contextPath}/deleteAcaQnAReply.do",		
-				data:value.serialize(),
+				data:$("#deleteQnaReply"+$(this).val()).serialize(),
 				beforeSend : function(xhr){
 	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	            },
 				success: function(result){
-					alert(result);
-					if(result==null){
-						alert("삭제 실패");
-					}else{
 					qnaReplyRefresh(result.acaQNAReplyList,result.pb);
-					}
+					qnaReplyPagingRefresh(result.pb);
 				},
 				complete : function() {
-					value.empty();
+					$("#deleteQnaReply"+$(this).val(""));
 			    }
 			});//ajax
 		}//if
 	});//click
-	function qnaReplyRefresh(acaQNAReplyList,pb){
-        var info="";
-        $.each(acaQNAReplyList, function(index,listQNAReply){
-        	index=index+1;
-        	alert(pb.nowPage);
-            alert(listQNAReply.qnaRepContent);
-            alert(listQNAReply.acaQNAVO.qnaNo);
-        info+="<div class='col-sm-12'><div class='col-sm-1'></div>";
-        info+="<div class='col-sm-1'>";
-        info+="<p align='left'></p>";
-        info+="</div>";
-        info+="<div class='col-sm-7'>";
-        info+="<form id='updateQnaReply"+index+"'>";
-        info+="<div align='left' id='modifyReplyDiv_"+index+"'></div>";
-        info+="<pre style='display:block;' id='content'>"+listQNAReply.qnaRepContent+"</pre>";
-        info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
-        info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
-        info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'></form></div>";
-        info+="<form id='qnaReplyDelete"+index+"'>";
-        info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
-        info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'>";
-        info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
-        info+="</form><div align='right' class='col-sm-2'>";
-        info+="<button type='button' class='aca-btn jBtn' id='modifyReply' value='"+index+"'>수정</button>";
-        info+="<button form='updateQnaReply"+index+"' style='display:none;' type='button' class='aca-btn replyBtn'";
-        info+="id='replyBtn"+index+"' value='"+index+"'>수정</button>";
-        info+="<button form='qnaReplyDelete"+index+"' class='aca-btn replyDeleteBtn' type='button'";
-        info+="id='replyDeleteBtn"+index+"' value='"+index+"'>삭제</button>";
-        info+="</div><div class='col-sm-1'></div></div>";
-        });
-           
-        $("#refreshReply").html(info);
-        }
 });//ready
+function pageMove(pageNo){
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/listAcaQNAReply.do",
+			data:$("#qnaReplyRegister").serialize()+"&pageNo="+pageNo,
+			beforeSend : function(xhr){
+				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			},
+			success : function(result){
+				qnaReplyRefresh(result.acaQNAReplyList,result.pb);
+				qnaReplyPagingRefresh(result.pb);
+			}
+		});//ajax
+	}
+function qnaReplyRefresh(acaQNAReplyList,pb){
+    var info="";
+    $.each(acaQNAReplyList, function(index,listQNAReply){
+    index=index+1;
+    info+="<div class='col-sm-12'><div class='col-sm-1'></div>";
+    info+="<div class='col-sm-1'>";
+    info+="<p align='left'>"+listQNAReply.userVO.nickname+"</p>";
+    info+="</div>";
+    info+="<div class='col-sm-7'>";
+    info+="<form id='updateQnaReply"+index+"'>";
+    info+="<div align='left' id='modifyReplyDiv_"+index+"'>";
+    info+="<pre style='display:block;' id='content"+index+"'>"+listQNAReply.qnaRepContent+"</pre></div>";
+    info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
+    info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
+    info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'></form></div>";
+    info+="<form id='deleteQnaReply"+index+"'>";
+    info+="<input type='hidden' name='qnaRepNo' value='"+listQNAReply.qnaRepNo+"'>";
+    info+="<input type='hidden' name='qnaNo' value='"+listQNAReply.acaQNAVO.qnaNo+"'>";
+    info+="<input type='hidden' name='pageNo' value='"+pb.nowPage+"'>";
+    info+="</form><div align='right' class='col-sm-2'>";
+    info+="<button type='button' class='aca-btn jBtn' id='modifyReply' value='"+index+"'>수정</button>";
+    info+="<button form='updateQnaReply"+index+"' style='display:none;' type='button' class='aca-btn replyBtn'";
+    info+="id='replyBtn"+index+"' value='"+index+"'>수정</button>";
+    info+="<button form='qnaReplyDelete"+index+"' class='aca-btn replyDeleteBtn' type='button'";
+    info+="id='replyDeleteBtn"+index+"' value='"+index+"'>삭제</button>";
+    info+="</div><div class='col-sm-1'></div></div>";
+    });
+    $("#refreshReply").html(info);
+    }
+function qnaReplyPagingRefresh(pb){
+	var paging="<ul class='pagination'>";
+	var start=pb.startPageOfPageGroup-1;
+    var end=pb.endPageOfPageGroup+1;
+      if(pb.previousPageGroup){
+    	 paging+='<li><a href="javascript:pageMove('+start+')">&laquo;</a></li>'; 
+      }
+      for(var i=pb.startPageOfPageGroup;i<=pb.endPageOfPageGroup;i++){
+    	  if(pb.nowPage!=i){
+    		  paging+='<li><a href="javascript:pageMove('+i+')">'+i+'</a></li>';
+    	  }else{
+    		  paging+='<li class="active"><a href="javascript:pageMove('+i+')#">'+i+'</a></li>';
+    	  }
+    	  paging+="&nbsp;";
+     }   
+     if(pb.nextPageGroup){
+    	 paging+='<li><a href="javascript:pageMove('+end+')">&raquo;</a></li>';
+ 	 }
+     paging+="</ul>";
+     $("#qnaReplyPagingRefresh").html(paging);
+}
 </script>

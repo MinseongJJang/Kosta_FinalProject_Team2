@@ -57,21 +57,29 @@ public class ReviewController {
 		
 		return curriculumList;
 	}
+	@SuppressWarnings("unchecked")
 	@Secured("ROLE_USER")
 	@RequestMapping("detailAcaReviewPost.do")
 	public ModelAndView detailAcaReviewPost(String acaRevNo, String pageNo) {
 		ModelAndView mv = new ModelAndView();
 		Queue<Object> queue = reviewService.detailAcaReviewPost(acaRevNo,pageNo);
+		int size = queue.size();
+		
 		AcaReviewPostVO acaReviewPostVO = (AcaReviewPostVO) queue.poll();
-		@SuppressWarnings("unchecked")
 		List<HashTagVO> hashList = (List<HashTagVO>) queue.poll();
 		AcaCurSatisfactionVO satisfactionVO = (AcaCurSatisfactionVO) queue.poll();
-		@SuppressWarnings("unchecked")
-		List<AcaReviewReplyVO> acaReviewReplyVO = (List<AcaReviewReplyVO>)queue.poll();
+		ListVO lvo = null;
+		if(size==4) {
+			lvo = (ListVO)queue.poll();
+		}
 		mv.addObject("review",acaReviewPostVO);
 		mv.addObject("hashList",hashList);
 		mv.addObject("satisfaction",satisfactionVO);
-		mv.addObject("reply",acaReviewReplyVO);
+		if(lvo!=null) {
+			mv.addObject("reply",lvo);
+		}else {
+			mv.addObject("reply","null");
+		}
 		mv.setViewName("review/aca_review_detail.tiles");
 		return mv;
 	}
@@ -159,35 +167,33 @@ public class ReviewController {
 	}
 	
 	@PostMapping("registerReviewReply.do")
-	public String registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
+	@ResponseBody
+	public ListVO registerAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
 		reviewService.registerAcaReviewReply(acaReviewReplyVO);
-		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo();
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
 	}
 
 	@PostMapping("deleteReviewReply.do")
-	public String deleteAcaReviewReply(String acaRevRepNo, String acaRevNo) {
-		reviewService.deleteAcaReviewReply(acaRevRepNo);
-		return "redirect:detailAcaReviewPost.do?acaRevNo="+acaRevNo;
+	@ResponseBody
+	public ListVO deleteAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO , String pageNo) {
+		reviewService.deleteAcaReviewReply(acaReviewReplyVO.getAcaRevRepNo());
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
 	}
 
 	@PostMapping("updateReviewReply.do")
 	@ResponseBody
-	public String updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO) {
-		try {
-		System.out.println(acaReviewReplyVO.getAcaRevRepContent());
-		if(acaReviewReplyVO.getAcaRevRepContent()==" "||acaReviewReplyVO.getAcaRevRepContent()=="") {
-			return null;
-		}else {
-			reviewService.updateAcaReviewReply(acaReviewReplyVO);
-			String acaRevRepNo=acaReviewReplyVO.getAcaRevRepNo();
-			String content=reviewService.getAcaReviewReply(acaRevRepNo);
-			return content;
-		}
-		
-		}catch(Exception e) {
-			System.out.println(acaReviewReplyVO.getAcaRevRepContent());
-			return null;
-		}
-		
+	public ListVO updateAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
+		reviewService.updateAcaReviewReply(acaReviewReplyVO);
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
+	}
+	@PostMapping("listReviewReply.do")
+	@ResponseBody
+	public ListVO listAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
+		System.out.println(pageNo);
+		ListVO reply = reviewService.listAcaReviewReply(acaReviewReplyVO, pageNo);
+		return reply;
 	}
 }

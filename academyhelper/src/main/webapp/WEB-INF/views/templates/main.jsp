@@ -1,6 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		var address="";
+		$("#locationBtn").click(function() {
+			$.ajax({
+				type : "get",
+				url : "${pageContext.request.contextPath}/provinceList.do",
+				success : function(result) {
+					var info = "<div style='overflow-y:scroll; width:100%; height:350px;'><table class='table'>"
+					for (var i = 0; i < result.locationList.length; i++) {
+						info += "<tr><td><input type='radio' style='width:15px;height:15px' name='province' value='"+result.locationList[i].province+"'>"
+								+ result.locationList[i].province
+								+ "</tr></td>"
+					}
+						info += "</div></table>"
+						$("#provinceList").html(info);
+					}
+				});//ajax
+			});//click
+			$("#districtBtn").click(function() {
+				var selValue = $('input[name=province]:checked').val(); 
+				address += selValue;
+				$.ajax({
+					type : "get",
+					url : "${pageContext.request.contextPath}/districtList.do",
+					data : "province="+  selValue,
+					success : function(result) {
+						var info = "<div style='overflow-y:scroll; width:100%; height:350px;'><table class='table'>"
+						for (var i = 0; i < result.locationList.length; i++) {
+							info += "<tr><td><input type='radio'  style='width:15px;height:15px' name='district' value='"+result.locationList[i].district+"'>"
+									+ result.locationList[i].district
+									+ "</tr></td>"
+						}
+							info += "</div></table>"
+							$("#districtList").html(info);
+					}
+				});//ajax
+			});//click
+			$("#done").click(function() {
+				$("#locationBtn").remove();
+				var selValue = $('input[name=district]:checked').val(); 
+				address += " "+selValue;
+				$("#location").text(address);
+				$('#addr').val(address);
+			});//click
+		});//ready
+</script>
 <section class="banner" id="top">
 	<div class="container">
 		<div class="row">
@@ -12,38 +59,64 @@
 					</h3>
 					<br>
 					<div class="submit-form">
-						<form id="form-submit" action="" method="get">
+						<form id="form-submit" action="academySearch.do" method="get">
 							<div class="row">
 								<div class="col-md-3 third-item">
-									<fieldset>
-										<select required name='category' onchange='this.form.()'>
-											<option value="">Select category...</option>
-											<option value="Shops">Shops</option>
-											<option value="Hotels">Hotels</option>
-											<option value="Restaurants">Restaurants</option>
-											<option value="Events">Events</option>
-											<option value="Meetings">Meetings</option>
-											<option value="Fitness">Fitness</option>
-											<option value="Cafes">Cafes</option>
-										</select>
-									</fieldset>
+									<!-- JB modal TEST -->
+									<div id="location">
+									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택2</button>
+									</div>
+									<!--  province Modal -->
+									<div class="modal fade" id="provinceModal" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">지역선택</h4>
+												</div>
+												<div class="modal-body">
+													<div id="provinceList" ></div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" data-dismiss="modal">닫기</button>
+													<button type="button" data-toggle="modal" data-target="#districtModal" id="districtBtn" data-dismiss="modal" data-backdrop="false">다음</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- district modal -->
+									<div class="modal fade" id="districtModal" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">지역선택</h4>
+												</div>
+												<div class="modal-body">
+													<div id="districtList"></div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-dismiss="modal" data-backdrop="false">뒤로</button>
+													<button type="button" data-dismiss="modal">닫기</button>
+													<button type="button" data-dismiss="modal" id="done">선택완료</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- JB modal TEST -->
 								</div>
 								<div class="col-md-3 first-item">
 									<fieldset>
-										<input name="name" type="text" class="form-control" id="name"
-											placeholder="Your name...">
+										<input name="curName" type="text" class="form-control" placeholder="교육과정">
 									</fieldset>
 								</div>
 								<div class="col-md-3 second-item">
 									<fieldset>
-										<input name="location" type="text" class="form-control"
-											id="location" placeholder="Type location...">
+										<input name="search" type="text" class="form-control" placeholder="검색어">
 									</fieldset>
 								</div>
 								<div class="col-md-3">
 									<fieldset>
-										<button type="submit" id="form-submit" class="btn">Search
-											Now</button>
+										<input type="hidden"  id="addr" name = "academyVO.acaAddr"  >
+										<button id="form-submit" class="btn">Search Now</button>
 									</fieldset>
 								</div>
 							</div>

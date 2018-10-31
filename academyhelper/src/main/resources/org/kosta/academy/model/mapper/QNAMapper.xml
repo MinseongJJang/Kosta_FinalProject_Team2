@@ -38,7 +38,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="qnaNo" resultType="string" order="BEFORE">
 			select aca_qna_seq.nextval from dual
 		</selectKey>
-		insert into aca_qna(qna_no,qna_title,qna_content,qna_regdate,usr_id)
+		 insert into aca_qna(qna_no,qna_title,qna_content,qna_regdate,usr_id)
 		 values(#{qnaNo},#{qnaTitle},#{qnaContent},SYSDATE,#{userVO.usrId})
+	</insert>
+	<insert id="registerAcaQNAFile" parameterType="acaQNQAttachFileVO" >
+		insert into aca_qna_attach_file(qna_att_no,qna_filepath,qna_no)
+		values(aca_qna_attach_file_seq,#{qnaFilepath},#{academyQNAVO.qnaNo})
+	</insert>
+	<insert id="registerAcaQnaAttach" parameterType="acaQNQAttachFileVO">
+		<selectKey keyProperty="qnaAttNo" order="BEFORE" resultType="string">
+			select aca_qna_attach_file_seq.nextval from dual
+		</selectKey>
+			insert into aca_qna_attach_file(qna_att_no,qna_filepath,qna_no) 
+			values(#{qnaAttNo},#{qnaFilepath},#{academyQNAVO.qnaNo})
 	</insert>
 </mapper>

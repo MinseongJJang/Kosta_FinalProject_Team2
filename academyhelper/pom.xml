@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kosta</groupId>
 	<artifactId>academy</artifactId>
-	<name>springmvc18-security</name>
+	<name>academy</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

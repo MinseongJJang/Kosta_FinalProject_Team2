@@ -98,8 +98,8 @@
 				   		<tr>
 							<td>
 								<select name="acaNo" id="academySelect">
+								<option value="0">----학원목록----</option>
 								<c:forEach items="${requestScope.academy}" var="aca">
-									<option value="0">학원</option>
 									<option value="${aca.acaNo}">${aca.acaName }</option>
 								</c:forEach>
 								</select>

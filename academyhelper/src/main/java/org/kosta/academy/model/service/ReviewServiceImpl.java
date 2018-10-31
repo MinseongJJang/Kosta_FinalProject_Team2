@@ -69,7 +69,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return listVO;
 	}
 	
-	@Transactional
 	@Override
 	public Queue<Object> detailAcaReviewPost(String acaRevNo,String pageNo) {
 		AcaReviewPostVO reviewVO = reviewMapper.detailAcaReivewPost(acaRevNo);
@@ -80,7 +79,7 @@ public class ReviewServiceImpl implements ReviewService {
 		queue.offer(hashList);
 		queue.offer(satisfactionVO);
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		int totalCount = reviewReplyMapper.getTotalAcaReviewReplyCount(acaRevNo);
 		PagingBean pagingBean = null;
 		if (pageNo == null) {
@@ -96,8 +95,10 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		List<AcaReviewReplyVO> acaReviewReplyList = reviewReplyMapper.listAcaReviewReply(map);
 		ListVO vo = new ListVO();
-		vo.setAcaReviewReplyList(acaReviewReplyList);
-		vo.setPb(pagingBean);
+		if(!acaReviewReplyList.isEmpty()) {
+			vo.setAcaReviewReplyList(acaReviewReplyList);
+			vo.setPb(pagingBean);
+		}
 		if(acaReviewReplyList!=null) {
 			queue.offer(vo);
 		}
@@ -150,5 +151,29 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public String getAcaReviewReply(String acaRevRepNo) {
 		return reviewReplyMapper.getAcaReviewReply(acaRevRepNo);
+	}
+
+	@Override
+	public ListVO listAcaReviewReply(AcaReviewReplyVO acaReviewReplyVO,String pageNo) {
+		PagingBean pb = null;
+		int totalCount =reviewReplyMapper.getTotalAcaReviewReplyCount(acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo());
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(pageNo==null) {
+			pb = new PagingBean(totalCount);
+			map.put("acaRevNo", acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo());
+			map.put("start", pb.getStartRowNumber());
+			map.put("end", pb.getEndRowNumber());
+		} else {
+			pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			map.put("acaRevNo", acaReviewReplyVO.getAcaReviewPostVO().getAcaRevNo());
+			map.put("start", pb.getStartRowNumber());
+			map.put("end", pb.getEndRowNumber());
+		}
+		List<AcaReviewReplyVO> list = reviewReplyMapper.listAcaReviewReply(map);
+		ListVO replyList = new ListVO();
+		replyList.setPb(pb);
+		replyList.setAcaReviewReplyList(list);
+		return replyList;
+		
 	}
 }

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -25,12 +28,14 @@
 					        <td><input type="text" name="qnaTitle" placeholder="질문 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
-				      		<td>내용</td>
-				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				      		<td>내용
+				      		<span id="curtime"></span>
+				      		</td>
+				      		<td><textarea cols="90" rows="15" id="qnaContent" name="qnaContent" required="required" placeholder="내용을 입력하세요"></textarea>
 				      		<script>
 							    $(document).ready(function() {
 							    	var curtime = "";
-							        $('#acaPromoContent').summernote({
+							        $('#qnaContent').summernote({
 							        	 height: 500,               
 							        	 minHeight: null,           
 							        	 maxHeight: null,  
@@ -48,7 +53,7 @@
 							            $.ajax({
 							              data: form_data,
 							              type: "POST",
-							              url: "promotion-file-upload.do",
+							              url: "qna-file-upload.do",
 							              cache: false,
 							              contentType: false,
 							              enctype: "multipart/form-data",
@@ -57,7 +62,7 @@
 							            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 							         	  },
 							              success: function(url) {
-							            	var path = "${pageContext.request.contextPath}/resources/promotionUpload/"+url[0];
+							            	var path = "${pageContext.request.contextPath}/resources/qnaUpload/"+url[0];
 							            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
 							            	$("#curtime").html(curtime);
 							                $(el).summernote("editor.insertImage", path);

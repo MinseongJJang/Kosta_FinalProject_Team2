@@ -1,13 +1,19 @@
 package org.kosta.academy;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.academy.model.mapper.AcademyMapper;
+import org.kosta.academy.model.mapper.SearchMapper;
 import org.kosta.academy.model.service.AcademyService;
-import org.kosta.academy.model.vo.AcademyVO;
-import org.kosta.academy.model.vo.UserVO;
+import org.kosta.academy.model.service.PagingBean;
+import org.kosta.academy.model.vo.CurriculumVO;
+import org.kosta.academy.model.vo.ListVO;
+import org.kosta.academy.model.vo.LocationVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,6 +24,8 @@ public class JBUnit {
 	AcademyMapper academyMapper;
 	@Resource
 	AcademyService academyService;
+	@Resource
+	SearchMapper searchMapper;
 	@Test
 	public void test() {
 		//기관정보등록
@@ -60,5 +68,23 @@ public class JBUnit {
 		*/
 		//기관정보삭제
 		//academyMapper.deleteAcademy("8");
+		//기관 검색
+		/*CurriculumVO cvo = new CurriculumVO();
+		PagingBean pagingBean = null;
+		cvo.setCurName("ja");
+		int totalCurCount = searchMapper.getTotalListAcaCount(cvo.getCurName());
+		HashMap<String, Object> map =new HashMap<String, Object>();
+		pagingBean = new PagingBean(totalCurCount);
+		map.put("curName", cvo.getCurName());
+		map.put("startRowNumber", pagingBean.getStartRowNumber());
+		map.put("endRowNumber", pagingBean.getEndRowNumber());
+		List<CurriculumVO> searchAcademyList = searchMapper.academySearch(map);
+		ListVO lvo = new ListVO();
+		lvo.setCurriculumList(searchAcademyList);
+		for(int i=0; i<lvo.getCurriculumList().size();i++) {
+			System.out.println(lvo.getCurriculumList().get(i));
+		}*/
+		List<LocationVO> list = searchMapper.provinceList();
+		System.out.println(list);
 	}
 }

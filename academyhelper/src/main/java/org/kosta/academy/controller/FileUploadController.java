@@ -118,4 +118,63 @@ public class FileUploadController {
 		return fileNameList;
 	}
 	
+	
+	@ResponseBody
+	@PostMapping("curriculum-file-upload.do")
+	public ArrayList<Object> curriculumFileUpload(FileUploadVO fileVO , HttpServletRequest request) {
+		uploadPath ="C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
+		//uploadPath = System.getProperty("user.home")+"\\git\\Kosta_FinalProject_Team2\\academyhelper\\src\\main\\resources\\reviewUpload\\";
+		File uploadDir = new File(uploadPath);
+		if(!uploadDir.exists()) {
+			uploadDir.mkdirs();
+		}
+		List<MultipartFile> fileList = fileVO.getFile();
+		ArrayList<Object> fileNameList= new ArrayList<Object>();
+		for(int i=0;i<fileList.size();i++) {
+			long curTime = System.currentTimeMillis();
+			String fileName = fileList.get(i).getOriginalFilename().substring(0, fileList.get(i).getOriginalFilename().length()-4)+curTime+"!!@@"+fileList.get(i).getOriginalFilename().substring(fileList.get(i).getOriginalFilename().length()-4, fileList.get(i).getOriginalFilename().length());
+			if(!fileName.equals("")) {
+				try {
+					//파일네임뒤에 !!@@이 붙으면 아직 attach 테이블에 저장되지 않은 파일
+					fileList.get(i).transferTo(new File(uploadPath+fileName));
+					fileNameList.add(fileName);
+					fileNameList.add(curTime);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return fileNameList;
+	}
+
+	/*
+	 *  curriculum의 main 이미지를 처리하는 곳
+	 */
+	@ResponseBody
+	@PostMapping("curriculum-file1-upload.do")
+	public ArrayList<Object> curriculumFile1Upload(FileUploadVO fileVO,HttpServletRequest request){
+		uploadPath ="C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
+		//uploadPath = System.getProperty("user.home")+"\\git\\Kosta_FinalProject_Team2\\academyhelper\\src\\main\\resources\\reviewUpload\\";
+		File uploadDir = new File(uploadPath);
+		if(!uploadDir.exists()) {
+			uploadDir.mkdirs();
+		}
+		List<MultipartFile> fileList = fileVO.getFile();
+		ArrayList<Object> fileNameList= new ArrayList<Object>();
+		for(int i=0;i<fileList.size();i++) {
+			long curTime = System.currentTimeMillis();
+			String fileName = fileList.get(i).getOriginalFilename().substring(0, fileList.get(i).getOriginalFilename().length()-4)+curTime+"@main@!!@@"+fileList.get(i).getOriginalFilename().substring(fileList.get(i).getOriginalFilename().length()-4, fileList.get(i).getOriginalFilename().length());
+			if(!fileName.equals("")) {
+				try {
+					//파일네임뒤에 @main@!!@@이 붙으면 아직 attach 테이블에 저장되지 않은 메인이미지파일
+					fileList.get(i).transferTo(new File(uploadPath+fileName));
+					fileNameList.add(fileName);
+					fileNameList.add(curTime);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return fileNameList;
+	}
 }

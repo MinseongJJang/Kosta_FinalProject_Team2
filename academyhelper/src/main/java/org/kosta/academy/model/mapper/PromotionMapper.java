@@ -19,5 +19,5 @@ public interface PromotionMapper {
 	void deleteAcaPromoPost(AcaPromoPostVO acaPromoPostVO);
 	void registerAcaPromoFile(AcaPromoAttachFileVO acaPromoAttachFileVO);
 	List<AcaPromoAttachFileVO> listAcaPromoFile(AcaPromoAttachFileVO acaPromoAttachFileVO);
-	void registerAcaReviewAttach(AcaPromoAttachFileVO promoAttach);
+	void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach);
 }

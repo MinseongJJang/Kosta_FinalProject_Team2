@@ -11,6 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+drop table users
 select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
 select usr_email from users where usr_id='java3'
 )
@@ -61,7 +62,7 @@ select * from users
 drop table notice_attach_file
 create table notice_attach_file(
 	notice_att_no number primary key,
-	notice_filepath varchar2(100) not null,
+	notice_filepath varchar2(1000) not null,
 	notice_no number not null,
 	constraint notice_attach_file_fk foreign key(notice_no) references notice(notice_no) on delete cascade
 )
@@ -80,7 +81,7 @@ create table authorities(
 	constraint authorities_fk foreign key(usr_id) references users(usr_id) on delete cascade,
 	constraint authorities_pk primary key(usr_id,authority)
 )
-insert into authorities(authority,usr_id) values('ROLE_ADMIN','java1')
+insert into authorities(authority,usr_id) values('ROLE_ADMIN','java')
 insert into authorities(authority,usr_id) values('ROLE_ADMIN','java5')
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java5')
 select * from users where usr_id='java5'
@@ -99,7 +100,7 @@ create table aca_promo_post(
 	aca_promo_title varchar2(100) not null,
 	aca_promo_content clob not null,
 	aca_promo_regdate date not null,
-	aca_promo_hits number not null,
+	aca_promo_hits number default 0,
 	usr_id varchar2(100) not null,
 	constraint aca_promo_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
@@ -113,7 +114,7 @@ alter table aca_promo_post  modify(aca_promo_hits number default 0)
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/
 create table aca_promo_attach_file(
 	aca_promo_att_no number primary key,
-	aca_promo_filepath varchar2(100) not null,
+	aca_promo_filepath varchar2(1000) not null,
 	aca_promo_no number not null,
 	constraint aca_promo_attach_file_fk foreign key(aca_promo_no) references aca_promo_post(aca_promo_no) on delete cascade
 )
@@ -142,7 +143,7 @@ insert into suggestion_post(sug_no,sug_title,sug_content,sug_regdate,usr_id)
 /*건의게시판 파일첨부 테이블 및 시퀀스*/
 create table sug_post_attach_file(
 	sug_post_att_no number primary key,
-	sug_post_filepath varchar2(100) not null,
+	sug_post_filepath varchar2(1000) not null,
 	sug_no number not null,
 	constraint sug_post_attach_file_fk foreign key(sug_no) references suggestion_post(sug_no) on delete cascade
 )
@@ -188,18 +189,29 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-delete academy
+drop table academy
 select * from academy
 create sequence academy_seq start with 1 nocache
+alter table academy add(aca_main_pic clob);
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
 values(academy_seq.nextval,'코스타1','판교','0312558779','java0');
 
 select*from academy;
 
+/*학원 첨부 파일 및 시퀀스*/
+drop table aca_attach_file
+create table aca_attach_file(
+	aca_att_no number primary key,
+	aca_filepath varchar2(1000) not null,
+	aca_no number not null,
+	constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocache
+
 /*학원 Q&A 및 시퀀스*/
 drop table aca_qna
-delete aca_qna
+DELETE from aca_qna
 create table aca_qna(
 	qna_no number primary key,
 	qna_title varchar2(100) not null,
@@ -208,16 +220,18 @@ create table aca_qna(
 	usr_id varchar2(100) not null,
 	constraint aca_qna_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_qna drop constraint aca_qna_sfk
+select * from ACA_QNA
 select r.qna_rep_no,
 		r.qna_rep_regdate, r.qna_rep_content, u.usr_id,
 		u.nickname
 		from
 		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no='7'
-
+select * from curriculum
 select count(*)
 		from curriculum where aca_no='1'
 select * from aca_qna
-alter table aca_qna drop column aca_no
+alter table aca_qna drop column aca_noss
 alter table aca_qna drop constraint aca_qna_ffk
 select qna_no, qna_title, qna_content, qna_regdate, usr_id from aca_qna where qna_no='12';
 create sequence aca_qna_seq start with 1 nocache
@@ -245,11 +259,11 @@ from(
 	qna_title, qna_regdate,usr_id from aca_qna
 )q, users u where q.usr_id=u.usr_id and rnum between 1 and 5
 order by q.qna_no desc
-
+drop table aca_qna_attach_file
 /* Q&A 파일첨부 및 시퀀스 */
 create table aca_qna_attach_file(
 	qna_att_no number primary key,
-	qna_filepath varchar2(100) not null,
+	qna_filepath varchar2(1000) not null,
 	qna_no number not null,
 	constraint aca_qna_attach_file_fk foreign key(qna_no) references aca_qna(qna_no) on delete cascade
 )
@@ -280,7 +294,7 @@ from aca_qna_reply r,users u where r.usr_id=u.usr_id
 drop table aca_qna_reply_attach_file
 create table aca_qna_reply_attach_file(
 	qna_rep_att_no number primary key,
-	qna_rep_filepath varchar2(100) not null,
+	qna_rep_filepath varchar2(1000) not null,
 	qna_rep_no number not null,
 	constraint aca_qna_reply_attach_file_fk foreign key(qna_rep_no) references aca_qna_reply(qna_rep_no) on delete cascade
 )
@@ -297,6 +311,18 @@ create table curriculum(
 	cur_textbook varchar2(100) not null,
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
+
+<<<<<<< HEAD
+select * from curriculum
+alter table curriculum add(cur_main_pic clob);
+alter table curriculum drop column cur_main_pic
+alter table curriculum add(cur_main_pic varchar2(1000));
+=======
+
+alter table curriculum add(cur_main_pic clob);
+select*from curriculum
+
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -333,6 +359,20 @@ update curriculum
 		cur_name='9',limit_mem='9',cur_content='9',cur_lecturer='9',cur_textbook='9'
 		where cur_no='53'
 		
+/*커리큘럼 파일첨부테이블 및 시퀀스*/
+private String curriculumAttNo;
+	private String curriculumFilepath;
+	private CurriculumVO curriculumVO;
+	
+create table cur_attach_file(
+	cur_att_no number primary key,
+	cur_filepath varchar2(1000) not null,
+	cur_no number not null,
+	constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
+)
+
+create sequence cur_attach_file_seq start with 1 nocache
+
 
 /*학원후기 게시판 테이블 및 시퀀스*/
 create table aca_review_post(
@@ -346,7 +386,6 @@ create table aca_review_post(
 	constraint aca_review_post_ffk foreign key(cur_no) references curriculum(cur_no) on delete cascade,
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-
 alter table aca_review_post drop column aca_rev_content
 alter table aca_review_post add(aca_rev_content clob)
 
@@ -365,14 +404,14 @@ select * from(
 
 alter table aca_review_post modify(aca_rev_hits number default 0)
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,8,'코스타좋아요','코스타개조음',sysdate,'java1')
+values(aca_review_post_seq.nextval,1,'코스타좋아요','코스타개조음',sysdate,'java')
 
 alter table aca_review_post drop column aca_rev_content
 alter table aca_review_post add(aca_rev_content clob)
 
 
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
-values(aca_review_post_seq.nextval,11,'코스타좋아요1','코스타개조음',sysdate,'java1')
+values(aca_review_post_seq.nextval,2,'코스타좋아요1','코스타개조음',sysdate,'java')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
 values(aca_review_post_seq.nextval,11,'코스타2','코스타개조음',sysdate,'java1')
 insert into aca_review_post(aca_rev_no,cur_no,aca_rev_title,aca_rev_content,aca_rev_regdate,usr_id) 
@@ -396,7 +435,7 @@ create table aca_cur_satisfaction(
 	lecturer_satis number not null,
 	emp_links_satis number not null,
 	traffic_satis number not null,
-	constraint aca_cur_satisfaction_fk foreign keyf references aca_review_post(aca_rev_no) on delete cascade
+	constraint aca_cur_satisfaction_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
 select * from aca_review_post
 select * from aca_cur_satisfaction
@@ -436,7 +475,7 @@ drop table aca_rev_attach_file
 create table aca_review_attach_file(
 	aca_rev_att_no number primary key,
 	aca_rev_no number not null,
-	aca_rev_filepath varchar2(100) not null,
+	aca_rev_filepath varchar2(1000) not null,
 	constraint aca_review_attach_file_fk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade
 )
 alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
@@ -446,24 +485,29 @@ select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
 drop table aca_review_reply
 select * from aca_rev_reply
-create table aca_review_reply(
+create table aca_rev_reply(
 	aca_rev_rep_no number primary key,
-	review_rep_regdate date not null,
-	review_rep_content clob not null,
+	aca_rev_rep_regdate date not null,
+	aca_rev_rep_content clob not null,
 	aca_rev_no number not null,
 	usr_id varchar2(100) not null,
 	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
 	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+alter table aca_rev_reply rename column review_rep_regdate to aca_rev_rep_regdate
+alter table aca_rev_reply rename column review_rep_content to aca_rev_rep_content
+
+insert into aca_rev_reply(aca_rev_rep_no,review_rep_regdate,review_rep_content,aca_rev_no,usr_id) values
+(aca_rev_reply_seq.nextval,sysdate,'굿','25','java')
 alter table aca_review_reply rename to aca_rev_reply
-drop sequence aca_review_reply_seq
+drop sequence aca_rev_reply_seq
 create sequence aca_rev_reply_seq start with 1 nocache
 
 /*학원후기 파일첨부 및 시퀀스*/
 drop table aca_review_reply_attach_file
 create table aca_review_reply_attach_file(
 	aca_rev_rep_att_no number primary key,
-	aca_rev_rep_filepath varchar2(100) not null,
+	aca_rev_rep_filepath varchar2(1000) not null,
 	aca_rev_rep_no number not null,
 	constraint aca_rev_rep_attach_file_fk foreign key(aca_rev_rep_no) references aca_review_reply(aca_rev_rep_no) on delete cascade
 )
@@ -520,61 +564,65 @@ drop table hashtag
 create sequence hashtag_seq start with 1 nocache
 		
 alter table aca_review_post drop column aca_rev_content
+<<<<<<< HEAD
 alter table aca_review_post add(aca_rev_content clob)
+=======
+alter table aca_review_post add(aca_rev_content clob)
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
-(select usr_name from users where usr_id = r.usr_id) as 
-
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,c.cur_no,u.usr_id,
-(select usr_name from users where usr_id=r.usr_id) as usr_name from 
-(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,cur_no,usr_id,
-row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u , curriculum c 
-where r.usr_id = u.usr_id and rnum between 1 and 5
-order by r.aca_rev_no desc		
-
-
-select p.aca_promo_no,p.aca_promo_title,p.aca_promo_regdate,p.aca_promo_hits,u.usr_id,
-(select usr_name from users where usr_id=p.usr_id) as usr_name from
-(select aca_promo_no,row_number() over(order by aca_promo_no desc) as rnum,aca_promo_title,to_char(aca_promo_regdate,'YYYY-MM-DD') as aca_promo_regdate,
-aca_promo_hits,usr_id from aca_promo_post) p , users u
-where p.usr_id = u.usr_id and rnum between 1 and 5
-order by p.aca_promo_no desc
-
-select * from curriculum
-select cur_no,cur_name from curriculum where aca_no = 3
-
-
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name from aca_review_post r,users u
-		where r.usr_id = u.usr_id and 
-		r.aca_rev_no = 5
-		
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name from 
-		(select aca_rev_no,aca_rev_title,aca_rev_content,to_char(aca_rev_regdate,'YYYY-MM-DD') as aca_rev_regdate,aca_rev_hits,usr_id,
-		row_number() over(order by aca_rev_no desc) as rnum from aca_review_post) r , users u
-		where r.usr_id = u.usr_id and rnum between 1 and 5
-		order by r.aca_rev_no desc
-		
-select * from academy
-select * from curriculum where aca_no = '5';
-select cur_no,cur_name from curriculum where aca_no = '3';
-
-select * from aca_review_post
-
-select * from hashtag where aca_rev_no = 14
-select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
-		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name
-		from aca_review_post r,users u
-		where r.usr_id = u.usr_id and 
-		r.aca_rev_no = '11'
-		
-select * from ACA_CUR_SATISFACTION
-select * from hashtag
-select hashtag_name from hashtag where aca_rev_no = '14'
+alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 
 
 
+<<<<<<< HEAD
+
+create table location(
+	province varchar2(100) not null,
+	district varchar2(100) ,
+	constraint province primary key (province, district)
+)
+select * from location
+insert into location (province, district) values ('서울특별시', '종로구');
+insert into location (province, district) values ('서울특별시', '중구');
+insert into location (province, district) values ('서울특별시', '용산구');
+insert into location (province, district) values ('서울특별시', '광진구');
+insert into location (province, district) values ('서울특별시', '성북구');
+insert into location (province, district) values ('서울특별시', '도봉구');
+insert into location (province, district) values ('서울특별시', '노원구');
+insert into location (province, district) values ('서울특별시', '은평구');
+insert into location (province, district) values ('서울특별시', '서대문구');
+insert into location (province, district) values ('서울특별시', '강남구');
+insert into location (province, district) values ('서울특별시', '송파구');
+insert into location (province, district) values ('서울특별시', '관악구');
+insert into location (province, district) values ('서울특별시', '동작구');
+insert into location (province, district) values ('서울특별시', '강서구');
+insert into location (province, district) values ('서울특별시', '서초구');
+insert into location (province, district) values ('서울특별시', '중랑구');
+insert into location (province, district) values ('경기도 수원시', '장안구');
+insert into location (province, district) values ('경기도 수원시', '권선구');
+insert into location (province, district) values ('경기도 수원시', '팔달구');
+insert into location (province, district) values ('경기도 수원시', '영통구');
+insert into location (province, district) values ('경기도 성남시', '수정구');
+insert into location (province, district) values ('경기도 성남시', '중원구');
+insert into location (province, district) values ('경기도 성남시', '분당구');
+insert into location (province, district) values ('경기도 안양시', '만안구');
+insert into location (province, district) values ('경기도 안양시', '동안구');
+insert into location (province, district) values ('경기도 용인시', '처인구');
+insert into location (province, district) values ('경기도 용인시', '기흥구');
+insert into location (province, district) values ('경기도 용인시', '수지구');
+insert into location (province, district) values ('경기도 의정부시', '의정부동');
+insert into location (province, district) values ('경기도 의정부시', '호원동');
+insert into location (province, district) values ('경기도 의정부시', '신곡동');
+insert into location (province, district) values ('경기도 의정부시', '송산동');
+insert into location (province, district) values ('강원도', '춘천시');
+insert into location (province, district) values ('충청북도', '청주시');
+insert into location (province, district) values ('충청남도', '천안시');
+insert into location (province, district) values ('전라북도', '목포시');
+insert into location (province, district) values ('전라남도', '여수시');
+insert into location (province, district) values ('경상북도', '포항시');
+insert into location (province, district) values ('경상남도', '창원시');
+insert into location (province, district) values ('제주특별자치도', '제주시');
+=======
 select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
 		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name,
 		c.aca_no ,(select aca_name from academy where aca_no = c.aca_no) as aca_name
@@ -615,9 +663,30 @@ select r.aca_rev_rep_no,r.review_rep_regdate,r.review_rep_content,u.usr_id,u.nic
 		order by r.aca_rev_rep_no desc
 
 
+select r.aca_rev_rep_no,r.review_rep_regdate,r.review_rep_content,u.usr_id,u.nickname,r.aca_rev_no
+		from (select aca_rev_rep_no,row_number() over(order by aca_rev_rep_no desc) as rnum,review_rep_regdate,review_rep_content,
+		aca_rev_no,usr_id from aca_rev_reply) r , users u
+		where u.usr_id = r.usr_id and
+		r.aca_rev_no = '1' and
+		rnum between '1' and '5'
+		order by r.aca_rev_rep_no desc
 
 
+create table cur_attach_file(
+   cur_att_no number primary key,
+   cur_filepath varchar2(1000) not null,
+   cur_no number not null,
+   constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
+)
 
+create sequence cur_attach_file_seq start with 1 nocache
 
-
+drop table aca_attach_file
+create table aca_attach_file(
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocachecurr
 

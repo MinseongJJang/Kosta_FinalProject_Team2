@@ -1,12 +1,16 @@
 package org.kosta.academy.controller;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.ReviewService;
+import org.kosta.academy.model.vo.AcaAttachFileVO;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcademyVO;
+import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.security.access.annotation.Secured;
@@ -16,10 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class AcademyController {
+public class AcademyController{
 	@Resource
 	private AcademyService academyService;
 	@Resource
@@ -65,14 +68,43 @@ public class AcademyController {
 		model.addAttribute("ListAcademy", listVO.getAcademyList());
 		return "academy/academy_compare_form.tiles";
 	}
-	
-	@Secured("ROLE_ADMIN")
-	@PostMapping("registerAcademy.do")
-	public String registerAcademy(AcademyVO academyVO) {
-		academyService.registerAcademy(academyVO);
-		return "redirect:detailAcademy.do?acaNo="+academyVO.getAcaNo();
-	}
 
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("registerAcademy.do")
+	public ModelAndView registerAcademy(AcademyVO academyVO,AcaAttachFileVO acaAttachFileVO
+			,String[] curtime) {
+		ModelAndView mv = new ModelAndView();
+		academyService.registerAcademy(academyVO,acaAttachFileVO);
+		String academyUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
+		File academyFile = new File(academyUpload);
+		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
+		String[] fileNames = academyFile.list();
+		/*
+		 * curtime hidden 값을 받아와 해당 디렉토리에 파일이름에 해당 이름이 들어가는 것이 있으면서
+		 * 맨마지막의 값이 1인 파일은 attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
+		 */
+		AcaAttachFileVO academyAttach = new AcaAttachFileVO();
+		for(int i=0;i<curtime.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				System.out.println(fileNames[j]);
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
+					if(fileNames[j].contains(curtime[i])) {
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(academyUpload+fileNames[j]);
+						File newFile = new File(academyUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
+						academyAttach.setAcademyVO(academyVO);
+						academyAttach.setAcaFilepath(academyUpload+builderFile);
+						academyService.registerAcademyAttach(academyAttach);
+					}
+				}
+			}
+		}
+		mv.setViewName("redirect:detailAcademy.do?acaNo="+academyVO.getAcaNo());
+		return mv;
+	}
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("academyRegisterForm.do")
 	public String academyRegisterForm() {
@@ -94,7 +126,7 @@ public class AcademyController {
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
-		
+		System.out.println(listVO.getCurriculumList());
 		return "academy/academy_detail.tiles";
 	}
 	@Secured("ROLE_ADMIN")
@@ -133,6 +165,7 @@ public class AcademyController {
 		model.addAttribute("DetailCurriculum", detailCurriculum);
 		return "curriculum/curriculum_detail.tiles";
 	}
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerCurriculumForm.do")
 	public String registerCurriculumForm(String acaNo, Model model) {
@@ -142,17 +175,65 @@ public class AcademyController {
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
-	public String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
+	public ModelAndView registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO
+			,String[] curtime,String[] curtime1) {
+		ModelAndView mv = new ModelAndView();
+/*	String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		academyService.registerCurriculum(curriculumVO);
 		redirectAttributes.addAttribute("curNo", curriculumVO.getCurNo());
 		return "redirect:register-curriculum.do";
 		}
-	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("register-curriculum.do")
-	public String postDetailNoHits(String curNo) {
-		return "redirect:detailCurriculum.do?curNo="+curNo;
+*/
+		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
+		File curriculumFile = new File(curriculumUpload);
+		String[] fileNames = curriculumFile.list();	
+		for(int i=0;i<curtime1.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {	
+					if(fileNames[j].substring(fileNames[j].length()-14,fileNames[j].length()-8).equals("@main@")&&fileNames[j].contains(curtime1[i])) {
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(curriculumUpload+fileNames[j]);
+						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						curriculumVO.setCurMainPic("/academy/resources/curriculumUpload/"+builderFile);
+						academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
+						oldFile.renameTo(newFile);
+						curriculumVO.setCurMainPic(curriculumUpload+builderFile);
+					}
+				}
+			}
+		}
+		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
+		for(int i=0;i<curtime.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
+					if(fileNames[j].contains(curtime[i])) {
+						
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(curriculumUpload+fileNames[j]);
+						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
+						curriculumAttach.setCurriculumVO(curriculumVO);
+						curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
+ 
+						academyService.registerCurriculumAttach(curriculumAttach);			
+					}
+				}
+			}
+		}
+		String curNo=curriculumVO.getCurNo();
+		mv.setViewName("redirect:detailCurriculum.do?curNo="+curNo);
+		return mv;
+
 	}
+		
+		
+	/*@Secured("ROLE_ADMIN")
+	@RequestMapping("register-curriculum.do")
+	public String registercurriculum(String curNo) {
+		return "redirect:detailCurriculum.do?curNo="+curNo;
+	}*/
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculumForm.do")
@@ -174,9 +255,7 @@ public class AcademyController {
 		String acaNo=curVO.getAcademyVO().getAcaNo();
 		academyService.deleteCurriculum(curNo);
 		return new ModelAndView("redirect:detailAcademy.do?acaNo="+acaNo);
-		
 	}
-
 }
 
 	

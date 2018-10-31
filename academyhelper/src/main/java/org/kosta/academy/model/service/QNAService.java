@@ -2,6 +2,7 @@ package org.kosta.academy.model.service;
 
 import org.kosta.academy.model.vo.AcaQNAReplyVO;
 import org.kosta.academy.model.vo.AcaQNAVO;
+import org.kosta.academy.model.vo.AcaQNQAttachFileVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public interface QNAService {
 	 * QNA를 등록하는 메소드
 	 * @param acaQNAVO
 	 */
-	public void registerAcaQNA(AcaQNAVO acaQNAVO);
+	public void registerAcaQNA(AcaQNAVO acaQnaVO, AcaQNQAttachFileVO acaQnaAttachFileVO);
 	/**
 	 * QNA 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
@@ -50,8 +51,9 @@ public interface QNAService {
 	/**
 	 * QNA 댓글을 수정하는 메소드
 	 * @param acaQNAReplyVO
+	 * @throws Exception 
 	 */
-	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO);
+	public void updateAcaQnAReply(AcaQNAReplyVO acaQNAReplyVO) throws Exception;
 	/**
 	 * QNA 댓글을 삭제하는 메소드
 	 * @param qnaRepNo
@@ -60,4 +62,6 @@ public interface QNAService {
 	public void deleteAcaQNAReply(String qnaRepNo) throws Exception;
 	
 	public String getAcaQnAReply(String qnaRepNo);
+	public void registerAcaQnaAttach(AcaQNQAttachFileVO acaQnaAttachFileVO);
+
 	}
