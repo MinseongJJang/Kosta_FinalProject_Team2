@@ -11,6 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+select * from users
 drop table users
 select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
 select usr_email from users where usr_id='java3'
@@ -83,7 +84,7 @@ create table authorities(
 )
 insert into authorities(authority,usr_id) values('ROLE_ADMIN','java')
 insert into authorities(authority,usr_id) values('ROLE_ADMIN','java5')
-insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java5')
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','spring')
 select * from users where usr_id='java5'
 select * from authorities
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java1')
