@@ -32,7 +32,7 @@
 				            <td>
 				            	<a href="${pageContext.request.contextPath}/detailAcademy.do?acaNo=${academy.acaNo}">${academy.acaName }</a>
 				            </td>
-				            <td>${academy.acaAddr }</td>
+				            <td><img src="${academy.acaMainPic}" height="100"></td>
 				            <td>${academy.acaTel }</td>
 				            <td>${academy.userVO.nickname}</td>
 				         </tr>

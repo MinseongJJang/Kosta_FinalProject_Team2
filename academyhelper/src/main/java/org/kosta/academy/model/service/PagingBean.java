@@ -16,6 +16,7 @@ package org.kosta.academy.model.service;
  *
  */
 public class PagingBean {
+	
 	/**
 	 * 현재 페이지
 	 */
@@ -23,7 +24,7 @@ public class PagingBean {
 	/**
 	 * 페이지당 게시물수
 	 */
-	private int postCountPerPage = 1;
+	private int postCountPerPage = 5;
 	/**
 	 * 페이지 그룹당 페이지수
 	 */

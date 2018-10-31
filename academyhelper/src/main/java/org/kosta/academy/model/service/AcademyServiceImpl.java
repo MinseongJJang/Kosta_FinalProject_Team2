@@ -74,13 +74,11 @@ public class AcademyServiceImpl implements AcademyService {
 		}
 	}
 	@Override
-	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO) {
+	public void registerAcademy(AcademyVO academyVO) {
 		academyVO.setAcaMainPic(academyVO.getAcaMainPic().replaceAll("!!@@", ""));
+		System.out.println(academyVO);
 		academyMapper.registerAcademy(academyVO);
-		acaAttachFileVO.setAcademyVO(academyVO);
-		if(acaAttachFileVO.getAcaFilepath() !=null) {
-			academyMapper.registerAcademyFile(acaAttachFileVO);
-		}
+	
 	}
 	
 	@Override

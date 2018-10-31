@@ -10,16 +10,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select
 			academy_seq.nextval from dual
 		</selectKey>
-		insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) values(#{acaNo}, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId})
+		insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id,aca_main_pic) values(#{acaNo}, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId},#{acaMainPic})
 	</insert>
 	<resultMap type="academyVO" id="usrIdRM">
 		<result property="userVO.usrId" column="usr_id" />
 		<result property="userVO.nickname" column="nickname" />
 	</resultMap>
 	<select id="listAcademy" resultMap="usrIdRM"  parameterType="pagingBean">
-		select a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, u.usr_id, u.nickname
-		from(select row_number() over(order by aca_no desc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id from academy) a, users u
-		where a.usr_id = u.usr_id  and rnum between #{startRowNumber}  and #{endRowNumber} order by aca_no desc
+		select a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, u.usr_id, u.nickname, a.aca_main_pic
+		from(select row_number() over(order by aca_no desc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id,aca_main_pic from academy) a, users u
+		where a.usr_id = u.usr_id  and rnum between #{startRowNumber} and #{endRowNumber} order by aca_no desc
 	</select>
 	<select id="allListAcademy" resultType="academyVO">
 		select * from academy
