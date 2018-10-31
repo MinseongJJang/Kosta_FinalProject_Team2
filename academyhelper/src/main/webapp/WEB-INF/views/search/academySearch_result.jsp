@@ -26,4 +26,31 @@
 				         </tr>
 				      </c:forEach>
 				   </tbody>
+				      <tfoot>
+				   <tr>
+				   	<td colspan="4" >
+				   		<div class="pagingInfo" >
+						   <c:set var="pb" value="${requestScope.pagingBean}"></c:set>
+						   <ul class="pagination">
+						      <c:if test="${pb.previousPageGroup}">
+						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.startPageOfPageGroup-1}+academyVO.acaAddr=${searchList.academyVO.acaAddr}">&laquo;</a></li>
+						      </c:if>
+						      <c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
+						         <c:choose>
+						            <c:when test="${pb.nowPage!=i}">
+						               <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${i}+academyVO.acaAddr=${searchList.academyVO.acaAddr}">${i}</a></li>
+						            </c:when>
+						            <c:otherwise>
+						               <li class="active"><a href="#">${i}</a></li>
+						            </c:otherwise>
+						         </c:choose>
+						      </c:forEach>
+						      <c:if test="${pb.nextPageGroup}">
+						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.endPageOfPageGroup+1}+academyVO.acaAddr=${searchList.academyVO.acaAddr}">&raquo;</a></li>
+						      </c:if>
+						   </ul>
+						</div>
+				   	</td>
+				   </tr>
+				   </tfoot>
 				</table>
