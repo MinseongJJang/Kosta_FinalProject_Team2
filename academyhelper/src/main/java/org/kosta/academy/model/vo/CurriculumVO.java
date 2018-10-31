@@ -79,7 +79,5 @@ public class CurriculumVO {
 				+ curLecturer + ", limitMem=" + limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook
 				+ ", academyVO=" + academyVO + "]";
 	}
-	
-	
 
 }

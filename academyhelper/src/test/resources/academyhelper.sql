@@ -192,11 +192,22 @@ create table academy(
 drop table academy
 select * from academy
 create sequence academy_seq start with 1 nocache
+alter table academy add(aca_main_pic clob);
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
 values(academy_seq.nextval,'코스타1','판교','0312558779','java0');
 
 select*from academy;
+
+/*학원 첨부 파일 및 시퀀스*/
+drop table aca_attach_file
+create table aca_attach_file(
+	aca_att_no number primary key,
+	aca_filepath varchar2(1000) not null,
+	aca_no number not null,
+	constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocache
 
 /*학원 Q&A 및 시퀀스*/
 drop table aca_qna

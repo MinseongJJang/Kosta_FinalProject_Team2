@@ -26,7 +26,8 @@
 				<td>타이틀 사진 <span id="curtime"></span>
 				</td>
 				<td><textarea cols="90" rows="15" name="curMainPic" id="curMainPic"
-						required="required" placeholder="본문내용을 입력하세요"></textarea> 	<script>
+						required="required" placeholder="본문내용을 입력하세요"></textarea> 	
+						<script>
 							$(document).ready(function() {
 												var curtime = "";
 												$('#curMainPic').summernote({
