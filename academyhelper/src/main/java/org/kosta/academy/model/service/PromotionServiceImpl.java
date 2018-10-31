@@ -43,7 +43,15 @@ public class PromotionServiceImpl implements PromotionService {
 		promotion.setPb(pb);
 		return promotion;
 	}
-
+	
+	@Override
+	public ListVO allListAcaPromoPost() {
+		List<AcaPromoPostVO> promoList = promotionMapper.allListAcaPromoPost();
+		ListVO promotion = new ListVO();
+		promotion.setAcaPromoPostList(promoList);
+		return promotion;
+	}
+	
 	@Override
 	public AcaPromoPostVO detailAcaPromoPost(String acaPromoNo) {
 		AcaPromoPostVO acaPromoPostVO =promotionMapper.detailAcaPromoPost(acaPromoNo);
@@ -66,5 +74,7 @@ public class PromotionServiceImpl implements PromotionService {
 	public void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach) {
 		promotionMapper.registerAcaPromoAttach(promoAttach);
 	}
+
+	
 
 }

@@ -34,6 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where p.usr_id = u.usr_id and rnum between #{startRowNumber} and #{endRowNumber}
 		order by p.aca_promo_no desc
 	</select>
+	<select id="allListAcaPromoPost" resultType="acaPromoPostVO">
+		select * from aca_promo_post
+	</select>
 	<update id="updateAcaPromoPost" parameterType="acaPromoPostVO">
 		update aca_promo_post set aca_promo_title = #{acaPromoTitle} , aca_promo_content = #{acaPromoContent}
 		where aca_promo_no = #{acaPromoNo}

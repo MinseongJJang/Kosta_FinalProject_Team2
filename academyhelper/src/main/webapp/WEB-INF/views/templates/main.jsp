@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var address="";
@@ -133,222 +133,35 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-heading">
-					<h2>IT 기관 홍보</h2>
+					<h2>IT 기관 정보</h2>
 				</div>
 			</div>
 		</div>
+		<!-- IT 기관 홍보 -->
 		<div class="owl-carousel owl-theme">
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Mauris tempus</h4>
-						<span>76 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_2.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Aenean dolor</h4>
-						<span>18 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
+			<c:forEach items="${requestScope.promotion.acaPromoPostList }" var="promo">
+						<%-- 	<tr>
+								<td>${promo.acaPromoNo }</td>
+								<td><a href="detailAcaPromoPost.do?acaPromoNo=${promo.acaPromoNo }">${promo.acaPromoTitle }</a></td>
+								<td>${promo.acaPromoRegdate }</td>
+								<td>${promo.acaUserVO.userVO.usrName }</td>
+							</tr> --%>
+				<div class="item popular-item">
+					<div class="thumb">
+						<img src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"	alt="">
+						<div class="text-content">
+							<h4>${promo.acaPromoTitle }</h4>
+							<span>${promo.acaPromoRegdate }</span>
+						</div>
+						<div class="plus-button">
+							<a href="#"><i class="fa fa-plus"></i></a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_3.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Nunc at quam</h4>
-						<span>55 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_4.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Fusce ac turpis</h4>
-						<span>66 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_5.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Lorem ipsum</h4>
-						<span>82 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Praesent nec</h4>
-						<span>76 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_2.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Suspendisse</h4>
-						<span>36 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_3.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Bibendum</h4>
-						<span>48 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_4.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Quisque sodales</h4>
-						<span>66 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_5.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Pellentesque</h4>
-						<span>85 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Commodo</h4>
-						<span>76 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_2.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Adipiscing</h4>
-						<span>32 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_3.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Etiam hendrerit</h4>
-						<span>49 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_4.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Suspendisse</h4>
-						<span>63 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_5.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Sit amet dictum</h4>
-						<span>86 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
+			
 		</div>
+		<!-- IT 기관 홍보 끝 -->
 	</div>
 	<br> <br> <br>
 	<div class="section-heading">

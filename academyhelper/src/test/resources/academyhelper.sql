@@ -110,7 +110,7 @@ ALTER COLUMN aca_promo_hits not null default 0;
 alter table aca_promo_post modify(aca_promo_hits default 0)
 
 create sequence aca_promo_post_seq start with 1 nocache
-alter table aca_promo_post  modify(aca_promo_hits number default 0)
+select * from aca_promo_post
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/
 create table aca_promo_attach_file(
 	aca_promo_att_no number primary key,

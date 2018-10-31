@@ -36,4 +36,8 @@ public interface PromotionService {
 	 */
 	public void deleteAcaPromoPost(String acaPromoNo);
 	public void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach);
+	/**
+	 * 페이지 없이 IT 홍보 글 리스트 불러오기 ( 메인화면 )
+	 */
+	public ListVO allListAcaPromoPost();
 }

@@ -1,15 +1,22 @@
 package org.kosta.academy.controller;
 
+import javax.annotation.Resource;
+
+import org.kosta.academy.model.service.PromotionService;
+import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-
+	@Resource
+	public PromotionService promotionService;
+	
 	@RequestMapping("home.do")
-	public String home() {
-		System.out.println("home");
+	public String home(Model model) {
+		ListVO promotion = promotionService.allListAcaPromoPost();
+		model.addAttribute("promotion",promotion);
 		return "home.tiles";
 	}
 /*	@RequestMapping("{viewName}.do")

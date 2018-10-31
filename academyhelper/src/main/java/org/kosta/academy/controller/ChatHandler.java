@@ -1,6 +1,5 @@
 package org.kosta.academy.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -45,7 +44,7 @@ public class ChatHandler extends TextWebSocketHandler {
         	System.out.println(ipAddress.get(j)+"1--------------------------------------------------------------------");
         	if(ipAddress.contains(session.getRemoteAddress().getHostName())) {
         		System.out.println("2--------------------------------------------------------------------");
-        		continue;
+        		break;
         	} else {
         		System.out.println("3--------------------------------------------------------------------");
         		sessionList.get(j).sendMessage(new TextMessage(br+"\n"));
