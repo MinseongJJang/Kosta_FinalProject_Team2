@@ -83,8 +83,11 @@ public interface AcademyService {
 	public ListVO listCurriculumAsAcademy(String acaNo);
 	/**
 	 * 교육과정에 파일 추가하는 메서드
-	 * @param suggestionPostAttachFileVO
+	 * @param curriculumAttachFileVO
 	 */	
 	public void registerCurriculumAttach(CurriculumAttachFileVO curriculumAttachFileVO);
+	
+	
+	
 	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO);
 }

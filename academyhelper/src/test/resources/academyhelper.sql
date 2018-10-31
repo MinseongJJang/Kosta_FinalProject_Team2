@@ -340,7 +340,31 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 		order by c.cur_no desc
 		
 delete from curriculum where cur_no='2';
+select
+			curriculum_seq.nextval from dual
+select
+		c.cur_no,c.cur_name,NVL( c.cur_main_pic, 'UNKNOWN' ),c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no='99'
+		
+		select
+		c.cur_no,c.cur_name,c.cur_main_pic,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no='112'
+		
+	insert into
+		curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,cur_main_pic)
+		values('100','5','자바','15','ㅁㅁ','ㅁ','ㅎ','ㅂ')
 
+select cur_no,cur_name,NVL( cur_main_pic, 'UNKNOWN' ),limit_mem,cur_content,cur_lecturer,cur_textbook
+		from curriculum
+		 where
+		cur_no='99'
+		
 create sequence curriculum_seq start with 1 nocache
 insert into curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook) 
 values(curriculum_seq.nextval,'1','자바의 기초',10,'자바 쉽지 않지만 재밌다.','윤준상','자바의 정석');
