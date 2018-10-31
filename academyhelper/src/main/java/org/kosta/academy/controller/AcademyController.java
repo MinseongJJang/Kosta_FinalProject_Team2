@@ -213,8 +213,48 @@ public class AcademyController {
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("updateCurriculum.do")
-	public ModelAndView updateCurriculum(CurriculumVO curriculumVO) {
-		academyService.updateCurriculum(curriculumVO);
+	public ModelAndView updateCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO
+			,String[] curtime,String[] curtime1) {
+				String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
+				File curriculumFile = new File(curriculumUpload);
+				String[] fileNames = curriculumFile.list();	
+				for(int i=0;i<curtime1.length;i++) {
+					for(int j=0;j<fileNames.length;j++) {
+						if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {	
+							if(fileNames[j].substring(fileNames[j].length()-14,fileNames[j].length()-8).equals("@main@")&&fileNames[j].contains(curtime1[i])) {
+								StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+								File oldFile = new File(curriculumUpload+fileNames[j]);
+								File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+								curriculumVO.setCurMainPic("/academy/resources/curriculumUpload/"+builderFile);
+								//academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
+								academyService.updateCurriculum(curriculumVO, curriculumAttachFileVO);
+
+								oldFile.renameTo(newFile);
+								curriculumVO.setCurMainPic(curriculumUpload+builderFile);
+							}
+						}
+					}
+				}
+				CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
+				for(int i=0;i<curtime.length;i++) {
+					for(int j=0;j<fileNames.length;j++) {
+						if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
+							if(fileNames[j].contains(curtime[i])) {
+								
+								StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+								File oldFile = new File(curriculumUpload+fileNames[j]);
+								File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+								//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+								//StringBuilder로 0으로 변경 후 파일도 변경
+								oldFile.renameTo(newFile);
+								curriculumAttach.setCurriculumVO(curriculumVO);
+								curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
+		 
+								academyService.registerCurriculumAttach(curriculumAttach);			
+							}
+						}
+					}
+				}
 		return new ModelAndView("redirect:detailCurriculum.do?curNo=" + curriculumVO.getCurNo());
 	}
 	@Secured("ROLE_ADMIN")
