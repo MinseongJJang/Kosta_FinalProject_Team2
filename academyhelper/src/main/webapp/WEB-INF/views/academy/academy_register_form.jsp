@@ -26,7 +26,7 @@
 						</tr>
 				   </thead>
 				   <tbody>
-						<tr >
+						<tr>
 					        <th>학원 이름</th>
 					        <td colspan="2"><input type="text" name="acaName" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
 				      	</tr>

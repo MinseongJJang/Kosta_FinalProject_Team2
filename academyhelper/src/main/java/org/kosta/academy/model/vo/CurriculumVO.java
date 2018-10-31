@@ -3,11 +3,11 @@ package org.kosta.academy.model.vo;
 public class CurriculumVO {
 	private String curNo;
 	private String curName;
-	private String curMainPic;
 	private String curLecturer;
 	private String limitMem;
 	private String curContent;
 	private String curTextbook;
+	private String curMainPic;
 	private AcademyVO academyVO;
 	public String getCurNo() {
 		return curNo;
@@ -20,12 +20,6 @@ public class CurriculumVO {
 	}
 	public void setCurName(String curName) {
 		this.curName = curName;
-	}
-	public String getCurMainPic() {
-		return curMainPic;
-	}
-	public void setCurMainPic(String curMainPic) {
-		this.curMainPic = curMainPic;
 	}
 	public String getCurLecturer() {
 		return curLecturer;
@@ -57,6 +51,15 @@ public class CurriculumVO {
 	public void setAcademyVO(AcademyVO academyVO) {
 		this.academyVO = academyVO;
 	}
+
+	public String getCurMainPic() {
+		return curMainPic;
+	}
+
+	public void setCurMainPic(String curMainPic) {
+		this.curMainPic = curMainPic;
+	}
+
 	public CurriculumVO(String curNo, String curName, String curMainPic, String curLecturer, String limitMem,
 			String curContent, String curTextbook, AcademyVO academyVO) {
 		super();
@@ -75,9 +78,9 @@ public class CurriculumVO {
 	}
 	@Override
 	public String toString() {
-		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", curMainPic=" + curMainPic + ", curLecturer="
-				+ curLecturer + ", limitMem=" + limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook
-				+ ", academyVO=" + academyVO + "]";
+		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", curLecturer=" + curLecturer + ", limitMem="
+				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + ", curMainPic="
+				+ curMainPic + ", academyVO=" + academyVO + "]";
 	}
 
 }

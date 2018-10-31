@@ -227,7 +227,7 @@ select r.qna_rep_no,
 		u.nickname
 		from
 		aca_qna_reply r,users u where r.usr_id=u.usr_id and qna_no='7'
-
+select * from curriculum
 select count(*)
 		from curriculum where aca_no='1'
 select * from aca_qna
@@ -312,10 +312,17 @@ create table curriculum(
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 
+<<<<<<< HEAD
+select * from curriculum
+alter table curriculum add(cur_main_pic clob);
+alter table curriculum drop column cur_main_pic
+alter table curriculum add(cur_main_pic varchar2(1000));
+=======
 
 alter table curriculum add(cur_main_pic clob);
 select*from curriculum
 
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -674,5 +681,12 @@ create table cur_attach_file(
 
 create sequence cur_attach_file_seq start with 1 nocache
 
-
+drop table aca_attach_file
+create table aca_attach_file(
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocachecurr
 

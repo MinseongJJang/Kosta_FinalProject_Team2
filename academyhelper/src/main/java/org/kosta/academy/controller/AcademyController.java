@@ -126,7 +126,7 @@ public class AcademyController{
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
-		
+		System.out.println(listVO.getCurriculumList());
 		return "academy/academy_detail.tiles";
 	}
 	@Secured("ROLE_ADMIN")
@@ -176,7 +176,7 @@ public class AcademyController{
 	@Secured("ROLE_ADMIN")
 	@PostMapping("registerCurriculum.do")
 	public ModelAndView registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO
-			,String[] curtime) {
+			,String[] curtime,String[] curtime1) {
 		ModelAndView mv = new ModelAndView();
 /*	String registerCurriculum(CurriculumVO curriculumVO, RedirectAttributes redirectAttributes) {
 		academyService.registerCurriculum(curriculumVO);
@@ -184,24 +184,27 @@ public class AcademyController{
 		return "redirect:register-curriculum.do";
 		}
 */
-		academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
 		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
 		File curriculumFile = new File(curriculumUpload);
-		String[] fileNames = curriculumFile.list();
-		System.out.println(curtime);
-		System.out.println(curtime.length);
-		System.out.println(fileNames);
-		System.out.println(fileNames.length);
-		System.out.println("========");
-
+		String[] fileNames = curriculumFile.list();	
+		for(int i=0;i<curtime1.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {	
+					if(fileNames[j].substring(fileNames[j].length()-14,fileNames[j].length()-8).equals("@main@")&&fileNames[j].contains(curtime1[i])) {
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(curriculumUpload+fileNames[j]);
+						File newFile = new File(curriculumUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						curriculumVO.setCurMainPic("/academy/resources/curriculumUpload/"+builderFile);
+						academyService.registerCurriculum(curriculumVO,curriculumAttachFileVO);
+						oldFile.renameTo(newFile);
+						curriculumVO.setCurMainPic(curriculumUpload+builderFile);
+					}
+				}
+			}
+		}
 		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
 		for(int i=0;i<curtime.length;i++) {
-			//System.out.println(curtime);
-			System.out.println(curtime[i]);
-
 			for(int j=0;j<fileNames.length;j++) {
-				System.out.println("=============================");
-				System.out.println(fileNames[j]);
 				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
 					if(fileNames[j].contains(curtime[i])) {
 						
@@ -213,8 +216,6 @@ public class AcademyController{
 						oldFile.renameTo(newFile);
 						curriculumAttach.setCurriculumVO(curriculumVO);
 						curriculumAttach.setCurriculumFilepath(curriculumUpload+builderFile);
-						System.out.println(oldFile);
-						System.out.println(newFile);
  
 						academyService.registerCurriculumAttach(curriculumAttach);			
 					}
