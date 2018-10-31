@@ -129,7 +129,7 @@ public class AcademyController {
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
-		System.out.println(listVO.getCurriculumList());
+//		System.out.println(listVO.getCurriculumList());
 		return "academy/academy_detail.tiles";
 	}
 
@@ -167,7 +167,6 @@ public class AcademyController {
 
 	@RequestMapping("detailCurriculum.do")
 	public String detailCurriculum(String curNo, Model model) {
-		System.out.println(curNo);
 		CurriculumVO detailCurriculum = academyService.detailCurriculum(curNo);
 		model.addAttribute("DetailCurriculum", detailCurriculum);
 		return "curriculum/curriculum_detail.tiles";
@@ -214,7 +213,6 @@ public class AcademyController {
 			curriculumVO.setCurMainPic("사진없음");
 			academyService.registerCurriculum(curriculumVO, curriculumAttach);
 		}
-		System.out.println(curriculumVO);
 
 		if (curtime != null) {
 
