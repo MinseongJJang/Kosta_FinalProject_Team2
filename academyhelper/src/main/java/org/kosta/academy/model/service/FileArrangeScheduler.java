@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class FileArrangeScheduler{
 	
 	private String filepath;
-	
+
 	@Scheduled(cron="0 0 02 * * *")
 	public void run() {
 				System.out.println("파일정리 Thread run method 실행");
