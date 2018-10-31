@@ -230,8 +230,7 @@ public class AcademyController {
 							oldFile.renameTo(newFile);
 							curriculumAttach.setCurriculumVO(curriculumVO);
 							curriculumAttach.setCurriculumFilepath(curriculumUpload + builderFile);
-
-							academyService.registerCurriculumAttach(curriculumAttach);
+							curriculumAttach.setCurriculumVO(curriculumVO);
 						}
 					}
 				}
@@ -241,10 +240,11 @@ public class AcademyController {
 			curriculumVO.setCurMainPic("사진없음");
 
 		}
-		String curNo = curriculumVO.getCurNo();
 		academyService.registerCurriculum(curriculumVO, curriculumAttach);
+		academyService.registerCurriculumAttach(curriculumAttach);
 
-		System.out.println(curriculumVO);
+//		String curNo = curriculumVO.getCurNo();
+
 		// String acaNo = curriculumVO.getAcademyVO().getAcaNo();
 		redirectAttr.addAttribute("curNo", curriculumVO.getCurNo());
 		mv.setViewName("redirect:detailCurriculum.do");
