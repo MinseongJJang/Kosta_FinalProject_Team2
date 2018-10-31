@@ -185,12 +185,13 @@ public class AcademyController {
 	public ModelAndView registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO,
 			String[] curtime, String[] curtime1, RedirectAttributes redirectAttr) {
 		ModelAndView mv = new ModelAndView();
+		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
+
 
 		String curriculumUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\curriculumUpload\\";
 		File curriculumFile = new File(curriculumUpload);
 		String[] fileNames = curriculumFile.list();
 		if (curtime1 != null) {
-
 			for (int i = 0; i < curtime1.length; i++) {
 				for (int j = 0; j < fileNames.length; j++) {
 					if (fileNames[j].substring(fileNames[j].length() - 8, fileNames[j].length() - 4).equals("!!@@")) {
@@ -201,6 +202,8 @@ public class AcademyController {
 							File newFile = new File(curriculumUpload
 									+ builderFile.replace(builderFile.length() - 8, builderFile.length() - 4, ""));
 							curriculumVO.setCurMainPic("/academy/resources/curriculumUpload/" + builderFile);
+							academyService.registerCurriculum(curriculumVO, curriculumAttach);
+
 							oldFile.renameTo(newFile);
 							curriculumVO.setCurMainPic(curriculumUpload + builderFile);
 						}
@@ -208,12 +211,11 @@ public class AcademyController {
 				}
 			}
 		} else {
-			curtime1 = null;
 			curriculumVO.setCurMainPic("사진없음");
-
+			academyService.registerCurriculum(curriculumVO, curriculumAttach);
 		}
+		System.out.println(curriculumVO);
 
-		CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
 		if (curtime != null) {
 
 			for (int i = 0; i < curtime.length; i++) {
@@ -228,22 +230,21 @@ public class AcademyController {
 							// 아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
 							// StringBuilder로 0으로 변경 후 파일도 변경
 							oldFile.renameTo(newFile);
+							
 							curriculumAttach.setCurriculumVO(curriculumVO);
 							curriculumAttach.setCurriculumFilepath(curriculumUpload + builderFile);
-							curriculumAttach.setCurriculumVO(curriculumVO);
+							academyService.registerCurriculumAttach(curriculumAttach);
+
 						}
 					}
 				}
 			}
 		} else {
-			curtime = null;
 			curriculumVO.setCurMainPic("사진없음");
 
 		}
-		academyService.registerCurriculum(curriculumVO, curriculumAttach);
-		academyService.registerCurriculumAttach(curriculumAttach);
 
-//		String curNo = curriculumVO.getCurNo();
+		String curNo = curriculumVO.getCurNo();
 
 		// String acaNo = curriculumVO.getAcademyVO().getAcaNo();
 		redirectAttr.addAttribute("curNo", curriculumVO.getCurNo());
@@ -275,7 +276,6 @@ public class AcademyController {
 		File curriculumFile = new File(curriculumUpload);
 		String[] fileNames = curriculumFile.list();
 		if (curtime1 != null) {
-
 			for (int i = 0; i < curtime1.length; i++) {
 				for (int j = 0; j < fileNames.length; j++) {
 					if (fileNames[j].substring(fileNames[j].length() - 8, fileNames[j].length() - 4).equals("!!@@")) {
@@ -298,8 +298,8 @@ public class AcademyController {
 		} else {
 			curtime1 = null;
 			curriculumVO.setCurMainPic("사진없음");
+			academyService.updateCurriculum(curriculumVO, curriculumAttachFileVO);
 		}
-
 		if (curtime != null) {
 			CurriculumAttachFileVO curriculumAttach = new CurriculumAttachFileVO();
 			for (int i = 0; i < curtime.length; i++) {
@@ -311,7 +311,7 @@ public class AcademyController {
 							File oldFile = new File(curriculumUpload + fileNames[j]);
 							File newFile = new File(curriculumUpload
 									+ builderFile.replace(builderFile.length() - 8, builderFile.length() - 4, ""));
-							// 아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+							// 아직업데이트 되지 않았다는 상태값인 1을 0으로 변경-
 							// StringBuilder로 0으로 변경 후 파일도 변경
 							oldFile.renameTo(newFile);
 							curriculumAttach.setCurriculumVO(curriculumVO);
@@ -326,6 +326,7 @@ public class AcademyController {
 			curtime = null;
 			curriculumVO.setCurMainPic("사진없음");
 		}
+		
 		return new ModelAndView("redirect:detailCurriculum.do?curNo=" + curriculumVO.getCurNo());
 	}
 
