@@ -66,6 +66,7 @@ public class AcademyServiceImpl implements AcademyService {
 	@Override
 	public void registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO) {
 		curriculumVO.setCurContent(curriculumVO.getCurContent().replaceAll("!!@@", ""));
+		System.out.println(curriculumVO);
 		curriculumMapper.registerCurriculum(curriculumVO);
 		curriculumAttachFileVO.setCurriculumVO(curriculumVO);
 		if(curriculumAttachFileVO.getCurriculumFilepath() !=null) {
@@ -125,8 +126,13 @@ public class AcademyServiceImpl implements AcademyService {
 	}
 
 	@Override
-	public void updateCurriculum(CurriculumVO curriculumVO) {
+	public void updateCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO) {
+		curriculumVO.setCurContent(curriculumVO.getCurContent().replaceAll("!!@@", ""));
 		curriculumMapper.updateCurriculum(curriculumVO);
+		curriculumAttachFileVO.setCurriculumVO(curriculumVO);
+		if(curriculumAttachFileVO.getCurriculumFilepath() !=null) {
+			curriculumMapper.updateCurriculumFile(curriculumAttachFileVO);
+		}
 	}
 
 	@Override

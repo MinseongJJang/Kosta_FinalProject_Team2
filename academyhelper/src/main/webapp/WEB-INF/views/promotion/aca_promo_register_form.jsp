@@ -65,10 +65,11 @@
 							         	  },
 							              success: function(url) {
 							            	var path = "${pageContext.request.contextPath}/resources/promotionUpload/"+url[0];
+							            	alert(path);
 							            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
 							            	$("#curtime").html(curtime);
 							                $(el).summernote("editor.insertImage", path);
-							                $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+							                $("#imageBoard > ul").append('<li><img src="'+path+'" width="480" height="auto"/></li>');
 							              }
 							          });//ajax
 							   	   }//sendFile

@@ -43,7 +43,7 @@ public class QNAController {
 		return "qna/qna_detail.tiles";
 	}
 	
-	@RequestMapping("listAcaQNAReply.do")
+	@PostMapping("listAcaQNAReply.do")
 	@ResponseBody
 	public ListVO listQnaReply(String qnaNo, String pageNo, Model model) {
 		System.out.println(qnaNo);
@@ -125,6 +125,8 @@ public class QNAController {
 	public ListVO registerAcaQnAReply(AcaQNAReplyVO acaQNAVOReplyVO) {
 		String pageNo="1";
 		String qnaNo=acaQNAVOReplyVO.getAcaQNAVO().getQnaNo();
+		System.out.println(qnaNo);
+		System.out.println(acaQNAVOReplyVO);
 		qnaService.registerAcaQNAReply(acaQNAVOReplyVO);
 		ListVO listQNAReply=qnaService.listAcaQNAReply(qnaNo, pageNo);
 		return listQNAReply;
