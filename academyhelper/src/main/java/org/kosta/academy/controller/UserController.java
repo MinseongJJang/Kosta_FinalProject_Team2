@@ -59,7 +59,6 @@ public class UserController extends Authenticator {
 	// 비밀번호 찾기
 	@PostMapping("find_pw.do")
 	public void find_pw(UserVO userVO, HttpServletResponse response) throws Exception{
-		System.out.println(userVO.getUsrId());
 		userService.find_pw(response, userVO);
 	}
 	@RequestMapping("login_fail.do")
