@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.ReviewService;
+import org.kosta.academy.model.vo.AcaAttachFileVO;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumAttachFileVO;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class AcademyController {
+public class AcademyController{
 	@Resource
 	private AcademyService academyService;
 	@Resource
@@ -67,14 +68,43 @@ public class AcademyController {
 		model.addAttribute("ListAcademy", listVO.getAcademyList());
 		return "academy/academy_compare_form.tiles";
 	}
-	
-	@Secured("ROLE_ADMIN")
-	@PostMapping("registerAcademy.do")
-	public String registerAcademy(AcademyVO academyVO) {
-		academyService.registerAcademy(academyVO);
-		return "redirect:detailAcademy.do?acaNo="+academyVO.getAcaNo();
-	}
 
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("registerAcademy.do")
+	public ModelAndView registerAcademy(AcademyVO academyVO,AcaAttachFileVO acaAttachFileVO
+			,String[] curtime) {
+		ModelAndView mv = new ModelAndView();
+		academyService.registerAcademy(academyVO,acaAttachFileVO);
+		String academyUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
+		File academyFile = new File(academyUpload);
+		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
+		String[] fileNames = academyFile.list();
+		/*
+		 * curtime hidden 값을 받아와 해당 디렉토리에 파일이름에 해당 이름이 들어가는 것이 있으면서
+		 * 맨마지막의 값이 1인 파일은 attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
+		 */
+		AcaAttachFileVO academyAttach = new AcaAttachFileVO();
+		for(int i=0;i<curtime.length;i++) {
+			for(int j=0;j<fileNames.length;j++) {
+				System.out.println(fileNames[j]);
+				if(fileNames[j].substring(fileNames[j].length()-8,fileNames[j].length()-4).equals("!!@@")) {
+					if(fileNames[j].contains(curtime[i])) {
+						StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+						File oldFile = new File(academyUpload+fileNames[j]);
+						File newFile = new File(academyUpload+builderFile.replace(builderFile.length()-8, builderFile.length()-4, ""));
+						//아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+						//StringBuilder로 0으로 변경 후 파일도 변경
+						oldFile.renameTo(newFile);
+						academyAttach.setAcademyVO(academyVO);
+						academyAttach.setAcaFilepath(academyUpload+builderFile);
+						academyService.registerAcademyAttach(academyAttach);
+					}
+				}
+			}
+		}
+		mv.setViewName("redirect:detailAcademy.do?acaNo="+academyVO.getAcaNo());
+		return mv;
+	}
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("academyRegisterForm.do")
 	public String academyRegisterForm() {
@@ -135,6 +165,7 @@ public class AcademyController {
 		model.addAttribute("DetailCurriculum", detailCurriculum);
 		return "curriculum/curriculum_detail.tiles";
 	}
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerCurriculumForm.do")
 	public String registerCurriculumForm(String acaNo, Model model) {

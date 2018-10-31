@@ -24,6 +24,7 @@
 				</td>
 			</tr> 
 			<tr>
+
 				<td>최대 수강인원 &nbsp;&nbsp; <input type="number" name="limitMem"
 					placeholder="숫자만 입력해주세요!" required="required">
 				</td>

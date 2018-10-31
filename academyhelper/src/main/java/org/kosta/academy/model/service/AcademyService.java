@@ -2,6 +2,7 @@ package org.kosta.academy.model.service;
 
 import java.util.List;
 
+import org.kosta.academy.model.vo.AcaAttachFileVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumAttachFileVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -19,14 +20,13 @@ public interface AcademyService {
 	 * 파일첨부도 함께 처리한다
 	 * @param academyVO
 	 */
-	public void registerAcademy(AcademyVO academyVO);
+	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO);
 	/**
 	 * 교육기관 정보 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
 	 * @param pageNo
 	 * @return
 	 */
-	
 	public ListVO listAcademy(String pageNo);
 
 	/**
@@ -86,5 +86,5 @@ public interface AcademyService {
 	 * @param suggestionPostAttachFileVO
 	 */	
 	public void registerCurriculumAttach(CurriculumAttachFileVO curriculumAttachFileVO);
-
+	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO);
 }

@@ -100,6 +100,7 @@ public class SearchController {
 		}
 		return "search/academySearch_result.tiles";
 	}
+	
 	//지역&교육명 검색
 	@RequestMapping("locationAndCurName.do")
 	public String locationAndCurName(CurriculumVO curriculumVO, String pageNo, Model model) {

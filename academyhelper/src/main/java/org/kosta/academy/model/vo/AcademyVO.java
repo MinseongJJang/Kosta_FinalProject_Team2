@@ -5,17 +5,19 @@ public class AcademyVO {
 	private String acaName;
 	private String acaAddr;
 	private String acaTel;
+	private String acaMainPic;
 	private UserVO userVO;
 
 	public AcademyVO() {
 		super();
 	}
 
-	public AcademyVO(String acaName, String acaAddr, String acaTel, UserVO userVO) {
+	public AcademyVO(String acaName, String acaAddr, String acaTel, String acaMainPic, UserVO userVO) {
 		super();
 		this.acaName = acaName;
 		this.acaAddr = acaAddr;
 		this.acaTel = acaTel;
+		this.acaMainPic = acaMainPic;
 		this.userVO = userVO;
 	}
 
@@ -51,6 +53,14 @@ public class AcademyVO {
 		this.acaTel = acaTel;
 	}
 
+	public String getAcaMainPic() {
+		return acaMainPic;
+	}
+
+	public void setAcaMainPic(String acaMainPic) {
+		this.acaMainPic = acaMainPic;
+	}
+
 	public UserVO getUserVO() {
 		return userVO;
 	}
@@ -62,7 +72,7 @@ public class AcademyVO {
 	@Override
 	public String toString() {
 		return "AcademyVO [acaNo=" + acaNo + ", acaName=" + acaName + ", acaAddr=" + acaAddr + ", acaTel=" + acaTel
-				+ ", userVO=" + userVO + "]";
+				+ ", acaMainPic=" + acaMainPic + ", userVO=" + userVO + "]";
 	}
 
 }

@@ -83,7 +83,4 @@ public class CurriculumVO {
 				+ curMainPic + ", academyVO=" + academyVO + "]";
 	}
 
-	
-	
-
 }
