@@ -40,7 +40,7 @@
 					<tbody>
 						<tr>
 							<th>과정사진</th>
-							<td><pre style="white-space: pre-wrap;">${requestScope.DetailCurriculum.curMainPic}</pre></td>
+							<td><img src="${requestScope.DetailCurriculum.curMainPic}"></td>
 						</tr> 
 						<tr>
 							<th>과정이름</th>
