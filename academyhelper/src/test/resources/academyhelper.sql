@@ -188,6 +188,15 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+create table aca_attach_file(
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocache
+alter table academy add(aca_main_pic clob)
+create 
 delete academy
 select * from academy
 create sequence academy_seq start with 1 nocache
@@ -297,6 +306,7 @@ create table curriculum(
 	cur_textbook varchar2(100) not null,
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
+alter table curriculum add(cur_main_pic clob)
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -344,7 +354,7 @@ create table cur_attach_file(
 	cur_no number not null,
 	constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
 )
-
+drop table cur_attach_file
 create sequence cur_attach_file_seq start with 1 nocache
 
 
@@ -556,38 +566,39 @@ create table location(
 	constraint province primary key (province, district)
 )
 select * from location
-insert into location (province, district) values ('서울특별시', '종로구');
-insert into location (province, district) values ('서울특별시', '중구');
-insert into location (province, district) values ('서울특별시', '용산구');
-insert into location (province, district) values ('서울특별시', '광진구');
-insert into location (province, district) values ('서울특별시', '성북구');
-insert into location (province, district) values ('서울특별시', '도봉구');
-insert into location (province, district) values ('서울특별시', '노원구');
-insert into location (province, district) values ('서울특별시', '은평구');
-insert into location (province, district) values ('서울특별시', '서대문구');
-insert into location (province, district) values ('서울특별시', '강남구');
-insert into location (province, district) values ('서울특별시', '송파구');
-insert into location (province, district) values ('서울특별시', '관악구');
-insert into location (province, district) values ('서울특별시', '동작구');
-insert into location (province, district) values ('서울특별시', '강서구');
-insert into location (province, district) values ('서울특별시', '서초구');
-insert into location (province, district) values ('서울특별시', '중랑구');
-insert into location (province, district) values ('경기도 수원시', '장안구');
-insert into location (province, district) values ('경기도 수원시', '권선구');
-insert into location (province, district) values ('경기도 수원시', '팔달구');
-insert into location (province, district) values ('경기도 수원시', '영통구');
-insert into location (province, district) values ('경기도 성남시', '수정구');
-insert into location (province, district) values ('경기도 성남시', '중원구');
-insert into location (province, district) values ('경기도 성남시', '분당구');
-insert into location (province, district) values ('경기도 안양시', '만안구');
-insert into location (province, district) values ('경기도 안양시', '동안구');
-insert into location (province, district) values ('경기도 용인시', '처인구');
-insert into location (province, district) values ('경기도 용인시', '기흥구');
-insert into location (province, district) values ('경기도 용인시', '수지구');
-insert into location (province, district) values ('경기도 의정부시', '의정부동');
-insert into location (province, district) values ('경기도 의정부시', '호원동');
-insert into location (province, district) values ('경기도 의정부시', '신곡동');
-insert into location (province, district) values ('경기도 의정부시', '송산동');
+delete from location
+insert into location (province, district) values ('서울', '종로구');
+insert into location (province, district) values ('서울', '중구');
+insert into location (province, district) values ('서울', '용산구');
+insert into location (province, district) values ('서울', '광진구');
+insert into location (province, district) values ('서울', '성북구');
+insert into location (province, district) values ('서울', '도봉구');
+insert into location (province, district) values ('서울', '노원구');
+insert into location (province, district) values ('서울', '은평구');
+insert into location (province, district) values ('서울', '서대문구');
+insert into location (province, district) values ('서울', '강남구');
+insert into location (province, district) values ('서울', '송파구');
+insert into location (province, district) values ('서울', '관악구');
+insert into location (province, district) values ('서울', '동작구');
+insert into location (province, district) values ('서울', '강서구');
+insert into location (province, district) values ('서울', '서초구');
+insert into location (province, district) values ('서울', '중랑구');
+insert into location (province, district) values ('경기 수원시', '장안구');
+insert into location (province, district) values ('경기 수원시', '권선구');
+insert into location (province, district) values ('경기 수원시', '팔달구');
+insert into location (province, district) values ('경기 수원시', '영통구');
+insert into location (province, district) values ('경기 성남시', '수정구');
+insert into location (province, district) values ('경기 성남시', '중원구');
+insert into location (province, district) values ('경기 성남시', '분당구');
+insert into location (province, district) values ('경기 안양시', '만안구');
+insert into location (province, district) values ('경기 안양시', '동안구');
+insert into location (province, district) values ('경기 용인시', '처인구');
+insert into location (province, district) values ('경기 용인시', '기흥구');
+insert into location (province, district) values ('경기 용인시', '수지구');
+insert into location (province, district) values ('경기 의정부시', '의정부동');
+insert into location (province, district) values ('경기 의정부시', '호원동');
+insert into location (province, district) values ('경기 의정부시', '신곡동');
+insert into location (province, district) values ('경기 의정부시', '송산동');
 insert into location (province, district) values ('강원도', '춘천시');
 insert into location (province, district) values ('충청북도', '청주시');
 insert into location (province, district) values ('충청남도', '천안시');
@@ -654,6 +665,18 @@ create table cur_attach_file(
 )
 
 create sequence cur_attach_file_seq start with 1 nocache
+
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (cur_name) LIKE '%'||upper('sp')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1  and 5 order by a.aca_no desc
+
+select * from curriculum
+
+	select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content, cur_main_pic from curriculum) c, academy a
+	where upper (c.cur_name) LIKE '%'||upper('sp')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1  and 10 order by a.aca_no desc
 
 
 

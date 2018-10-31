@@ -1,11 +1,8 @@
 package org.kosta.academy.model.service;
 
-import java.util.List;
-
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.HashTagVO;
 import org.kosta.academy.model.vo.ListVO;
-import org.kosta.academy.model.vo.LocationVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,16 +24,13 @@ public interface SearchService {
 	 * @return
 	 */
 
-	public ListVO academyHashSearch(HashTagVO hashTagVO,String pageNo);
-
 	public ListVO provinceList();
 	
 	public ListVO districtList(String province);
-	public ListVO locationAndCurName(CurriculumVO curriculumVO, String pageNo);
-	public ListVO locationAndSearch(CurriculumVO curriculumVO, String pageNo);
-	public ListVO curNameAndSearch(CurriculumVO curriculumVO, String pageNo);
-	public ListVO locationAndCurNameAndSearch(CurriculumVO curriculumVO, String pageNo);
-
+	
+	public ListVO academyHashSearch(HashTagVO hashTagVO,String pageNo);
+	public ListVO search(CurriculumVO curriculumVO, String search, String pageNo);
+	
 
 	
 	

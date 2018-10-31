@@ -2,6 +2,7 @@ package org.kosta.academy.controller;
 
 import javax.annotation.Resource;
 
+import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.SearchService;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -10,15 +11,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SearchController {
 	@Resource
 	private SearchService searchService;
+	@Resource
+	private AcademyService academyService;
 	
 	@RequestMapping("academySearch.do")
-	public String academySearch(CurriculumVO curriculumVO, String search, String pageNo, Model model,RedirectAttributes redirectAttr) {
+	public String academySearch(CurriculumVO curriculumVO, String search, String pageNo, Model model) {
+		ListVO lvo = searchService.search(curriculumVO, search, pageNo);
+		System.out.println(lvo);
+		return null;
+	}
+	/*
+	@RequestMapping("academySearch.do")
+	public String academySearch(CurriculumVO curriculumVO, String search, String pageNo, Model model) {
 
 		String [] data = {curriculumVO.getAcademyVO().getAcaAddr(), curriculumVO.getCurName(), search};
 		int count = 0;
@@ -27,7 +36,6 @@ public class SearchController {
 				count++;
 			}
 		}
-		System.out.println(count);
 		if(count == 0) {
 			String acaAddr = "";
 			AcademyVO academyVO = new AcademyVO();
@@ -66,23 +74,23 @@ public class SearchController {
 			ListVO listVO = searchService.academySearch(curriculumVO, pageNo);
 			model.addAttribute("searchList", listVO.getCurriculumList());
 			model.addAttribute("pagingBean", listVO.getPb());
-			return "search/academySearch_result.tiles";
+			return "search/academySearch_result.tiles1";
 		}else if(count == 2) {
 			if(search.trim().equals("")) {
 				//지역&교육명 검색
-				System.out.println(curriculumVO);
-				model.addAttribute("curriculumVO", curriculumVO);
-				model.addAttribute("pageNo", pageNo);
-				redirectAttr.addAttribute("curriculumVO",curriculumVO);
-				redirectAttr.addAttribute("pageNo", pageNo);
-				return "redirect:locationAndCurName.do";
+				ListVO listVO = searchService.locationAndCurName(curriculumVO, pageNo);
+				model.addAttribute("searchList", listVO.getCurriculumList());
+				model.addAttribute("pagingBean", listVO.getPb());
+				return "search/academySearch_result2.tiles";
 			}else {
 				if(curriculumVO.getCurName().equals("")) {
 					//지역&검색어 검색
 					curriculumVO.setCurName(search);
 					curriculumVO.setCurContent(search);
-					System.out.println(curriculumVO);
-					return "redirect:locationAndSearch.do";
+					ListVO listVO = searchService.locationAndSearch(curriculumVO, pageNo);
+					model.addAttribute("searchList", listVO.getCurriculumList());
+					model.addAttribute("pagingBean", listVO.getPb());
+					return "search/academySearch_result2.tiles";
 				}else {
 					//교육명&검색어 검색
 					String acaAddr = search;
@@ -90,52 +98,22 @@ public class SearchController {
 					academyVO.setAcaAddr(acaAddr);
 					curriculumVO.setAcademyVO(academyVO);
 					curriculumVO.setCurContent(search);
-					System.out.println(curriculumVO);
-					return "redirect:curNameAndSearch.do";
+					ListVO listVO = searchService.curNameAndSearch(curriculumVO, pageNo);
+					model.addAttribute("searchList", listVO.getCurriculumList());
+					model.addAttribute("pagingBean", listVO.getPb());
+					return "search/academySearch_result2.tiles";
 				}
 			}
 		}else if(count ==3) {
-			//지역&교육명&검색어 검색
-			return "redirect:locationAndCurNameAndSearch.do";
+			curriculumVO.setCurContent(search);
+			ListVO listVO = searchService.locationAndCurNameAndSearch(curriculumVO, pageNo);
+			model.addAttribute("searchList", listVO.getCurriculumList());
+			model.addAttribute("pagingBean", listVO.getPb());
+			return "search/academySearch_result3.tiles";
 		}
-		return "search/academySearch_result.tiles";
+		return null;
 	}
-	//지역&교육명 검색
-	@RequestMapping("locationAndCurName.do")
-	public String locationAndCurName(CurriculumVO curriculumVO, String pageNo, Model model) {
-		System.out.println("지역O교육O"+curriculumVO.getAcademyVO().getAcaAddr()+curriculumVO.getCurName()+curriculumVO.getCurContent());
-		ListVO listVO = searchService.locationAndCurName(curriculumVO, pageNo);
-		model.addAttribute("searchList", listVO.getCurriculumList());
-		model.addAttribute("pagingBean", listVO.getPb());
-		return "search/academySearch_result.tiles";
-	}
-	//지역&검색어 검색
-	@RequestMapping("locationAndSearch.do")
-	public String locationAndSearch(CurriculumVO curriculumVO, String pageNo, Model model) {
-		System.out.println("지역O검색O"+curriculumVO.getAcademyVO().getAcaAddr()+curriculumVO.getCurName()+curriculumVO.getCurContent());
-		ListVO listVO = searchService.locationAndSearch(curriculumVO, pageNo);
-		model.addAttribute("searchList", listVO.getCurriculumList());
-		model.addAttribute("pagingBean", listVO.getPb());
-		return "search/academySearch_result.tiles";
-	}
-	//교육명&검색어 검색
-	@RequestMapping("curNameAndSearch.do")
-	public String curNameAndSearch(CurriculumVO curriculumVO, String pageNo, Model model) {
-		System.out.println("교육O검색O"+curriculumVO.getAcademyVO().getAcaAddr()+curriculumVO.getCurName()+curriculumVO.getCurContent());
-		ListVO listVO = searchService.curNameAndSearch(curriculumVO, pageNo);
-		model.addAttribute("searchList", listVO.getCurriculumList());
-		model.addAttribute("pagingBean", listVO.getPb());
-		return "search/academySearch_result.tiles";
-	}
-	//지역&교육명&검색어 검색
-	@RequestMapping("locationAndCurNameAndSearch.do")
-	public String locationAndCurNameAndSearch(CurriculumVO curriculumVO, String pageNo, Model model) {
-		System.out.println("OOO"+curriculumVO.getAcademyVO().getAcaAddr()+curriculumVO.getCurName()+curriculumVO.getCurContent());
-		ListVO listVO = searchService.locationAndCurNameAndSearch(curriculumVO, pageNo);
-		model.addAttribute("searchList", listVO.getCurriculumList());
-		model.addAttribute("pagingBean", listVO.getPb());
-		return "search/academySearch_result.tiles";
-	}
+	*/
 	
 	@RequestMapping("provinceList.do")
 	@ResponseBody
