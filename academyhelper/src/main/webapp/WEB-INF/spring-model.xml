@@ -66,14 +66,4 @@ class="org.mybatis.spring.SqlSessionFactoryBean">
 
 <!-- spring scheduler 설정 -->
 <task:annotation-driven/>
-
 </beans>
-
-
-
-
-
-
-
-
-
