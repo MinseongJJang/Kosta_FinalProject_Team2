@@ -34,7 +34,10 @@ class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 <bean id="chatHandler" class="org.kosta.academy.controller.ChatHandler"/>
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/chat-ws.do"/>
-	</websocket:handlers>	
+		<websocket:handshake-interceptors>
+  	 <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+    </websocket:handshake-interceptors>
+	</websocket:handlers>
 <!--  Tiles 설정 -->
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
 <property name="definitions">
