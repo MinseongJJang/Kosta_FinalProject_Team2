@@ -9,7 +9,6 @@ public class HomeController {
 
 	@RequestMapping("home.do")
 	public String home() {
-		System.out.println("home");
 		return "home.tiles";
 	}
 /*	@RequestMapping("{viewName}.do")

@@ -71,7 +71,7 @@ public class UserController extends Authenticator {
 		return "user/login_form.tiles";
 	}
 
-	@RequestMapping(value = "registerUser.do", method = RequestMethod.POST)
+	@PostMapping("registerUser.do")
 	public String register(UserVO userVO) {
 		userService.registerUser(userVO);
 		return "redirect:home.do";

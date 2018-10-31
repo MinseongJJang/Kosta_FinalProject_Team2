@@ -18,11 +18,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class ChatHandler extends TextWebSocketHandler {
 	//client와 연결정보를 가진 WebSocketSession을  저장하는 리스트 
     private List<WebSocketSession> sessionList=new ArrayList<WebSocketSession>();
+	private ArrayList<String> ipAddress = new ArrayList<String>();
     // 웹소켓 서버에 클라이언트가 접속하면 호출되는 메소드
     File file = new File("C:\\java-kosta\\chat.txt");
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception { 
-    	ArrayList<String> ipAddress = new ArrayList<String>();
     	String br = "";
     	FileReader reader = new FileReader("C:\\java-kosta\\chat.txt");
     	int ch;
@@ -31,7 +31,6 @@ public class ChatHandler extends TextWebSocketHandler {
     	}
     	FileWriter fw = new FileWriter(file, true);
     	sessionList.add(session);//접속하면 리스트에 추가한다         
-    	
     	UsernamePasswordAuthenticationToken token=(UsernamePasswordAuthenticationToken)session.getPrincipal();
     	String userId=((UserVO)token.getPrincipal()).getUsrId();
     	
@@ -41,16 +40,7 @@ public class ChatHandler extends TextWebSocketHandler {
     	fw.write("채팅창 입장 : "+userId+"\r\n");
         System.out.println("채팅창 입장 : "+userId);
       //웹소켓 서버에 접속한 모든 클라이언트에게 입장 메세지 전송
-        for(int j=0; j<ipAddress.size(); j++) {
-        	System.out.println(ipAddress.get(j)+"1--------------------------------------------------------------------");
-        	if(ipAddress.contains(session.getRemoteAddress().getHostName())) {
-        		System.out.println("2--------------------------------------------------------------------");
-        		continue;
-        	} else {
-        		System.out.println("3--------------------------------------------------------------------");
-        		sessionList.get(j).sendMessage(new TextMessage(br+"\n"));
-        	}
-        }
+		sessionList.get(sessionList.size()-1).sendMessage(new TextMessage(br+"\n"));
 
         for(int i=0;i<sessionList.size();i++) {
         	sessionList.get(i).sendMessage(new TextMessage("--------"+userId+" 입장!-------"));

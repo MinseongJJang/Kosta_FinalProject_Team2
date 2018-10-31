@@ -95,6 +95,7 @@ values('ROLE_USER','admin1')
 select * from AUTHORITIES
 
 /*학원홍보 게시판 테이블 및 시퀀스*/
+drop table aca_promo_post
 create table aca_promo_post(
 	aca_promo_no number primary key,
 	aca_promo_title varchar2(100) not null,
@@ -104,6 +105,7 @@ create table aca_promo_post(
 	usr_id varchar2(100) not null,
 	constraint aca_promo_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+select * from aca_promo_post
 ALTER TABLE aca_promo_post
 ALTER COLUMN aca_promo_hits not null default 0;
 
@@ -112,6 +114,7 @@ alter table aca_promo_post modify(aca_promo_hits default 0)
 create sequence aca_promo_post_seq start with 1 nocache
 alter table aca_promo_post  modify(aca_promo_hits number default 0)
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/
+drop table aca_promo_attach_file
 create table aca_promo_attach_file(
 	aca_promo_att_no number primary key,
 	aca_promo_filepath varchar2(1000) not null,
@@ -119,7 +122,8 @@ create table aca_promo_attach_file(
 	constraint aca_promo_attach_file_fk foreign key(aca_promo_no) references aca_promo_post(aca_promo_no) on delete cascade
 )
 create sequence aca_promo_attach_file_seq start with 1 nocache
-
+select * from aca_promo
+select * from aca_promo_attach_file
 /*건의게시판 테이블 및 시퀀스*/
 create table suggestion_post(
 	sug_no number primary key,
