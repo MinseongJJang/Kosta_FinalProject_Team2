@@ -143,7 +143,7 @@
 			$("#logoutForm").submit();
 		});
 	    // 서버의 실제 ip 로 접근해야 한다 
-	    var ws = new WebSocket("ws://192.168.0.135:8888/academyhelper/chat-ws.do");
+	    var ws = new WebSocket("ws://192.168.0.153:8888/academy/chat-ws.do");
 	   	//onopen : 웹소켓이 열리면 호출됨      
 	    ws.onopen = function () {
 	        $('#chatStatus').text('Info: connection opened.');	 
