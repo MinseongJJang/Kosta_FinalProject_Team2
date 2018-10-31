@@ -22,7 +22,7 @@ public interface CurriculumMapper {
 	
 	
 	void registerCurriculumFile(CurriculumAttachFileVO curriculumAttachFileVO);
-
+	void updateCurriculumFile(CurriculumAttachFileVO curriculumAttachFileVO);
 	List<CurriculumAttachFileVO> listCurriculumFile(CurriculumAttachFileVO curriculumAttachFileVO);
 
 }

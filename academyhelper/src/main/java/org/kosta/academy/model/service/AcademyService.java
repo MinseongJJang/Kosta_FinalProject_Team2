@@ -70,7 +70,7 @@ public interface AcademyService {
 	 * 교육과정 정보를 수정하는 메소드
 	 * @param curriculumVO
 	 */
-	public void updateCurriculum(CurriculumVO curriculumVO);
+	public void updateCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO);
 	/**
 	 * 인자값 curNo에 해당하는 교육과정을 삭제하는 메소드
 	 * @param curNo

@@ -10,6 +10,7 @@ import org.kosta.academy.model.mapper.ReviewReplyMapper;
 import org.kosta.academy.model.mapper.UserMapper;
 import org.kosta.academy.model.vo.AcaReviewPostVO;
 import org.kosta.academy.model.vo.AcaReviewReplyVO;
+import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,16 +35,26 @@ public class JSUnit {
 	@Test
 	public void test() {
 		
+		//교육과정 수정
+		CurriculumVO curriculumVO =curriculumMapper.detailCurriculum("93");
+		System.out.println(curriculumVO);
+		curriculumVO.setCurName("n");
+		curriculumVO.setCurLecturer("n");
+		curriculumVO.setLimitMem("5");
+		curriculumVO.setCurContent("c");
+		curriculumVO.setCurTextbook("t");
+		curriculumMapper.updateCurriculum(curriculumVO);
+		
 		//review 댓글 등록
 		
-		AcaReviewPostVO acaReviewPostVO = reviewMapper.detailAcaReivewPost("19");
+		/*AcaReviewPostVO acaReviewPostVO = reviewMapper.detailAcaReivewPost("19");
 		AcaReviewReplyVO acaReviewReplyVO = new AcaReviewReplyVO();
 		UserVO userVO = userMapper.getUserInfo("jdbc");
 		acaReviewReplyVO.setUserVO(userVO);
 		acaReviewReplyVO.setAcaReviewPostVO(acaReviewPostVO);
 		acaReviewReplyVO.setAcaRevRepContent("adg");
 		reviewReplyMapper.registerAcaReviewReply(acaReviewReplyVO);
-		
+		*/
 		// QNA 댓글 삭제
 /*		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("qnaRepNo", "4");
