@@ -238,6 +238,11 @@ create table aca_qna(
 	usr_id varchar2(100) not null,
 	constraint aca_qna_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+
+alter table academy add(aca_main_pic clob);
+
+
+
 alter table aca_qna drop constraint aca_qna_sfk
 select * from ACA_QNA
 select r.qna_rep_no,
@@ -382,7 +387,7 @@ select cur_no,cur_name,NVL( cur_main_pic, 'UNKNOWN' ),limit_mem,cur_content,cur_
 		from curriculum
 		 where
 		cur_no='99'
-		
+delete from curriculum where cur_no between '1' and '141'
 create sequence curriculum_seq start with 1 nocache
 insert into curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook) 
 values(curriculum_seq.nextval,'1','자바의 기초',10,'자바 쉽지 않지만 재밌다.','윤준상','자바의 정석');
