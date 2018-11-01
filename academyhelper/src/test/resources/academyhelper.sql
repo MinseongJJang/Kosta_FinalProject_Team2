@@ -240,7 +240,18 @@ create table aca_qna(
 )
 
 alter table academy add(aca_main_pic clob);
+ALTER TABLE academy
+ADD (aca_Content clob);
+ALTER TABLE academy
+ADD (aca_content clob);
 
+select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, a.aca_main_pic, 
+		u.usr_id, u.usr_name, u.usr_addr, u.nickname, u.usr_regdate, u.usr_email, u.usr_tel from academy a, users u 
+		where a.usr_id = u.usr_id and a.aca_no = '11'
+		select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, a.aca_main_pic, a.aca_content
+		u.usr_id, u.usr_name, u.usr_addr, u.nickname, u.usr_regdate, u.usr_email, u.usr_tel from academy a, users u 
+		where a.usr_id = u.usr_id and a.aca_no = '13'
+출처: http://hyeonstorage.tistory.com/292 [개발이 하고 싶어요]
 
 
 alter table aca_qna drop constraint aca_qna_sfk

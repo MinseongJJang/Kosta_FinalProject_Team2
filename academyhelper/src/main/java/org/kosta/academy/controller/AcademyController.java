@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.ReviewService;
+import org.kosta.academy.model.vo.AcaAttachFileVO;
 import org.kosta.academy.model.vo.AcaCurSatisfactionVO;
 import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumAttachFileVO;
@@ -72,7 +73,7 @@ public class AcademyController {
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("registerAcademy.do")
-	public ModelAndView registerAcademy(AcademyVO academyVO, String[] curtime) {
+	public ModelAndView registerAcademy(AcademyVO academyVO,AcaAttachFileVO acaAttachFileVO, String[] curtime, String[] curtime1) {
 		ModelAndView mv = new ModelAndView();
 		
 		String academyUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
@@ -83,7 +84,7 @@ public class AcademyController {
 		 * curtime hidden 값을 받아와 해당 디렉토리에 파일이름에 해당 이름이 들어가는 것이 있으면서 맨마지막의 값이 1인 파일은
 		 * attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
 		 */
-		
+		if (curtime != null) {
 		for (int i = 0; i < curtime.length; i++) {
 			for (int j = 0; j < fileNames.length; j++) {
 				System.out.println(fileNames[j]);
@@ -97,11 +98,42 @@ public class AcademyController {
 						// StringBuilder로 0으로 변경 후 파일도 변경
 						oldFile.renameTo(newFile);
 						academyVO.setAcaMainPic("/academy/resources/academyUpload/" + builderFile);
-						academyService.registerAcademy(academyVO);
+						academyService.registerAcademy(academyVO, acaAttachFileVO);
 					}
 				}
 			}
 		}
+		}else {
+			academyVO.setAcaMainPic("사진없음");
+			academyService.registerAcademy(academyVO, acaAttachFileVO);
+		}
+		if (curtime1 != null) {
+
+			for (int i = 0; i < curtime1.length; i++) {
+				for (int j = 0; j < fileNames.length; j++) {
+					if (fileNames[j].substring(fileNames[j].length() - 8, fileNames[j].length() - 4).equals("!!@@")) {
+						if (fileNames[j].contains(curtime1[i])) {
+
+							StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
+							File oldFile = new File(academyUpload + fileNames[j]);
+							File newFile = new File(academyUpload
+									+ builderFile.replace(builderFile.length() - 8, builderFile.length() - 4, ""));
+							// 아직업데이트 되지 않았다는 상태값인 1을 0으로 변경
+							// StringBuilder로 0으로 변경 후 파일도 변경
+							oldFile.renameTo(newFile);
+							
+							acaAttachFileVO.setAcademyVO(academyVO);
+							acaAttachFileVO.setAcaFilepath(academyUpload + builderFile);
+							academyService.registerAcademyAttach(acaAttachFileVO);
+
+						}
+					}
+				}
+			}
+		}
+
+		
+		
 		mv.setViewName("redirect:detailAcademy.do?acaNo=" + academyVO.getAcaNo());
 		return mv;
 	}
@@ -142,8 +174,8 @@ public class AcademyController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("academyUpdateForm.do")
 	public String academyUpdateForm(AcademyVO academyVO, Model model) {
-		;
-		model.addAttribute("test", academyVO);
+		AcademyVO acaDetail = academyService.detailAcademy(academyVO.getAcaNo());
+		model.addAttribute("test", acaDetail);
 		return "academy/academy_update_form.tiles";
 	}
 
@@ -236,7 +268,8 @@ public class AcademyController {
 				}
 			}
 		} else {
-			curriculumVO.setCurMainPic("사진없음");
+			//curriculumVO.setCurMainPic("사진없음");
+			academyService.registerCurriculumAttach(curriculumAttach);
 
 		}
 
@@ -292,7 +325,6 @@ public class AcademyController {
 				}
 			}
 		} else {
-			curtime1 = null;
 			curriculumVO.setCurMainPic("사진없음");
 			academyService.updateCurriculum(curriculumVO, curriculumAttachFileVO);
 		}
@@ -318,9 +350,6 @@ public class AcademyController {
 					}
 				}
 			}
-		} else {
-			curtime = null;
-			curriculumVO.setCurMainPic("사진없음");
 		}
 		
 		return new ModelAndView("redirect:detailCurriculum.do?curNo=" + curriculumVO.getCurNo());

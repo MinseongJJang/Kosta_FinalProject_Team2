@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select
 			academy_seq.nextval from dual
 		</selectKey>
-		insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id,aca_main_pic) values(#{acaNo}, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId},#{acaMainPic})
+		insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id,aca_main_pic,aca_content) values(#{acaNo}, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId},#{acaMainPic},#{acaContent})
 	</insert>
 	<resultMap type="academyVO" id="usrIdRM">
 		<result property="userVO.usrId" column="usr_id" />
@@ -37,9 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userVO.usrTel" column="usr_tel" />
 	</resultMap>
 	<select id="detailAcademy" resultMap="detailRM" parameterType="string">
-		select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, 
-		u.usr_id, u.usr_name, u.usr_addr, u.nickname, u.usr_regdate, u.usr_email, u.usr_tel 
-		from academy a, users u 
+		select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, a.aca_main_pic, a.aca_content,
+		u.usr_id, u.usr_name, u.usr_addr, u.nickname, u.usr_regdate, u.usr_email, u.usr_tel from academy a, users u 
 		where a.usr_id = u.usr_id and a.aca_no = #{value}
 	</select>
 	<update id="updateAcademy" parameterType="academyVO">

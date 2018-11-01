@@ -20,7 +20,7 @@ public interface AcademyService {
 	 * 파일첨부도 함께 처리한다
 	 * @param academyVO
 	 */
-	public void registerAcademy(AcademyVO academyVO);
+	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO);
 	/**
 	 * 교육기관 정보 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
