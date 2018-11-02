@@ -121,7 +121,7 @@
 									},
 									success : function(url) {
 										var path = "${pageContext.request.contextPath}/resources/academyUpload/"+ url[0];
-										curtime += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
+										curtime1 += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
 										$("#curtime1").html(curtime1);
 										$(el).summernote("editor.insertImage", path);
 										$('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');

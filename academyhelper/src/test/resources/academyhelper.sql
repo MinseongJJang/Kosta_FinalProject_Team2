@@ -204,7 +204,7 @@ create table aca_attach_file(
 create sequence aca_attach_file_seq start with 1 nocache
 alter table academy add(aca_main_pic clob)
 create 
-delete academy
+delete 
 =======
 drop table academy
 >>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
@@ -370,7 +370,7 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 				SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
-		) c,academy a where c.aca_no=a.aca_no and a.aca_no='1' and rnum  between '1' and '4'
+		) c, a where c.aca_no=a.aca_no and a.aca_no='1' and rnum  between '1' and '4'
 		order by c.cur_no desc
 		
 delete from curriculum where cur_no='2';
@@ -766,6 +766,6 @@ create table aca_attach_file(
    aca_no number not null,
    constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
-create sequence aca_attach_file_seq start with 1 nocachecurr
+create sequence aca_attach_file_seq start with 1 nocache
 >>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 

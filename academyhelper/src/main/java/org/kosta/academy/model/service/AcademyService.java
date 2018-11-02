@@ -39,7 +39,7 @@ public interface AcademyService {
 	 * 교육기관 정보를 수정하는 메소드
 	 * @param academyVO
 	 */
-	public void updateAcademy(AcademyVO academyVO);
+	public void updateAcademy(AcademyVO academyVO,AcaAttachFileVO acaAttachFileVO);
 	/**
 	 * 교육기관 정보를 삭제하는 메소드
 	 * @param academyVO

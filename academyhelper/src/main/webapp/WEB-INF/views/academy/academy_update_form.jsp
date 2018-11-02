@@ -21,6 +21,8 @@ $(document).ready(function(){
 });//ready
 </script>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<sec:authentication var="mvo" property="principal" />  
+	
 	<form action="updateAcademy.do" id="updateAca" method="post">
 	<c:set var="de" value="${requestScope.test}" />
 	<table>
@@ -28,6 +30,7 @@ $(document).ready(function(){
 			<td>학원번호</td>
 			<td>
 			&nbsp;&nbsp;${de.acaNo}
+				<input type="hidden" name="acaNo" value="${de.acaNo}">
 			</td>
 		</tr>
 		<tr>
@@ -70,24 +73,18 @@ $(document).ready(function(){
 			<th>아이디</th>
 			<td>
 			&nbsp;&nbsp;${de.userVO.usrId}
+			<!-- <input type="hidden" name="usrId" value="${de.userVO.usrId}"> -->
+		 <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
+			
 			</td>
 		</tr>
 		<tr style="height: 250px; ">
-				      		<th style="width: 100px;">*이전 메인사진*
+				      		<th style="width: 100px;">
 				      				<span id="curtime"></span>
 				      				<span id="curtime1"></span>
 				      				<span id="mainPic"></span>
 				      		</th>
-				      		<td>
-
-	<img src="${de.acaMainPic}">
-			<ul id="pics">
-				<c:forEach items="${de.acaMainPic}" var="mImg">
-					<li>${mImg}<%-- <input type="button" value="X" class="button">
-						<input type="hidden" name="pics" value="${mImg}"> --%></li>
-				</c:forEach>
-			</ul> 				      		
-				      		</td>
+				      		
 				      		
 				      		<td>
 					   			<script>
@@ -124,10 +121,21 @@ $(document).ready(function(){
 						 
 						 <tr>
 						 
-							<th>						 메인 사진 선택
-							<input type="file" id="acaMainPic" name="file"></th>
+							<th>						 메인 사진 선택교육과정 메인사진 (*수정시 이전 메인사진은 메인사진 파일업로드 여부와 상관없이 삭제됩니다.*) 
+							<input type="file" id="acaMainPic" name="acaMainPic"></th>
+							
 				   		</tr>
 				   		<tr>
+				   		<td>
+
+	<img src="${de.acaMainPic}">
+			<ul id="pics">
+				<c:forEach items="${de.acaMainPic}" var="mImg">
+					<li>${mImg}<%-- <input type="button" value="X" class="button">
+						<input type="hidden" name="pics" value="${mImg}"> --%></li>
+				</c:forEach>
+			</ul> 				      		
+				      		</td>
 				   		</tr>
 				   		
 		<tr>
@@ -166,7 +174,7 @@ $(document).ready(function(){
 									},
 									success : function(url) {
 										var path = "${pageContext.request.contextPath}/resources/academyUpload/"+ url[0];
-										curtime += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
+										curtime1 += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
 										$("#curtime1").html(curtime1);
 										$(el).summernote("editor.insertImage", path);
 										$('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');

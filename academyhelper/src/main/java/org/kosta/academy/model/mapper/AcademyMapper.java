@@ -26,7 +26,7 @@ public interface AcademyMapper {
 	List<AcademyVO> allListAcademy();
 
 	void registerAcademyFile(AcaAttachFileVO acaAttachFileVO);
-
+	void updateAcademyFile(AcaAttachFileVO acaAttachFileVO);
 
 	
 }
