@@ -64,7 +64,7 @@
 								<div class="col-md-3 third-item">
 									<!-- JB modal TEST -->
 									<div id="location">
-									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택2</button>
+									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택3</button>
 									</div>
 									<!--  province Modal -->
 									<div class="modal fade" id="provinceModal" role="dialog">

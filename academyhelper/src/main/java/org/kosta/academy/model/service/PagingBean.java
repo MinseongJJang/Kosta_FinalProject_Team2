@@ -16,6 +16,7 @@ package org.kosta.academy.model.service;
  *
  */
 public class PagingBean {
+	
 	/**
 	 * 현재 페이지
 	 */

@@ -30,11 +30,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td>내용 
+				<td style="border-bottom:hidden">내용 
 				<span id="curtime"></span>
 				<span id="curtime1"></span>
 				</td>
-				<td><textarea cols="90" rows="15" name="curContent" id="curContent"
+				
+			<tr>
+				<td>
+				<textarea cols="60" rows="40" name="curContent" id="curContent"
 						required="required" placeholder="본문내용을 입력하세요"></textarea> 	
 					<script>
 						$(document).ready(function() {
@@ -58,10 +61,9 @@
 								$.ajax({
 									data : form_data,
 									type : "POST",
-									url : "curriculum-file-upload.do",
+									url : "${pageContext.request.contextPath}/curriculum-file-upload.do",
 									cache : false,
 									contentType : false,
-									enctype : "multipart/form-data",
 									processData : false,
 									beforeSend : function(xhr) { /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
 									xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
@@ -100,6 +102,7 @@
 						});//ready
 					</script>
 				</td>
+				
 			</tr>
 			<tr>
 				<td>강의자 &nbsp;&nbsp; <input type="text" name="curLecturer"

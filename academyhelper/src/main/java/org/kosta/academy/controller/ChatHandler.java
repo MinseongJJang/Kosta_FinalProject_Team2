@@ -1,6 +1,5 @@
 package org.kosta.academy.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -35,8 +34,9 @@ public class ChatHandler extends TextWebSocketHandler {
     	String userId=((UserVO)token.getPrincipal()).getUsrId();
     	
     	System.out.println("로그인 한 아이디 : " + userId);
-
+    	
     	ipAddress.add(session.getRemoteAddress().getHostName());//client ip
+    	System.out.println("아이피 개수 : " + ipAddress.size());
     	fw.write("채팅창 입장 : "+userId+"\r\n");
         System.out.println("채팅창 입장 : "+userId);
       //웹소켓 서버에 접속한 모든 클라이언트에게 입장 메세지 전송

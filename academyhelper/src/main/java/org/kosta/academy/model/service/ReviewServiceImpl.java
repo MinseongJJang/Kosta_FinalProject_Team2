@@ -37,7 +37,6 @@ public class ReviewServiceImpl implements ReviewService {
 		acaReviewPostVO.setAcaRevContent(acaReviewPostVO.getAcaRevContent().replaceAll("!!@@", ""));
 		reviewMapper.registerAcaReviewPost(acaReviewPostVO);
 		String[] hashtagNames = hashTagVO.getHashTagName().split(",");
-		
 		for(int i=0; i<hashtagNames.length;i++) {
 			Map<String,String> map = new HashMap<String,String>();
 			map.put("ACAREVNO",acaReviewPostVO.getAcaRevNo() );

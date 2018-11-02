@@ -1,7 +1,7 @@
 package org.kosta.academy.model.mapper;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.academy.model.vo.CurriculumVO;
@@ -10,20 +10,20 @@ import org.kosta.academy.model.vo.LocationVO;
 @Mapper
 public interface SearchMapper {
 	
-	int getTotalListAcaCount(CurriculumVO curriculumVO);
-
-	List<CurriculumVO> academySearch(HashMap<String, Object> map);
-
 	List<LocationVO> provinceList();
 
 	List<LocationVO> districtList(String province);
-
-	List<CurriculumVO> locationAndCurName(HashMap<String, Object> map);
-
-	List<CurriculumVO> locationAndSearch(HashMap<String, Object> map);
 	
-	List<CurriculumVO> curNameAndSearch(HashMap<String, Object> map);
+	int getTotalCountByAddress(String address);
 
-	List<CurriculumVO> locationAndCurNameAndSearch(HashMap<String, Object> map);
+	List<CurriculumVO> searchByAddress(Map<String, Object> searchMap);
+	
+	int getTotalCountByCurName(String curName);
+
+	List<CurriculumVO> searchByCurName(Map<String, Object> searchMap);
+	
+	int getTotalCountBySearch(String address, String curName, String content);
+
+	List<CurriculumVO> searchBySearch(Map<String, Object> searchMap);
 
 }

@@ -93,7 +93,7 @@ table td{
 								</tr>
 								<tr>
 			               			<td colspan="3" align="right">
-			               				<a href="registerForm.do">회원가입</a>
+			               				<a href="${pageContext.request.contextPath}/register_form.do">회원가입</a>
 		               				</td>
 								</tr>
 								<tr>

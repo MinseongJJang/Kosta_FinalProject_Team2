@@ -43,14 +43,19 @@ $(document).ready(function(){
                      <td>${de.acaNo}</td>
                         <th>학원이름</th>
                      <td>${de.acaName}</td>
-                        <th>학원주소</th>
+                             <th>학원주소</th>
                          <td>${de.acaAddr}</td>
                         <th>학원전화번호</th>
                      <td>${de.acaTel}</td>
                      </tr>
+                     <tr>
                      
+                     </tr>
                      <tr>
                         <td colspan="8">시설 사진</td>
+                     </tr>
+                      <tr>
+                        <td>${de.acaContent}</td>
                      </tr>
                      <tr>
                         <td colspan="8"><div id="map" style="width:100%;height:350px;"></div></td>
