@@ -63,6 +63,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateAcademyFile" parameterType="acaAttachFileVO">
 		update aca_attach_file
 		set
-		aca_filepath=#{acaFilepath} where acaAttNo=#{aca_att_no}
+		aca_filepath=#{acaFilepath} where aca_att_no=#{acaAttNo}
 	</update>
 </mapper>

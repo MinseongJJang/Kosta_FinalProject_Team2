@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCurriculumFile" parameterType="CurriculumAttachFileVO">
 		update cur_attach_file
 		set
-		cur_filepath=#{curriculumFilepath} where curAttNo=#{cur_att_no}
+		cur_filepath=#{curriculumFilepath} where cur_att_no=#{curAttNo}
 	</update>
 	
 	<resultMap type="CurriculumAttachFileVO" id="curriculumAttachFileRM">

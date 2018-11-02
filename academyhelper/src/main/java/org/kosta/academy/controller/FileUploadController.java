@@ -180,9 +180,6 @@ public class FileUploadController {
 	@ResponseBody
 	@PostMapping("academy-file-upload.do")
 	public ArrayList<Object> academyFileUload(FileUploadVO fileVO,HttpServletRequest request){
-		System.out.println(fileVO.getFile());
-		System.out.println("4444");
-
 		uploadPath ="C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
 		//uploadPath = System.getProperty("user.home")+"\\git\\Kosta_FinalProject_Team2\\academyhelper\\src\\main\\resources\\reviewUpload\\";
 		File uploadDir = new File(uploadPath);
@@ -210,10 +207,6 @@ public class FileUploadController {
 	@ResponseBody
 	@PostMapping("academy-file1-upload.do")
 	public ArrayList<Object> academyFileU1load(FileUploadVO fileVO,HttpServletRequest request){
-		System.out.println(fileVO.getFile());
-		System.out.println("55555");
-		System.out.println("99999999999");
-
 		uploadPath ="C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
 		//uploadPath = System.getProperty("user.home")+"\\git\\Kosta_FinalProject_Team2\\academyhelper\\src\\main\\resources\\reviewUpload\\";
 		File uploadDir = new File(uploadPath);
@@ -222,7 +215,6 @@ public class FileUploadController {
 		}
 		List<MultipartFile> fileList = fileVO.getFile();
 		ArrayList<Object> fileNameList= new ArrayList<Object>();
-		System.out.println(fileList);
 		for(int i=0;i<fileList.size();i++) {
 			long curTime1 = System.currentTimeMillis();
 			String fileName = fileList.get(i).getOriginalFilename().substring(0, fileList.get(i).getOriginalFilename().length()-4)+curTime1+"@main@!!@@"+fileList.get(i).getOriginalFilename().substring(fileList.get(i).getOriginalFilename().length()-4, fileList.get(i).getOriginalFilename().length());
@@ -239,4 +231,7 @@ public class FileUploadController {
 		}
 		return fileNameList;
 	}
+	
+	
+	
 }
