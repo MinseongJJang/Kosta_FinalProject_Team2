@@ -24,11 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 	@Resource
-	public ReviewMapper reviewMapper;
+	private ReviewMapper reviewMapper;
 	@Resource
-	public AcademyMapper academyMapper;
+	private AcademyMapper academyMapper;
 	@Resource
-	public ReviewReplyMapper reviewReplyMapper;
+	private ReviewReplyMapper reviewReplyMapper;
 
 	@Transactional
 	@Override
