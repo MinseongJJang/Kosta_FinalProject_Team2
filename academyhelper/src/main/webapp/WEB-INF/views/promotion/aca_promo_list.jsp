@@ -25,7 +25,7 @@
 				      </tr>
 				   </thead>
 				   <tbody>
-				      	<c:forEach items="${requestScope.promotion.acaPromoPostList }" var="promo">
+				      	<c:forEach items="${requestScope.promotion.acaPromoPostList}" var="promo">
 							<tr>
 								<td>${promo.acaPromoNo }</td>
 								<td><a href="detailAcaPromoPost.do?acaPromoNo=${promo.acaPromoNo }">${promo.acaPromoTitle }</a></td>

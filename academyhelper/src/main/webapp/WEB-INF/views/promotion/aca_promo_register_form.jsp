@@ -12,7 +12,7 @@
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align:center;" align="center">
-			<sec:authentication var="mvo" property="principal" />  
+			<sec:authentication var="mvo" property="principal" />
 			<form action="${pageContext.request.contextPath}/registerAcaPromoPost.do" method="post" id="register_form">
 			<sec:csrfInput/>
 			<table class="table">
@@ -98,9 +98,3 @@
 		<div class="col-sm-1"></div>
 	</div>
 </div>
-
-
-
-
-
-
