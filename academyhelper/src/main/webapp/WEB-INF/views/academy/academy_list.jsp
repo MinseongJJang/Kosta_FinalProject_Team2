@@ -20,6 +20,8 @@
 				      <tr >
 				         <th>NO</th>
 				         <th>학원 이름</th>
+					     <th>학원 사진</th>
+				         
 				         <th>학원 주소</th>
 				         <th>학원 전화번호</th>
 				         <th>닉네임</th>
@@ -33,6 +35,8 @@
 				            	<a href="${pageContext.request.contextPath}/detailAcademy.do?acaNo=${academy.acaNo}">${academy.acaName }</a>
 				            </td>
 				            <td><img src="${academy.acaMainPic}" height="100"></td>
+				            <td>${academy.acaAddr }</td>
+				            
 				            <td>${academy.acaTel }</td>
 				            <td>${academy.userVO.nickname}</td>
 				         </tr>

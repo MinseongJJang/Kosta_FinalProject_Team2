@@ -30,11 +30,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td>내용 
+				<td style="border-bottom:hidden">내용 
 				<span id="curtime"></span>
 				<span id="curtime1"></span>
 				</td>
-				<td><textarea cols="90" rows="15" name="curContent" id="curContent"
+				
+			<tr>
+				<td>
+				<textarea cols="60" rows="40" name="curContent" id="curContent"
 						required="required" placeholder="본문내용을 입력하세요"></textarea> 	
 					<script>
 						$(document).ready(function() {
@@ -99,6 +102,7 @@
 						});//ready
 					</script>
 				</td>
+				
 			</tr>
 			<tr>
 				<td>강의자 &nbsp;&nbsp; <input type="text" name="curLecturer"

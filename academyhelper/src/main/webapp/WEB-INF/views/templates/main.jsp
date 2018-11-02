@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var address="";
@@ -138,7 +138,7 @@
 			</div>
 		</div>
 		<div class="owl-carousel owl-theme">
-		
+		<c:forEach items="" var="">
 			<div class="item popular-item">
 				<div class="thumb">
 					<img
@@ -153,7 +153,7 @@
 					</div>
 				</div>
 			</div>
-			
+			</c:forEach>
 		</div>
 	</div>
 	<br> <br> <br>

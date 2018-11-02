@@ -143,11 +143,8 @@
 			$("#logoutForm").submit();
 		});
 	    // 서버의 실제 ip 로 접근해야 한다 
-<<<<<<< HEAD
-	    var ws = new WebSocket("ws://192.168.0.107:8888/academyhelper/chat-ws.do");
-=======
+
 	    var ws = new WebSocket("ws://192.168.0.153:8888/academy/chat-ws.do");
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 	   	//onopen : 웹소켓이 열리면 호출됨      
 	    ws.onopen = function () {
 	        $('#chatStatus').text('Info: connection opened.');	 
