@@ -85,7 +85,6 @@ public class PromotionController {
 		promotionService.deleteAcaPromoPost(acaPromoNo);
 		return "redirect:acaPromoList.do";
 	}
-	@Secured("ROLE_ACADEMY")
 	@PostMapping("updateAcaPromoPost.do")
 	public ModelAndView updateAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO
 			,String[] curtime) {

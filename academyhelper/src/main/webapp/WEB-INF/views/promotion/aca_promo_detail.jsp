@@ -36,7 +36,7 @@
 				         	<th colspan="1">내용</th>
 				         	<td colspan="7"><pre style="white-space: pre-wrap;">${requestScope.acaPromo.acaPromoContent }</pre></td>
 				         </tr>
-			      		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			      		<sec:authorize access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY')">
 					      <tr>
 					      	<td colspan="8" align="right">
 							   	<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
