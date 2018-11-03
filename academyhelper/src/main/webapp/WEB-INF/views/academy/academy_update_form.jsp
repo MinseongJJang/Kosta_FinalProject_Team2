@@ -41,7 +41,7 @@ $(document).ready(function(){
 		</tr>
 		<tr>
 			<td>학원주소</td>
-			<td><input type="text" name="acaAddr" id="sample4_address" placeholder="주소" readonly="readonly" style="width:100%"></td>
+			<td><input type="text" name="acaAddr" id="sample4_address" placeholder="주소" value="${de.acaAddr}" readonly="readonly" style="width:100%"></td>
 				      		<td>
 								<span>
 									<input type="button" onclick="sample4_execDaumPostcode()"  class="aca-btn" value="주소검색" >

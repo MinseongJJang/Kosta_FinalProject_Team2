@@ -9,6 +9,8 @@
 		<div class="col-sm-10 text-center"
 			style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align: center;" align="center">
+							<sec:authentication var="mvo" property="principal" />
+				
 				<table class="table">
 					<thead>
 				   		<tr>
@@ -19,14 +21,14 @@
 						</tr>
 					</thead>
 				   <tbody>
-				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
-				         <tr>
+<%-- 				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
+ --%>				         <tr>
 				            <th>글번호</th>
 				            <td>${requestScope.acaPromo.acaPromoNo }</td>
 				            <th>제목</th>
 				            <td>${requestScope.acaPromo.acaPromoTitle } </td>
 				            <th>작성자</th>
-				            <td>${requestScope.acaPromo.acaUserVO.userVO.usrName }</td>
+				            <td>${mvo.usrName}</td>
 				            <th>등록일</th>
 				            <td>${requestScope.acaPromo.acaPromoRegdate }</td>
 				         </tr>
@@ -39,16 +41,15 @@
 					      	<td colspan="8" align="right">
 							   	<button form="deleteForm" type="submit" class="aca-btn">삭제</button>
 								<button form="updateForm" type="submit" class="aca-btn">수정</button>
-							 	<form action="deleteNotice.do" id="deleteForm" method="post">
+							 	<form action="deleteAcaPromoPost.do" id="deleteForm" method="post">
 									<sec:csrfInput />
-									<input type="hidden" name="noticeNo" value="${requestScope.nvo.noticeNo}">
+									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
 								</form>
-								<form action="updateNoticeForm.do" id="updateForm" method="post">
-									<input type="hidden" name="noticeNo" value="${requestScope.nvo.noticeNo}">
-									 <input type="hidden" name="noticeTitle" value="${requestScope.nvo.noticeTitle}">
-									 <input type="hidden" name="noticeContent" value="${requestScope.nvo.noticeContent}">	
+								<form action="updateAcaPromoPostForm.do" id="updateForm" method="post">
+									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
+									 <input type="hidden" name="acaPromoTitle" value="${requestScope.acaPromo.acaPromoTitle}">
+									 <input type="hidden" name="acaPromoContent" value="${requestScope.acaPromo.acaPromoContent}">	
 									<sec:csrfInput />
-									<input type="hidden" name="qnaNo" value="${detailQNA.qnaNo}">
 								</form>
 					      	</td>
 					      </tr>
