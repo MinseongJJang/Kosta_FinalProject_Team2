@@ -20,7 +20,7 @@
 			<table class="table">
 				   <thead style="text-align:center;">
 				   		<tr>
-							<td colspan="4" align="center"><h3>기관 홍보 등록하기</h3></td>
+							<td colspan="4" align="center"><h3>기관 홍보 수정하기</h3></td>
 						</tr>
 						<tr>
 							<td style="border-top:0px"></td>
@@ -36,13 +36,13 @@
 		</tr>
 						<tr >
 					        <td>제목</td>
-					        <td><input type="text" name="acaPromoTitle" placeholder="홍보 제목을 입력하세요" required="required" style="width:80%"></td>
+					        <td><input type="text" name="acaPromoTitle" value="${de.acaPromoTitle}" placeholder="홍보 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
 				      		<td>내용
 				      		<span id="curtime"></span>
 				      		</td>
-				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요">${de.acaPromoContent}</textarea>
 				      		<script>
 							    $(document).ready(function() {
 							    	var curtime = "";

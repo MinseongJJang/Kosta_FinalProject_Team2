@@ -99,6 +99,8 @@ public class PromotionController {
 		 * 맨마지막의 값이 1인 파일은 attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
 		 */
 		AcaPromoAttachFileVO promoAttach = new AcaPromoAttachFileVO();
+		if(curtime != null) {
+		
 		for(int i=0;i<curtime.length;i++) {
 			for(int j=0;j<fileNames.length;j++) {
 				System.out.println(fileNames[j]);
@@ -116,6 +118,7 @@ public class PromotionController {
 					}
 				}
 			}
+		}
 		}
 		mv.setViewName("redirect:detailAcaPromoPost.do?acaPromoNo="+acaPromoPostVO.getAcaPromoNo());
 		return mv;
