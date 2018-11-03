@@ -138,7 +138,6 @@
 			</div>
 		</div>
 		<div class="owl-carousel owl-theme">
-		<c:forEach items="" var="">
 			<div class="item popular-item">
 				<div class="thumb">
 					<img
@@ -153,7 +152,6 @@
 					</div>
 				</div>
 			</div>
-			</c:forEach>
 		</div>
 	</div>
 	<br> <br> <br>

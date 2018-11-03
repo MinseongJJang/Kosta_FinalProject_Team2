@@ -40,7 +40,6 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Override
 	public ListVO academyHashSearch(HashTagVO hashTagVO, String pageNo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	public ListVO search(CurriculumVO curriculumVO, String search, String pageNo) {

@@ -96,7 +96,7 @@ $(document).ready(function(){
                      <c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
                      <tr>
                         <td>${curriculum.curNo }</td>
-                        <td><img src="${curriculum.curMainPic }"></td>
+                        <td><img src="${curriculum.curMainPic }" width="200" height="200"></td>
                         <td colspan="3"><a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">${curriculum.curName }</a></td>
                         <td>${curriculum.curLecturer }</td>
                         <td>${curriculum.limitMem }</td>

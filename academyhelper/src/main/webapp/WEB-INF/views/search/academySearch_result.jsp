@@ -17,12 +17,12 @@
 				      </tr>
 				   </thead>
 				   <tbody>
-				     <c:forEach var="list"  items="${searchList}">
+				     <c:forEach var="list"  items="${requestScope.searchList}">
 				         <tr>
-				            <td>${list.academyVO.acaNo }</td>
-				            <td>${list.academyVO.acaName }</td>
-				            <td>${list.curNo }</td>
-				            <td>${list.curName }</td>
+				            <td>${list.curriculumList.academyVO.acaNo }</td>
+				            <td>${list.curriculumList.academyVO.acaName }</td>
+				            <td>${list.curriculumList.curNo }</td>
+				            <td>${list.curriculumList.curName }</td>
 				         </tr>
 				      </c:forEach>
 				   </tbody>

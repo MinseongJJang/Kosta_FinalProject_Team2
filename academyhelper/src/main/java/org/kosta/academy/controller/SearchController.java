@@ -4,13 +4,12 @@ import javax.annotation.Resource;
 
 import org.kosta.academy.model.service.AcademyService;
 import org.kosta.academy.model.service.SearchService;
-import org.kosta.academy.model.vo.AcademyVO;
 import org.kosta.academy.model.vo.CurriculumVO;
 import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class SearchController {
@@ -20,10 +19,12 @@ public class SearchController {
 	private AcademyService academyService;
 	
 	@RequestMapping("academySearch.do")
-	public String academySearch(CurriculumVO curriculumVO, String search, String pageNo, Model model) {
+	public ModelAndView academySearch(CurriculumVO curriculumVO, String search, String pageNo) {
+		ModelAndView mv = new ModelAndView();
 		ListVO lvo = searchService.search(curriculumVO, search, pageNo);
-		System.out.println(lvo);
-		return null;
+		mv.addObject("searchList",lvo);
+		mv.setViewName("search/academySearch_result.tiles");
+		return mv;
 	}
 
 	
