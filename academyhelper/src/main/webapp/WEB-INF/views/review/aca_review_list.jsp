@@ -33,7 +33,7 @@
 								<td>${review.userVO.usrName }</td>
 							</tr>
 						</c:forEach>
-			      		<sec:authorize access="hasRole('ROLE_USER')">
+			      		<sec:authorize access="hasRole('ROLE_USER') ">
 					      <tr>
 					      	<td colspan="4" align="right">
 							   <button form="registerReviewForm" type="submit" class="aca-btn">후기 등록</button>

@@ -810,8 +810,9 @@ rnum between 1 and 5 order by aca_no desc
 
 select c.cur_no,c.cur_name,c.cur_content,c.cur_main_pic from (select row_number() over(order by cur_no desc) as rnum 
 cur_no,cur_name,cur_content,cur_main_pic)
+select * from users
+select * from aca_promo_post
 
-
-
-
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java')
+SELECT * from authorities
 
