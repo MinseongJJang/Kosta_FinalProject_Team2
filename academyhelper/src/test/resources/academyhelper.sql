@@ -1,4 +1,6 @@
 /*회원 테이블*/
+ALTER TABLE academy
+ADD (aca_Content clob);
 create table users(
 	usr_id varchar2(100) primary key,
 	usr_pass varchar2(100) not null,
@@ -768,4 +770,48 @@ create table aca_attach_file(
 )
 create sequence aca_attach_file_seq start with 1 nocache
 >>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
+select * from curriculum
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content, cur_main_pic from curriculum) c, academy a
+	where upper (c.cur_name) LIKE '%'||upper('c++')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1  and 5 order by a.aca_no desc
+
+select a.aca_no,a.aca_name,a.aca_addr,a.aca_main_pic,c.cur_name from
+(select row_number() over(order by aca_no desc) as rnum, aca_no ,aca_name,aca_addr,aca_main_pic from academy) a,curriculum c
+where a.aca_no = c.aca_no and
+a.aca_no = 1 and c.cur_name='자바'
+
+select c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.cur_main_pic,c.aca_no,a.aca_name
+		from (select row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,cur_main_pic,aca_no
+		from curriculum) c,academy a 
+		where c.aca_no=a.aca_no and a.aca_no=1 and rnum between 6 and 11
+		order by cur_no desc
+
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, u.usr_id, u.nickname, a.aca_main_pic
+		from(select row_number() over(order by aca_no desc) as rnum, aca_no, aca_name, aca_addr, aca_tel, usr_id,aca_main_pic from academy) a, users u
+		where a.usr_id = u.usr_id  and rnum between #{startRowNumber} and #{endRowNumber} order by aca_no desc
+
+select * from curriculum where aca_no=1
+select count(*)
+from curriculum where aca_no=1
+
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content, cur_main_pic from curriculum) c, academy a
+where upper (c.cur_name) LIKE '%'||upper('자바')||'%' and a.aca_no = c.aca_no
+and  rnum between 1 and 5 order by a.aca_no desc
+
+select
+select a.aca_no,a.aca_name,c.cur_no,c.cur_name,c.cur_content,c.cur_main_pic
+from (select row_number() over(order by aca_no desc) as rnum, aca_no , cur_name, cur_no , cur_content , cur_main_pic from curriculum) c , academy a
+where a.aca_no = c.aca_no and c.cur_name like '%'||'자바'||'%' and 
+rnum between 1 and 5 order by aca_no desc
+
+
+
+select c.cur_no,c.cur_name,c.cur_content,c.cur_main_pic from (select row_number() over(order by cur_no desc) as rnum 
+cur_no,cur_name,cur_content,cur_main_pic)
+
+
+
+
 

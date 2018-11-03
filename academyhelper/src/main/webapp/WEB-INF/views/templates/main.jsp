@@ -138,7 +138,6 @@
 			</div>
 		</div>
 		<div class="owl-carousel owl-theme">
-		
 			<div class="item popular-item">
 				<div class="thumb">
 					<img
