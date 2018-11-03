@@ -16,7 +16,7 @@ public interface PromotionMapper {
 	List<AcaPromoPostVO> listAcaPromoPost(Map<String,Object> map);
 	AcaPromoPostVO detailAcaPromoPost(String acaPromoNo);
 	void updateAcaPromoPost(AcaPromoPostVO acaPromoPostVO);
-	void deleteAcaPromoPost(AcaPromoPostVO acaPromoPostVO);
+	void deleteAcaPromoPost(String acaPromoNo);
 	void registerAcaPromoFile(AcaPromoAttachFileVO acaPromoAttachFileVO);
 	List<AcaPromoAttachFileVO> listAcaPromoFile(AcaPromoAttachFileVO acaPromoAttachFileVO);
 	void registerAcaPromoAttach(AcaPromoAttachFileVO promoAttach);

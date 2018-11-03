@@ -43,7 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<update id="updateAcademy" parameterType="academyVO">
 		update academy 
-		set aca_name = #{acaName}, aca_addr = #{acaAddr}, aca_tel = #{acaTel}
+		set aca_name = #{acaName}, aca_addr = #{acaAddr}, aca_tel = #{acaTel}, 
+		aca_main_pic=#{acaMainPic}, aca_content=#{acaContent}, usr_id=#{userVO.usrId}
 		where aca_no = #{acaNo}
 	</update>
 	<delete id="deleteAcademy" parameterType="string">
@@ -56,7 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select aca_name from academy where aca_no = #{value}
 	</select>
 	<insert id="registerAcademyFile" parameterType="acaAttachFileVO" >
-		insert into aca_attach_file(cur_att_no,cur_filepath,cur_no)
-		values(cur_attach_file_seq.nextval,#{curriculumFilepath},#{curriculumVO.curNo})
+		insert into aca_attach_file(aca_att_no,aca_filepath,aca_no)
+		values(aca_attach_file_seq.nextval,#{acaFilepath},#{academyVO.acaNo})
 	</insert>
+	<update id="updateAcademyFile" parameterType="acaAttachFileVO">
+		update aca_attach_file
+		set
+		aca_filepath=#{acaFilepath} where aca_att_no=#{acaAttNo}
+	</update>
 </mapper>

@@ -87,7 +87,7 @@
 							<td><input type="file" id="acaMainPic" name="file"></td>
 				   		</tr>
 						 <tr>
-					        <th>학원 시설 사진</th>
+					        <th>학원 시설 사진 (시설사진 등록시 처음에 사진이 깨져나옵니다. 번거롭지만 수정하기 눌러서 메인사진과 함께 수정 부탁드립니다.)</th>
 							<td>
 				<textarea cols="60" rows="40" name="acaContent" id="acaContent"
 						required="required" placeholder="시설 사진을 올려주세요."></textarea> 	
@@ -121,7 +121,7 @@
 									},
 									success : function(url) {
 										var path = "${pageContext.request.contextPath}/resources/academyUpload/"+ url[0];
-										curtime += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
+										curtime1 += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
 										$("#curtime1").html(curtime1);
 										$(el).summernote("editor.insertImage", path);
 										$('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
