@@ -1,6 +1,8 @@
 package org.kosta.academy.model.vo;
 
 public class CurriculumVO {
+	private String rank;
+	private double satis;
 	private String curNo;
 	private String curName;
 	private String curLecturer;
@@ -9,6 +11,36 @@ public class CurriculumVO {
 	private String curTextbook;
 	private String curMainPic;
 	private AcademyVO academyVO;
+	public CurriculumVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CurriculumVO(String rank, double satis, String curNo, String curName, String curLecturer, String limitMem,
+			String curContent, String curTextbook, String curMainPic, AcademyVO academyVO) {
+		super();
+		this.rank = rank;
+		this.satis = satis;
+		this.curNo = curNo;
+		this.curName = curName;
+		this.curLecturer = curLecturer;
+		this.limitMem = limitMem;
+		this.curContent = curContent;
+		this.curTextbook = curTextbook;
+		this.curMainPic = curMainPic;
+		this.academyVO = academyVO;
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+	public double getSatis() {
+		return satis;
+	}
+	public void setSatis(double satis) {
+		this.satis = satis;
+	}
 	public String getCurNo() {
 		return curNo;
 	}
@@ -45,42 +77,24 @@ public class CurriculumVO {
 	public void setCurTextbook(String curTextbook) {
 		this.curTextbook = curTextbook;
 	}
+	public String getCurMainPic() {
+		return curMainPic;
+	}
+	public void setCurMainPic(String curMainPic) {
+		this.curMainPic = curMainPic;
+	}
 	public AcademyVO getAcademyVO() {
 		return academyVO;
 	}
 	public void setAcademyVO(AcademyVO academyVO) {
 		this.academyVO = academyVO;
 	}
-
-	public String getCurMainPic() {
-		return curMainPic;
-	}
-
-	public void setCurMainPic(String curMainPic) {
-		this.curMainPic = curMainPic;
-	}
-
-	public CurriculumVO(String curNo, String curName, String curMainPic, String curLecturer, String limitMem,
-			String curContent, String curTextbook, AcademyVO academyVO) {
-		super();
-		this.curNo = curNo;
-		this.curName = curName;
-		this.curMainPic = curMainPic;
-		this.curLecturer = curLecturer;
-		this.limitMem = limitMem;
-		this.curContent = curContent;
-		this.curTextbook = curTextbook;
-		this.academyVO = academyVO;
-	}
-	public CurriculumVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	@Override
 	public String toString() {
-		return "CurriculumVO [curNo=" + curNo + ", curName=" + curName + ", curLecturer=" + curLecturer + ", limitMem="
-				+ limitMem + ", curContent=" + curContent + ", curTextbook=" + curTextbook + ", curMainPic="
-				+ curMainPic + ", academyVO=" + academyVO + "]";
+		return "CurriculumVO [rank=" + rank + ", satis=" + satis + ", curNo=" + curNo + ", curName=" + curName
+				+ ", curLecturer=" + curLecturer + ", limitMem=" + limitMem + ", curContent=" + curContent
+				+ ", curTextbook=" + curTextbook + ", curMainPic=" + curMainPic + ", academyVO=" + academyVO + "]";
 	}
-
+	
+	
 }

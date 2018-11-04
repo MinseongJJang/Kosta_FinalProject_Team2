@@ -90,4 +90,9 @@ public interface AcademyService {
 	
 	
 	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO);
+	/**
+	 * Best 교육과정 리스트
+	 * @return
+	 */
+	public List<CurriculumVO> bestCurriculumList();
 }

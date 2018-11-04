@@ -510,7 +510,7 @@ select avg(cur_satis)*10, avg(amenities_satis)*10, avg(lecturer_satis)*10, avg(e
 select (AVG(a.cur_satis)*10) as cur_satis, (AVG(a.amenities_satis)*10) as amenities_satis, (AVG(a.lecturer_satis)*10) as lecturer_satis, (AVG(a.emp_links_satis)*10) as emp_links_satis, (AVG(a.traffic_satis)*10) as traffic_satis
 from(
 	select * from aca_cur_satisfaction
-)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=1;
 
 select avg(a.cur_satis)*10, avg(a.amenities_satis)*10, avg(a.lecturer_satis)*10, avg(a.emp_links_satis)*10, avg(a.traffic_satis)*10
 from(
@@ -549,7 +549,7 @@ drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
 select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
-drop table aca_review_reply
+drop table aca_rev_reply
 select * from aca_rev_reply
 create table aca_rev_reply(
 	aca_rev_rep_no number primary key,
@@ -557,8 +557,8 @@ create table aca_rev_reply(
 	aca_rev_rep_content clob not null,
 	aca_rev_no number not null,
 	usr_id varchar2(100) not null,
-	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
-	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
+	constraint aca_review_reply_fffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
+	constraint aca_review_reply_sffk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 alter table aca_rev_reply rename column review_rep_regdate to aca_rev_rep_regdate
 alter table aca_rev_reply rename column review_rep_content to aca_rev_rep_content
