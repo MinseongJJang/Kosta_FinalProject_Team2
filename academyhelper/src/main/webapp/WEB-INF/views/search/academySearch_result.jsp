@@ -30,7 +30,7 @@
 				   <tr>
 				   	<td colspan="4" >
 				   		<div class="pagingInfo" >
-						   <c:set var="pb" value="${requestScope.pagingBean}"></c:set>
+						   <c:set var="pb" value="${requestScope.list.pb}"></c:set>
 						   <ul class="pagination">
 						      <c:if test="${pb.previousPageGroup}">
 						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.startPageOfPageGroup-1}+academyVO.acaAddr=${searchList.academyVO.acaAddr}">&laquo;</a></li>

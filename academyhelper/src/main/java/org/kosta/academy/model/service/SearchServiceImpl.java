@@ -58,6 +58,7 @@ public class SearchServiceImpl implements SearchService {
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
 			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
 			List<CurriculumVO> curList = searchMapper.searchByAddress(searchMap);
+			System.out.println(curList);
 			lvo.setCurriculumList(curList);
 			
 		}else if(curriculumVO.getAcademyVO().getAcaAddr().equals("") && !(curriculumVO.getCurName().equals("")) && search.equals("")) {

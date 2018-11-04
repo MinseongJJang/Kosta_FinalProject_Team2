@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
 	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
 	where upper (a.aca_addr) LIKE '%'||upper(#{ADDRESS})||'%' and a.aca_no = c.aca_no 
-	and  rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by a.aca_no desc
+	and  rnum between #{STARTROWNUMBER} and #{ENDROWNUMBER} order by a.aca_no desc
 </select>
 
 <select id="getTotalCountByCurName" parameterType="string" resultType="int">
