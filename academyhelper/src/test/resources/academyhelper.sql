@@ -814,7 +814,20 @@ select c.cur_no,c.cur_name,c.cur_content,c.cur_main_pic from (select row_number(
 cur_no,cur_name,cur_content,cur_main_pic)
 select * from users
 select * from aca_promo_post
-
+select * from aca_promo_post
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java')
 SELECT * from authorities
 
+select * from academy
+
+
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (a.aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1 and 5 order by a.aca_no desc
+select count(*) from  academy
+	where upper (aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%'
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (a.aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1 and 5 order by a.aca_no desc

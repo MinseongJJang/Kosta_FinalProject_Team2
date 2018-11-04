@@ -29,9 +29,7 @@ public interface SearchService {
 	public ListVO districtList(String province);
 	
 	public ListVO academyHashSearch(HashTagVO hashTagVO,String pageNo);
+	
 	public ListVO search(CurriculumVO curriculumVO, String search, String pageNo);
-	
 
-	
-	
 }

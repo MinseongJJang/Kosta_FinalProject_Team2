@@ -92,13 +92,18 @@
 			$("#updateReply"+i).hide();
 			$("#deleteReply"+i).hide();
 		}
+
 		var info ="";
+		
 		info += "<textarea name='acaRevRepContent'></textarea>";
-		info += "<input type='button' value='수정' id='update' onclick='updateReply("+index+")'>";
-		info += "<input type='reset' value='취소' id='reset'>";
+		if(usrId == mvoId){
+			info += "<input type='button' value='수정' id='update' onclick='updateReply("+index+")'>";
+			info += "<input type='reset' value='취소' id='reset'>";
+		}
 		info += "<input type='hidden' name='userVO.usrId' value='"+usrId+"'>";
 		info += "<input type='hidden' name='acaReviewPostVO.acaRevNo' value='"+acaRevNo+"'>";
 		info += "<input type='hidden' name='acaRevRepNo' value='"+acaRevRepNo+"'>";
+		
 		$("#contentArea"+index).html(info);
 	} 
  	function pageMove(pageNo){
