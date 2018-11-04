@@ -20,17 +20,17 @@ $(document).ready(function(){
 </script>
  
  
- 
 <div class="container">
    <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10 text-center"
          style="margin-top: 100px; padding-bottom: 100px;">
          <div style="margin-top: 100px; text-align: center;" align="center">
-            <table class="table">
+		<table class="table">
                <thead>
                      <tr>
-                     <td colspan="8" align="center"><h3>학원 상세보기</h3></td>
+                     <td colspan="8" align="center"><h3>학원 상세보기</h3> 
+                     </td>
                   </tr>
                   <tr>
 							<td style="border-top:0px"></td>
@@ -96,7 +96,7 @@ $(document).ready(function(){
                      <c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
                      <tr>
                         <td>${curriculum.curNo }</td>
-                        <td><img src="${curriculum.curMainPic }"></td>
+                        <td><img src="${curriculum.curMainPic }" width="200" height="200"></td>
                         <td colspan="3"><a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">${curriculum.curName }</a></td>
                         <td>${curriculum.curLecturer }</td>
                         <td>${curriculum.limitMem }</td>

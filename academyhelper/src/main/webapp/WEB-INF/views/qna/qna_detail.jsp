@@ -158,8 +158,6 @@ var mvoId = $("#mvoId").val();
 $(document).ready(function(){
 	
 	
-	alert(mvoId);
-	alert(qnaNo);
 	var usrId = "";
 	var moReply="";
 	$("#deleteForm").submit(function(){

@@ -51,15 +51,19 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public void updateAcaPromoPost(AcaPromoPostVO acaPromoPostVO) {
-		// TODO Auto-generated method stub
-		
+	public void updateAcaPromoPost(AcaPromoPostVO acaPromoPostVO,AcaPromoAttachFileVO acaPromoAttachFileVO) {
+		acaPromoPostVO.setAcaPromoContent(acaPromoPostVO.getAcaPromoContent().replaceAll("!!@@", ""));
+		System.out.println(acaPromoPostVO);
+		promotionMapper.updateAcaPromoPost(acaPromoPostVO);
+		acaPromoAttachFileVO.setAcaPromoPostVO(acaPromoPostVO);
+		if(acaPromoAttachFileVO.getAcaPromoFilepath() !=null) {
+			promotionMapper.registerAcaPromoFile(acaPromoAttachFileVO);
+		}		
 	}
 
 	@Override
 	public void deleteAcaPromoPost(String acaPromoNo) {
-		// TODO Auto-generated method stub
-		
+		promotionMapper.deleteAcaPromoPost(acaPromoNo);		
 	}
 
 	@Override

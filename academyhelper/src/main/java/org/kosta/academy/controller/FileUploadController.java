@@ -180,7 +180,6 @@ public class FileUploadController {
 	@ResponseBody
 	@PostMapping("academy-file-upload.do")
 	public ArrayList<Object> academyFileUload(FileUploadVO fileVO,HttpServletRequest request){
-		System.out.println(fileVO.getFile());
 		uploadPath ="C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
 		//uploadPath = System.getProperty("user.home")+"\\git\\Kosta_FinalProject_Team2\\academyhelper\\src\\main\\resources\\reviewUpload\\";
 		File uploadDir = new File(uploadPath);
@@ -208,7 +207,6 @@ public class FileUploadController {
 	@ResponseBody
 	@PostMapping("academy-file1-upload.do")
 	public ArrayList<Object> academyFileU1load(FileUploadVO fileVO,HttpServletRequest request){
-		System.out.println(fileVO.getFile());
 		uploadPath ="C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
 		//uploadPath = System.getProperty("user.home")+"\\git\\Kosta_FinalProject_Team2\\academyhelper\\src\\main\\resources\\reviewUpload\\";
 		File uploadDir = new File(uploadPath);
@@ -218,14 +216,14 @@ public class FileUploadController {
 		List<MultipartFile> fileList = fileVO.getFile();
 		ArrayList<Object> fileNameList= new ArrayList<Object>();
 		for(int i=0;i<fileList.size();i++) {
-			long curTime = System.currentTimeMillis();
-			String fileName = fileList.get(i).getOriginalFilename().substring(0, fileList.get(i).getOriginalFilename().length()-4)+curTime+"@main@!!@@"+fileList.get(i).getOriginalFilename().substring(fileList.get(i).getOriginalFilename().length()-4, fileList.get(i).getOriginalFilename().length());
+			long curTime1 = System.currentTimeMillis();
+			String fileName = fileList.get(i).getOriginalFilename().substring(0, fileList.get(i).getOriginalFilename().length()-4)+curTime1+"@main@!!@@"+fileList.get(i).getOriginalFilename().substring(fileList.get(i).getOriginalFilename().length()-4, fileList.get(i).getOriginalFilename().length());
 			if(!fileName.equals("")) {
 				try {
 					//파일네임뒤에 @main@!!@@이 붙으면 아직 attach 테이블에 저장되지 않은 메인이미지파일
 					fileList.get(i).transferTo(new File(uploadPath+fileName));
 					fileNameList.add(fileName);
-					fileNameList.add(curTime);
+					fileNameList.add(curTime1);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -233,4 +231,7 @@ public class FileUploadController {
 		}
 		return fileNameList;
 	}
+	
+	
+	
 }
