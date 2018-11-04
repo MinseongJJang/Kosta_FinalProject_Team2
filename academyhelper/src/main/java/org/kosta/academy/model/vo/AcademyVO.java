@@ -1,7 +1,7 @@
 package org.kosta.academy.model.vo;
 
 public class AcademyVO {
-	private String acaNo;
+	private String acaNo; 
 	private String acaName;
 	private String acaAddr;
 	private String acaTel;
