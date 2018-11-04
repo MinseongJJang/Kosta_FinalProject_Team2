@@ -213,6 +213,8 @@ drop table academy
 select * from academy
 create sequence academy_seq start with 1 nocache
 alter table academy add(aca_main_pic clob);
+alter table academy add(aca_content clob);
+
 
 insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id) 
 values(academy_seq.nextval,'코스타1','판교','0312558779','java0');

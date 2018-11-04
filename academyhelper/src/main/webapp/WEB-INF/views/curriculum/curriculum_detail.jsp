@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10 text-center"
-			style="margin-top: 100px; padding-bottom: 100px;">
+			style="margin-top: 30px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align: center;" align="center">
 				<table class="table">
 					<thead>
@@ -40,26 +40,25 @@
 					<tbody>
 						<tr>
 							<th>과정사진</th>
-							<td><img src="${requestScope.DetailCurriculum.curMainPic}"></td>
+							<td colspan="5"><img src="${requestScope.DetailCurriculum.curMainPic}"></td>
 						</tr> 
 						<tr>
 							<th>과정이름</th>
 							<td>${requestScope.DetailCurriculum.curName}</td>
-						</tr>
-						<tr>
 							<th>과정번호</th>
 							<td>${requestScope.DetailCurriculum.curNo }</td>
-
+						</tr>
+						<tr>
+							<th>기관이름</th>
+							<td>${requestScope.DetailCurriculum.academyVO.acaName}</td>
 							<th>강사명</th>
 							<td>${requestScope.DetailCurriculum.curLecturer}</td>
 						</tr>
 						<tr>
-							<th>정원</th>
-							<td>${requestScope.DetailCurriculum.limitMem }</td>
 							<th>사용교재</th>
 							<td>${requestScope.DetailCurriculum.curTextbook}</td>
-							<th>기관이름</th>
-							<td>${requestScope.DetailCurriculum.academyVO.acaName}</td>
+							<th>정원</th>
+							<td>${requestScope.DetailCurriculum.limitMem }</td>
 						</tr>
 						<tr>
 							<th colspan="1">내용</th>
