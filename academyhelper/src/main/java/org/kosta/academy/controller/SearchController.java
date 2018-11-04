@@ -22,6 +22,9 @@ public class SearchController {
 	public ModelAndView academySearch(CurriculumVO curriculumVO, String search, String pageNo) {
 		ModelAndView mv = new ModelAndView();
 		ListVO lvo = searchService.search(curriculumVO, search, pageNo);
+		//*******************
+		System.out.println("controller"+lvo);
+		//*******************
 		mv.addObject("searchList",lvo);
 		mv.setViewName("search/academySearch_result.tiles");
 		return mv;

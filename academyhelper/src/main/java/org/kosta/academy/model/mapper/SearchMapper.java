@@ -21,9 +21,9 @@ public interface SearchMapper {
 	int getTotalCountByCurName(String curName);
 
 	List<CurriculumVO> searchByCurName(Map<String, Object> searchMap);
-	
-	int getTotalCountBySearch(String address, String curName, String content);
 
-	List<CurriculumVO> searchBySearch(Map<String, Object> searchMap);
+	int getTotalCountByKeyword(CurriculumVO curriculumVO);
+
+	List<CurriculumVO> searchByKeyword(Map<String, Object> searchMap);
 
 }
