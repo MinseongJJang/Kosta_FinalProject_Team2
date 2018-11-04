@@ -146,7 +146,6 @@
 							    </sec:authorize>
 						   	</td>
 				   		</tr>
-				   		
 				   </tfoot>
 				</table>
 			  </form>
