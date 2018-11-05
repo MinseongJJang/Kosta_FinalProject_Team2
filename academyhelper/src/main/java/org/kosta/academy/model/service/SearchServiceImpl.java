@@ -99,6 +99,7 @@ public class SearchServiceImpl implements SearchService {
 			//*******************
 			List<CurriculumVO> curList = searchMapper.searchByKeyword(searchMap);
 			lvo.setCurriculumList(curList);
+			
 		}else if(curriculumVO.getAcademyVO().getAcaAddr() != null && curriculumVO.getCurName() != null && search == null) {
 			
 		}else if(curriculumVO.getAcademyVO().getAcaAddr() != null && curriculumVO.getCurName() == null && search != null) {

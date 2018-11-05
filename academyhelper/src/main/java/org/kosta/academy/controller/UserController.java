@@ -147,7 +147,7 @@ public class UserController extends Authenticator {
 		model.addAttribute("pb", list.getPb());
 		return "user/user_list.tiles";
 	}
-	@RequestMapping("register_form.do")
+	@RequestMapping("registerForm.do")
 	public String registerForm() {
 		return "user/register_form.tiles";
 	}
