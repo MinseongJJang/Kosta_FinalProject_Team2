@@ -7,7 +7,7 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 
-<div class="container" >
+<div class="container">
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">

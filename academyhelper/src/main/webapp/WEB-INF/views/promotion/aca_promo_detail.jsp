@@ -46,7 +46,7 @@
 									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
 								</form>
 								<form action="updateAcaPromoPostForm.do" id="updateForm" method="post">
-									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
+									 <input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
 									 <input type="hidden" name="acaPromoTitle" value="${requestScope.acaPromo.acaPromoTitle}">
 									 <input type="hidden" name="acaPromoContent" value="${requestScope.acaPromo.acaPromoContent}">	
 									<sec:csrfInput />
