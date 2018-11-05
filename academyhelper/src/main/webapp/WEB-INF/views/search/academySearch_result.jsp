@@ -33,12 +33,12 @@
 						   <c:set var="pb" value="${requestScope.pb}"></c:set>
 						   <ul class="pagination">
 						      <c:if test="${pb.previousPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.startPageOfPageGroup-1}&search=${requestScope.content.search}&academyVO.acaAddr=${requestScope.content.curriculumVO.academyVO.acaAddr}&curName=${requestScope.content.curriculumVO.curName}">&laquo;</a></li>
 						      </c:if>
 						      <c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 						         <c:choose>
 						            <c:when test="${pb.nowPage!=i}">
-						               <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${i}">${i}</a></li>
+						               <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${i}&search=${requestScope.content.search}&academyVO.acaAddr=${requestScope.content.curriculumVO.academyVO.acaAddr}&curName=${requestScope.content.curriculumVO.curName}">${i}</a></li>
 						            </c:when>
 						            <c:otherwise>
 						               <li class="active"><a href="#">${i}</a></li>
@@ -46,7 +46,7 @@
 						         </c:choose>
 						      </c:forEach>
 						      <c:if test="${pb.nextPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.endPageOfPageGroup+1}&search=${requestScope.content.search}&academyVO.acaAddr=${requestScope.content.curriculumVO.academyVO.acaAddr}&curName=${requestScope.content.curriculumVO.curName}">&raquo;</a></li>
 						      </c:if>
 						   </ul>
 						</div>

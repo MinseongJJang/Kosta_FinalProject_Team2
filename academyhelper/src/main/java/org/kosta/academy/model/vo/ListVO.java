@@ -24,6 +24,7 @@ public class ListVO {
 	private List<AcaPromoPostVO> acaPromoPostList;
 	private List<LocationVO> locationList;
 	private PagingBean pb;
+	private contentVO content;
 	public ListVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -112,6 +113,12 @@ public class ListVO {
 	public void setPb(PagingBean pb) {
 		this.pb = pb;
 	}
+	public contentVO getContent() {
+		return content;
+	}
+	public void setContent(contentVO content) {
+		this.content = content;
+	}
 	@Override
 	public String toString() {
 		return "ListVO [userList=" + userList + ", acaUserList=" + acaUserList + ", academyList=" + academyList
@@ -119,6 +126,7 @@ public class ListVO {
 				+ acaQNAReplyList + ", faqList=" + faqList + ", noticeList=" + noticeList + ", acaReviewPostList="
 				+ acaReviewPostList + ", acaReviewReplyList=" + acaReviewReplyList + ", suggestionPostList="
 				+ suggestionPostList + ", acaPromoPostList=" + acaPromoPostList + ", locationList=" + locationList
-				+ ", pb=" + pb + "]";
+				+ ", pb=" + pb + ", content=" + content + "]";
 	}
+	
 }
