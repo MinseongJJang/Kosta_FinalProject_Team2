@@ -133,31 +133,40 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-heading">
-					<h2>IT 기관 홍보</h2>
+					<h2>IT 기관 정보</h2>
 				</div>
 			</div>
 		</div>
+		<!-- IT 기관 정보 -->
 		<div class="owl-carousel owl-theme">
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Mauris tempus</h4>
-						<span>76 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
+			<c:forEach items="${requestScope.academy.academyList }" var="academy">
+						<%-- 	<tr>
+								<td>${promo.acaPromoNo }</td>
+								<td><a href="detailAcaPromoPost.do?acaPromoNo=${promo.acaPromoNo }">${promo.acaPromoTitle }</a></td>
+								<td>${promo.acaPromoRegdate }</td>
+								<td>${promo.acaUserVO.userVO.usrName }</td>
+							</tr> --%>
+				<div class="item popular-item">
+					<div class="thumb">
+						<h2>${academy.acaName}</h2>
+						<span>${academy.acaAddr }</span>
+						<div class="text-content">
+							<h4>${academy.acaName }</h4>
+							<span>${academy.acaTel }</span>
+						</div>
+						<div class="plus-button">
+							<a href="#"><i class="fa fa-plus"></i></a>
+						</div>
 					</div>
 				</div>
-			</div>
+			</c:forEach>
 		</div>
+		<!-- IT 기관 정보 끝 -->
 	</div>
 	<br> <br> <br>
 	<div class="section-heading">
 		<div class="blue-button">
-			<a class="scrollTo" data-scrollTo="popular" href="#">더보기</a>
+			<a href="${pageContext.request.contextPath}/listAcademy.do">더보기</a>
 		</div>
 	</div>
 </section>
