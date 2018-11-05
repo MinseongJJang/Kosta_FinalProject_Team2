@@ -57,7 +57,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("academyVO.acaAddr",curriculumVO.getAcademyVO().getAcaAddr());
+			searchMap.put("ADDRESS",curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
 			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
 			List<CurriculumVO> curList = searchMapper.searchByAddress(searchMap);
@@ -89,7 +89,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("acaAddr", search);
+			searchMap.put("ADDRESS", search);
 			searchMap.put("curName", search);
 			searchMap.put("curContent", search);
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());

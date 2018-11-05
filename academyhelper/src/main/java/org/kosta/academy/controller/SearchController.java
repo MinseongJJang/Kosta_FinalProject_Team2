@@ -23,6 +23,7 @@ public class SearchController {
 			String district) {
 		ModelAndView mv = new ModelAndView();
 		curriculumVO.getAcademyVO().setAcaAddr(province + " " + district);
+		System.out.println(curriculumVO + " " + search);
 		ListVO lvo = searchService.search(curriculumVO, search, pageNo);
 		//*******************
 		System.out.println("controller"+lvo);

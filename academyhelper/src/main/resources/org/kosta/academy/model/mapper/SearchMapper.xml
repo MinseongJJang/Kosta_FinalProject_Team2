@@ -48,7 +48,7 @@ where
 	a.aca_no = c.aca_no 
 	and 
 	(
-	upper (a.aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+	upper (a.aca_addr) LIKE '%'||upper(#{ADDRESS})||'%'
 	or (c.cur_name) LIKE '%'||upper(#{curName})||'%' 
 	or  upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%'
 	)
@@ -63,7 +63,7 @@ from
 		a.aca_no = c.aca_no 
 		and 
 		(
-		upper (a.aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+		upper (a.aca_addr) LIKE '%'||upper(#{ADDRESS})||'%'
 		or (c.cur_name) LIKE '%'||upper(#{curName})||'%' 
 		or  upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%'
 		)
