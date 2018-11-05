@@ -258,8 +258,6 @@ select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, a.aca_main_pic,
 		select  a.aca_no, a.aca_name, a.aca_addr, a.aca_tel, a.aca_main_pic, a.aca_content
 		u.usr_id, u.usr_name, u.usr_addr, u.nickname, u.usr_regdate, u.usr_email, u.usr_tel from academy a, users u 
 		where a.usr_id = u.usr_id and a.aca_no = '13'
-출처: http://hyeonstorage.tistory.com/292 [개발이 하고 싶어요]
-
 
 alter table aca_qna drop constraint aca_qna_sfk
 select * from ACA_QNA
@@ -447,6 +445,7 @@ create table aca_review_post(
 	constraint aca_review_post_ffk foreign key(cur_no) references curriculum(cur_no) on delete cascade,
 	constraint aca_review_post_sfk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+create sequence aca_review_post_seq start with 1 nocache
 alter table aca_review_post drop column aca_rev_content
 alter table aca_review_post add(aca_rev_content clob)
 
@@ -486,7 +485,7 @@ values(aca_review_post_seq.nextval,11,'코스타좋아요6','코스타개조음'
 
 select * from aca_review_post
 select * from aca_review_post
-create sequence aca_review_post_seq start with 1 nocache
+
 
 /*학원후기 만족도 테이블*/
 create table aca_cur_satisfaction(

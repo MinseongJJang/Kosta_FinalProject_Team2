@@ -61,9 +61,8 @@ table td{
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-2"></div>
-		<div class="col-sm-8 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
-			<div style="margin-top: 100px; text-align:center;" align="center">
-				<table class="test" >
+		<div class="col-sm-8" align="center" style="margin-top: 100px; padding-bottom: 50px;">
+				<table class="test" style="align=:center;">
 					<tr>
 						<td>
 							<h3>회원 로그인</h3>
@@ -93,7 +92,7 @@ table td{
 								</tr>
 								<tr>
 			               			<td colspan="3" align="right">
-			               				<a href="${pageContext.request.contextPath}/register_form.do">회원가입</a>
+			               				<a href="${pageContext.request.contextPath}/registerForm.do">회원가입</a>
 		               				</td>
 								</tr>
 								<tr>
@@ -106,7 +105,6 @@ table td{
 					</tr>
 				</table>
 			</div>
-		</div>
 		<div class="col-sm-2"></div>
 	</div>
 </div>

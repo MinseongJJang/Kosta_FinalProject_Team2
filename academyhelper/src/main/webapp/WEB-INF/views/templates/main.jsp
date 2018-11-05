@@ -156,6 +156,7 @@
 							</tr> --%>
 				<div class="item popular-item">
 					<div class="thumb">
+						<a href="detailAcademy.do?acaNo="+${academy.acaNo }><img src="${academy.acaMainPic }"></a>
 						<h2>${academy.acaName}</h2>
 						<span>${academy.acaAddr }</span>
 						<div class="text-content">
@@ -195,10 +196,8 @@
 		<c:forEach items="${requestScope.list}" var="list">
 			<div class="col-sm-4">
 				<div class="featured-item">
+				<img src="${list.curMainPic }" width="100%" height="250">
 					<div class="thumb">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/featured_item_1.jpg"
-							alt="">
 						<div class="overlay-content">
 							<ul>
 							<c:if test="${list.satis<1}">
@@ -297,6 +296,7 @@
 								</div>
 							</div>
 						</div>
+						<br>
 					</div>
 				</div>
 			</div>
