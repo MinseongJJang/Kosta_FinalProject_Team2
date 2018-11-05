@@ -83,24 +83,24 @@ $(document).ready(function(){
                      </tr>
                   </sec:authorize>
                      <tr>
-                        <th>과정번호</th>
-			 <th>과정사진</th>
+                        <th width="20%">과정번호</th>
+			 			<th width="20%">과정사진</th>
                         
-                        <th colspan="3">과정이름</th>
-                        <th>강사명</th>
-                        <th>정원</th>
-                        <th>과정이름</th>
-                        <th>학원이름</th>
+                        <th width="20%">과정이름</th>
+                        <th width="10%">강사명</th>
+                        <th width="10%">정원</th>
+                        <th width="10%">교재</th>
+                        <th width="10%">학원이름</th>
                      </tr>
                      <c:forEach var="curriculum" items="${requestScope.ListCurriculum}">
                      <tr>
-                        <td>${curriculum.curNo }</td>
-                        <td><img src="${curriculum.curMainPic }" width="200" height="200"></td>
-                        <td colspan="3"><a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">${curriculum.curName }</a></td>
-                        <td>${curriculum.curLecturer }</td>
-                        <td>${curriculum.limitMem }</td>
-                        <td>${curriculum.curTextbook }</td>
-                        <td>${curriculum.academyVO.acaName }</td>
+                        <td width="20%">${curriculum.curNo }</td>
+                        <td width="20%"><img src="${curriculum.curMainPic }" width="200" height="200"></td>
+                        <td width="20%"><a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${curriculum.curNo}">${curriculum.curName }</a></td>
+                        <td width="10%">${curriculum.curLecturer }</td>
+                        <td width="10%">${curriculum.limitMem }</td>
+                        <td width="10%">${curriculum.curTextbook }</td>
+                        <td width="10%">${curriculum.academyVO.acaName }</td>
                      </tr>
                      </c:forEach>
                      <tr>

@@ -19,10 +19,10 @@
 				   <tbody>
 				     <c:forEach var="list"  items="${requestScope.searchList}">
 				         <tr>
-				            <td>${list.curriculumList.academyVO.acaNo }</td>
-				            <td>${list.curriculumList.academyVO.acaName }</td>
-				            <td>${list.curriculumList.curNo }</td>
-				            <td>${list.curriculumList.curName }</td>
+				            <td>${list.academyVO.acaNo }</td>
+				            <td>${list.academyVO.acaName }</td>
+				            <td>${list.curNo }</td>
+				            <td>${list.curName }</td> 
 				         </tr>
 				      </c:forEach>
 				   </tbody>
@@ -30,15 +30,15 @@
 				   <tr>
 				   	<td colspan="4" >
 				   		<div class="pagingInfo" >
-						   <c:set var="pb" value="${requestScope.list.pb}"></c:set>
+						   <c:set var="pb" value="${requestScope.pb}"></c:set>
 						   <ul class="pagination">
 						      <c:if test="${pb.previousPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.startPageOfPageGroup-1}+curriculumVO=${requestScope.searchList}">&laquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 						      </c:if>
 						      <c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 						         <c:choose>
 						            <c:when test="${pb.nowPage!=i}">
-						               <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${i}+curriculumVO=${requestScope.searchList}">${i}</a></li>
+						               <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${i}">${i}</a></li>
 						            </c:when>
 						            <c:otherwise>
 						               <li class="active"><a href="#">${i}</a></li>
@@ -46,7 +46,7 @@
 						         </c:choose>
 						      </c:forEach>
 						      <c:if test="${pb.nextPageGroup}">
-						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.endPageOfPageGroup+1}+academyvo.acaaddr=${searchlist.academyvo.acaaddr}">&raquo;</a></li>
+						         <li><a href="${pageContext.request.contextPath}/academySearch.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 						      </c:if>
 						   </ul>
 						</div>
