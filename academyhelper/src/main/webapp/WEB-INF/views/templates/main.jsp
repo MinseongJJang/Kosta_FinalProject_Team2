@@ -64,7 +64,7 @@
 								<div class="col-md-3 third-item">
 									<!-- JB modal TEST -->
 									<div id="location">
-									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택2</button>
+									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택3</button>
 									</div>
 									<!--  province Modal -->
 									<div class="modal fade" id="provinceModal" role="dialog">
@@ -137,9 +137,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- IT 기관 홍보 -->
+		<!-- IT 기관 정보 -->
 		<div class="owl-carousel owl-theme">
-			<c:forEach items="${requestScope.promotion.acaPromoPostList }" var="promo">
+			<c:forEach items="${requestScope.academy.academyList }" var="academy">
 						<%-- 	<tr>
 								<td>${promo.acaPromoNo }</td>
 								<td><a href="detailAcaPromoPost.do?acaPromoNo=${promo.acaPromoNo }">${promo.acaPromoTitle }</a></td>
@@ -148,10 +148,11 @@
 							</tr> --%>
 				<div class="item popular-item">
 					<div class="thumb">
-						<img src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"	alt="">
+						<h2>${academy.acaName}</h2>
+						<span>${academy.acaAddr }</span>
 						<div class="text-content">
-							<h4>${promo.acaPromoTitle }</h4>
-							<span>${promo.acaPromoRegdate }</span>
+							<h4>${academy.acaName }</h4>
+							<span>${academy.acaTel }</span>
 						</div>
 						<div class="plus-button">
 							<a href="#"><i class="fa fa-plus"></i></a>
@@ -161,12 +162,12 @@
 			</c:forEach>
 			
 		</div>
-		<!-- IT 기관 홍보 끝 -->
+		<!-- IT 기관 정보 끝 -->
 	</div>
 	<br> <br> <br>
 	<div class="section-heading">
 		<div class="blue-button">
-			<a class="scrollTo" data-scrollTo="popular" href="#">더보기</a>
+			<a href="${pageContext.request.contextPath}/listAcademy.do">더보기</a>
 		</div>
 	</div>
 </section>

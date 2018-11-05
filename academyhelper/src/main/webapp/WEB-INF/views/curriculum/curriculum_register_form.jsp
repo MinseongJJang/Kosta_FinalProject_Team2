@@ -58,10 +58,9 @@
 								$.ajax({
 									data : form_data,
 									type : "POST",
-									url : "curriculum-file-upload.do",
+									url : "${pageContext.request.contextPath}/curriculum-file-upload.do",
 									cache : false,
 									contentType : false,
-									enctype : "multipart/form-data",
 									processData : false,
 									beforeSend : function(xhr) { /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
 									xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");

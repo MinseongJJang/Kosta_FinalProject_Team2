@@ -2,6 +2,7 @@ package org.kosta.academy.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -23,34 +24,6 @@ public class SearchServiceImpl implements SearchService {
 
 	
 	@Override
-	public ListVO academySearch(CurriculumVO curriculumVO, String pageNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCurCount = searchMapper.getTotalListAcaCount(curriculumVO);
-		PagingBean pagingBean = null;
-		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCurCount);
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-		} else {
-			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-			map.put("pageNo", pagingBean.getNowPage());
-		}
-		List<CurriculumVO> searchAcademyList = searchMapper.academySearch(map);
-		ListVO lvo = new ListVO();
-		lvo.setCurriculumList(searchAcademyList);
-		lvo.setPb(pagingBean);
-		return lvo;
-	}
-	
-	@Override
 	public ListVO provinceList() {
 		List<LocationVO> list = searchMapper.provinceList();
 		ListVO locationList = new ListVO();
@@ -70,112 +43,71 @@ public class SearchServiceImpl implements SearchService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public ListVO locationAndCurName(CurriculumVO curriculumVO, String pageNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCurCount = searchMapper.getTotalListAcaCount(curriculumVO);
-		PagingBean pagingBean = null;
-		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCurCount);
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-		} else {
-			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-			map.put("pageNo", pagingBean.getNowPage());
+	public ListVO search(CurriculumVO curriculumVO, String search, String pageNo) {
+		ListVO lvo =  new ListVO();
+		PagingBean pb = null;
+		Map<String,Object> searchMap = new HashMap<String,Object>();
+		int totalCount = 0;
+		if(!(curriculumVO.getAcademyVO().getAcaAddr().equals("")) && curriculumVO.getCurName().equals("") && search.equals("")) {
+			totalCount = searchMapper.getTotalCountByAddress(curriculumVO.getAcademyVO().getAcaAddr());
+			if(pageNo == null) {
+				pb = new  PagingBean(totalCount);
+			}else {
+				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			}
+			searchMap.put("ADDRESS",curriculumVO.getAcademyVO().getAcaAddr());
+			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
+			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
+			List<CurriculumVO> curList = searchMapper.searchByAddress(searchMap);
+			lvo.setCurriculumList(curList);
+			
+		}else if(curriculumVO.getAcademyVO().getAcaAddr().equals("") && !(curriculumVO.getCurName().equals("")) && search.equals("")) {
+			totalCount = searchMapper.getTotalCountByCurName(curriculumVO.getCurName());
+			if(pageNo == null) {
+				pb = new  PagingBean(totalCount);
+			}else {
+				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			}
+			System.out.println("check"+curriculumVO);
+			searchMap.put("CURNAME",curriculumVO.getCurName());
+			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
+			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
+			List<CurriculumVO> curList = searchMapper.searchByCurName(searchMap);
+			lvo.setCurriculumList(curList);
+			System.out.println("test in service"+lvo);
+			
+		}else if(curriculumVO.getAcademyVO().getAcaAddr().equals("") && curriculumVO.getCurName().equals("") && !(search.equals(""))) {
+			//***********************************
+			//totalCount = searchMapper.getTotalCountBySearch(curriculumVO.getCurName());
+			if(pageNo == null) {
+				pb = new  PagingBean(totalCount);
+			}else {
+				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			}
+			searchMap.put("ADDRESS",search);
+			searchMap.put("CURNAME",search);
+			searchMap.put("CONTENT",search);
+			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
+			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
+			List<CurriculumVO> curList = searchMapper.searchBySearch(searchMap);
+			lvo.setCurriculumList(curList);
+		}else if(curriculumVO.getAcademyVO().getAcaAddr() != null && curriculumVO.getCurName() != null && search == null) {
+			
+		}else if(curriculumVO.getAcademyVO().getAcaAddr() != null && curriculumVO.getCurName() == null && search != null) {
+			
+		}else if(curriculumVO.getAcademyVO().getAcaAddr() == null && curriculumVO.getCurName() != null && search != null) {
+			
+		}else if(curriculumVO.getAcademyVO().getAcaAddr() != null && curriculumVO.getCurName() != null && search != null) {
+			
+		}else {
+			
 		}
-		List<CurriculumVO> searchAcademyList = searchMapper.locationAndCurName(map);
-		ListVO lvo = new ListVO();
-		lvo.setCurriculumList(searchAcademyList);
-		lvo.setPb(pagingBean);
+		lvo.setPb(pb);
 		return lvo;
 	}
 	@Override
-	public ListVO locationAndSearch(CurriculumVO curriculumVO, String pageNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCurCount = searchMapper.getTotalListAcaCount(curriculumVO);
-		PagingBean pagingBean = null;
-		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCurCount);
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-		} else {
-			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-			map.put("pageNo", pagingBean.getNowPage());
-		}
-		List<CurriculumVO> searchAcademyList = searchMapper.locationAndSearch(map);
-		ListVO lvo = new ListVO();
-		lvo.setCurriculumList(searchAcademyList);
-		lvo.setPb(pagingBean);
-		return lvo;
-	}
-	@Override
-	public ListVO curNameAndSearch(CurriculumVO curriculumVO, String pageNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCurCount = searchMapper.getTotalListAcaCount(curriculumVO);
-		PagingBean pagingBean = null;
-		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCurCount);
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-		} else {
-			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-			map.put("pageNo", pagingBean.getNowPage());
-		}
-		List<CurriculumVO> searchAcademyList = searchMapper.curNameAndSearch(map);
-		ListVO lvo = new ListVO();
-		lvo.setCurriculumList(searchAcademyList);
-		lvo.setPb(pagingBean);
-		return lvo;
-	}
-	@Override
-	public ListVO locationAndCurNameAndSearch(CurriculumVO curriculumVO, String pageNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalCurCount = searchMapper.getTotalListAcaCount(curriculumVO);
-		PagingBean pagingBean = null;
-		if (pageNo == null) {
-			pagingBean = new PagingBean(totalCurCount);
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-		} else {
-			pagingBean = new PagingBean(totalCurCount, Integer.parseInt(pageNo));
-			map.put("curName", curriculumVO.getCurName());
-			map.put("curContent", curriculumVO.getCurContent());
-			map.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
-			map.put("startRowNumber", pagingBean.getStartRowNumber());
-			map.put("endRowNumber", pagingBean.getEndRowNumber());
-			map.put("pageNo", pagingBean.getNowPage());
-		}
-		List<CurriculumVO> searchAcademyList = searchMapper.locationAndCurNameAndSearch(map);
-		ListVO lvo = new ListVO();
-		lvo.setCurriculumList(searchAcademyList);
-		lvo.setPb(pagingBean);
-		return lvo;
+	public ListVO academySearch(CurriculumVO curriculumVO, String pageNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

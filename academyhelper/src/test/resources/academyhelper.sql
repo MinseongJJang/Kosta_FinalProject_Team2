@@ -11,6 +11,7 @@ create table users(
 	usr_email varchar2(100) not null,
 	usr_tel varchar2(100) not null
 )
+select * from users
 drop table users
 select usr_pass from users where usr_id='java3' and usr_email='ksm0799@naver.com'
 select usr_email from users where usr_id='java3'
@@ -83,7 +84,7 @@ create table authorities(
 )
 insert into authorities(authority,usr_id) values('ROLE_ADMIN','java')
 insert into authorities(authority,usr_id) values('ROLE_ADMIN','java5')
-insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java5')
+insert into authorities(authority,usr_id) values('ROLE_ACADEMY','spring')
 select * from users where usr_id='java5'
 select * from authorities
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java1')
@@ -95,6 +96,7 @@ values('ROLE_USER','admin1')
 select * from AUTHORITIES
 
 /*학원홍보 게시판 테이블 및 시퀀스*/
+drop table aca_promo_post
 create table aca_promo_post(
 	aca_promo_no number primary key,
 	aca_promo_title varchar2(100) not null,
@@ -104,6 +106,7 @@ create table aca_promo_post(
 	usr_id varchar2(100) not null,
 	constraint aca_promo_post_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
+select * from aca_promo_post
 ALTER TABLE aca_promo_post
 ALTER COLUMN aca_promo_hits not null default 0;
 
@@ -112,6 +115,7 @@ alter table aca_promo_post modify(aca_promo_hits default 0)
 create sequence aca_promo_post_seq start with 1 nocache
 select * from aca_promo_post
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/
+drop table aca_promo_attach_file
 create table aca_promo_attach_file(
 	aca_promo_att_no number primary key,
 	aca_promo_filepath varchar2(1000) not null,
@@ -119,7 +123,8 @@ create table aca_promo_attach_file(
 	constraint aca_promo_attach_file_fk foreign key(aca_promo_no) references aca_promo_post(aca_promo_no) on delete cascade
 )
 create sequence aca_promo_attach_file_seq start with 1 nocache
-
+select * from aca_promo
+select * from aca_promo_attach_file
 /*건의게시판 테이블 및 시퀀스*/
 create table suggestion_post(
 	sug_no number primary key,
@@ -189,7 +194,16 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-drop table academy
+create table aca_attach_file(
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+)
+create sequence aca_attach_file_seq start with 1 nocache
+alter table academy add(aca_main_pic clob)
+create 
+delete academy
 select * from academy
 create sequence academy_seq start with 1 nocache
 alter table academy add(aca_main_pic clob);
@@ -202,13 +216,13 @@ select*from academy;
 /*학원 첨부 파일 및 시퀀스*/
 drop table aca_attach_file
 create table aca_attach_file(
-	aca_att_no number primary key,
-	aca_filepath varchar2(1000) not null,
-	aca_no number not null,
-	constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 create sequence aca_attach_file_seq start with 1 nocache
-
+alter table academy add(aca_main_pic clob);
 /*학원 Q&A 및 시퀀스*/
 drop table aca_qna
 DELETE from aca_qna
@@ -312,17 +326,13 @@ create table curriculum(
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 
-<<<<<<< HEAD
 select * from curriculum
 alter table curriculum add(cur_main_pic clob);
 alter table curriculum drop column cur_main_pic
 alter table curriculum add(cur_main_pic varchar2(1000));
-=======
 
-alter table curriculum add(cur_main_pic clob);
 select*from curriculum
 
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -336,7 +346,31 @@ SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbo
 		order by c.cur_no desc
 		
 delete from curriculum where cur_no='2';
+select
+			curriculum_seq.nextval from dual
+select
+		c.cur_no,c.cur_name,NVL( c.cur_main_pic, 'UNKNOWN' ),c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no='99'
+		
+		select
+		c.cur_no,c.cur_name,c.cur_main_pic,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no,a.aca_name
+		from curriculum
+		c,academy a where
+		c.aca_no=a.aca_no and
+		c.cur_no='112'
+		
+	insert into
+		curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,cur_main_pic)
+		values('100','5','자바','15','ㅁㅁ','ㅁ','ㅎ','ㅂ')
 
+select cur_no,cur_name,NVL( cur_main_pic, 'UNKNOWN' ),limit_mem,cur_content,cur_lecturer,cur_textbook
+		from curriculum
+		 where
+		cur_no='99'
+		
 create sequence curriculum_seq start with 1 nocache
 insert into curriculum(cur_no,aca_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook) 
 values(curriculum_seq.nextval,'1','자바의 기초',10,'자바 쉽지 않지만 재밌다.','윤준상','자바의 정석');
@@ -370,7 +404,7 @@ create table cur_attach_file(
 	cur_no number not null,
 	constraint cur_attach_file_fk foreign key(cur_no) references curriculum(cur_no) on delete cascade
 )
-
+drop table cur_attach_file
 create sequence cur_attach_file_seq start with 1 nocache
 
 
@@ -582,38 +616,39 @@ create table location(
 	constraint province primary key (province, district)
 )
 select * from location
-insert into location (province, district) values ('서울특별시', '종로구');
-insert into location (province, district) values ('서울특별시', '중구');
-insert into location (province, district) values ('서울특별시', '용산구');
-insert into location (province, district) values ('서울특별시', '광진구');
-insert into location (province, district) values ('서울특별시', '성북구');
-insert into location (province, district) values ('서울특별시', '도봉구');
-insert into location (province, district) values ('서울특별시', '노원구');
-insert into location (province, district) values ('서울특별시', '은평구');
-insert into location (province, district) values ('서울특별시', '서대문구');
-insert into location (province, district) values ('서울특별시', '강남구');
-insert into location (province, district) values ('서울특별시', '송파구');
-insert into location (province, district) values ('서울특별시', '관악구');
-insert into location (province, district) values ('서울특별시', '동작구');
-insert into location (province, district) values ('서울특별시', '강서구');
-insert into location (province, district) values ('서울특별시', '서초구');
-insert into location (province, district) values ('서울특별시', '중랑구');
-insert into location (province, district) values ('경기도 수원시', '장안구');
-insert into location (province, district) values ('경기도 수원시', '권선구');
-insert into location (province, district) values ('경기도 수원시', '팔달구');
-insert into location (province, district) values ('경기도 수원시', '영통구');
-insert into location (province, district) values ('경기도 성남시', '수정구');
-insert into location (province, district) values ('경기도 성남시', '중원구');
-insert into location (province, district) values ('경기도 성남시', '분당구');
-insert into location (province, district) values ('경기도 안양시', '만안구');
-insert into location (province, district) values ('경기도 안양시', '동안구');
-insert into location (province, district) values ('경기도 용인시', '처인구');
-insert into location (province, district) values ('경기도 용인시', '기흥구');
-insert into location (province, district) values ('경기도 용인시', '수지구');
-insert into location (province, district) values ('경기도 의정부시', '의정부동');
-insert into location (province, district) values ('경기도 의정부시', '호원동');
-insert into location (province, district) values ('경기도 의정부시', '신곡동');
-insert into location (province, district) values ('경기도 의정부시', '송산동');
+delete from location
+insert into location (province, district) values ('서울', '종로구');
+insert into location (province, district) values ('서울', '중구');
+insert into location (province, district) values ('서울', '용산구');
+insert into location (province, district) values ('서울', '광진구');
+insert into location (province, district) values ('서울', '성북구');
+insert into location (province, district) values ('서울', '도봉구');
+insert into location (province, district) values ('서울', '노원구');
+insert into location (province, district) values ('서울', '은평구');
+insert into location (province, district) values ('서울', '서대문구');
+insert into location (province, district) values ('서울', '강남구');
+insert into location (province, district) values ('서울', '송파구');
+insert into location (province, district) values ('서울', '관악구');
+insert into location (province, district) values ('서울', '동작구');
+insert into location (province, district) values ('서울', '강서구');
+insert into location (province, district) values ('서울', '서초구');
+insert into location (province, district) values ('서울', '중랑구');
+insert into location (province, district) values ('경기 수원시', '장안구');
+insert into location (province, district) values ('경기 수원시', '권선구');
+insert into location (province, district) values ('경기 수원시', '팔달구');
+insert into location (province, district) values ('경기 수원시', '영통구');
+insert into location (province, district) values ('경기 성남시', '수정구');
+insert into location (province, district) values ('경기 성남시', '중원구');
+insert into location (province, district) values ('경기 성남시', '분당구');
+insert into location (province, district) values ('경기 안양시', '만안구');
+insert into location (province, district) values ('경기 안양시', '동안구');
+insert into location (province, district) values ('경기 용인시', '처인구');
+insert into location (province, district) values ('경기 용인시', '기흥구');
+insert into location (province, district) values ('경기 용인시', '수지구');
+insert into location (province, district) values ('경기 의정부시', '의정부동');
+insert into location (province, district) values ('경기 의정부시', '호원동');
+insert into location (province, district) values ('경기 의정부시', '신곡동');
+insert into location (province, district) values ('경기 의정부시', '송산동');
 insert into location (province, district) values ('강원도', '춘천시');
 insert into location (province, district) values ('충청북도', '청주시');
 insert into location (province, district) values ('충청남도', '천안시');
@@ -681,6 +716,21 @@ create table cur_attach_file(
 
 create sequence cur_attach_file_seq start with 1 nocache
 
+<<<<<<< HEAD
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (cur_name) LIKE '%'||upper('sp')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1  and 5 order by a.aca_no desc
+
+select * from curriculum
+
+	select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content, cur_main_pic from curriculum) c, academy a
+	where upper (c.cur_name) LIKE '%'||upper('sp')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1  and 10 order by a.aca_no desc
+
+
+=======
 drop table aca_attach_file
 create table aca_attach_file(
    aca_att_no number primary key,
@@ -689,4 +739,5 @@ create table aca_attach_file(
    constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 create sequence aca_attach_file_seq start with 1 nocachecurr
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 

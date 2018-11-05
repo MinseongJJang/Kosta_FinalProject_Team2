@@ -53,19 +53,19 @@ section {
 
 .blue-button a {
   display: inline-block;
-  background-color: #4883ff;
+  background-color: #004e92;
   color: #fff;
   font-size: 15px;
   font-weight: 500;
   padding: 10px 16px;
   text-decoration: none;
-  border: 2px solid #4883ff;
+  border: 2px solid #004e92;
   transition: all 0.5s;
 }
 
 .blue-button a:hover {
   background-color: transparent;
-  color: #4883ff;
+  color: #004e92;
 }
 
 

@@ -4,78 +4,35 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.academy.model.mapper.SearchMapper">
-<select id="getTotalListAcaCount" parameterType="string" resultType="int">
-	select count(*) from  curriculum where upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
-	or upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+
+<select id="getTotalCountByAddress" parameterType="string" resultType="int">
+	select count(*) from  academy
+	where upper (aca_addr) LIKE '%'||upper(#{value})||'%'
 </select>
 
-<resultMap type="curriculumVO" id="curriRM">
+<resultMap type="curriculumVO" id="CRM1">
 	<result property="academyVO.acaNo" column="aca_no" />	
 	<result property="academyVO.acaName" column="aca_name" />
 	<result property="academyVO.acaAddr" column="aca_addr" />
+	<result property="academyVO.acaMainPic" column="aca_main_pic"/>
 </resultMap> 
-<select id="academySearch" parameterType="map" resultMap="curriRM">
-	select a.aca_no, a.aca_name, c.cur_no, c.cur_name
-	from(select row_number() over(order by aca_no asc) as rnum, aca_no, cur_name, cur_no, cur_content from curriculum) c, academy a
-	where upper (c.cur_name) LIKE '%'||upper(#{curName})||'%' and a.aca_no = c.aca_no 
-	or upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%' and a.aca_no = c.aca_no 
-	or upper (a.aca_addr) LIKE '%'||upper(#{acaAddr})||'%' and a.aca_no = c.aca_no 
-	and  rnum between #{startRowNumber}  and #{endRowNumber} order by a.aca_no asc
-</select>
- 
-<resultMap type="curriculumVO" id="curriRM2">
-	<result property="academyVO.acaNo" column="aca_no" />	
-	<result property="academyVO.acaName" column="aca_name" />
-	<result property="academyVO.acaAddr" column="aca_addr" />
-</resultMap> 
-<select id="locationAndCurName" parameterType="map" resultMap="curriRM2">
-	select a.aca_no, a.aca_name, c.cur_no, c.cur_name
-	from(select row_number() over(order by aca_no asc) as rnum, aca_no, cur_name, cur_no, cur_content from curriculum) c, academy a
-	where upper (c.cur_name) LIKE '%'||upper(#{curName})||'%' and a.aca_no = c.aca_no 
-	and upper (a.aca_addr) LIKE '%'||upper(#{acaAddr})||'%' and a.aca_no = c.aca_no 
-	and  rnum between #{startRowNumber}  and #{endRowNumber} order by a.aca_no asc
-</select> 
- 
-<resultMap type="curriculumVO" id="curriRM3">
-	<result property="academyVO.acaNo" column="aca_no" />	
-	<result property="academyVO.acaName" column="aca_name" />
-	<result property="academyVO.acaAddr" column="aca_addr" />
-</resultMap> 
-<select id="locationAndSearch" parameterType="map" resultMap="curriRM3">
-	select a.aca_no, a.aca_name, c.cur_no, c.cur_name
-	from(select row_number() over(order by aca_no asc) as rnum, aca_no, cur_name, cur_no, cur_content from curriculum) c, academy a
-	where upper (c.cur_name) LIKE '%'||upper(#{curName})||'%' and a.aca_no = c.aca_no 
-	or upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%' and a.aca_no = c.aca_no 
-	and upper (a.aca_addr) LIKE '%'||upper(#{acaAddr})||'%' and a.aca_no = c.aca_no 
-	and  rnum between #{startRowNumber}  and #{endRowNumber} order by a.aca_no asc
-</select>
- 
-<resultMap type="curriculumVO" id="curriRM4">
-	<result property="academyVO.acaNo" column="aca_no" />	
-	<result property="academyVO.acaName" column="aca_name" />
-	<result property="academyVO.acaAddr" column="aca_addr" />
-</resultMap> 
-<select id="curNameAndSearch" parameterType="map" resultMap="curriRM4">
-	select a.aca_no, a.aca_name, c.cur_no, c.cur_name
-	from(select row_number() over(order by aca_no asc) as rnum, aca_no, cur_name, cur_no, cur_content from curriculum) c, academy a
-	where upper (c.cur_name) LIKE '%'||upper(#{curName})||'%' and a.aca_no = c.aca_no 
-	and upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%' and a.aca_no = c.aca_no 
-	or upper (a.aca_addr) LIKE '%'||upper(#{acaAddr})||'%' and a.aca_no = c.aca_no 
-	and  rnum between #{startRowNumber}  and #{endRowNumber} order by a.aca_no asc
+<select id="searchByAddress" parameterType="map" resultMap="CRM1">
+	select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (a.aca_addr) LIKE '%'||upper(#{ADDRESS})||'%' and a.aca_no = c.aca_no 
+	and  rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by a.aca_no desc
 </select>
 
-<resultMap type="curriculumVO" id="curriRM5">
-	<result property="academyVO.acaNo" column="aca_no" />	
-	<result property="academyVO.acaName" column="aca_name" />
-	<result property="academyVO.acaAddr" column="aca_addr" />
-</resultMap> 
-<select id="locationAndCurNameAndSearch" parameterType="map" resultMap="curriRM5">
-	select a.aca_no, a.aca_name, c.cur_no, c.cur_name
-	from(select row_number() over(order by aca_no asc) as rnum, aca_no, cur_name, cur_no, cur_content from curriculum) c, academy a
-	where upper (c.cur_name) LIKE '%'||upper(#{curName})||'%' and a.aca_no = c.aca_no 
-	and upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%' and a.aca_no = c.aca_no 
-	and upper (a.aca_addr) LIKE '%'||upper(#{acaAddr})||'%' and a.aca_no = c.aca_no 
-	and  rnum between #{startRowNumber}  and #{endRowNumber} order by a.aca_no asc
+<select id="getTotalCountByCurName" parameterType="string" resultType="int">
+	select count(*) from  curriculum c, academy a
+	where c.aca_no = a.aca_no and upper (cur_name) LIKE '%'||upper(#{value})||'%'
+</select>
+
+<select id="searchByCurName" parameterType="map" resultMap="CRM1">
+	select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content, cur_main_pic from curriculum) c, academy a
+	where upper (c.cur_name) LIKE '%'||upper(#{CURNAME})||'%' and a.aca_no = c.aca_no 
+	and  rnum between ${STARTROWNUMBER}  and ${ENDROWNUMBER} order by a.aca_no desc
 </select>
 
 <select id="provinceList" resultType="locationVO">

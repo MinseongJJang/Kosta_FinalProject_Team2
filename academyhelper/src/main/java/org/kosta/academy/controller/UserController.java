@@ -59,7 +59,6 @@ public class UserController extends Authenticator {
 	// 비밀번호 찾기
 	@PostMapping("find_pw.do")
 	public void find_pw(UserVO userVO, HttpServletResponse response) throws Exception{
-		System.out.println(userVO.getUsrId());
 		userService.find_pw(response, userVO);
 	}
 	@RequestMapping("login_fail.do")
@@ -72,7 +71,7 @@ public class UserController extends Authenticator {
 		return "user/login_form.tiles";
 	}
 
-	@RequestMapping(value = "registerUser.do", method = RequestMethod.POST)
+	@PostMapping("registerUser.do")
 	public String register(UserVO userVO) {
 		userService.registerUser(userVO);
 		return "redirect:home.do";
@@ -148,7 +147,7 @@ public class UserController extends Authenticator {
 		model.addAttribute("pb", list.getPb());
 		return "user/user_list.tiles";
 	}
-	@RequestMapping("registerForm.do")
+	@RequestMapping("register_form.do")
 	public String registerForm() {
 		return "user/register_form.tiles";
 	}
