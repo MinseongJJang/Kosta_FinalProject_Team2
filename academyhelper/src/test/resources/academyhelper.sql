@@ -456,6 +456,9 @@ alter table aca_review_reply rename to aca_rev_reply
 drop sequence aca_review_reply_seq
 create sequence aca_rev_reply_seq start with 1 nocache
 
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
+
 select * from aca_review_reply
 	
 select * from( 

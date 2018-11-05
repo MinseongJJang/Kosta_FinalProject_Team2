@@ -9,7 +9,6 @@
 		<div class="col-sm-10 text-center">
 			<div style="margin-top: 100px; text-align: center;" align="center">
 							<sec:authentication var="mvo" property="principal" />
-				
 				<table class="table">
 					<thead>
 				   		<tr>
@@ -44,10 +43,8 @@
 									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
 								</form>
 								<form action="updateAcaPromoPostForm.do" id="updateForm" method="post">
-									 <input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
-									 <input type="hidden" name="acaPromoTitle" value="${requestScope.acaPromo.acaPromoTitle}">
-									 <input type="hidden" name="acaPromoContent" value="${requestScope.acaPromo.acaPromoContent}">	
-								   <sec:csrfInput />
+									<sec:csrfInput />
+								<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
 								</form> 
 					      	</td>
 					      </tr>

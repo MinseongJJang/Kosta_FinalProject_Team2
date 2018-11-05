@@ -8,6 +8,11 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10 text-center">
+			<div style="margin-top: 100px; text-align:center;" align="center">
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<form action="${pageContext.request.contextPath}/registerCurriculum.do" method="post" 
@@ -120,12 +125,16 @@
 			</tr>
 		</table>
 		<div class="btnArea">
-			<button type="submit" class="btn">확인</button>
-			<button type="reset" class="btn">취소</button>
+			<button type="submit" class="aca-btn">확인</button>
+			<button type="reset" class="aca-btn">취소</button>
 		</div>
 	</form>
 	<a
 		href="${pageContext.request.contextPath}/detailAcademy.do?acaNo=${requestScope.acaNo}">목록으로
 		돌아가기</a>
 </sec:authorize>
-
+</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
