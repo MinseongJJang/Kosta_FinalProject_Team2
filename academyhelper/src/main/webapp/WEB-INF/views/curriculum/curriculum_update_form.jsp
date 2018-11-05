@@ -8,6 +8,11 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10 text-center">
+			<div style="margin-top: 100px; text-align:center;" align="center">
 
 <form method="post" id="updateForm"
 	action="${pageContext.request.contextPath}/updateCurriculum.do">
@@ -107,14 +112,14 @@
 			</td>
 		</tr>
 		<tr>
-				<td>교육과정 메인사진 (*수정시 이전 메인사진은 메인사진 파일업로드 여부와 상관없이 삭제됩니다.*) &nbsp;&nbsp; <input type="file" id="file" name="file">
+				<th>교육과정 메인사진 (*수정시 이전 메인사진은 메인사진 파일업로드 여부와 상관없이 삭제됩니다.*) &nbsp;&nbsp; <input type="file" id="file" name="file">
 				
-				</td> 
+				</th> 
 			</tr>
 	</table>
 	*이전 메인사진*
 	<br>
-	<img src="${requestScope.DetailCurriculum.curMainPic}">
+	<img src="${requestScope.DetailCurriculum.curMainPic}" width="200">
 			<ul id="pics">
 				<c:forEach items="${requestScope.DetailCurriculum.curMainPic}" var="mImg">
 					<li>${mImg}<%-- <input type="button" value="X" class="button">
@@ -123,10 +128,16 @@
 			</ul> 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div class="btnArea">
-			<button type="submit" class="btn">수정</button>
-			<button type="reset" class="btn">취소</button>
+			<button type="submit" class="aca-btn">수정</button>
+			<button type="reset" class="aca-btn">취소</button>
 		</div>
 	</sec:authorize>
 </form>
+</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>
+
 </body>
 </html>

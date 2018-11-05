@@ -1,6 +1,7 @@
 package org.kosta.academy.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +76,8 @@ public class AcademyController {
 	@RequestMapping("registerAcademy.do")
 	public ModelAndView registerAcademy(AcademyVO academyVO,AcaAttachFileVO acaAttachFileVO, String[] curtime, String[] curtime1) {
 		ModelAndView mv = new ModelAndView();
-
+		System.out.println(curtime.length);
+		System.out.println(curtime1.length);
 		String academyUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\academyUpload\\";
 		File academyFile = new File(academyUpload);
 		// Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
@@ -110,15 +112,13 @@ public class AcademyController {
 			academyVO.setAcaMainPic("사진없음");
 			academyService.registerAcademy(academyVO, acaAttachFileVO);
 		}
+		
 		if (curtime1 != null) {
-			/*System.out.println("=======");
-			System.out.println(curtime);
-			System.out.println(curtime1);*/
 			for (int i = 0; i < curtime1.length; i++) {
 				for (int j = 0; j < fileNames.length; j++) {
 					if (fileNames[j].substring(fileNames[j].length() - 8, fileNames[j].length() - 4).equals("!!@@")) {
 						if (fileNames[j].contains(curtime1[i])) {
-
+							
 							StringBuilder builderFile = new StringBuilder(fileNames[j]); // StringBuilder에 파일이름을 담는다
 							File oldFile = new File(academyUpload + fileNames[j]);
 							File newFile = new File(academyUpload
@@ -127,7 +127,7 @@ public class AcademyController {
 							// StringBuilder로 0으로 변경 후 파일도 변경
 							oldFile.renameTo(newFile);
 							acaAttachFileVO.setAcademyVO(academyVO);
-							acaAttachFileVO.setAcaFilepath(academyUpload + builderFile);
+							acaAttachFileVO.setAcaFilepath("/academy/resources/academyUpload/"  + builderFile);
 							academyService.registerAcademyAttach(acaAttachFileVO);
 							//academyService.updateAcademy(academyVO, acaAttachFileVO);
 
@@ -168,10 +168,13 @@ public class AcademyController {
 	@RequestMapping("detailAcademy.do")
 	public String detailAcademy(String acaNo, Model model, String pageNo) {
 		AcademyVO acdemyVO = academyService.detailAcademy(acaNo);
+		List<AcaAttachFileVO> attachList = academyService.acaAttachList(acaNo);
+		
 		ListVO listVO = academyService.listCurriculum(acaNo, pageNo);
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
+		model.addAttribute("attachList",attachList);
 //		System.out.println(listVO.getCurriculumList());
 		return "academy/academy_detail.tiles";
 	}

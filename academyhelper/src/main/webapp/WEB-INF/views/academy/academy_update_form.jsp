@@ -8,6 +8,11 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10 text-center">
+			<div style="margin-top: 100px; text-align:center;" align="center">
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -27,8 +32,8 @@ $(document).ready(function(){
 	<c:set var="de" value="${requestScope.test}" />
 	<table>
 		<tr>
-			<td>학원번호</td>
-			<td>
+			<th>학원번호</th>
+			<td align="left">
 			&nbsp;&nbsp;${de.acaNo}
 				<input type="hidden" name="acaNo" value="${de.acaNo}">
 			</td>
@@ -36,14 +41,14 @@ $(document).ready(function(){
 		<tr>
 		</tr>
 		<tr>
-			<td>학원이름</td>
-			<td>
+			<th>학원이름</th>
+			<td align="left">
 			<input type="text" name="acaName" value="${de.acaName}" required="required" > 
 			</td>
 		</tr>
 		<tr>
-			<td>학원주소</td>
-			<td><input type="text" name="acaAddr" id="sample4_address" placeholder="주소" value="${de.acaAddr}" readonly="readonly" style="width:100%"></td>
+			<th>학원주소</th>
+			<td align="left"><input type="text" name="acaAddr" id="sample4_address" placeholder="주소" value="${de.acaAddr}" readonly="readonly" style="width:100%"></td>
 				      		<td>
 								<span>
 									<input type="button" onclick="sample4_execDaumPostcode()"  class="aca-btn" value="주소검색" >
@@ -52,40 +57,43 @@ $(document).ready(function(){
 							</td>
 		</tr>
 		<tr>
-			<td>학원전화번호</td>
-			<td>
+			<th>학원전화번호</th>
+			<td align="left">
 			<input type="text" name="acaTel" value="${de.acaTel}" required="required" > 
 			</td>
 		</tr>
 		<tr>
 			<th>등록자이메일</th>
-			<td>
+			<td align="left">
 			&nbsp;&nbsp;${de.userVO.usrEmail} 
 			</td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td>
+			<td align="left">
 			&nbsp;&nbsp;${de.userVO.usrTel}
 			</td>
 		</tr>
 		<tr>
 			<th>닉네임</th>
-			<td>
+			<td align="left">
 			&nbsp;&nbsp;${de.userVO.nickname}
 			</td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td>
+			<td align="left">
 			&nbsp;&nbsp;${de.userVO.usrId}
 			<!-- <input type="hidden" name="usrId" value="${de.userVO.usrId}"> -->
 		 <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
 			
 			</td>
 		</tr>
-		<tr style="height: 250px; ">
-				      		<th style="width: 100px;">
+			</table>
+		
+		<table>
+		<tr>
+				      		<th  colspan="2">
 				      				<span id="curtime"></span>
 				      				<span id="curtime1"></span>
 				      				<span id="mainPic"></span>
@@ -192,14 +200,15 @@ $(document).ready(function(){
 						</script>
 						</td>
 		</tr>
-		<tr>
-			<td colspan="2">위치 사진</td>
-		</tr>
+		
 	</table>
 			   		
 	<sec:csrfInput/>
-	<input type="submit" value="학원정보수정">
-		<input type="reset" value="취소">
+	<br><br>
+	<div class="btnArea">
+			<button type="submit" class="aca-btn">학원정보수정</button>
+			<button type="reset" class="aca-btn">취소</button>
+		</div>
 	
 	</form>
 	</sec:authorize>
@@ -256,3 +265,8 @@ $(document).ready(function(){
         }).open();
     }
 </script>
+</div>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+</div>

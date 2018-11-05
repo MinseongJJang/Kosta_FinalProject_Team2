@@ -82,6 +82,7 @@ public class AcademyServiceImpl implements AcademyService {
 	@Override
 	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO) {
 		academyVO.setAcaMainPic(academyVO.getAcaMainPic().replaceAll("!!@@", ""));
+		System.out.println("academyVO : " + academyVO);
 		academyMapper.registerAcademy(academyVO);
 		acaAttachFileVO.setAcademyVO(academyVO);
 		if(acaAttachFileVO.getAcaFilepath() != null) {
@@ -172,5 +173,12 @@ public class AcademyServiceImpl implements AcademyService {
 	public List<CurriculumVO> bestCurriculumList() {
 		return curriculumMapper.bestCurriculumList();
 	}
+
+	@Override
+	public List<AcaAttachFileVO> acaAttachList(String acaNo) {
+		List<AcaAttachFileVO> list = academyMapper.acaAttachList(acaNo);
+		return list;
+	}
+	
 	
 }
