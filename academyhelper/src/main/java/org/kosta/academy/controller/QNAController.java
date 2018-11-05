@@ -87,8 +87,10 @@ public class QNAController {
 	public ModelAndView registerQna(AcaQNAVO acaQnaVO,AcaQNQAttachFileVO acaQnaAttachFileVO
 			,String[] curtime) {
 		//qnaService.registerAcaQNA(acaQnaVO);
+		
 		ModelAndView mv = new ModelAndView();
 		qnaService.registerAcaQNA(acaQnaVO,acaQnaAttachFileVO);
+		try {
 		String qnaUpload = "C:\\java-kosta\\finalproject\\finalproject\\resources\\qnaUpload\\";
 		File qnaFile = new File(qnaUpload);
 		//Filepath를 받아와서 해당 경로에 이미지 파일이 있는 지확인
@@ -97,6 +99,7 @@ public class QNAController {
 		 * curtime hidden 값을 받아와 해당 디렉토리에 파일이름에 해당 이름이 들어가는 것이 있으면서
 		 * 맨마지막의 값이 1인 파일은 attach 테이블에 업로드 시킨다. 그후 마지막1을 0으로 변경 시킴.
 		 */
+		
 		AcaQNQAttachFileVO qnaAttach = new AcaQNQAttachFileVO();
 		for(int i=0;i<curtime.length;i++) {
 			for(int j=0;j<fileNames.length;j++) {
@@ -116,6 +119,11 @@ public class QNAController {
 				}
 			}
 		}
+	}catch(Exception e){
+
+	}finally {
+		
+	}
 		mv.setViewName("redirect:detailAcaQNA.do?qnaNo="+acaQnaVO.getQnaNo());
 		return mv;
 	}

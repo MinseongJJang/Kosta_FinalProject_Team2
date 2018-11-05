@@ -34,7 +34,7 @@
 		<div class="row" >
 			<div class="col-md-12">
 				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px">
-					<a href="${pageContext.request.contextPath}/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png" alt="Venue Logo"></a>
+					<a href="${pageContext.request.contextPath}/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png"></a>
 				</div>
 				<nav id="primary-nav" class="dropdown cf">
 					<ul class="dropdown menu">

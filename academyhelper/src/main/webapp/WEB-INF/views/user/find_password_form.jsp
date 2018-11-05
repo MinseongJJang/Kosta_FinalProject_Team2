@@ -1,8 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -28,10 +25,7 @@
 		});
 	})
 </script>
-<title>비밀번호 찾기</title>
-</head>
-<body>
-	<div class="w3-content w3-container w3-margin-top">
+	<div class="w3-content w3-container w3-margin-top" style="margin-top: 100px; padding-bottom: 100px;">
 		<div class="w3-container w3-card-4">
 			<div class="w3-center w3-large w3-margin-top">
 				<h3>비밀번호 찾기</h3>
@@ -52,5 +46,3 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>

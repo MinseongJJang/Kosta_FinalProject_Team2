@@ -6,7 +6,7 @@
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-1"></div>
-		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
+		<div class="col-sm-10 text-center">
 			<div style="margin-top: 100px; text-align:center;" align="center">
 				<table class="table table-hover">
 				   <thead style="text-align:center;">
@@ -29,8 +29,8 @@
 								<td>${list.sugNo}</td>
 								<td>
 								<a href="${pageContext.request.contextPath}/detailSuggestionPost.do?sugNo=${list.sugNo}">${list.sugTitle}</a></td>
-								<td>${list.userVO.nickname}</td>
 								<td>${list.sugRegdate}</td>
+								<td>${list.userVO.nickname}</td>
 							</tr>
 						</c:forEach>
 			      		<sec:authorize access="hasRole('ROLE_USER')">
