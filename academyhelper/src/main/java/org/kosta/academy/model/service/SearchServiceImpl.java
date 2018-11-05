@@ -81,6 +81,7 @@ public class SearchServiceImpl implements SearchService {
 			System.out.println("bycurname"+searchMap);
 			//**************************
 			List<CurriculumVO> curList = searchMapper.searchByCurName(searchMap);
+			System.out.println("curlist"+curList);
 			lvo.setCurriculumList(curList);
 			
 		}else if(curriculumVO.getAcademyVO().getAcaAddr().equals("") && curriculumVO.getCurName().equals("") && !(search.equals(""))) {
@@ -96,7 +97,6 @@ public class SearchServiceImpl implements SearchService {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
 			searchMap.put("acaAddr", search);
-			//searchMap.put("academyVO.acaAddr",curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("curName", search);
 			searchMap.put("curContent", search);
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
@@ -114,7 +114,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
+			searchMap.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("curName", curriculumVO.getCurName());
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
 			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
@@ -133,7 +133,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
+			searchMap.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("curName", curriculumVO.getCurName());
 			searchMap.put("curContent", search);
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
@@ -155,7 +155,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
+			searchMap.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("curName", curriculumVO.getCurName());
 			searchMap.put("curContent", search);
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
@@ -174,7 +174,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("academyVO.acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
+			searchMap.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("curName", curriculumVO.getCurName());
 			searchMap.put("curContent", search);
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
@@ -191,9 +191,5 @@ public class SearchServiceImpl implements SearchService {
 		lvo.setPb(pb);
 		return lvo;
 	}
-	@Override
-	public ListVO academySearch(CurriculumVO curriculumVO, String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
