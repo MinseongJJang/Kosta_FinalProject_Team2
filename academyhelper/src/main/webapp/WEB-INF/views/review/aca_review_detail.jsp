@@ -187,26 +187,439 @@
 								</c:forEach>
 							</td>
 						</tr>
-						<tr>
+												<tr>
 							<td colspan="1">교육과정 만족도 </td>
-							<td colspan="7">${requestScope.satisfaction.curSatis }</td>
+	
+							<td colspan="7">
+								<div class="overlay-content">
+							<ul>
+							<c:if test="${requestScope.satisfaction.curSatis<1}">
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<2&&requestScope.satisfaction.curSatis>=1}">
+							 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<3&&requestScope.satisfaction.curSatis>=2}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<4&&requestScope.satisfaction.curSatis>=3}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<5&&requestScope.satisfaction.curSatis>=4}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<6&&requestScope.satisfaction.curSatis>=5}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<7&&requestScope.satisfaction.curSatis>=6}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<8&&requestScope.satisfaction.curSatis>=7}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<9&&requestScope.satisfaction.curSatis>=8}">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis<10&&requestScope.satisfaction.curSatis>=9}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.curSatis==10}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							</ul>
+						</div>
+							
+							</td>
 							
 						</tr>
 						<tr>
 						 	<td colspan="1">편의시설 만족도</td>
-						 	<td colspan="7"> ${requestScope.satisfaction.amenitiesSatis }</td>
+						 	<td colspan="7">
+						 	
+						 	<div class="overlay-content">
+							<ul>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<1}">
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<2&&requestScope.satisfaction.amenitiesSatis>=1}">
+							 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<3&&requestScope.satisfaction.amenitiesSatis>=2}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<4&&requestScope.satisfaction.amenitiesSatis>=3}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<5&&requestScope.satisfaction.amenitiesSatis>=4}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<6&&requestScope.satisfaction.amenitiesSatis>=5}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<7&&requestScope.satisfaction.amenitiesSatis>=6}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<8&&requestScope.satisfaction.amenitiesSatis>=7}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<9&&requestScope.satisfaction.amenitiesSatis>=8}">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis<10&&requestScope.satisfaction.amenitiesSatis>=9}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.amenitiesSatis==10}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							</ul>
+						</div>
+						</td>
 						</tr>
 						<tr>
 							<td colspan="1"> 강사님 만족도</td>
-							<td colspan="7">${requestScope.satisfaction.lecturerSatis }</td>
+							<td colspan="7">
+						 	<div class="overlay-content">
+							<ul>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<1}">
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<2&&requestScope.satisfaction.lecturerSatis>=1}">
+							 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<3&&requestScope.satisfaction.lecturerSatis>=2}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<4&&requestScope.satisfaction.lecturerSatis>=3}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<5&&requestScope.satisfaction.lecturerSatis>=4}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<6&&requestScope.satisfaction.lecturerSatis>=5}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<7&&requestScope.satisfaction.lecturerSatis>=6}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<8&&requestScope.satisfaction.lecturerSatis>=7}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<9&&requestScope.satisfaction.lecturerSatis>=8}">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis<10&&requestScope.satisfaction.lecturerSatis>=9}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.lecturerSatis==10}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							</ul>
+						</div>
+						</td>
 						</tr>
 						<tr>
 							<td colspan="1">취업연계 만족도</td>
-							<td colspan="7">${requestScope.satisfaction.empLinksSatis }</td>
+							<td colspan="7">
+						 	<div class="overlay-content">
+							<ul>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<1}">
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<2&&requestScope.satisfaction.empLinksSatis>=1}">
+							 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<3&&requestScope.satisfaction.empLinksSatis>=2}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<4&&requestScope.satisfaction.empLinksSatis>=3}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<5&&requestScope.satisfaction.empLinksSatis>=4}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<6&&requestScope.satisfaction.empLinksSatis>=5}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<7&&requestScope.satisfaction.empLinksSatis>=6}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<8&&requestScope.satisfaction.empLinksSatis>=7}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<9&&requestScope.satisfaction.empLinksSatis>=8}">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis<10&&requestScope.satisfaction.empLinksSatis>=9}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.empLinksSatis==10}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							</ul>
+						</div>
+						</td>
 						</tr>
 						<tr>
 							<td colspan="1">교통 만족도</td>
-							<td colspan="7">${requestScope.satisfaction.trafficSatis }</td>
+							<td colspan="7">
+						 	<div class="overlay-content">
+							<ul>
+							<c:if test="${requestScope.satisfaction.trafficSatis<1}">
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<2&&requestScope.satisfaction.trafficSatis>=1}">
+							 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<3&&requestScope.satisfaction.trafficSatis>=2}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<4&&requestScope.satisfaction.trafficSatis>=3}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<5&&requestScope.satisfaction.trafficSatis>=4}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<6&&requestScope.satisfaction.trafficSatis>=5}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<7&&requestScope.satisfaction.trafficSatis>=6}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<8&&requestScope.satisfaction.trafficSatis>=7}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<9&&requestScope.satisfaction.trafficSatis>=8}">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis<10&&requestScope.satisfaction.trafficSatis>=9}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							<c:if test="${requestScope.satisfaction.trafficSatis==10}">
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+								 <i class="fa fa-star"></i> 
+							</c:if>
+							</ul>
+						</div>
+						</td>
 						</tr>
 				   <tbody>
 			      		<c:if test="${mvo.usrId == requestScope.review.userVO.usrId || mvo.usrId == 'java'}">

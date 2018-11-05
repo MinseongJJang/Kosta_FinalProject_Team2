@@ -15,23 +15,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select id="getTotalCountByAddress" parameterType="string" resultType="int">
-	select count(*) from  academy
-	where upper (aca_addr) LIKE '%'||upper(#{value})||'%'
+select count(*)
+from academy  a, curriculum  c
+where 
+		a.aca_no = c.aca_no 
+		and upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
 </select>
-<select id = "searchByAddress" parameterType = "map" resultType="academyVO">
-	select aca_no, aca_name, aca_addr, aca_main_pic
-	from (select row_number() over(order by aca_no desc) as rnum, aca_no, aca_name, aca_addr, aca_main_pic from ACADEMY where upper (aca_addr) LIKE '%'||upper(#{ADDRESS})||'%')
-	where  rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by aca_no desc
+<select id = "searchByAddress" parameterType = "map" resultMap="CRM">
+select aca_no, aca_name, aca_addr, aca_main_pic, cur_no, cur_name, cur_content, cur_main_pic
+from
+	(
+	select row_number() over(order by a.aca_no desc) as rnum, a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,  c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from academy  a, curriculum  c
+	where 
+		a.aca_no = c.aca_no 
+		and upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+	) r
+where
+	r.rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by aca_no desc
 </select>
 
 <select id="getTotalCountByCurName" parameterType="string" resultType="int">
-	select count(*) from  curriculum c, academy a
-	where c.aca_no = a.aca_no and upper (cur_name) LIKE '%'||upper(#{value})||'%'
+select count(*)
+from academy  a, curriculum  c
+where 
+		a.aca_no = c.aca_no 
+		and upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
 </select>
-<select id = "searchByCurName" parameterType = "map" resultType="curriculumVO">
-	select cur_no, cur_name, cur_content, cur_main_pic
-	from (select row_number() over(order by cur_no desc) as rnum, cur_no, cur_name, cur_content, cur_main_pic from curriculum where upper (cur_name) LIKE '%'||upper(#{curName})||'%')
-	where rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by cur_no desc
+<select id = "searchByCurName" parameterType ="map" resultMap="CRM">
+select aca_no, aca_name, aca_addr, aca_main_pic, cur_no, cur_name, cur_content, cur_main_pic
+from
+	(
+	select row_number() over(order by a.aca_no desc) as rnum, a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,  c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from academy  a, curriculum  c
+	where 
+		a.aca_no = c.aca_no 
+		and upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+	) r
+where
+	r.rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by aca_no desc
 </select>
 
 <resultMap type="curriculumVO" id="CRM">
@@ -48,9 +70,9 @@ where
 	a.aca_no = c.aca_no 
 	and 
 	(
-	upper (a.aca_addr) LIKE '%'||upper(#{ADDRESS})||'%'
-	or (c.cur_name) LIKE '%'||upper(#{curName})||'%' 
-	or  upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%'
+	upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+	or (cur_name) LIKE '%'||upper(#{curName})||'%' 
+	or  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
 	)
 </select>
 <select id="searchByKeyword" parameterType="map" resultMap="CRM">
@@ -63,16 +85,158 @@ from
 		a.aca_no = c.aca_no 
 		and 
 		(
-		upper (a.aca_addr) LIKE '%'||upper(#{ADDRESS})||'%'
-		or (c.cur_name) LIKE '%'||upper(#{curName})||'%' 
-		or  upper (c.cur_content) LIKE '%'||upper(#{curContent})||'%'
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		or (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		or  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
 		)
 	) r
 where
 	r.rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by aca_no desc
 </select>
 
+<select id="getTotalCountByAcaAddrAndCurName" parameterType="string" resultType="int">
+select count(*)
+from academy  a, curriculum  c
+where 
+	a.aca_no = c.aca_no 
+	and 
+	(
+	upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+	and (cur_name) LIKE '%'||upper(#{curName})||'%' 
+	)
+</select>
+<select id="searchByAcaAddrAndCurName" parameterType="map" resultMap="CRM">
+select aca_no, aca_name, aca_addr, aca_main_pic, cur_no, cur_name, cur_content, cur_main_pic
+from
+	(
+	select row_number() over(order by a.aca_no desc) as rnum, a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from academy  a, curriculum  c
+	where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		and (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		)
+	) r
+where
+	r.rnum between #{STARTROWNUMBER}  and #{ENDROWNUMBER} order by aca_no desc
+</select>
 
+<select id="getTotalCountByAcaAddrAndSearch" parameterType="string" resultType="int">
+select count(*)
+from academy  a, curriculum  c
+where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+		and  upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		)
+		or
+		a.aca_no = c.aca_no 
+		and
+		(
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		)
+</select>
+<select id="searchByAcaAddrAndSearch" parameterType="map" resultMap="CRM">
+select aca_no, aca_name, aca_addr, aca_main_pic, cur_no, cur_name, cur_content, cur_main_pic
+from
+	(
+	select row_number() over(order by a.aca_no desc) as rnum, a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from academy  a, curriculum  c
+	where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		and  upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		)
+		or
+		a.aca_no = c.aca_no 
+		and
+		(
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		)
+	) r
+where
+	r.rnum between 1  and 15 order by aca_no desc
+</select>
 
+<select id="getTotalCountByCurNameAndSearch" parameterType="string" resultType="int">
+select count(*)
+from academy  a, curriculum  c
+where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+		and  upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		)
+		or
+		a.aca_no = c.aca_no 
+		and
+		(
+		upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		)
+</select>
+<select id="searchByCurNameAndSearch" parameterType="map" resultMap="CRM">
+select aca_no, aca_name, aca_addr, aca_main_pic, cur_no, cur_name, cur_content, cur_main_pic
+from
+	(
+	select row_number() over(order by a.aca_no desc) as rnum, a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from academy  a, curriculum  c
+	where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		and  upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		)
+		or
+		a.aca_no = c.aca_no 
+		and
+		(
+		upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		)
+	) r
+where
+	r.rnum between 1  and 15 order by aca_no desc
+</select>
 
+<select id="getTotalCountByAcaAddrAndCurNameAndSearch" parameterType="string" resultType="int">
+select count(*)
+from academy  a, curriculum  c
+where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
+		and (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		)
+</select>
+<select id="searchByAcaAddrAndCurNameAndSearch" parameterType="map" resultMap="CRM">
+select aca_no, aca_name, aca_addr, aca_main_pic, cur_no, cur_name, cur_content, cur_main_pic
+from
+	(
+	select row_number() over(order by a.aca_no desc) as rnum, a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
+	from academy  a, curriculum  c
+	where 
+		a.aca_no = c.aca_no 
+		and 
+		(
+		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
+		and (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		)
+	) r
+where
+	r.rnum between 1  and 15 order by aca_no desc
+</select>
 </mapper>

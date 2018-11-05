@@ -7,7 +7,7 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
- 
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#academySelect").change(function() {
@@ -24,7 +24,7 @@
 	            		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	         	    },
 					success:function(result){
-						var tagFirst = "<select name='curNo'><option>교육과정</option>";
+						var tagFirst = "<select name='curNo' style='height:25px;'><option>교육과정</option>";
 						var tagSecond = "</select>";
 						var tag = "";
 						for(i=0;i<result.length;i++){
@@ -83,7 +83,7 @@
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
-			<div style="margin-top: 100px; text-align:center;" align="center">
+			<div style="margin-top: 30px; text-align:center;" align="center">
 			<sec:authentication var="mvo" property="principal" />  
 			<form action="${pageContext.request.contextPath}/registerAcaReviewPost.do" method="post" id="register_form">
 			<sec:csrfInput/>
@@ -99,7 +99,7 @@
 				   <tbody>
 				   		<tr>
 							<td>
-								<select name="acaNo" id="academySelect">
+								<select name="acaNo" id="academySelect" style="height:25px;">
 								<option value="0">----학원목록----</option>
 								<c:forEach items="${requestScope.academy}" var="aca">
 									<option value="${aca.acaNo}">${aca.acaName }</option>
@@ -161,8 +161,9 @@
 				      	</tr>
 				      	<tr>
 				      		<td><label for="label-registerProduct">Hashtag</label><br></td>
-					      	<td><div class="input-group">
-							<input type="text" class="form-control" id="hashtagInsert"  style="width:90%;" placeholder="Hashtag pattern Example : #AcademyHelper">
+					      	<td><div class="input-group" >
+							<input type="text" class="form-control" id="hashtagInsert"  style="width:90%;" placeholder="Hashtag pattern Example : #AcademyHelper"
+							size="30">
 							&nbsp;&nbsp;<span><input type="button" id="hashInsert" class="aca-btn" value="추가"></span>
 							<br><br><br>
 							<div id="hash"></div>
