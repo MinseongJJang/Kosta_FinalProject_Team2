@@ -34,6 +34,8 @@ $(document).ready(function(){
 			</td>
 		</tr>
 		<tr>
+		</tr>
+		<tr>
 			<td>학원이름</td>
 			<td>
 			<input type="text" name="acaName" value="${de.acaName}" required="required" > 
