@@ -120,8 +120,8 @@
 			</tr>
 		</table>
 		<div class="btnArea">
-			<button type="submit" class="btn">확인</button>
-			<button type="reset" class="btn">취소</button>
+			<button type="submit" class="aca-btn">확인</button>
+			<button type="reset" class="aca-btn">취소</button>
 		</div>
 	</form>
 	<a

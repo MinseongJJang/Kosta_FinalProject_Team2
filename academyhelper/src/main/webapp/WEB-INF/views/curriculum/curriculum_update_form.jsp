@@ -123,8 +123,8 @@
 			</ul> 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div class="btnArea">
-			<button type="submit" class="btn">수정</button>
-			<button type="reset" class="btn">취소</button>
+			<button type="submit" class="aca-btn">수정</button>
+			<button type="reset" class="aca-btn">취소</button>
 		</div>
 	</sec:authorize>
 </form>
