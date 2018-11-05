@@ -95,4 +95,6 @@ public interface AcademyService {
 	 * @return
 	 */
 	public List<CurriculumVO> bestCurriculumList();
+	
+	public List<AcaAttachFileVO> acaAttachList(String acaNo);
 }
