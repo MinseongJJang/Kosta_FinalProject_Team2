@@ -18,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="acaPromoPostVO" id="acaPromoRM">
 		<result property="acaUserVO.userVO.usrId" column="usr_id"/>
 	</resultMap>
-	<select id="detailAcaPromoPost" parameterType="string" resultType="acaPromoPostVO">
-		select aca_promo_no,aca_promo_title,aca_promo_content,aca_promo_regdate,aca_promo_hits,usr_id 
+	<select id="detailAcaPromoPost" parameterType="String" resultType="acaPromoPostVO">
+		select aca_promo_no,aca_promo_title,aca_promo_content,aca_promo_regdate,usr_id 
 		from aca_promo_post
 		where aca_promo_no = #{value}
 	</select>
@@ -41,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update aca_promo_post set aca_promo_title = #{acaPromoTitle} , aca_promo_content = #{acaPromoContent}
 		where aca_promo_no = #{acaPromoNo}
 	</update>
-	<delete id="deleteAcaPromoPost" parameterType="acaPromoPostVO">
-		delete from aca_promo_post where aca_promo_no = #{acaPromoNo}
+	<delete id="deleteAcaPromoPost" parameterType="String">
+		delete from aca_promo_post where aca_promo_no = #{value}
 	</delete>
 	<insert id="registerAcaPromoFile" parameterType="acaPromoAttachFileVO" >
 		insert into aca_promo_attach_file(aca_promo_att_no,aca_promo_filepath,aca_promo_no)

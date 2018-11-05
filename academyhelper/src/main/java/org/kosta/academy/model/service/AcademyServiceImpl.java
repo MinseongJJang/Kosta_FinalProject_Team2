@@ -52,8 +52,15 @@ public class AcademyServiceImpl implements AcademyService {
 	}
 
 	@Override
-	public void updateAcademy(AcademyVO academyVO) {
+	public void updateAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO) {
+		academyVO.setAcaContent(academyVO.getAcaContent().replaceAll("!!@@", ""));
+		System.out.println(academyVO);
 		academyMapper.updateAcademy(academyVO);
+		acaAttachFileVO.setAcademyVO(academyVO);
+		if(acaAttachFileVO.getAcaFilepath() !=null) {
+			academyMapper.updateAcademyFile(acaAttachFileVO);
+		}
+		
 
 	}
 
@@ -66,7 +73,6 @@ public class AcademyServiceImpl implements AcademyService {
 	@Override
 	public void registerCurriculum(CurriculumVO curriculumVO, CurriculumAttachFileVO curriculumAttachFileVO) {
 		curriculumVO.setCurContent(curriculumVO.getCurContent().replaceAll("!!@@", ""));
-		System.out.println(curriculumVO);
 		curriculumMapper.registerCurriculum(curriculumVO);
 		curriculumAttachFileVO.setCurriculumVO(curriculumVO);
 		if(curriculumAttachFileVO.getCurriculumFilepath() !=null) {
@@ -74,10 +80,13 @@ public class AcademyServiceImpl implements AcademyService {
 		}
 	}
 	@Override
-	public void registerAcademy(AcademyVO academyVO) {
+	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO) {
 		academyVO.setAcaMainPic(academyVO.getAcaMainPic().replaceAll("!!@@", ""));
-		System.out.println(academyVO);
 		academyMapper.registerAcademy(academyVO);
+		acaAttachFileVO.setAcademyVO(academyVO);
+		if(acaAttachFileVO.getAcaFilepath() != null) {
+			academyMapper.registerAcademyFile(acaAttachFileVO);
+		}
 	
 	}
 	
@@ -158,4 +167,10 @@ public class AcademyServiceImpl implements AcademyService {
 	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO) {
 		academyMapper.registerAcademyFile(acaAttachFileVO);
 	}
+
+	@Override
+	public List<CurriculumVO> bestCurriculumList() {
+		return curriculumMapper.bestCurriculumList();
+	}
+	
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
+
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -13,27 +15,34 @@
 		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
 			<div style="margin-top: 100px; text-align:center;" align="center">
 			<sec:authentication var="mvo" property="principal" />
-			<form action="${pageContext.request.contextPath}/registerAcaPromoPost.do" method="post" id="register_form">
+			<form action="${pageContext.request.contextPath}/updateAcaPromoPost.do" method="post" id="register_form">
 			<sec:csrfInput/>
 			<table class="table">
 				   <thead style="text-align:center;">
 				   		<tr>
-							<td colspan="4" align="center"><h3>기관 홍보 등록하기</h3></td>
+							<td colspan="4" align="center"><h3>기관 홍보 수정하기</h3></td>
 						</tr>
 						<tr>
 							<td style="border-top:0px"></td>
 						</tr>
 				   </thead>
 				   <tbody>
+				   <tr>
+			<td>글번호</td>
+			<td>
+			&nbsp;&nbsp;${de.acaPromoNo}
+				<input type="hidden" name="acaPromoNo" value="${de.acaPromoNo}">
+			</td>
+		</tr>
 						<tr >
 					        <td>제목</td>
-					        <td><input type="text" name="acaPromoTitle" placeholder="홍보 제목을 입력하세요" required="required" style="width:80%"></td>
+					        <td><input type="text" name="acaPromoTitle" value="${de.acaPromoTitle}" placeholder="홍보 제목을 입력하세요" required="required" style="width:80%"></td>
 				      	</tr>
 				      	<tr>
 				      		<td>내용
 				      		<span id="curtime"></span>
 				      		</td>
-				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요"></textarea>
+				      		<td><textarea cols="90" rows="15" id="acaPromoContent" name="acaPromoContent" required="required" placeholder="내용을 입력하세요">${de.acaPromoContent}</textarea>
 				      		<script>
 							    $(document).ready(function() {
 							    	var curtime = "";

@@ -107,10 +107,20 @@
 			</td>
 		</tr>
 		<tr>
-				<td>교육과정 메인사진 &nbsp;&nbsp; <input type="file" id="file" name="file">
+				<td>교육과정 메인사진 (*수정시 이전 메인사진은 메인사진 파일업로드 여부와 상관없이 삭제됩니다.*) &nbsp;&nbsp; <input type="file" id="file" name="file">
+				
 				</td> 
 			</tr>
 	</table>
+	*이전 메인사진*
+	<br>
+	<img src="${requestScope.DetailCurriculum.curMainPic}">
+			<ul id="pics">
+				<c:forEach items="${requestScope.DetailCurriculum.curMainPic}" var="mImg">
+					<li>${mImg}<%-- <input type="button" value="X" class="button">
+						<input type="hidden" name="pics" value="${mImg}"> --%></li>
+				</c:forEach>
+			</ul> 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div class="btnArea">
 			<button type="submit" class="btn">수정</button>

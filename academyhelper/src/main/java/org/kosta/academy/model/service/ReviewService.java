@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ReviewService {
-	final static int ABC = 1;
 	/**
 	 * 학원후기를 등록하는 메소드
 	 * @param acaReviewPostVO

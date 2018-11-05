@@ -160,7 +160,6 @@
 					</div>
 				</div>
 			</c:forEach>
-			
 		</div>
 		<!-- IT 기관 정보 끝 -->
 	</div>
@@ -185,6 +184,7 @@
 			<div class="col-sm-2"></div>
 		</div>
 		<div class="row">
+		<c:forEach items="${requestScope.list}" var="list">
 			<div class="col-sm-4">
 				<div class="featured-item">
 					<div class="thumb">
@@ -206,102 +206,21 @@
 						</div>
 					</div>
 					<div class="down-content">
-						<h4>Academy Helper</h4>
-						<span>Academy Helper</span>
-						<p>Academy Helper</p>
+						<h4>${list.academyVO.acaName}</h4>
+						<span>${list.curName}</span>
+						<p>${list.curTextbook}<br>
+						${list.curLecturer}</p>
 						<div class="row">
-							<div class="col-md-6 first-button">
+							<div class="col-md-12 first-button">
 								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
+									<a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${list.curNo}">과정 상세보기!</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">
-				<div class="featured-item">
-					<div class="thumb">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/featured_item_2.jpg"
-							alt="">
-						<div class="overlay-content">
-							<ul>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div>
-						<div class="date-content">
-							<h6>Web</h6>
-							<span>개꿀</span>
-						</div>
-					</div>
-					<div class="down-content">
-						<h4>Academy Helper</h4>
-						<span>Academy Helper</span>
-						<p>Academy Helper</p>
-						<div class="row">
-							<div class="col-md-6 first-button">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="featured-item">
-					<div class="thumb">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/featured_item_3.jpg"
-							alt="">
-						<div class="overlay-content">
-							<ul>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div>
-						<div class="date-content">
-							<h6>12</h6>
-							<span>October</span>
-						</div>
-					</div>
-					<div class="down-content">
-						<h4>Academy Helper</h4>
-						<span>Academy Helper</span>
-						<p>Academy Helper</p>
-						<div class="row">
-							<div class="col-md-6 first-button">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 	<br> <br> <br>

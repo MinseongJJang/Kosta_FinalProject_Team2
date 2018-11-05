@@ -29,7 +29,7 @@ public interface PromotionService {
 	 * 학원 홍보글을 수정하는 메소드
 	 * @param acaPromoPostVO
 	 */
-	public void updateAcaPromoPost(AcaPromoPostVO acaPromoPostVO);
+	public void updateAcaPromoPost(AcaPromoPostVO acaPromoPostVO, AcaPromoAttachFileVO acaPromoAttachFileVO);
 	/**
 	 * 학원 홍보글을 삭제하는 메소드
 	 * @param acaPromoNo

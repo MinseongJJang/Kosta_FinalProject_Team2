@@ -20,7 +20,7 @@ public interface AcademyService {
 	 * 파일첨부도 함께 처리한다
 	 * @param academyVO
 	 */
-	public void registerAcademy(AcademyVO academyVO);
+	public void registerAcademy(AcademyVO academyVO, AcaAttachFileVO acaAttachFileVO);
 	/**
 	 * 교육기관 정보 목록을 불러오는 메소드
 	 * 페이징빈을 인자값으로 받아와 페이지 정보를 불러온다
@@ -39,7 +39,7 @@ public interface AcademyService {
 	 * 교육기관 정보를 수정하는 메소드
 	 * @param academyVO
 	 */
-	public void updateAcademy(AcademyVO academyVO);
+	public void updateAcademy(AcademyVO academyVO,AcaAttachFileVO acaAttachFileVO);
 	/**
 	 * 교육기관 정보를 삭제하는 메소드
 	 * @param academyVO
@@ -90,4 +90,9 @@ public interface AcademyService {
 	
 	
 	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO);
+	/**
+	 * Best 교육과정 리스트
+	 * @return
+	 */
+	public List<CurriculumVO> bestCurriculumList();
 }

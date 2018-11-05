@@ -28,7 +28,7 @@
 				   <tbody>
 						<tr>
 					        <th>학원 이름</th>
-					        <td colspan="2"><input type="text" name="acaName" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
+					        <td colspan="2"><input type="text" name="acaName" placeholder="학원 이름을 입력하세요" required="required" style="width:100%"></td>
 				      	</tr>
 				      	<tr>
 				      		<th>학원 주소</th>
@@ -42,12 +42,13 @@
 				      	</tr>
 				      	<tr>
 					        <th>학원 전화번호</th>
-					        <td colspan="2"><input type="text" name="acaTel" placeholder="질문 제목을 입력하세요" required="required" style="width:100%"></td>
+					        <td colspan="2"><input type="text" name="acaTel" placeholder="학원 전화번호를 입력하세요" required="required" style="width:100%"></td>
 				      	</tr>
 				      	
 				      	<tr style="height: 250px; ">
-				      		<th style="width: 100px;">학원 대표 사진
+				      		<th style="width: 100px;">학원 메인 사진
 				      				<span id="curtime"></span>
+				      				<span id="curtime1"></span>
 				      				<span id="mainPic"></span>
 				      		</th>
 				      		<td colspan="2">
@@ -72,6 +73,7 @@
 									              success: function(url) {
 									            	var path = "${pageContext.request.contextPath}/resources/academyUpload/"+url[0];
 									            	curtime += '<input type="hidden" name="curtime" value="'+url[1]+'">';
+
 									            	$("#curtime").html(curtime);
 									            	$("#mainPic").html("<img src="+path+" width=200 height=200/>");
 									              }
@@ -81,6 +83,56 @@
 							 	</script>
 						 	</td>
 						 </tr>
+						 <tr>
+							<td><input type="file" id="acaMainPic" name="file"></td>
+				   		</tr>
+						 <tr>
+					        <th>학원 시설 사진 (시설사진 등록시 처음에 사진이 깨져나옵니다. 번거롭지만 수정하기 눌러서 메인사진과 함께 수정 부탁드립니다.)</th>
+							<td>
+				<textarea cols="60" rows="40" name="acaContent" id="acaContent"
+						required="required" placeholder="시설 사진을 올려주세요."></textarea> 	
+						<script>
+						$(document).ready(function() {
+							var curtime1 = "";
+							$('#acaContent').summernote({
+								height : 500,
+								minHeight : null,
+								maxHeight : null,
+								callbacks : {
+									onImageUpload : function(files, editor, welEditable) {
+										for (var i = files.length - 1; i >= 0; i--) {
+											sendFile(files[i],this);
+										}
+									}
+								}
+							});//summernote
+							function sendFile(file, el) {
+								var form_data = new FormData();
+								form_data.append("file",file);
+								$.ajax({
+									data : form_data,
+									type : "POST",
+									url : "${pageContext.request.contextPath}/academy-file1-upload.do",
+									cache : false,
+									contentType : false,
+									processData : false,
+									beforeSend : function(xhr) { /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+									xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+									},
+									success : function(url) {
+										var path = "${pageContext.request.contextPath}/resources/academyUpload/"+ url[0];
+										curtime1 += '<input type="hidden" name="curtime1" value="'+url[1]+'">';
+										$("#curtime1").html(curtime1);
+										$(el).summernote("editor.insertImage", path);
+										$('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+									}
+								});//ajax
+							}//sendFile
+						});//ready
+					
+						</script>
+						</td>
+				      	</tr>
 				   </tbody>
 				   <tfoot>
 				  		<tr>
@@ -93,9 +145,6 @@
 								    </div>  
 							    </sec:authorize>
 						   	</td>
-				   		</tr>
-				   		<tr>
-							<td><input type="file" id="acaMainPic" name="file"></td>
 				   		</tr>
 				   </tfoot>
 				</table>
