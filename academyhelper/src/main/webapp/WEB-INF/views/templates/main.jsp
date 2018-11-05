@@ -133,31 +133,40 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-heading">
-					<h2>IT 기관 홍보</h2>
+					<h2>IT 기관 정보</h2>
 				</div>
 			</div>
 		</div>
+		<!-- IT 기관 정보 -->
 		<div class="owl-carousel owl-theme">
-			<div class="item popular-item">
-				<div class="thumb">
-					<img
-						src="${pageContext.request.contextPath }/resources/img/popular_item_1.jpg"
-						alt="">
-					<div class="text-content">
-						<h4>Mauris tempus</h4>
-						<span>76 listings</span>
-					</div>
-					<div class="plus-button">
-						<a href="#"><i class="fa fa-plus"></i></a>
+			<c:forEach items="${requestScope.academy.academyList }" var="academy">
+						<%-- 	<tr>
+								<td>${promo.acaPromoNo }</td>
+								<td><a href="detailAcaPromoPost.do?acaPromoNo=${promo.acaPromoNo }">${promo.acaPromoTitle }</a></td>
+								<td>${promo.acaPromoRegdate }</td>
+								<td>${promo.acaUserVO.userVO.usrName }</td>
+							</tr> --%>
+				<div class="item popular-item">
+					<div class="thumb">
+						<h2>${academy.acaName}</h2>
+						<span>${academy.acaAddr }</span>
+						<div class="text-content">
+							<h4>${academy.acaName }</h4>
+							<span>${academy.acaTel }</span>
+						</div>
+						<div class="plus-button">
+							<a href="#"><i class="fa fa-plus"></i></a>
+						</div>
 					</div>
 				</div>
-			</div>
+			</c:forEach>
 		</div>
+		<!-- IT 기관 정보 끝 -->
 	</div>
 	<br> <br> <br>
 	<div class="section-heading">
 		<div class="blue-button">
-			<a class="scrollTo" data-scrollTo="popular" href="#">더보기</a>
+			<a href="${pageContext.request.contextPath}/listAcademy.do">더보기</a>
 		</div>
 	</div>
 </section>
@@ -175,6 +184,7 @@
 			<div class="col-sm-2"></div>
 		</div>
 		<div class="row">
+		<c:forEach items="${requestScope.list}" var="list">
 			<div class="col-sm-4">
 				<div class="featured-item">
 					<div class="thumb">
@@ -183,115 +193,106 @@
 							alt="">
 						<div class="overlay-content">
 							<ul>
+							<c:if test="${list.satis<1}">
+							</c:if>
+							<c:if test="${list.satis<2&&list.satis>=1}">
+							<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<3&&list.satis>=2}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<4&&list.satis>=3}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<5&&list.satis>=4}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<6&&list.satis>=5}">
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<7&&list.satis>=6}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<8&&list.satis>=7}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<9&&list.satis>=8}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<10&&list.satis>=9}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis==10}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
 							</ul>
 						</div>
 						<div class="date-content">
-							<h6>Academy Helper</h6>
-							<span>Academy Helper</span>
+							<h6>${list.academyVO.acaName}</h6>
+							<span>${list.curName}</span>
 						</div>
 					</div>
 					<div class="down-content">
-						<h4>Academy Helper</h4>
-						<span>Academy Helper</span>
-						<p>Academy Helper</p>
+						<h4>${list.academyVO.acaName}</h4>
+						<span>${list.curName}</span>
+						<p>${list.curTextbook}<br>
+						${list.curLecturer}</p>
 						<div class="row">
-							<div class="col-md-6 first-button">
+							<div class="col-md-12 first-button">
 								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
+									<a href="${pageContext.request.contextPath}/detailCurriculum.do?curNo=${list.curNo}">과정 상세보기!</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">
-				<div class="featured-item">
-					<div class="thumb">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/featured_item_2.jpg"
-							alt="">
-						<div class="overlay-content">
-							<ul>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div>
-						<div class="date-content">
-							<h6>Web</h6>
-							<span>개꿀</span>
-						</div>
-					</div>
-					<div class="down-content">
-						<h4>Academy Helper</h4>
-						<span>Academy Helper</span>
-						<p>Academy Helper</p>
-						<div class="row">
-							<div class="col-md-6 first-button">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="featured-item">
-					<div class="thumb">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/featured_item_3.jpg"
-							alt="">
-						<div class="overlay-content">
-							<ul>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-								<li><i class="fa fa-star"></i></li>
-							</ul>
-						</div>
-						<div class="date-content">
-							<h6>12</h6>
-							<span>October</span>
-						</div>
-					</div>
-					<div class="down-content">
-						<h4>Academy Helper</h4>
-						<span>Academy Helper</span>
-						<p>Academy Helper</p>
-						<div class="row">
-							<div class="col-md-6 first-button">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="text-button">
-									<a href="#">Academy Helper</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 	<br> <br> <br>

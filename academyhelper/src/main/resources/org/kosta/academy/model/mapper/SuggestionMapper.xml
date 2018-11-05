@@ -18,17 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{sugNo},#{sugTitle},#{sugContent},SYSDATE,#{userVO.usrId})
 	</insert>
 	
-	<select id="listSuggestionPost" parameterType="pagingBean" resultType="suggestionPostVO">
-	SELECT s.sug_no,s.sug_title,s.sug_content,s.sug_regdate,s.usr_id
+	<select id="listSuggestionPost" parameterType="pagingBean" resultMap="detailSuggestionRM">
+	SELECT s.sug_no,s.sug_title,s.sug_content,s.sug_regdate,s.usr_id,s.nickname
 		FROM(
-		SELECT row_number() over(order by sug_no desc) as rnum,sug_no,sug_title,sug_content,sug_regdate,usr_id
-		 FROM suggestion_post
+		SELECT row_number() over(order by sug_no desc) as rnum,s.sug_no,s.sug_title,s.sug_content,s.sug_regdate,u.usr_id,u.nickname
+		 FROM suggestion_post s,users u where s.usr_id=u.usr_id
 		) s where rnum between #{startRowNumber} and #{endRowNumber}
 		order by sug_no desc
 	</select>
 	<resultMap type="suggestionPostVO" id="detailSuggestionRM">
 		<result property="userVO.usrId" column="usr_id" />
 		<result property="userVO.usrName" column="usr_name" />
+		<result property="userVO.nickname" column="nickname" />
 	</resultMap>
 	<select id="detailSuggestionPost" resultMap="detailSuggestionRM" parameterType="string">
 		select s.sug_no,s.sug_title,s.sug_content,s.sug_regdate,u.usr_id,u.usr_name 

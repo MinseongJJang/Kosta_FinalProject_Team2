@@ -22,7 +22,7 @@
 <div class="container" >
 	<div class="row">
 		<div class="col-sm-1"></div>
-		<div class="col-sm-10 text-center" 	style="margin-top: 100px; padding-bottom: 100px;">
+		<div class="col-sm-10 text-center">
 			<div style="margin-top: 100px; text-align:center;" align="center">
 			<sec:authorize access="hasRole('ROLE_ADMIN')"> 
 			<form method="post" id="updateForm" action="${pageContext.request.contextPath}/updateNotice.do">

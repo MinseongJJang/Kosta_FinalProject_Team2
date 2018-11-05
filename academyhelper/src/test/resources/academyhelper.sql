@@ -115,7 +115,7 @@ ALTER COLUMN aca_promo_hits not null default 0;
 alter table aca_promo_post modify(aca_promo_hits default 0)
 
 create sequence aca_promo_post_seq start with 1 nocache
-alter table aca_promo_post  modify(aca_promo_hits number default 0)
+select * from aca_promo_post
 /*학원홍보 게시판 파일첨부 테이블 및 시퀀스*/
 drop table aca_promo_attach_file
 create table aca_promo_attach_file(
@@ -196,7 +196,6 @@ create table academy(
 	usr_id varchar2(100) not null,
 	constraint academy_fk foreign key(usr_id) references users(usr_id) on delete cascade
 )
-<<<<<<< HEAD
 create table aca_attach_file(
    aca_att_no number primary key,
    aca_filepath varchar2(1000) not null,
@@ -206,9 +205,13 @@ create table aca_attach_file(
 create sequence aca_attach_file_seq start with 1 nocache
 alter table academy add(aca_main_pic clob)
 create 
+<<<<<<< HEAD
+delete academy
+=======
 delete 
 =======
 drop table academy
+>>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 >>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 select * from academy
 create sequence academy_seq start with 1 nocache
@@ -224,13 +227,13 @@ select*from academy;
 /*학원 첨부 파일 및 시퀀스*/
 drop table aca_attach_file
 create table aca_attach_file(
-	aca_att_no number primary key,
-	aca_filepath varchar2(1000) not null,
-	aca_no number not null,
-	constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
+   aca_att_no number primary key,
+   aca_filepath varchar2(1000) not null,
+   aca_no number not null,
+   constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 create sequence aca_attach_file_seq start with 1 nocache
-
+alter table academy add(aca_main_pic clob);
 /*학원 Q&A 및 시퀀스*/
 drop table aca_qna
 DELETE from aca_qna
@@ -347,22 +350,14 @@ create table curriculum(
 	cur_textbook varchar2(100) not null,
 	constraint curriculum_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
-<<<<<<< HEAD
-alter table curriculum add(cur_main_pic clob)
-=======
 
-<<<<<<< HEAD
 select * from curriculum
 alter table curriculum add(cur_main_pic clob);
 alter table curriculum drop column cur_main_pic
 alter table curriculum add(cur_main_pic varchar2(1000));
-=======
 
-alter table curriculum add(cur_main_pic clob);
 select*from curriculum
 
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 SELECT c.cur_no,c.cur_name,c.limit_mem,c.cur_content,c.cur_lecturer,c.cur_textbook,c.aca_no FROM(
 		SELECT row_number() over(order by cur_no desc) as rnum,cur_no,cur_name,limit_mem,cur_content,cur_lecturer,cur_textbook,aca_no
 		FROM curriculum
@@ -509,7 +504,7 @@ select avg(cur_satis)*10, avg(amenities_satis)*10, avg(lecturer_satis)*10, avg(e
 select (AVG(a.cur_satis)*10) as cur_satis, (AVG(a.amenities_satis)*10) as amenities_satis, (AVG(a.lecturer_satis)*10) as lecturer_satis, (AVG(a.emp_links_satis)*10) as emp_links_satis, (AVG(a.traffic_satis)*10) as traffic_satis
 from(
 	select * from aca_cur_satisfaction
-)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=11;
+)a, aca_review_post r where a.aca_rev_no=r.aca_rev_no and r.cur_no=1;
 
 select avg(a.cur_satis)*10, avg(a.amenities_satis)*10, avg(a.lecturer_satis)*10, avg(a.emp_links_satis)*10, avg(a.traffic_satis)*10
 from(
@@ -548,7 +543,7 @@ drop sequence aca_rev_attach_file_seq
 create sequence aca_review_attach_file_seq start with 1 nocache
 select aca_review_attach_file_seq.nextval from dual
 /*학원후기 댓글 테이블 및 시퀀스*/
-drop table aca_review_reply
+drop table aca_rev_reply
 select * from aca_rev_reply
 create table aca_rev_reply(
 	aca_rev_rep_no number primary key,
@@ -556,8 +551,8 @@ create table aca_rev_reply(
 	aca_rev_rep_content clob not null,
 	aca_rev_no number not null,
 	usr_id varchar2(100) not null,
-	constraint aca_review_reply_ffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
-	constraint aca_review_reply_sfk foreign key(usr_id) references users(usr_id) on delete cascade
+	constraint aca_review_reply_fffk foreign key(aca_rev_no) references aca_review_post(aca_rev_no) on delete cascade,
+	constraint aca_review_reply_sffk foreign key(usr_id) references users(usr_id) on delete cascade
 )
 alter table aca_rev_reply rename column review_rep_regdate to aca_rev_rep_regdate
 alter table aca_rev_reply rename column review_rep_content to aca_rev_rep_content
@@ -629,17 +624,11 @@ drop table hashtag
 create sequence hashtag_seq start with 1 nocache
 		
 alter table aca_review_post drop column aca_rev_content
-<<<<<<< HEAD
 alter table aca_review_post add(aca_rev_content clob)
-=======
-alter table aca_review_post add(aca_rev_content clob)
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 
 alter table aca_review_attach_file modify(aca_rev_filepath varchar2(3000))
 
 
-
-<<<<<<< HEAD
 
 create table location(
 	province varchar2(100) not null,
@@ -688,7 +677,6 @@ insert into location (province, district) values ('전라남도', '여수시');
 insert into location (province, district) values ('경상북도', '포항시');
 insert into location (province, district) values ('경상남도', '창원시');
 insert into location (province, district) values ('제주특별자치도', '제주시');
-=======
 select r.aca_rev_no,r.aca_rev_title,r.aca_rev_content,r.aca_rev_regdate,r.aca_rev_hits,u.usr_id,
 		(select usr_name from users where usr_id=r.usr_id) as usr_name,r.cur_no,(select cur_name from curriculum where cur_no = r.cur_no) as cur_name,
 		c.aca_no ,(select aca_name from academy where aca_no = c.aca_no) as aca_name
@@ -747,7 +735,6 @@ create table cur_attach_file(
 
 create sequence cur_attach_file_seq start with 1 nocache
 
-<<<<<<< HEAD
 select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
 	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
 	where upper (cur_name) LIKE '%'||upper('sp')||'%' and a.aca_no = c.aca_no 
@@ -761,7 +748,6 @@ select * from curriculum
 	and  rnum between 1  and 10 order by a.aca_no desc
 
 
-=======
 drop table aca_attach_file
 create table aca_attach_file(
    aca_att_no number primary key,
@@ -770,7 +756,6 @@ create table aca_attach_file(
    constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
 create sequence aca_attach_file_seq start with 1 nocache
->>>>>>> branch 'master' of https://github.com/MinseongJJang/Kosta_FinalProject_Team2.git
 select * from curriculum
 select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic, c.cur_no, c.cur_name, c.cur_content, c.cur_main_pic
 	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content, cur_main_pic from curriculum) c, academy a
@@ -813,7 +798,20 @@ select c.cur_no,c.cur_name,c.cur_content,c.cur_main_pic from (select row_number(
 cur_no,cur_name,cur_content,cur_main_pic)
 select * from users
 select * from aca_promo_post
-
+select * from aca_promo_post
 insert into authorities(authority,usr_id) values('ROLE_ACADEMY','java')
 SELECT * from authorities
 
+select * from academy
+
+
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (a.aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1 and 5 order by a.aca_no desc
+select count(*) from  academy
+	where upper (aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%'
+select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.cur_content,c.cur_main_pic
+	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
+	where upper (a.aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%' and a.aca_no = c.aca_no 
+	and  rnum between 1 and 5 order by a.aca_no desc

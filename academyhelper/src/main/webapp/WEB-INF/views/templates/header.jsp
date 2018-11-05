@@ -1,28 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-
-<script type="text/javascript">
-	$(function() {
-		// .attr()은 속성값(property)을 설정할 수 있다.
-		$('#imgChange').click(function() {
-			if ($(this).attr('src') == '/academy/resources/img/chatting_off.png') {
-				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_on.png");
-			} else {
-				$('#imgChange').attr("src","${pageContext.request.contextPath}/resources/img/chatting_off.png");
-			}
-		});
-	});
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#logoutAction").click(function() {
-			$("#logoutForm").submit();
-		});
-	});
-</script>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!-- Sidebar -->
 <div id="sidebar-wrapper" class=".row-sm-3">
@@ -50,19 +28,16 @@
 	</ul>
 </div>
 <!-- /#sidebar-wrapper -->
-
 <div class="wrap">
 <header id="header" style="border-bottom: 1px solid #c0c0c0;">
 	<div class="container" >
 		<div class="row" >
-			<div class="col-sm-4">
-				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px" id="logoDiv">
-					<a href="${pageContext.request.contextPath }/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png"></a>
-				</div> 
-			</div>
-			<div class="col-sm-8">		
+			<div class="col-md-12">
+				<div class="logo" style="width: 220px; height: 110px; padding-top: 10px">
+					<a href="${pageContext.request.contextPath}/home.do"><img src="${pageContext.request.contextPath}/resources/img/home_logo.png"></a>
+				</div>
 				<nav id="primary-nav" class="dropdown cf">
-					<ul class="pdown menu">
+					<ul class="dropdown menu">
 						<li><a href="#">IT기관 </a>
 							<ul class="sub-menu">
 								<li><a href="${pageContext.request.contextPath}/academyCompareForm.do">IT기관 비교</a></li>
@@ -143,8 +118,7 @@
 			$("#logoutForm").submit();
 		});
 	    // 서버의 실제 ip 로 접근해야 한다 
-
-	    var ws = new WebSocket("ws://192.168.0.107:8888/academy/chat-ws.do");
+	    var ws = new WebSocket("ws://192.168.0.107:8888/academyhelper/chat-ws.do");
 	   	//onopen : 웹소켓이 열리면 호출됨      
 	    ws.onopen = function () {
 	        $('#chatStatus').text('Info: connection opened.');	 

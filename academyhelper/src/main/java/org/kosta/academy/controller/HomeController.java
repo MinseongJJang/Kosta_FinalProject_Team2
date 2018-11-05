@@ -1,13 +1,26 @@
 package org.kosta.academy.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.kosta.academy.model.service.AcademyService;
+import org.kosta.academy.model.vo.CurriculumVO;
+import org.kosta.academy.model.vo.ListVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-
+	@Resource
+	private AcademyService academyService;
 	@RequestMapping("home.do")
-	public String home() {
+	public String home(Model model) {
+		ListVO academy = academyService.allListAcademy();
+		model.addAttribute("academy",academy);
+		List<CurriculumVO> list=academyService.bestCurriculumList();
+		model.addAttribute("list",list);
 		return "home.tiles";
 	}
 /*	@RequestMapping("{viewName}.do")

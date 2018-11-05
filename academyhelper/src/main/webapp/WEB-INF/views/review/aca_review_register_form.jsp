@@ -35,7 +35,9 @@
 				});//ajax
 			}
 		});//change
-		
+		$("#registerReview").click(function(){
+			$("#register_form").submit();
+		});//click
 		var count = 0;
 		var hash = [];
 		$("#hashInsert").click(function(){
@@ -176,7 +178,7 @@
 						   	<td colspan="2" align="right">
 						   		<sec:authorize access="hasRole('ROLE_USER')">
 								     <div class="btnArea">
-									     <button type="submit" class="aca-btn" >확인</button>  
+									     <button type="button" class="aca-btn" data-toggle="modal" data-target="#acaCurSatisfaction" id="satisfactionBtn" data-backdrop="false">등록</button>  
 									     <input type="hidden" value="${mvo.usrId}" name="userVO.usrId">
 									     <button type="reset" class="aca-btn" >취소</button>   
 								    </div>  
@@ -185,7 +187,16 @@
 				   		</tr>
 				   </tfoot>
 				</table>
-				<fieldset class="rating">
+		
+									<!--  province Modal -->
+									<div class="modal fade" id="acaCurSatisfaction" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">평점선택</h4>
+												</div>
+												<div class="modal-body">
+														<fieldset class="rating">
 			        <legend class="ratingLegend">교육과정 만족도</legend>
 			        <div class="ratingGroup">
 			            <input id="rating-1" class="ratingInput" name="curSatis" type="radio" value="1" required="required">
@@ -310,6 +321,16 @@
 			            <label for="rating-10" class="ratingLabel">최고예요! 10점!</label>
 			        </div>
 			    </fieldset>
+												</div>
+												<div class="modal-footer">
+													<button type="button" data-dismiss="modal" class="aca-btn">닫기</button>
+													<button type="button" class="aca-btn" id="registerReview" data-dismiss="modal" >등록</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+				
 			  </form>
 			</div>
 		</div>

@@ -14,7 +14,14 @@ public interface SearchService {
 	 * @param pageNo
 	 * @return
 	 */
-	public ListVO academySearch(CurriculumVO curriculumVO, String pageNo);
+	
+	public ListVO provinceList();
+	
+	public ListVO districtList(String province);
+	
+	public ListVO academyHashSearch(HashTagVO hashTagVO,String pageNo);
+	
+	public ListVO search(CurriculumVO curriculumVO, String search, String pageNo);
 	/**
 	 * 학원후기에 달린 해쉬태그를 검색해 그 후기에 대한 
 	 * 교육과정 목록을 불러오는 메소드
@@ -23,15 +30,4 @@ public interface SearchService {
 	 * @param pageNo
 	 * @return
 	 */
-
-	public ListVO provinceList();
-	
-	public ListVO districtList(String province);
-	
-	public ListVO academyHashSearch(HashTagVO hashTagVO,String pageNo);
-	public ListVO search(CurriculumVO curriculumVO, String search, String pageNo);
-	
-
-	
-	
 }

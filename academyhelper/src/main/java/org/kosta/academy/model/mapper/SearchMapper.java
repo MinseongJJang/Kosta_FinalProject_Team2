@@ -21,9 +21,25 @@ public interface SearchMapper {
 	int getTotalCountByCurName(String curName);
 
 	List<CurriculumVO> searchByCurName(Map<String, Object> searchMap);
-	
-	int getTotalCountBySearch(String address, String curName, String content);
 
-	List<CurriculumVO> searchBySearch(Map<String, Object> searchMap);
+	int getTotalCountByKeyword(CurriculumVO curriculumVO);
+
+	List<CurriculumVO> searchByKeyword(Map<String, Object> searchMap);
+
+	int getTotalCountByAcaAddrAndCurName(CurriculumVO curriculumVO);
+
+	List<CurriculumVO> searchByAcaAddrAndCurName(Map<String, Object> searchMap);
+
+	int getTotalCountByAcaAddrAndSearch(CurriculumVO curriculumVO);
+
+	List<CurriculumVO> searchByAcaAddrAndSearch(Map<String, Object> searchMap);
+
+	int getTotalCountByCurNameAndSearch(CurriculumVO curriculumVO);
+
+	List<CurriculumVO> searchByCurNameAndSearch(Map<String, Object> searchMap);
+
+	int getTotalCountByAcaAddrAndCurNameAndSearch(CurriculumVO curriculumVO);
+
+	List<CurriculumVO> searchByAcaAddrAndCurNameAndSearch(Map<String, Object> searchMap);
 
 }
