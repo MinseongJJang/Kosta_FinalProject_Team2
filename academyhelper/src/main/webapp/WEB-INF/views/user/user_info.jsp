@@ -63,13 +63,13 @@ $(document).ready(function(){
 				   <tfoot>
 			   			<tr>
 			   				<td colspan="2" align="right">
-			   					<form action="updateUserForm.do">
-			   						<sec:csrfInput/>
-			   						<button type="submit" class="aca-btn">회원 정보 수정</button>			
+			   					<button type="submit" class="aca-btn" form="updateForm">회원 정보 수정</button>
+			   				<button form="deleteForm" type="submit" class="aca-btn">회원 탈퇴</button>		
+			   					<form action="updateUserForm.do" id="updateForm">
+			   						<sec:csrfInput/>			
 					 			</form>
 			   					<form action="deleteUser.do" id="deleteForm" method="post">
-								 	<sec:csrfInput/>
-								 	<button type="submit" class="aca-btn">회원 탈퇴</button>			
+								 	<sec:csrfInput/>	
 								 </form>
 			   				</td>
 			   			</tr>
