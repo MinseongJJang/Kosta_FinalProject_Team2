@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<select id="bestCurriculumList" resultMap="bestCurriculumRM">
 		select RANK() OVER   
-    	(ORDER BY satis DESC) AS Rank,rr.cur_no,rr.satis,cc.cur_lecturer,cc.cur_textbook,cc.cur_name,cc.limit_mem,aa.aca_name,aa.aca_no from(
+    	(ORDER BY satis DESC) AS Rank,rr.cur_no,rr.satis,cc.cur_lecturer,cc.cur_textbook,cc.cur_name,cc.limit_mem,cc.cur_main_pic,aa.aca_name,aa.aca_no from(
 		select  a.cur_no,round((AVG(CUR_SATIS)+AVG(amenities_satis)+AVG(lecturer_satis)+AVG(emp_links_satis)+AVG(traffic_satis))/5,2) as satis
 		from aca_cur_satisfaction s, ACA_REVIEW_POST a where a.ACA_REV_NO=s.ACA_REV_NO
 		GROUP BY a.cur_no HAVING count(*)<![CDATA[<]]>16) rr, curriculum cc, academy aa where cc.cur_no=rr.cur_no and aa.ACA_NO=cc.ACA_NO

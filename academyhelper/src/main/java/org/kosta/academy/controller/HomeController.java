@@ -20,6 +20,7 @@ public class HomeController {
 		ListVO academy = academyService.allListAcademy();
 		model.addAttribute("academy",academy);
 		List<CurriculumVO> list=academyService.bestCurriculumList();
+		System.out.println(list);
 		model.addAttribute("list",list);
 		return "home.tiles";
 	}
