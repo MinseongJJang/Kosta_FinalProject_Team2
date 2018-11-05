@@ -184,16 +184,88 @@
 							alt="">
 						<div class="overlay-content">
 							<ul>
+							<c:if test="${list.satis<1}">
+							</c:if>
+							<c:if test="${list.satis<2&&list.satis>=1}">
+							<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<3&&list.satis>=2}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<4&&list.satis>=3}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<5&&list.satis>=4}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<6&&list.satis>=5}">
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
 								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<7&&list.satis>=6}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<8&&list.satis>=7}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<9&&list.satis>=8}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis<10&&list.satis>=9}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
+							<c:if test="${list.satis==10}">
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+								<li><i class="fa fa-star"></i></li>
+							</c:if>
 							</ul>
 						</div>
 						<div class="date-content">
-							<h6>Academy Helper</h6>
-							<span>Academy Helper</span>
+							<h6>${list.academyVO.acaName}</h6>
+							<span>${list.curName}</span>
 						</div>
 					</div>
 					<div class="down-content">
