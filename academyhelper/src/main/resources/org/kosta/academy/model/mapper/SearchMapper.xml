@@ -71,8 +71,8 @@ where
 	and 
 	(
 	upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
-	or (cur_name) LIKE '%'||upper(#{curName})||'%' 
-	or  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+	or upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+	or upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
 	)
 </select>
 <select id="searchByKeyword" parameterType="map" resultMap="CRM">
@@ -86,8 +86,8 @@ from
 		and 
 		(
 		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
-		or (cur_name) LIKE '%'||upper(#{curName})||'%' 
-		or  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		or upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		or upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
 		)
 	) r
 where
@@ -102,7 +102,7 @@ where
 	and 
 	(
 	upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
-	and (cur_name) LIKE '%'||upper(#{curName})||'%' 
+	and upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
 	)
 </select>
 <select id="searchByAcaAddrAndCurName" parameterType="map" resultMap="CRM">
@@ -116,7 +116,7 @@ from
 		and 
 		(
 		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
-		and (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
 		)
 	) r
 where
@@ -217,8 +217,8 @@ where
 		and 
 		(
 		upper (aca_addr) LIKE '%'||upper(#{academyVO.acaAddr})||'%'
-		and (cur_name) LIKE '%'||upper(#{curName})||'%' 
-		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		and upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
 		)
 </select>
 <select id="searchByAcaAddrAndCurNameAndSearch" parameterType="map" resultMap="CRM">
@@ -232,8 +232,8 @@ from
 		and 
 		(
 		upper (aca_addr) LIKE '%'||upper(#{acaAddr})||'%'
-		and (cur_name) LIKE '%'||upper(#{curName})||'%' 
-		and  upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
+		and upper (cur_name) LIKE '%'||upper(#{curName})||'%' 
+		and upper (cur_content) LIKE '%'||upper(#{curContent})||'%'
 		)
 	) r
 where

@@ -46,6 +46,14 @@
 				$("#location").text(address);
 				$('#addr').val(address);
 			});//click
+			$("#form-submit").submit(function(){			
+				
+
+ 				if($("#curNameTxt").val()=='' && $("#searchTxt").val()=='' && $("#location").text().indexOf('지역선택')!=-1){
+					alert('검색값 입력해');
+					return false;
+				} 
+			});//click
 		});//ready
 </script>
 <section class="banner" id="top">
@@ -64,7 +72,7 @@
 								<div class="col-md-3 third-item">
 									<!-- JB modal TEST -->
 									<div id="location">
-									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택3</button>
+									<button type="button" data-toggle="modal" data-target="#provinceModal" id="locationBtn" data-backdrop="false">지역선택</button>
 									</div>
 									<!--  province Modal -->
 									<div class="modal fade" id="provinceModal" role="dialog">
@@ -105,12 +113,12 @@
 								</div>
 								<div class="col-md-3 first-item">
 									<fieldset>
-										<input name="curName" type="text" class="form-control" placeholder="교육과정">
+										<input name="curName" id="curNameTxt" type="text" class="form-control" placeholder="교육과정">
 									</fieldset>
 								</div>
 								<div class="col-md-3 second-item">
 									<fieldset>
-										<input name="search" type="text" class="form-control" placeholder="검색어">
+										<input name="search"  id="searchTxt" type="text" class="form-control" placeholder="검색어">
 									</fieldset>
 								</div>
 								<div class="col-md-3">

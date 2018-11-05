@@ -21,17 +21,20 @@ public class SearchController {
 	@RequestMapping("academySearch.do")
 	public ModelAndView academySearch(CurriculumVO curriculumVO, String search, String pageNo, String province, String district) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("addr:"+curriculumVO.getAcademyVO().getAcaAddr());
-		System.out.println("curname:"+curriculumVO.getCurName());
 		System.out.println("search:"+search);
+		System.out.println("curriculumVO:"+curriculumVO.getAcademyVO().getAcaAddr()+"  "+curriculumVO.getCurName());
 		ListVO lvo = searchService.search(curriculumVO, search, pageNo);
+		if(lvo.getCurriculumList().size()==0) {
+			mv.setViewName("search/academySearch_result_fail.tiles");
+			return mv;
+		}
 		//*******************
 		System.out.println("controller"+lvo.getCurriculumList());
 		//*******************
 		mv.addObject("searchList",lvo.getCurriculumList());
 		mv.addObject("pb", lvo.getPb());
+		mv.addObject("content", lvo.getContent());
 		mv.setViewName("search/academySearch_result.tiles");
-
 		return mv;
 	}
 
