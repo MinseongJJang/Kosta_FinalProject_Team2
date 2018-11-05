@@ -167,4 +167,10 @@ public class AcademyServiceImpl implements AcademyService {
 	public void registerAcademyAttach(AcaAttachFileVO acaAttachFileVO) {
 		academyMapper.registerAcademyFile(acaAttachFileVO);
 	}
+
+	@Override
+	public List<CurriculumVO> bestCurriculumList() {
+		return curriculumMapper.bestCurriculumList();
+	}
+	
 }

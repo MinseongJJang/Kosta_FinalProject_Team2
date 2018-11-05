@@ -21,8 +21,7 @@
 						</tr>
 					</thead>
 				   <tbody>
-<%-- 				      	<c:set var="detailQNA" value="${requestScope.detailQNA}" />
- --%>				         <tr>
+			         <tr>
 				            <th>글번호</th>
 				            <td>${requestScope.acaPromo.acaPromoNo }</td>
 				            <th>제목</th>
@@ -46,11 +45,9 @@
 									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
 								</form>
 								<form action="updateAcaPromoPostForm.do" id="updateForm" method="post">
-									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
-									 <input type="hidden" name="acaPromoTitle" value="${requestScope.acaPromo.acaPromoTitle}">
-									 <input type="hidden" name="acaPromoContent" value="${requestScope.acaPromo.acaPromoContent}">	
 									<sec:csrfInput />
-								</form>
+									<input type="hidden" name="acaPromoNo" value="${requestScope.acaPromo.acaPromoNo}">
+								</form> 
 					      	</td>
 					      </tr>
 						</sec:authorize>
