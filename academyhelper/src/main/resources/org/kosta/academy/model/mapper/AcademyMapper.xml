@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select
 			academy_seq.nextval from dual
 		</selectKey>
-			insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id,aca_main_pic,aca_content) values(#{acaNo}, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId},#{acaMainPic},#{acaContent})
+			insert into academy(aca_no,aca_name,aca_addr,aca_tel,usr_id,aca_main_pic) values(#{acaNo}, #{acaName}, #{acaAddr}, #{acaTel}, #{userVO.usrId},#{acaMainPic})
 	</insert>
 	<resultMap type="academyVO" id="usrIdRM">
 		<result property="userVO.usrId" column="usr_id" />
@@ -64,4 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set
 		aca_filepath=#{acaFilepath} where aca_att_no=#{acaAttNo}
 	</update>
+	<select id="acaAttachList" parameterType="string" resultType="acaAttachFileVO">
+		select aca_att_no,aca_filepath,aca_no from aca_attach_file where aca_no = #{value}
+	</select>
 </mapper>

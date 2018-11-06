@@ -202,6 +202,7 @@ create table aca_attach_file(
    aca_no number not null,
    constraint aca_attach_file_fk foreign key(aca_no) references academy(aca_no) on delete cascade
 )
+delete from aca_attach_file
 create sequence aca_attach_file_seq start with 1 nocache
 alter table academy add(aca_main_pic clob)
 create 
@@ -454,6 +455,9 @@ alter table aca_review_post modify(aca_rev_content clob not null)
 alter table aca_review_reply rename to aca_rev_reply
 drop sequence aca_review_reply_seq
 create sequence aca_rev_reply_seq start with 1 nocache
+
+alter table aca_review_post drop column aca_rev_content
+alter table aca_review_post add(aca_rev_content clob)
 
 select * from aca_review_reply
 	
@@ -815,3 +819,5 @@ select a.aca_no, a.aca_name, a.aca_addr, a.aca_main_pic,c.cur_no, c.cur_name, c.
 	from(select row_number() over(order by aca_no desc) as rnum, aca_no, cur_name, cur_no, cur_content,cur_main_pic from curriculum) c, academy a
 	where upper (a.aca_addr) LIKE '%'||upper('경기 성남시 분당구')||'%' and a.aca_no = c.aca_no 
 	and  rnum between 1 and 5 order by a.aca_no desc
+	
+select aca_att_no,aca_filepath from aca_attach_file where aca_no = 24

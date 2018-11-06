@@ -27,6 +27,6 @@ public interface AcademyMapper {
 
 	void registerAcademyFile(AcaAttachFileVO acaAttachFileVO);
 	void updateAcademyFile(AcaAttachFileVO acaAttachFileVO);
-
+	List<AcaAttachFileVO> acaAttachList(String acaNo);
 	
 }

@@ -1,6 +1,7 @@
 package org.kosta.academy.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -106,6 +107,7 @@ public class AcademyController {
 			academyVO.setAcaMainPic("사진없음");
 			academyService.registerAcademy(academyVO, acaAttachFileVO);
 		}
+		
 		if (curtime1 != null) {
 			for (int i = 0; i < curtime1.length; i++) {
 				for (int j = 0; j < fileNames.length; j++) {
@@ -118,7 +120,7 @@ public class AcademyController {
 							// StringBuilder로 0으로 변경 후 파일도 변경
 							oldFile.renameTo(newFile);
 							acaAttachFileVO.setAcademyVO(academyVO);
-							acaAttachFileVO.setAcaFilepath(academyUpload + builderFile);
+							acaAttachFileVO.setAcaFilepath("/academy/resources/academyUpload/"  + builderFile);
 							academyService.registerAcademyAttach(acaAttachFileVO);
 						}
 					}
@@ -153,10 +155,13 @@ public class AcademyController {
 	@RequestMapping("detailAcademy.do")
 	public String detailAcademy(String acaNo, Model model, String pageNo) {
 		AcademyVO acdemyVO = academyService.detailAcademy(acaNo);
+		List<AcaAttachFileVO> attachList = academyService.acaAttachList(acaNo);
+		
 		ListVO listVO = academyService.listCurriculum(acaNo, pageNo);
 		model.addAttribute("ListCurriculum", listVO.getCurriculumList());
 		model.addAttribute("pb", listVO.getPb());
 		model.addAttribute("acaDetail", acdemyVO);
+		model.addAttribute("attachList",attachList);
 //		System.out.println(listVO.getCurriculumList());
 		return "academy/academy_detail.tiles";
 	}

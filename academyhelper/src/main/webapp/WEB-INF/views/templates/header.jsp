@@ -79,6 +79,9 @@
 										<sec:authorize access="hasRole('ROLE_USER') and !hasRole('ROLE_ACADEMY')">
 											<a href="${pageContext.request.contextPath}/userInfo.do?usrId=<sec:authentication property="principal.usrId"/>">회원 정보</a>
 										</sec:authorize>
+										<sec:authorize access="hasRole('ROLE_USER') and hasRole('ROLE_ACADEMY') and !hasRole('ROLE_ADMIN')">
+											<a href="${pageContext.request.contextPath}/acaUserInfo.do?usrId=<sec:authentication property="principal.usrId"/>">기업 회원 정보</a>
+										</sec:authorize>
 									</li>
 								</sec:authorize>
 								<li>
@@ -120,7 +123,7 @@
 			$("#logoutForm").submit();
 		});
 	    // 서버의 실제 ip 로 접근해야 한다 
-	    var ws = new WebSocket("ws://192.168.0.107:8888/academy/chat-ws.do");
+	    var ws = new WebSocket("ws://192.168.0.153:8888/academyhelper/chat-ws.do");
 	   	//onopen : 웹소켓이 열리면 호출됨      
 	    ws.onopen = function () {
 	        $('#chatStatus').text('Info: connection opened.');	 
