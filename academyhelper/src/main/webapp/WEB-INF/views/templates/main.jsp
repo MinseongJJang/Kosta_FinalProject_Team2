@@ -47,12 +47,13 @@
 				$('#addr').val(address);
 			});//click
 			$("#form-submit").submit(function(){			
-				
-
  				if($("#curNameTxt").val()=='' && $("#searchTxt").val()=='' && $("#location").text().indexOf('지역선택')!=-1){
-					alert('검색값 입력해');
+					alert('검색값 입력해주세요');
 					return false;
 				} 
+ 				if($("#searchTxt").val().startsWith('#')){
+ 					location.href="academyHashSearch.do&search="+$("#searchTxt").val().substring(1);
+ 				}
 			});//click
 		});//ready
 </script>

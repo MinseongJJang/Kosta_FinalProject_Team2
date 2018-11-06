@@ -102,7 +102,7 @@ public class SearchServiceImpl implements SearchService {
 			}else {
 				pb = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			searchMap.put("ADDRESS", search);
+			searchMap.put("acaAddr", search);
 			searchMap.put("curName", search);
 			searchMap.put("curContent", search);
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
@@ -143,7 +143,7 @@ public class SearchServiceImpl implements SearchService {
 			}
 			searchMap.put("acaAddr", curriculumVO.getAcademyVO().getAcaAddr());
 			searchMap.put("curName", curriculumVO.getCurName());
-			searchMap.put("curContent", search);
+			searchMap.put("curContent", curriculumVO.getCurContent());
 			searchMap.put("STARTROWNUMBER", pb.getStartRowNumber());
 			searchMap.put("ENDROWNUMBER", pb.getEndRowNumber());
 			//*******************

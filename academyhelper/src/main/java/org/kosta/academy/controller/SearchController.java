@@ -28,9 +28,6 @@ public class SearchController {
 			mv.setViewName("search/academySearch_result_fail.tiles");
 			return mv;
 		}
-		//*******************
-		System.out.println("controller"+lvo.getCurriculumList());
-		//*******************
 		mv.addObject("searchList",lvo.getCurriculumList());
 		mv.addObject("pb", lvo.getPb());
 		mv.addObject("content", lvo.getContent());
@@ -38,6 +35,11 @@ public class SearchController {
 		return mv;
 	}
 
+	@RequestMapping("academyHashSearch.do")
+	public void academyHashSearch(String search) {
+		System.out.println(search);
+	}
+	
 	@RequestMapping("provinceList.do")
 	@ResponseBody
 	public ListVO provinceList() {
